@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# minecraft
+.minecraft/
+
+# visual studio code
+.vscode/
