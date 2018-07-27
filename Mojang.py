@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 class Mojang:
 
@@ -30,3 +31,8 @@ class Mojang:
             return jsonStr
         else:
             return None
+        
+    @classmethod
+    def assets_objects_url(cls,hash):
+        return os.path.join(Mojang.asset_base_url,hash[0:2],hash)
+    
