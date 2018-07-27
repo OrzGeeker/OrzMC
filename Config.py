@@ -8,6 +8,16 @@ class Config:
     GAME_VERSION_DIR = os.path.join(GAME_ROOT_DIR,'versions')
     GAME_ASSET_DIR = os.path.join(GAME_ROOT_DIR,'assets')
 
+    def assets_indexes_dir(self):
+        dir = os.path.join(Config.GAME_ASSET_DIR,'indexes')
+        os.makedirs(dir,exist_ok=True)
+        return dir
+    
+    def assets_objects_dir(self, hash):
+        dir = os.path.join(Config.GAME_ASSET_DIR,'objects',hash[0:2])
+        os.makedirs(dir,exist_ok=True)
+        return dir
+    
     def versionDir(self,version):
         dir = os.path.join(Config.GAME_VERSION_DIR,version)
         os.makedirs(dir,exist_ok=True)
