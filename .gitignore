@@ -108,3 +108,4 @@ venv.bak/
 
 # visual studio code
 .vscode/
+logs/
