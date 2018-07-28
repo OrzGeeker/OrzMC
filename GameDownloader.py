@@ -147,6 +147,7 @@ class GameDownloader:
 
             libPath = None
             url = None
+            nativeKey = 'natives-'+ self.platformType()
             if 'natives' in lib:
                 platform = lib.get('natives').get(self.platformType())
                 if platform == None:
@@ -155,12 +156,18 @@ class GameDownloader:
                 else:
                     libPath = downloads.get('classifiers').get(platform).get('path')
                     url = downloads.get('classifiers').get(platform).get('url')
+                    self.download(url,self.config.client_native_dir())
             else:
-                libPath = downloads.get('artifact').get('path')
-                url = downloads.get('artifact').get('url')
+                classifiers = downloads.get('classifiers')
+                if classifiers and nativeKey in downloads.get('classifiers'):
+                    url = downloads.get('classifiers').get(nativeKey).get('url')
+                    self.download(url,self.config.client_native_dir())
+                else:
+                    libPath = downloads.get('artifact').get('path')
+                    url = downloads.get('artifact').get('url')
+                    fileDir = self.config.client_library_dir(libPath)
+                    self.download(url,fileDir)
 
-            fileDir = self.config.client_library_dir(libPath)
-            self.download(url,fileDir)
             index = index + 1
             print('%s(%d/%d)' % (os.path.basename(url), index, total))
 # Client
@@ -242,10 +249,6 @@ class GameDownloader:
         arguments = ' '.join(arguments)
         return arguments
 
-    def downloadLWJGL(self):
-        # https://github.com/LWJGL/lwjgl3/releases
-        pass
-
     def startCient(self, maxMem = 1024, user = "guest"):
         cmd = self.gameArguments(maxMem, user)
         os.system(cmd)
@@ -265,8 +268,7 @@ if __name__ == '__main__':
     # game.downloadServer()
     # game.downloadAssetIndex()
     # game.downloadAssetObjects()
-    # game.donwloadLibraries()
-    # game.downloadLWJGL()
+    game.donwloadLibraries()
     game.startCient()
     
     
