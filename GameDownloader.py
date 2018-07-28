@@ -188,14 +188,14 @@ class GameDownloader:
             "version_name" : self.game().get('id'),
             "game_directory" : self.config.GAME_ROOT_DIR,
             "assets_root" : self.config.GAME_ASSET_DIR,
-            "assets_index_name" : self.game().get('assetIndex').get('id'),
+            "assets_index_name" : self.game().get('assets'),
             "auth_uuid" : ''.join(str(uuid.uuid1()).split('-')),
             "auth_access_token" : ''.join(str(uuid.uuid1()).split('-')),
             "user_type" : "Legacy",
             "version_type" : "OrzMC",
             # for jvm args
             "natives_directory": self.config.client_native_dir(),
-            "launcher_name": "OrzMC Launcher",
+            "launcher_name": "OrzMC",
             "launcher_version": '1.0',
             "classpath": classPath,
 
@@ -205,11 +205,14 @@ class GameDownloader:
 
 
         jvmArgs = self.game().get('arguments').get('jvm')
+        argPattern = '\$\{(.*)\}'
         for arg in jvmArgs:
             if isinstance(arg, str):
-                value_placeholder = re.search('\$\{(.*)\}',arg)
+                value_placeholder = re.search(argPattern,arg)
                 if value_placeholder:
-                    arguments.append(configuration.get(value_placeholder.group(1)))
+                    argValue = configuration.get(value_placeholder.group(1))
+                    argStr = re.sub(argPattern,argValue,arg)
+                    arguments.append(argStr)
                 else:
                     arguments.append(arg)            
             elif isinstance(arg, dict):
@@ -218,16 +221,20 @@ class GameDownloader:
                 for rule in rules:
                     if rule.get('os').get('name') == self.platformType() and rule.get('action') == 'allow':
                         isValid = True
-                        break;
+                        break
                 if isValid:
                     arguments.extend(arg.get('value'))
+
+        arguments.append(mainCls)
 
         gameArgs = self.game().get('arguments').get('game')
         for arg in gameArgs:
             if isinstance(arg, str):
-                value_placeholder = re.search('\$\{(.*)\}',arg)
+                value_placeholder = re.search(argPattern,arg)
                 if value_placeholder:
-                    arguments.append(configuration.get(value_placeholder.group(1)))
+                    argValue = configuration.get(value_placeholder.group(1))
+                    argStr = re.sub(argPattern,argValue,arg)
+                    arguments.append(argStr)
                 else:
                     arguments.append(arg)
 

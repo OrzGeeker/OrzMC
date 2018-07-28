@@ -44,6 +44,6 @@ class Config:
         return dir
         
     def client_native_dir(self):
-        dir = os.path.join(self.GAME_VERSION_DIR, self.version + '-native')
+        dir = os.path.join(self.GAME_VERSION_DIR, self.version, self.version + '-native')
         os.makedirs(dir,exist_ok=True)
         return dir
