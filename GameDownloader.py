@@ -6,6 +6,7 @@ import os
 import sys
 import platform
 import uuid
+import re
 
 class GameDownloader:
 
@@ -13,6 +14,7 @@ class GameDownloader:
     def __init__(self, version):
         self._game=None
         self._assets=None
+        self._javaClassPathList = None
         self.config = Config(version)
 
     def download(self, url, dir):
@@ -45,8 +47,44 @@ class GameDownloader:
             self._assets = self.loadJSON(index_json_path)
         return self._assets
 
-    def getClassPathList(self):
-        pass
+    def javaClassPathList(self):
+        if None == self._javaClassPathList:
+            self._javaClassPathList = []
+            libs = self.game().get('libraries')
+            total = len(libs)
+            index = 0
+            for lib in libs: 
+                libName = lib.get('name')
+                downloads = lib.get('downloads')
+
+                rules = lib.get('rules')
+                if None != rules:
+                    for rule in rules:
+                        if None != rule:
+                            if rule.get('action') == 'disallow':
+                                if rule.get('os').get('name') == self.platformType():
+                                    print(libName + 'is disallowed')
+                                    continue
+
+                libPath = None
+                url = None
+                if 'natives' in lib:
+                    platform = lib.get('natives').get(self.platformType())
+                    if platform == None:
+                        print('Error: no platform jar - ' +  libName)
+                        continue
+                    else:
+                        libPath = downloads.get('classifiers').get(platform).get('path')
+                        url = downloads.get('classifiers').get(platform).get('url')
+                else:
+                    libPath = downloads.get('artifact').get('path')
+                    url = downloads.get('artifact').get('url')
+
+                absLibFilePath = os.path.join(self.config.GAME_LIB_DIR,libPath)
+                self._javaClassPathList.append(absLibFilePath)
+       
+        self._javaClassPathList.append(self.config.client_jar_path())
+        return self._javaClassPathList
 
     def platformType(self):
         '''OS type'''
@@ -131,8 +169,79 @@ class GameDownloader:
         '''Download Client Jar File'''
         clientUrl = self.game().get('downloads').get('client').get('url')
         print('Downloading the client jar file ...')
-        self.download(clientUrl,self.config.client_jar_path())
+        self.download(clientUrl,self.config.versionDir())
         print("Client Download Completed!")
+
+
+    def gameArguments(self, maxMem, user):
+
+        mainCls = self.game().get('mainClass')
+        loggin = self.game().get('logging')
+        classPathList = self.javaClassPathList()
+        sep = ';' if self.platformType() == 'windows' else ':'
+        classPath = sep.join(classPathList)
+
+
+        configuration = {
+            # for game args
+            "auth_player_name" : user,
+            "version_name" : self.game().get('id'),
+            "game_directory" : self.config.GAME_ROOT_DIR,
+            "assets_root" : self.config.GAME_ASSET_DIR,
+            "assets_index_name" : self.game().get('assetIndex').get('id'),
+            "auth_uuid" : ''.join(str(uuid.uuid1()).split('-')),
+            "auth_access_token" : ''.join(str(uuid.uuid1()).split('-')),
+            "user_type" : "Legacy",
+            "version_type" : "OrzMC",
+            # for jvm args
+            "natives_directory": self.config.client_native_dir(),
+            "launcher_name": "OrzMC Launcher",
+            "launcher_version": '1.0',
+            "classpath": classPath,
+
+        }
+
+        arguments = [os.popen('which java').read().strip()]
+
+
+        jvmArgs = self.game().get('arguments').get('jvm')
+        for arg in jvmArgs:
+            if isinstance(arg, str):
+                value_placeholder = re.search('\$\{(.*)\}',arg)
+                if value_placeholder:
+                    arguments.append(configuration.get(value_placeholder.group(1)))
+                else:
+                    arguments.append(arg)            
+            elif isinstance(arg, dict):
+                isValid = False
+                rules = arg.get('rules')
+                for rule in rules:
+                    if rule.get('os').get('name') == self.platformType() and rule.get('action') == 'allow':
+                        isValid = True
+                        break;
+                if isValid:
+                    arguments.extend(arg.get('value'))
+
+        gameArgs = self.game().get('arguments').get('game')
+        for arg in gameArgs:
+            if isinstance(arg, str):
+                value_placeholder = re.search('\$\{(.*)\}',arg)
+                if value_placeholder:
+                    arguments.append(configuration.get(value_placeholder.group(1)))
+                else:
+                    arguments.append(arg)
+
+
+        arguments = ' '.join(arguments)
+        return arguments
+
+    def downloadLWJGL(self):
+        # https://github.com/LWJGL/lwjgl3/releases
+        pass
+
+    def startCient(self, maxMem = 1024, user = "guest"):
+        cmd = self.gameArguments(maxMem, user)
+        os.system(cmd)
 
 # Server
     def downloadServer(self):
@@ -149,5 +258,8 @@ if __name__ == '__main__':
     # game.downloadServer()
     # game.downloadAssetIndex()
     # game.downloadAssetObjects()
-    game.donwloadLibraries()
+    # game.donwloadLibraries()
+    # game.downloadLWJGL()
+    game.startCient()
+    
     
