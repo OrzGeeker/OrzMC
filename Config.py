@@ -34,3 +34,12 @@ class Config:
     
     def server_jar_path(self):
         return os.path.join(Config.GAME_VERSION_DIR,self.version)
+
+    def client_library_dir(self, subpath = None):
+        dir = os.path.join(Config.GAME_ROOT_DIR,'libraries')
+        if None != subpath:
+            subdir =  os.path.dirname(subpath)
+            dir = os.path.join(dir,subdir)
+        os.makedirs(dir,exist_ok=True)
+        return dir
+        
