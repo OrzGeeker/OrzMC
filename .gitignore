@@ -109,3 +109,4 @@ venv.bak/
 # visual studio code
 .vscode/
 logs/
+.DS_Store
