@@ -261,13 +261,13 @@ class GameDownloader:
         self.download(serverUrl,self.config.server_jar_path())
         print("Server Download Completed!")
 
-if __name__ == '__main__':
+def startClient():
     game = GameDownloader('1.13')
-    # game.downloadGameJSON()
-    # game.downloadClient()
-    # game.downloadServer()
-    # game.downloadAssetIndex()
-    # game.downloadAssetObjects()
+    game.downloadGameJSON()
+    game.downloadClient()
+    game.downloadServer()
+    game.downloadAssetIndex()
+    game.downloadAssetObjects()
     game.donwloadLibraries()
     game.startCient()
     
