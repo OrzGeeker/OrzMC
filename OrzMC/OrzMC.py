@@ -1,5 +1,5 @@
-from Mojang import Mojang
-from Config import Config
+from OrzMC.Mojang import Mojang
+from OrzMC.Config import Config
 import json
 import requests
 import os
@@ -270,5 +270,3 @@ def startClient():
     game.downloadAssetObjects()
     game.donwloadLibraries()
     game.startCient()
-    
-    
