@@ -1,3 +1,4 @@
+from OrzMC.Config import Config
 import requests
 import json
 import os
@@ -5,19 +6,28 @@ import os
 class Mojang:
 
     version_list_url = 'https://launchermeta.mojang.com/mc/game/version_manifest.json'
-
     asset_base_url = 'https://resources.download.minecraft.net/'
 
     @classmethod
     def get_version_list(cls):
-        resp = json.loads(requests.get(Mojang.version_list_url).text)
+        '''Get All Version Game Configuration And Cache it if need'''
+
+        resp = None
+        if os.path.exists(cacheFilePath):
+            with open(cacheFilePath,'r') as cache:
+                resp = json.load(cache)
+        else:
+            resp = json.loads(requests.get(Mojang.version_list_url).text)
+            with open(cacheFilePath,'w') as cacheFile:
+                json.dump(resp,cacheFile)
+
         versions = resp.get('versions')
+        
         return versions
 
     @classmethod
     def get_release_version_list(cls):
-        resp = json.loads(requests.get(Mojang.version_list_url).text)
-        versions = resp.get('versions')
+        versions = Mojang.get_version_list()
         release = list(filter(lambda version: version.get('type') == 'release', versions))
         return release
 
