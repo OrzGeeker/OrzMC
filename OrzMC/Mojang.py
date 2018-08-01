@@ -10,17 +10,17 @@ class Mojang:
 
     @classmethod
     def get_version_list(cls):
-        '''Get All Version Game Configuration And Cache it if need'''
-        cacheFilePath = os.path.join(Config.GAME_ROOT_DIR,os.path.basename(Mojang.version_list_url))
+        '''Get All Version Game Configuration'''
+        localFilePath = os.path.join(Config.GAME_ROOT_DIR,os.path.basename(Mojang.version_list_url))
         resp = None
-        if os.path.exists(cacheFilePath):
-            with open(cacheFilePath,'r') as cache:
-                resp = json.load(cache)
-                print('Use Cache File For Game Version Manifest JSON File')
+        if os.path.exists(localFilePath):
+            with open(localFilePath,'r') as localFile:
+                resp = json.load(localFile)
+                print('Use Local File For Game Version Manifest JSON File')
         else:
             resp = json.loads(requests.get(Mojang.version_list_url).text)
-            with open(cacheFilePath,'w') as cacheFile:
-                json.dump(resp,cacheFile)
+            with open(localFilePath,'w') as localFile:
+                json.dump(resp,localFile)
                 print('Download Game Version Manifest JSON File from Mojang server and cached')
 
         versions = resp.get('versions')
@@ -29,6 +29,7 @@ class Mojang:
 
     @classmethod
     def get_release_version_list(cls):
+        '''Get Game Release Version List'''
         versions = Mojang.get_version_list()
         release = list(filter(lambda version: version.get('type') == 'release', versions))
         return release

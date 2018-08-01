@@ -7,6 +7,7 @@ import sys
 import platform
 import uuid
 import re
+import hashlib
 
 class GameDownloader:
 
@@ -29,11 +30,15 @@ class GameDownloader:
 
     def downloadGameJSON(self):
         '''Download Game Json Configure File'''
-        jsonStr = Mojang.get_release_game_json(self.config.version)
-        if jsonStr != None:
-            version_json_path = self.config.version_json_path()
-            with open(version_json_path,'w',encoding='utf-8') as f:
-                f.write(Mojang.get_release_game_json(self.config.version))
+        version_json_path = self.config.version_json_path()
+        if not os.path.exists(version_json_path):
+            jsonStr = Mojang.get_release_game_json(self.config.version)
+            if jsonStr != None:
+                with open(version_json_path,'w',encoding='utf-8') as f:
+                    f.write(jsonStr)
+                    print('Download Game JSON Configure File Successfully!')
+        else:
+            print('Game JSON Configure File Exists, No Need to Download!')
     
     def game(self):
         if self._game == None:
