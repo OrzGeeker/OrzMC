@@ -29,7 +29,7 @@ class GameDownloader:
 
     def downloadGameJSON(self):
         '''Download Game Json Configure File'''
-        jsonStr = Mojang.get_release_game_json(self.config.version,self.config.GAME_ROOT_DIR)
+        jsonStr = Mojang.get_release_game_json(self.config.version)
         if jsonStr != None:
             version_json_path = self.config.version_json_path()
             with open(version_json_path,'w',encoding='utf-8') as f:
