@@ -1,5 +1,6 @@
 from OrzMC.Mojang import Mojang
 from OrzMC.Config import Config
+from OrzMC.utils import checkFileExist
 import json
 import requests
 import os
@@ -31,15 +32,16 @@ class GameDownloader:
     def downloadGameJSON(self):
         '''Download Game Json Configure File'''
         version_json_path = self.config.version_json_path()
-        if not os.path.exists(version_json_path):
-            jsonStr = Mojang.get_release_game_json(self.config.version)
+        (url, hash) = Mojang.get_release_game_json(self.config.version)
+        if not checkFileExist(version_json_path, hash):
+            print("Download Game Json Configure File!")
+            jsonStr = requests.get(url).text
             if jsonStr != None:
                 with open(version_json_path,'w',encoding='utf-8') as f:
                     f.write(jsonStr)
-                    print('Download Game JSON Configure File Successfully!')
-        else:
-            print('Game JSON Configure File Exists, No Need to Download!')
-    
+        else: 
+            print("Game Json Configure File have been downloaded!")
+
     def game(self):
         if self._game == None:
             self._game = self.loadJSON(self.config.version_json_path())
@@ -104,11 +106,17 @@ class GameDownloader:
 
     def downloadAssetIndex(self):
         '''Download Game Asset Index JSON file'''
-        index_json_url = self.game().get('assetIndex').get('url')
-        index_json_str = requests.get(index_json_url).text
+        assetIndex = self.game().get('assetIndex')
+        index_json_url = assetIndex.get('url')
+        index_json_sha1 = assetIndex.get('sha1')
         index_json_path= os.path.join(self.config.assets_indexes_dir(), os.path.basename(index_json_url))
-        with open(index_json_path,'w',encoding='utf-8') as f:
-            f.write(index_json_str)
+        if not checkFileExist(index_json_path,index_json_sha1):
+            print("Download assetIndex JSON File")
+            index_json_str = requests.get(index_json_url).text
+            with open(index_json_path,'w',encoding='utf-8') as f:
+                f.write(index_json_str)
+        else:
+            print("assetIndex JSON File have been downloaded")
 
     def downloadAssetObjects(self):
         '''Download Game Asset Objects'''
@@ -122,14 +130,16 @@ class GameDownloader:
             hash = object.get('hash')
             url = Mojang.assets_objects_url(hash)
             object_dir = self.config.assets_objects_dir(hash)
-
-            try:
-                self.download(url,object_dir)
-                print(outInfo)
-            except:
-                print(outInfo + "FAILED!")
-                continue
-
+            object_filePath = os.path.join(object_dir,os.path.basename(url))
+            if not checkFileExist(object_filePath, hash):
+                try:
+                    self.download(url,object_dir)
+                    print(outInfo)
+                except:
+                    print(outInfo + "FAILED!")
+                    continue
+            else:
+                print('have been download: ' + outInfo)
 # Library
 
     def donwloadLibraries(self):
@@ -161,17 +171,26 @@ class GameDownloader:
                 else:
                     libPath = downloads.get('classifiers').get(platform).get('path')
                     url = downloads.get('classifiers').get(platform).get('url')
-                    self.download(url,self.config.client_native_dir())
+                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                    filePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                    if not checkFileExist(filePath,sha1):
+                        self.download(url,self.config.client_native_dir())
             else:
                 classifiers = downloads.get('classifiers')
                 if classifiers and nativeKey in downloads.get('classifiers'):
                     url = downloads.get('classifiers').get(nativeKey).get('url')
-                    self.download(url,self.config.client_native_dir())
+                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                    filePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                    if not checkFileExist(filePath,sha1):
+                        self.download(url,self.config.client_native_dir())
                 else:
                     libPath = downloads.get('artifact').get('path')
                     url = downloads.get('artifact').get('url')
+                    sha1 = downloads.get('artifact').get('sha1')
                     fileDir = self.config.client_library_dir(libPath)
-                    self.download(url,fileDir)
+                    filePath=os.path.join(fileDir,os.path.basename(url))
+                    if not checkFileExist(filePath,sha1):
+                        self.download(url,fileDir)
 
             index = index + 1
             print('%s(%d/%d)' % (os.path.basename(url), index, total))
@@ -179,11 +198,16 @@ class GameDownloader:
 
     def downloadClient(self):
         '''Download Client Jar File'''
-        clientUrl = self.game().get('downloads').get('client').get('url')
-        print('Downloading the client jar file ...')
-        self.download(clientUrl,self.config.versionDir())
-        print("Client Download Completed!")
-
+        client = self.game().get('downloads').get('client')
+        clientUrl = client.get('url')
+        sha1 = client.get('sha1')
+        clientJARFilePath = os.path.join(self.config.versionDir(), os.path.basename(clientUrl))
+        if not checkFileExist(clientJARFilePath, sha1):
+            print('Downloading the client jar file ...')
+            self.download(clientUrl,self.config.versionDir())
+            print("Client Download Completed!")
+        else:
+            print("Client Jar File have been downloaded")
 
     def gameArguments(self, maxMem, user):
 
@@ -261,7 +285,13 @@ class GameDownloader:
 # Server
     def downloadServer(self):
         '''Download Server Jar File'''
-        serverUrl = self.game().get('downloads').get('server').get('url')
-        print('Downloading the server jar file ...')
-        self.download(serverUrl,self.config.server_jar_path())
-        print("Server Download Completed!")
+        server = self.game().get('downloads').get('server')
+        serverUrl = server.get('url')
+        sha1 = server.get('sha1')
+        serverJARFilePath = os.path.join(self.config.versionDir(), os.path.basename(serverUrl))
+        if not checkFileExist(serverJARFilePath, sha1):
+            print('Downloading the server jar file ...')
+            self.download(serverUrl,self.config.server_jar_path())
+            print("Server Download Completed!")
+        else:
+            print("Server Jar File have been downloaded")
