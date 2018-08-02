@@ -26,10 +26,7 @@ class Mojang:
                 print('Download Game Version Manifest JSON File from Mojang server and cached')
 
 
-            Mojang.versions = resp.get('versions')
-        else:
-            print('use cached info in memory')
-            
+        Mojang.versions = resp.get('versions')    
         return Mojang.versions
 
     @classmethod
