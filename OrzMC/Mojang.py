@@ -8,6 +8,8 @@ class Mojang:
     version_list_url = 'https://launchermeta.mojang.com/mc/game/version_manifest.json'
     asset_base_url = 'https://resources.download.minecraft.net/'
 
+    versions = None
+
     @classmethod
     def get_version_list(cls):
         '''Get All Version Game Configuration'''
@@ -23,9 +25,12 @@ class Mojang:
                 json.dump(resp,localFile)
                 print('Download Game Version Manifest JSON File from Mojang server and cached')
 
-        versions = resp.get('versions')
-        
-        return versions
+
+            Mojang.versions = resp.get('versions')
+        else:
+            print('use cached info in memory')
+            
+        return Mojang.versions
 
     @classmethod
     def get_release_version_list(cls):
@@ -40,8 +45,8 @@ class Mojang:
         releases = list(filter(lambda release: release.get('id') == id, Mojang.get_release_version_list()))
         if len(releases) > 0 : 
             url = releases[0].get('url')
-            jsonStr = requests.get(url).text
-            return jsonStr
+            hash = os.path.split(os.path.dirname(url))[-1]
+            return (url, hash)
         else:
             return None
         
