@@ -8,4 +8,4 @@ def startClient():
     game.downloadAssetIndex()
     game.downloadAssetObjects()
     game.donwloadLibraries()
-    game.startCient()
+    game.startCient(user='guest')

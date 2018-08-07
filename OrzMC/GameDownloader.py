@@ -234,7 +234,7 @@ class GameDownloader:
         else:
             print("Client Jar File have been downloaded")
 
-    def gameArguments(self, maxMem, user):
+    def gameArguments(self, user):
 
         mainCls = self.game().get('mainClass')
         loggin = self.game().get('logging')
@@ -303,8 +303,8 @@ class GameDownloader:
         arguments = ' '.join(arguments)
         return arguments
 
-    def startCient(self, maxMem = 1024, user = "guest"):
-        cmd = self.gameArguments(maxMem, user)
+    def startCient(self, user):
+        cmd = self.gameArguments(user)
         os.system(cmd)
 
 # Server
