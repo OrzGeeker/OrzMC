@@ -75,6 +75,7 @@ class GameDownloader:
 
                 libPath = None
                 url = None
+                nativeKey = 'natives-'+ self.platformType()
                 if 'natives' in lib:
                     platform = lib.get('natives').get(self.platformType())
                     if platform == None:
@@ -83,14 +84,28 @@ class GameDownloader:
                     else:
                         libPath = downloads.get('classifiers').get(platform).get('path')
                         url = downloads.get('classifiers').get(platform).get('url')
+                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                        filePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        if checkFileExist(filePath,sha1):
+                            self._javaClassPathList.append(filePath)
                 else:
-                    libPath = downloads.get('artifact').get('path')
-                    url = downloads.get('artifact').get('url')
-
-                absLibFilePath = os.path.join(self.config.GAME_LIB_DIR,libPath)
-                self._javaClassPathList.append(absLibFilePath)
-       
-        self._javaClassPathList.append(self.config.client_jar_path())
+                    classifiers = downloads.get('classifiers')
+                    if classifiers and nativeKey in downloads.get('classifiers'):
+                        url = downloads.get('classifiers').get(nativeKey).get('url')
+                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                        filePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        if checkFileExist(filePath,sha1):
+                            self._javaClassPathList.append(filePath)
+                    else:
+                        libPath = downloads.get('artifact').get('path')
+                        url = downloads.get('artifact').get('url')
+                        sha1 = downloads.get('artifact').get('sha1')
+                        fileDir = self.config.client_library_dir(libPath)
+                        filePath=os.path.join(fileDir,os.path.basename(url))
+                        if checkFileExist(filePath,sha1):
+                            self._javaClassPathList.append(filePath)
+                index = index + 1
+            self._javaClassPathList.append(self.config.client_jar_path())
         return self._javaClassPathList
 
     def platformType(self):
