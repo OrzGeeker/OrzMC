@@ -75,6 +75,7 @@ class GameDownloader:
                 libPath = None
                 url = None
                 sha1 = None
+                filePath = None
                 nativeKey = 'natives-'+ self.platformType()
                 if 'natives' in lib:
                     platform = lib.get('natives').get(self.platformType())
@@ -85,23 +86,33 @@ class GameDownloader:
                         libPath = downloads.get('classifiers').get(platform).get('path')
                         url = downloads.get('classifiers').get(platform).get('url')
                         sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        if not checkFileExist(nativeFilePath,sha1):
+                            print("Not Exist: %s" % nativeFilePath)
+                            continue
+                        else:
+                            self._javaClassPathList.append(nativeFilePath)
                 else:
                     classifiers = downloads.get('classifiers')
                     if classifiers and nativeKey in downloads.get('classifiers'):
                         url = downloads.get('classifiers').get(nativeKey).get('url')
                         sha1 = downloads.get('classifiers').get(platform).get('sha1')
-
+                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        if not checkFileExist(nativeFilePath,sha1):
+                            print("Not Exist: %s" % nativeFilePath)
+                            continue
+                        else:
+                            self._javaClassPathList.append(nativeFilePath)
+                            
                     libPath = downloads.get('artifact').get('path')
                     url = downloads.get('artifact').get('url')
                     sha1 = downloads.get('artifact').get('sha1')
-
-
-                filePath = os.path.join(self.config.client_library_dir(),libPath)
-                if not checkFileExist(filePath,sha1):
-                    print("Not Exist: %s" % filePath)
-                    continue            
-                else:
-                    self._javaClassPathList.append(filePath)
+                    libFilePath = os.path.join(self.config.client_library_dir(), libPath)
+                    if not checkFileExist(libFilePath,sha1):
+                        print("Not Exist: %s" % libFilePath)
+                        continue            
+                    else:
+                        self._javaClassPathList.append(libFilePath)
 
             self._javaClassPathList.append(self.config.client_jar_path())
         return self._javaClassPathList
@@ -185,11 +196,6 @@ class GameDownloader:
                     libPath = downloads.get('classifiers').get(platform).get('path')
                     url = downloads.get('classifiers').get(platform).get('url')
                     sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                    libDir = self.config.client_library_dir(libPath)
-                    libFilePath = os.path.join(libDir,os.path.basename(url))
-                    if not checkFileExist(libFilePath,sha1):
-                        self.download(url,libDir)
-
                     nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
                     if not checkFileExist(nativeFilePath,sha1):
                         self.download(url,self.config.client_native_dir())
@@ -199,11 +205,6 @@ class GameDownloader:
                 if classifiers and nativeKey in downloads.get('classifiers'):
                     url = downloads.get('classifiers').get(nativeKey).get('url')
                     sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                    libDir = self.config.client_library_dir(libPath)
-                    libFilePath = os.path.join(libDir,os.path.basename(url))
-                    if not checkFileExist(libFilePath,sha1):
-                        self.download(url,libDir)
-
                     nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
                     if not checkFileExist(nativeFilePath,sha1):
                         self.download(url,self.config.client_native_dir())
