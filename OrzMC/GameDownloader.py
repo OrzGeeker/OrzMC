@@ -234,14 +234,14 @@ class GameDownloader:
         else:
             print("Client Jar File have been downloaded")
 
-    def gameArguments(self, user):
+    def gameArguments(self, user, resolution):
 
         mainCls = self.game().get('mainClass')
         loggin = self.game().get('logging')
         classPathList = self.javaClassPathList()
         sep = ';' if self.platformType() == 'windows' else ':'
         classPath = sep.join(classPathList)
-
+        (res_width, res_height) = resolution
 
         configuration = {
             # for game args
@@ -254,6 +254,8 @@ class GameDownloader:
             "auth_access_token" : ''.join(str(uuid.uuid1()).split('-')),
             "user_type" : "Legacy",
             "version_type" : "OrzMC",
+            "resolution_width":res_width if res_width else "",
+            "resolution_height":res_height if res_height else "",
             # for jvm args
             "natives_directory": self.config.client_native_dir(),
             "launcher_name": "OrzMC",
@@ -298,13 +300,30 @@ class GameDownloader:
                     arguments.append(argStr)
                 else:
                     arguments.append(arg)
+            elif isinstance(arg, dict):
+                for rule in arg.get('rules'):
+                    if rule.get('action') == 'allow':
+                        if rule.get('features').get('is_demo_user'):
+                            if user ==  None:
+                                arguments.append(arg.get('value'))
+                        if rule.get('features').get('has_custom_resolution'):
+                            value = arg.get('value')
+                            for arg in value:
+                                if isinstance(arg, str):
+                                    value_placeholder = re.search(argPattern,arg)
+                                    if value_placeholder:
+                                        argValue = configuration.get(value_placeholder.group(1))
+                                        argStr = re.sub(argPattern,argValue,arg)
+                                        arguments.append(argStr)
+                                    else:
+                                        arguments.append(arg)  
 
 
         arguments = ' '.join(arguments)
         return arguments
 
-    def startCient(self, user):
-        cmd = self.gameArguments(user)
+    def startCient(self, user, resolution = (None,None)):
+        cmd = self.gameArguments(user,resolution)
         os.system(cmd)
 
 # Server
