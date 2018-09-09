@@ -1,4 +1,4 @@
-from OrzMC.Config import Config
+from .Config import Config
 import requests
 import json
 import os
