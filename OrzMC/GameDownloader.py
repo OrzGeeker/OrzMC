@@ -1,6 +1,6 @@
-from OrzMC.Mojang import Mojang
-from OrzMC.Config import Config
-from OrzMC.utils import checkFileExist
+from .Mojang import Mojang
+from .Config import Config
+from .utils import checkFileExist
 import json
 import requests
 import os

@@ -1,4 +1,4 @@
-from OrzMC.GameDownloader import GameDownloader
+from .GameDownloader import GameDownloader
 
 def startClient():
     game = GameDownloader('1.13')
