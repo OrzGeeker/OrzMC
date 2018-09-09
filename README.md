@@ -1,6 +1,6 @@
 # OrzMC
 
-A project for deploy minecraft client and server
+A project for deploy minecraft client
 
 Only support Python >=3.2
 
