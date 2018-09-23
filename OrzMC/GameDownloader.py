@@ -264,7 +264,7 @@ class GameDownloader:
 
         }
 
-        arguments = [os.popen('which java').read().strip()]
+        arguments = [os.popen('which java').read().strip() if self.platformType() != 'windows' else 'javaw ']
 
 
         jvmArgs = self.game().get('arguments').get('jvm')
