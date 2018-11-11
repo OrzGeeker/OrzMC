@@ -1,10 +1,18 @@
 from .GameDownloader import GameDownloader
 import sys, getopt
+from .Mojang import Mojang
+
+def showVersionList():
+    allVersions = Mojang.get_version_list(update=True)
+    for version in allVersions: 
+        print(version)
 
 def startClient():
 
     version = "1.13"
     username = "guest"
+
+    # showVersionList()
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], "v:u:", ["version=", "username="])

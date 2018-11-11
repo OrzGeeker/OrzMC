@@ -1,6 +1,6 @@
 from .Mojang import Mojang
 from .Config import Config
-from .utils import checkFileExist
+from .utils import checkFileExist, isPy3
 import json
 import requests
 import os
@@ -9,6 +9,8 @@ import platform
 import uuid
 import re
 import hashlib
+import time
+import progressbar
 
 
 class GameDownloader:
@@ -60,61 +62,65 @@ class GameDownloader:
             self._javaClassPathList = []
             libs = self.game().get('libraries')
             total = len(libs)
-            for lib in libs: 
-                libName = lib.get('name')
-                downloads = lib.get('downloads')
+            
+            errorMsg = []
+            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: ') as bar:
+                for lib in libs: 
+                    libName = lib.get('name')
+                    downloads = lib.get('downloads')
 
-                rules = lib.get('rules')
-                if None != rules:
-                    for rule in rules:
-                        if None != rule:
-                            if rule.get('action') == 'disallow':
-                                if rule.get('os').get('name') == self.platformType():
-                                    print(libName + 'is disallowed')
-                                    continue
+                    rules = lib.get('rules')
+                    if None != rules:
+                        for rule in rules:
+                            if None != rule:
+                                if rule.get('action') == 'disallow':
+                                    if rule.get('os').get('name') == self.platformType():
+                                        errorMsg.append(libName + 'is disallowed')
+                                        continue
 
-                libPath = None
-                url = None
-                sha1 = None
-                filePath = None
-                nativeKey = 'natives-'+ self.platformType()
-                if 'natives' in lib:
-                    platform = lib.get('natives').get(self.platformType())
-                    if platform == None:
-                        print('Error: no platform jar - ' +  libName)
-                        continue
-                    else:
-                        libPath = downloads.get('classifiers').get(platform).get('path')
-                        url = downloads.get('classifiers').get(platform).get('url')
-                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
-                        if not checkFileExist(nativeFilePath,sha1):
-                            print("Not Exist: %s" % nativeFilePath)
+                    libPath = None
+                    url = None
+                    sha1 = None
+                    filePath = None
+                    nativeKey = 'natives-'+ self.platformType()
+                    if 'natives' in lib:
+                        platform = lib.get('natives').get(self.platformType())
+                        if platform == None:
+                            errorMsg.append('Error: no platform jar - ' +  libName)
                             continue
                         else:
-                            self._javaClassPathList.append(nativeFilePath)
-                else:
-                    classifiers = downloads.get('classifiers')
-                    if classifiers and nativeKey in downloads.get('classifiers'):
-                        url = downloads.get('classifiers').get(nativeKey).get('url')
-                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
-                        if not checkFileExist(nativeFilePath,sha1):
-                            print("Not Exist: %s" % nativeFilePath)
-                            continue
-                        else:
-                            self._javaClassPathList.append(nativeFilePath)
-                            
-                    libPath = downloads.get('artifact').get('path')
-                    url = downloads.get('artifact').get('url')
-                    sha1 = downloads.get('artifact').get('sha1')
-                    libFilePath = os.path.join(self.config.client_library_dir(), libPath)
-                    if not checkFileExist(libFilePath,sha1):
-                        print("Not Exist: %s" % libFilePath)
-                        continue            
+                            libPath = downloads.get('classifiers').get(platform).get('path')
+                            url = downloads.get('classifiers').get(platform).get('url')
+                            sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                            nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                            if not checkFileExist(nativeFilePath,sha1):
+                                errorMsg.append("Not Exist: %s" % nativeFilePath)
+                                continue
+                            else:
+                                self._javaClassPathList.append(nativeFilePath)
                     else:
-                        self._javaClassPathList.append(libFilePath)
-
+                        classifiers = downloads.get('classifiers')
+                        if classifiers and nativeKey in downloads.get('classifiers'):
+                            url = downloads.get('classifiers').get(nativeKey).get('url')
+                            sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                            nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                            if not checkFileExist(nativeFilePath,sha1):
+                                errorMsg.append("Not Exist: %s" % nativeFilePath)
+                                continue
+                            else:
+                                self._javaClassPathList.append(nativeFilePath)
+                                
+                        libPath = downloads.get('artifact').get('path')
+                        url = downloads.get('artifact').get('url')
+                        sha1 = downloads.get('artifact').get('sha1')
+                        libFilePath = os.path.join(self.config.client_library_dir(), libPath)
+                        if not checkFileExist(libFilePath,sha1):
+                            errorMsg.append("Not Exist: %s" % libFilePath)
+                            continue            
+                        else:
+                            self._javaClassPathList.append(libFilePath)
+            if(len(errorMsg) > 0):
+                print('\n'.join(errorMsg))
             self._javaClassPathList.append(self.config.client_jar_path())
         return self._javaClassPathList
 
@@ -147,79 +153,86 @@ class GameDownloader:
         '''Download Game Asset Objects'''
         objects = self.assets().get('objects')
         total = len(objects)
-        index = 0
-        for (name,object) in objects.items():
-            index = index + 1
-            outInfo = '%d/%d(%s)' % (index, total, name)
-            
-            hash = object.get('hash')
-            url = Mojang.assets_objects_url(hash)
-            object_dir = self.config.assets_objects_dir(hash)
-            object_filePath = os.path.join(object_dir,os.path.basename(url))
-            if not checkFileExist(object_filePath, hash):
-                try:
-                    self.download(url,object_dir)
-                    print(outInfo)
-                except:
-                    print(outInfo + "FAILED!")
-                    continue
-            else:
-                print('have been download: ' + outInfo)
+
+        errorMsg = []
+        with progressbar.ProgressBar(max_value=total, prefix='assets objects: ') as bar:
+            index = 0
+            for (name,object) in objects.items():
+                index = index + 1
+                outInfo = '%d/%d(%s)' % (index, total, name)
+                hash = object.get('hash')
+                url = Mojang.assets_objects_url(hash)
+                object_dir = self.config.assets_objects_dir(hash)
+                object_filePath = os.path.join(object_dir,os.path.basename(url))
+                if not checkFileExist(object_filePath, hash):
+                    try:
+                        self.download(url,object_dir)
+                    except:
+                        errorMsg.append(outInfo + "FAILED!")
+                bar.update(index)
+        
+        if(len(errorMsg) > 0):
+            print('\n'.join(errorMsg))
 # Library
 
     def donwloadLibraries(self):
         ''' download libraries'''
         libs = self.game().get('libraries')
         total = len(libs)
-        index = 0
-        for lib in libs: 
-            libName = lib.get('name')
-            downloads = lib.get('downloads')
 
-            rules = lib.get('rules')
-            if None != rules:
-                for rule in rules:
-                    if None != rule:
-                        if rule.get('action') == 'disallow':
-                            if rule.get('os').get('name') == self.platformType():
-                                print(libName + 'is disallowed')
-                                continue
+        errorMsg = []
+        with progressbar.ProgressBar(max_value=total, prefix='libraries: ') as bar:
+            index = 0
+            for lib in libs: 
+                libName = lib.get('name')
+                downloads = lib.get('downloads')
 
-            libPath = None
-            url = None
-            nativeKey = 'natives-'+ self.platformType()
-            if 'natives' in lib:
-                platform = lib.get('natives').get(self.platformType())
-                if platform == None:
-                    print('Error: no platform jar - ' +  libName)
-                    continue
+                rules = lib.get('rules')
+                if None != rules:
+                    for rule in rules:
+                        if None != rule:
+                            if rule.get('action') == 'disallow':
+                                if rule.get('os').get('name') == self.platformType():
+                                    errorMsg.append(libName + 'is disallowed')
+                                    continue
+
+                libPath = None
+                url = None
+                nativeKey = 'natives-'+ self.platformType()
+                if 'natives' in lib:
+                    platform = lib.get('natives').get(self.platformType())
+                    if platform == None:
+                        errorMsg.append('Error: no platform jar - ' +  libName)
+                        continue
+                    else:
+                        libPath = downloads.get('classifiers').get(platform).get('path')
+                        url = downloads.get('classifiers').get(platform).get('url')
+                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        if not checkFileExist(nativeFilePath,sha1):
+                            self.download(url,self.config.client_native_dir())
+                        
                 else:
-                    libPath = downloads.get('classifiers').get(platform).get('path')
-                    url = downloads.get('classifiers').get(platform).get('url')
-                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                    nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
-                    if not checkFileExist(nativeFilePath,sha1):
-                        self.download(url,self.config.client_native_dir())
+                    classifiers = downloads.get('classifiers')
+                    if classifiers and nativeKey in downloads.get('classifiers'):
+                        url = downloads.get('classifiers').get(nativeKey).get('url')
+                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        if not checkFileExist(nativeFilePath,sha1):
+                            self.download(url,self.config.client_native_dir())
                     
-            else:
-                classifiers = downloads.get('classifiers')
-                if classifiers and nativeKey in downloads.get('classifiers'):
-                    url = downloads.get('classifiers').get(nativeKey).get('url')
-                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                    nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
-                    if not checkFileExist(nativeFilePath,sha1):
-                        self.download(url,self.config.client_native_dir())
-                
-                libPath = downloads.get('artifact').get('path')
-                url = downloads.get('artifact').get('url')
-                sha1 = downloads.get('artifact').get('sha1')
-                fileDir = self.config.client_library_dir(libPath)
-                filePath=os.path.join(fileDir,os.path.basename(url))
-                if not checkFileExist(filePath,sha1):
-                    self.download(url,fileDir)
+                    libPath = downloads.get('artifact').get('path')
+                    url = downloads.get('artifact').get('url')
+                    sha1 = downloads.get('artifact').get('sha1')
+                    fileDir = self.config.client_library_dir(libPath)
+                    filePath=os.path.join(fileDir,os.path.basename(url))
+                    if not checkFileExist(filePath,sha1):
+                        self.download(url,fileDir)
 
-            index = index + 1
-            print('%s(%d/%d)' % (os.path.basename(url), index, total))
+                index = index + 1
+                bar.update(index)
+        if(len(errorMsg) > 0):
+            print('\n'.join(errorMsg))
 # Client
 
     def downloadClient(self):
@@ -270,7 +283,7 @@ class GameDownloader:
         jvmArgs = self.game().get('arguments').get('jvm')
         argPattern = u'\$\{(.*)\}'
         for arg in jvmArgs:
-            if isinstance(arg, str) or isinstance(arg, unicode):
+            if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
                 value_placeholder = re.search(argPattern,arg)
                 if value_placeholder:
                     argValue = configuration.get(value_placeholder.group(1))
@@ -292,7 +305,7 @@ class GameDownloader:
 
         gameArgs = self.game().get('arguments').get('game')
         for arg in gameArgs:
-            if isinstance(arg, str) or isinstance(arg, unicode):
+            if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
                 value_placeholder = re.search(argPattern,arg)
                 if value_placeholder:
                     argValue = configuration.get(value_placeholder.group(1))
