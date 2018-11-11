@@ -1,4 +1,5 @@
 import os
+from .utils import makedirs 
 
 class Config:
 
@@ -20,19 +21,19 @@ class Config:
     def assets_indexes_dir(self):
         '''Client Assets Index JSON File Directory'''
         dir = os.path.join(Config.GAME_ASSET_DIR,'indexes')
-        os.makedirs(dir,exist_ok=True)
+        makedirs(dir)
         return dir
     
     def assets_objects_dir(self, hash):
         '''Client Assets Object Directory'''
         dir = os.path.join(Config.GAME_ASSET_DIR,'objects',hash[0:2])
-        os.makedirs(dir,exist_ok=True)
+        makedirs(dir)
         return dir
     
     def versionDir(self):
         '''Client Version Related Directory'''
         dir = os.path.join(Config.GAME_VERSION_DIR,self.version)
-        os.makedirs(dir,exist_ok=True)
+        makedirs(dir)
         return dir
 
     def client_jar_path(self):
@@ -46,13 +47,13 @@ class Config:
         if None != subpath:
             subdir =  os.path.dirname(subpath)
             dir = os.path.join(dir,subdir)
-        os.makedirs(dir,exist_ok=True)
+        makedirs(dir)
         return dir
         
     def client_native_dir(self):
         '''Client Native Related dependencies Directory'''
         dir = os.path.join(self.GAME_VERSION_DIR, self.version, self.version + '-native')
-        os.makedirs(dir,exist_ok=True)
+        makedirs(dir)
         return dir
 
     # Server
