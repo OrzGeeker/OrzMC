@@ -40,8 +40,12 @@ class GameDownloader:
             print("Download Game Json Configure File!")
             jsonStr = requests.get(url).text
             if jsonStr != None:
-                with open(version_json_path,'w',encoding='utf-8') as f:
-                    f.write(jsonStr)
+                if isPy3:
+                    with open(version_json_path,'w',encoding='utf-8') as f:
+                        f.write(jsonStr)
+                else:
+                    with open(version_json_path,'w') as f:
+                        f.write(jsonStr.encode('utf-8'))
         else: 
             print("Game Json Configure File have been downloaded!")
 
@@ -144,8 +148,12 @@ class GameDownloader:
         if not checkFileExist(index_json_path,index_json_sha1):
             print("Download assetIndex JSON File")
             index_json_str = requests.get(index_json_url).text
-            with open(index_json_path,'w',encoding='utf-8') as f:
-                f.write(index_json_str)
+            if isPy3:
+                with open(index_json_path,'w',encoding='utf-8') as f:
+                    f.write(index_json_str)
+            else: 
+                with open(index_json_path,'w') as f:
+                    f.write(index_json_str.encode('utf-8'))               
         else:
             print("assetIndex JSON File have been downloaded")
 
