@@ -1,6 +1,6 @@
 import hashlib
 import os
-
+import sys
 
 def checkFileExist(filePath, hash):
     if not os.path.exists(filePath):
@@ -12,3 +12,10 @@ def checkFileExist(filePath, hash):
         if not ret:
             print('sha1 check failed: ' + filePath)
         return ret
+
+def makedirs(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+
+    
