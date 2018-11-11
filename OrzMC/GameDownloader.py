@@ -10,6 +10,7 @@ import uuid
 import re
 import hashlib
 
+
 class GameDownloader:
 
 
@@ -266,11 +267,10 @@ class GameDownloader:
 
         arguments = [os.popen('which java').read().strip() if self.platformType() != 'windows' else 'javaw ']
 
-
         jvmArgs = self.game().get('arguments').get('jvm')
-        argPattern = '\$\{(.*)\}'
+        argPattern = u'\$\{(.*)\}'
         for arg in jvmArgs:
-            if isinstance(arg, str):
+            if isinstance(arg, str) or isinstance(arg, unicode):
                 value_placeholder = re.search(argPattern,arg)
                 if value_placeholder:
                     argValue = configuration.get(value_placeholder.group(1))
@@ -292,7 +292,7 @@ class GameDownloader:
 
         gameArgs = self.game().get('arguments').get('game')
         for arg in gameArgs:
-            if isinstance(arg, str):
+            if isinstance(arg, str) or isinstance(arg, unicode):
                 value_placeholder = re.search(argPattern,arg)
                 if value_placeholder:
                     argValue = configuration.get(value_placeholder.group(1))
