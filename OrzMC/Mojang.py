@@ -11,11 +11,11 @@ class Mojang:
     versions = None
 
     @classmethod
-    def get_version_list(cls):
+    def get_version_list(cls, update=False):
         '''Get All Version Game Configuration'''
         localFilePath = os.path.join(Config.GAME_ROOT_DIR,os.path.basename(Mojang.version_list_url))
         resp = None
-        if os.path.exists(localFilePath):
+        if (not update) and os.path.exists(localFilePath):
             with open(localFilePath,'r') as localFile:
                 resp = json.load(localFile)
                 print('Use Local File For Game Version Manifest JSON File')

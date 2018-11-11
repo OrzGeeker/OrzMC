@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="OrzMC",
-    version="1.0.7",
+    version="1.0.8",
     description="A project for deployment of minecraft game.",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
@@ -24,11 +24,13 @@ setuptools.setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: Apache Software License",
-        "Operating System :: OS Independent"
+        "Operating System :: MacOS",
+        "Operating System :: POSIX :: Linux"
     ),
     python_requires='>=2.7, <4',
     install_requires=[
         'requests',
+        'progressbar2',
         'twine'
     ],
     entry_points = {
