@@ -1,9 +1,9 @@
 import os
-from .utils import makedirs 
+from .utils import makedirs, platformType
 
 class Config:
 
-    BASE_PATH = os.getcwd()
+    BASE_PATH = os.path.expanduser('~')
     GAME_ROOT_DIR = os.path.join(BASE_PATH,'.minecraft')
     GAME_LIB_DIR = os.path.join(GAME_ROOT_DIR,'libraries')
     GAME_VERSION_DIR = os.path.join(GAME_ROOT_DIR,'versions')

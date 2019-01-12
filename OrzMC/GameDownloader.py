@@ -1,12 +1,11 @@
 from .Mojang import Mojang
 from .Config import Config
-from .utils import checkFileExist, isPy3
+from .utils import checkFileExist, isPy3, platformType
 import json
 import requests
 import os
 import sys
 import signal
-import platform
 import uuid
 import re
 import hashlib
@@ -98,7 +97,7 @@ class GameDownloader:
                         for rule in rules:
                             if None != rule:
                                 if rule.get('action') == 'disallow':
-                                    if rule.get('os').get('name') == self.platformType():
+                                    if rule.get('os').get('name') == platformType():
                                         errorMsg.append(libName + 'is disallowed')
                                         continue
 
@@ -106,9 +105,9 @@ class GameDownloader:
                     url = None
                     sha1 = None
                     filePath = None
-                    nativeKey = 'natives-'+ self.platformType()
+                    nativeKey = 'natives-'+ platformType()
                     if 'natives' in lib:
-                        platform = lib.get('natives').get(self.platformType())
+                        platform = lib.get('natives').get(platformType())
                         if platform == None:
                             errorMsg.append('Error: no platform jar - ' +  libName)
                             continue
@@ -147,15 +146,6 @@ class GameDownloader:
                 print('\n'.join(errorMsg))
             self._javaClassPathList.append(self.config.client_jar_path())
         return self._javaClassPathList
-
-    def platformType(self):
-        '''OS type'''
-        system = {
-            'Linux':'linux',
-            'Darwin':'osx',
-            'Windows': 'windows'
-        }
-        return system[platform.system()]
 
 # Assets
 
@@ -234,15 +224,15 @@ class GameDownloader:
                     for rule in rules:
                         if None != rule:
                             if rule.get('action') == 'disallow':
-                                if rule.get('os').get('name') == self.platformType():
+                                if rule.get('os').get('name') == platformType():
                                     errorMsg.append(libName + 'is disallowed')
                                     continue
 
                 libPath = None
                 url = None
-                nativeKey = 'natives-'+ self.platformType()
+                nativeKey = 'natives-'+ platformType()
                 if 'natives' in lib:
-                    platform = lib.get('natives').get(self.platformType())
+                    platform = lib.get('natives').get(platformType())
                     if platform == None:
                         errorMsg.append('Error: no platform jar - ' +  libName)
                         continue
@@ -299,7 +289,7 @@ class GameDownloader:
         mainCls = self.game().get('mainClass')
         loggin = self.game().get('logging')
         classPathList = self.javaClassPathList()
-        sep = ';' if self.platformType() == 'windows' else ':'
+        sep = ';' if platformType() == 'windows' else ':'
         classPath = sep.join(classPathList)
         (res_width, res_height) = resolution
 
@@ -324,7 +314,7 @@ class GameDownloader:
 
         }
 
-        arguments = [os.popen('which java').read().strip() if self.platformType() != 'windows' else 'javaw ']
+        arguments = [os.popen('which java').read().strip() if platformType() != 'windows' else 'javaw ']
 
         jvmArgs = self.game().get('arguments').get('jvm')
         argPattern = u'\$\{(.*)\}'
@@ -341,7 +331,7 @@ class GameDownloader:
                 isValid = False
                 rules = arg.get('rules')
                 for rule in rules:
-                    if rule.get('os').get('name') == self.platformType() and rule.get('action') == 'allow':
+                    if rule.get('os').get('name') == platformType() and rule.get('action') == 'allow':
                         isValid = True
                         break
                 if isValid:
