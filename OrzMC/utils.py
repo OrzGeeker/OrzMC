@@ -1,6 +1,7 @@
 import hashlib
 import os
 import sys
+import platform
 
 isPy3 = (sys.version_info.major == 3)
 
@@ -20,4 +21,11 @@ def makedirs(path):
         os.makedirs(path)
 
 
-    
+def platformType():
+    '''OS type'''
+    system = {
+        'Linux':'linux',
+        'Darwin':'osx',
+        'Windows': 'windows'
+    }
+    return system[platform.system()]
