@@ -5,12 +5,24 @@ import json
 import requests
 import os
 import sys
+import signal
 import platform
 import uuid
 import re
 import hashlib
 import time
 import progressbar
+
+is_sigint_up = False
+def sigint_handler(signum, frame):
+    global is_sigint_up
+    is_sigint_up = True
+    print("Force Exit!")
+    exit(-1)
+
+signal.signal(signal.SIGINT, sigint_handler)
+signal.signal(signal.SIGHUP, sigint_handler)
+signal.signal(signal.SIGTERM, sigint_handler)
 
 
 class GameDownloader:
@@ -23,6 +35,10 @@ class GameDownloader:
         self.config = Config(version)
 
     def download(self, url, dir):
+        global is_sigint_up
+        if is_sigint_up:
+            return
+        
         filename = os.path.basename(url)
         with open(os.path.join(dir,filename),'wb') as f:
             f.write(requests.get(url).content)
@@ -33,6 +49,10 @@ class GameDownloader:
             return jsonObj
 
     def downloadGameJSON(self):
+        global is_sigint_up
+        if is_sigint_up:
+            return
+
         '''Download Game Json Configure File'''
         version_json_path = self.config.version_json_path()
         (url, hash) = Mojang.get_release_game_json(self.config.version)
@@ -140,6 +160,11 @@ class GameDownloader:
 # Assets
 
     def downloadAssetIndex(self):
+
+        global is_sigint_up
+        if is_sigint_up:
+            return
+
         '''Download Game Asset Index JSON file'''
         assetIndex = self.game().get('assetIndex')
         index_json_url = assetIndex.get('url')
@@ -158,6 +183,10 @@ class GameDownloader:
             print("assetIndex JSON File have been downloaded")
 
     def downloadAssetObjects(self):
+        global is_sigint_up
+        if is_sigint_up:
+            return
+
         '''Download Game Asset Objects'''
         objects = self.assets().get('objects')
         total = len(objects)
@@ -184,6 +213,11 @@ class GameDownloader:
 # Library
 
     def donwloadLibraries(self):
+
+        global is_sigint_up
+        if is_sigint_up:
+            return
+
         ''' download libraries'''
         libs = self.game().get('libraries')
         total = len(libs)
@@ -244,6 +278,10 @@ class GameDownloader:
 # Client
 
     def downloadClient(self):
+        global is_sigint_up
+        if is_sigint_up:
+            return  
+
         '''Download Client Jar File'''
         client = self.game().get('downloads').get('client')
         clientUrl = client.get('url')
@@ -344,6 +382,10 @@ class GameDownloader:
         return arguments
 
     def startCient(self, user, resolution = (None,None)):
+        global is_sigint_up
+        if is_sigint_up:
+            return
+
         cmd = self.gameArguments(user,resolution)
         os.system(cmd)
 
@@ -360,3 +402,7 @@ class GameDownloader:
             print("Server Download Completed!")
         else:
             print("Server Jar File have been downloaded")
+
+    def deployServer(self):
+        print("no implement")
+        pass
