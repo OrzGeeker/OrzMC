@@ -377,7 +377,8 @@ class GameDownloader:
             return
 
         cmd = self.gameArguments(user,resolution)
-        os.system(cmd)
+        backgroundCmd = 'start ' + cmd if platformType == 'windows' else cmd + ' &'
+        os.system(backgroundCmd)
 
 # Server
     def downloadServer(self):
