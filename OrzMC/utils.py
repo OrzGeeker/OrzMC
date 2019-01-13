@@ -29,3 +29,9 @@ def platformType():
         'Windows': 'windows'
     }
     return system[platform.system()]
+
+def hint(msg):
+    if isPy3:
+        return input(msg)
+    else:
+        return raw_input(msg)

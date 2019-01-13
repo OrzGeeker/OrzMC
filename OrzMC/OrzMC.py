@@ -1,6 +1,7 @@
 from .GameDownloader import GameDownloader
 import sys, getopt
 from .Mojang import Mojang
+from .utils import hint
 
 version = ""
 username = "guest"
@@ -21,7 +22,7 @@ def showVersionList(isShow = True):
     if len(releaseVersions) > 0:
         version = releaseVersions[0]
 
-    select = input('Please select a version number of above list to play(default: %s): ' % version)
+    select = hint('Please select a version number of above list to play(default: %s): ' % version)
     if len(select) > 0:
         found = False
         for releaseVersion in releaseVersions: 
@@ -40,7 +41,7 @@ def showUserName(isShow):
 
     global username
 
-    u = input('Please choose a username(default: %s): ' % username)
+    u = hint('Please choose a username(default: %s): ' % username)
     if len(u) > 0:
         username = u
         print('You username in game is: %s' % username)
