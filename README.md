@@ -4,12 +4,13 @@ A project for deploy minecraft client
 
 Only support Python >=2.7, <4
 
-
 # Support Minecraft Client Version
 
-- 1.13
+- support all version client version
 
-This Program has been uploaded into PyPI
+- you should make sure the server version is the same as client version.
+
+- This Program has been uploaded into PyPI
 
 # Usage
 
@@ -17,8 +18,7 @@ You should have a jre runtime on you device
 
 ```
 $ pip install orzmc
-$ mkdir minecraft
-$ cd minecraft
 $ orzmc
 ```
 
+The Game Content be saved under user's home directory, and named `.minecraft`
