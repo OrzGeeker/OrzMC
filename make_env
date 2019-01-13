@@ -1,0 +1,5 @@
+# !/usr/bin/env bash
+# -*-: coding: utf-8 -*-
+
+virtualenv py2 -p=python2.7
+virtualenv py3 -p=python3.6
