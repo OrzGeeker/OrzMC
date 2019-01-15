@@ -12,6 +12,11 @@ Only support Python >=2.7, <4
 
 - This Program has been uploaded into PyPI
 
+# Support Operation System
+
+- main for MacOS.
+- Maybe can run on windows, as a backup schema.
+
 # Usage
 
 You should have a jre runtime on you device
