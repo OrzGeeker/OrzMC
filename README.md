@@ -22,3 +22,8 @@ $ orzmc
 ```
 
 The Game Content be saved under user's home directory, and named `.minecraft`
+
+
+# Tips
+
+这不是一个人的游戏，而是...           两个人😏
