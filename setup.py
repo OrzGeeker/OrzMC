@@ -2,8 +2,8 @@
 import setuptools
 
 setuptools.setup(
-    name="OrzMC",
-    version="1.0.13",
+    name="OrzMC_W&L",
+    version="1.0.0",
     description="A project for deployment of minecraft game.",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
