@@ -35,4 +35,4 @@ The Game Content be saved under user's home directory, and named `.minecraft`
 
 # Video Introduction
 
-<p><iframe width="560" height="315" src="https://www.youtube.com/embed/gx-JeoW2K5I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+https://youtu.be/gx-JeoW2K5I
