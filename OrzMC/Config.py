@@ -8,6 +8,7 @@ class Config:
     GAME_LIB_DIR = os.path.join(GAME_ROOT_DIR,'libraries')
     GAME_VERSION_DIR = os.path.join(GAME_ROOT_DIR,'versions')
     GAME_ASSET_DIR = os.path.join(GAME_ROOT_DIR,'assets')
+    GAME_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'deploy')
 
     def __init__(self,version):
         self.version=version
@@ -59,4 +60,13 @@ class Config:
     # Server
     def server_jar_path(self):
         '''Server Game JAR File Path'''
-        return os.path.join(Config.GAME_VERSION_DIR,self.version)        
+        return os.path.join(Config.GAME_VERSION_DIR,self.version)
+
+    def server_deploy_path(self):
+        '''Server Deploy Path'''
+        deployPath = Config.GAME_DEPLOY_DIR
+        makedirs(deployPath)
+        return deployPath
+
+    def eula_path(self):
+        return os.path.join(self.server_deploy_path(), 'eula.txt')

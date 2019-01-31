@@ -381,12 +381,16 @@ class GameDownloader:
         os.system(backgroundCmd)
 
 # Server
+    def serverJARFilePath(self):
+            server = self.game().get('downloads').get('server')
+            serverUrl = server.get('url')
+            sha1 = server.get('sha1')
+            serverJARFilePath = os.path.join(self.config.versionDir(), os.path.basename(serverUrl))
+            return (serverJARFilePath, serverUrl, sha1)
+
     def downloadServer(self):
         '''Download Server Jar File'''
-        server = self.game().get('downloads').get('server')
-        serverUrl = server.get('url')
-        sha1 = server.get('sha1')
-        serverJARFilePath = os.path.join(self.config.versionDir(), os.path.basename(serverUrl))
+        (serverJARFilePath, serverUrl, sha1) = self.serverJARFilePath()
         if not checkFileExist(serverJARFilePath, sha1):
             print('Downloading the server jar file ...')
             self.download(serverUrl,self.config.server_jar_path())
@@ -395,5 +399,34 @@ class GameDownloader:
             print("Server Jar File have been downloaded")
 
     def deployServer(self):
-        print("no implement")
-        pass
+        '''deploy minecraft server'''
+        self.startServer(self.startCommand())
+
+    def startCommand(self, mem='1024M'):
+        '''construct server start command'''
+        (serverJARFilePath, _, _) = self.serverJARFilePath()
+        jvm_opts = ''
+        cmd = 'java' + jvm_opts + ' -Xmx' + mem + ' -Xms' + mem + ' -jar ' + serverJARFilePath + ' nogui'
+        return cmd
+
+    def checkEULA(self):
+        return os.path.exists(self.config.eula_path())
+
+    def startServer(self, cmd):
+        '''启动minecraft服务器'''
+        os.chdir(self.config.server_deploy_path())
+        
+        # 如果没有eula.txt文件，则启动服务器生成
+        if not self.checkEULA():
+            os.system(cmd)
+
+        # 同意eula
+        with open(self.config.eula_path(), 'r', encoding = 'utf-8') as f:
+            eula = f.read()
+            checkEULA = eula.replace('false', 'true')
+        with open(self.config.eula_path(), 'w', encoding = 'utf-8') as f:
+            f.write(checkEULA)
+        
+        # 启动服务
+        os.system(cmd)
+
