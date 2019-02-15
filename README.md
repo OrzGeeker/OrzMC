@@ -4,6 +4,8 @@ A project for deploy minecraft client
 
 Only support Python >=2.7, <4
 
+Require Java Runtime Environment Configured!
+
 # Support Minecraft Client Version
 
 - support all version client version
