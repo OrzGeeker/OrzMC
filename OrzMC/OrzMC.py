@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from .GameDownloader import GameDownloader
 import sys, getopt
 from .Mojang import Mojang

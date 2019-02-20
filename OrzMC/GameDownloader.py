@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from .Mojang import Mojang
 from .Config import Config
 from .utils import checkFileExist, isPy3, platformType
@@ -11,6 +13,7 @@ import re
 import hashlib
 import time
 import progressbar
+import io
 
 is_sigint_up = False
 def sigint_handler(signum, frame):
@@ -421,10 +424,10 @@ class GameDownloader:
             os.system(cmd)
 
         # 同意eula
-        with open(self.config.eula_path(), 'r', encoding = 'utf-8') as f:
+        with io.open(self.config.eula_path(), 'r', encoding = 'utf-8') as f:
             eula = f.read()
             checkEULA = eula.replace('false', 'true')
-        with open(self.config.eula_path(), 'w', encoding = 'utf-8') as f:
+        with io.open(self.config.eula_path(), 'w', encoding = 'utf-8') as f:
             f.write(checkEULA)
         
         # 启动服务
