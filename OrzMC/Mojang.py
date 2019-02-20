@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from .Config import Config
 import requests
 import json

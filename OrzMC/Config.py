@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 import os
 from .utils import makedirs, platformType
 
