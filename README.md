@@ -53,3 +53,7 @@ https://youtu.be/gx-JeoW2K5I
 - [ ] add Spigot Server deploy option
 - [ ] add a homepage for this project
 - [ ] refine the project script for readable
+
+# Reference
+
+[SpigotMC](https://www.spigotmc.org/)
