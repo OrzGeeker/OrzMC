@@ -46,3 +46,10 @@ The Game Content be saved under user's home directory, and named `.minecraft`
 # Video Introduction
 
 https://youtu.be/gx-JeoW2K5I
+
+
+# TODO List
+
+- [ ] add Spigot Server deploy option
+- [ ] add a homepage for this project
+- [ ] refine the project script for readable
