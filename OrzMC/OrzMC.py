@@ -111,9 +111,9 @@ def downloadServer():
         game.downloadServer()
         if len(mem_start) > 0 and len(mem_max) > 0 :
             game.deployServer(mem_start=mem_start, mem_max=mem_max)
-        elif len(mem_start > 0):
+        elif len(mem_start) > 0:
             game.deployServer(mem_start=mem_start)
-        elif len(mem_max > 0):
+        elif len(mem_max) > 0:
             game.deployServer(mem_max=mem_max)
         else :
             game.deployServer()
