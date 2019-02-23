@@ -401,15 +401,15 @@ class GameDownloader:
         else:
             print("Server Jar File have been downloaded")
 
-    def deployServer(self):
+    def deployServer(self, mem_start='512M', mem_max="1024M"):
         '''deploy minecraft server'''
-        self.startServer(self.startCommand())
+        self.startServer(self.startCommand(mem_start, mem_max))
 
-    def startCommand(self, mem='1024M'):
+    def startCommand(self, mem_s, mem_x):
         '''construct server start command'''
         (serverJARFilePath, _, _) = self.serverJARFilePath()
         jvm_opts = ''
-        cmd = 'java' + jvm_opts + ' -Xmx' + mem + ' -Xms' + mem + ' -jar ' + serverJARFilePath + ' nogui'
+        cmd = 'java' + jvm_opts + ' -Xms' + mem_s + ' -Xmx' + mem_x + ' -jar ' + serverJARFilePath + ' nogui'
         return cmd
 
     def checkEULA(self):
