@@ -58,7 +58,7 @@ def startClient():
     global username
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "v:u:s", ["version=", "username="])
+        opts, args = getopt.getopt(sys.argv[1:], "v:u:", ["version=", "username="])
         for o, a in opts:
             if o in ["-v", "--version"]:
                 if len(a) > 0:
@@ -86,11 +86,36 @@ def downloadServer():
     
     global version
 
+    mem_start = ""
+    mem_max = ""
+    isShowList = True
+
     try:
-        showVersionList()
+
+        opts, args = getopt.getopt(sys.argv[1:], "v:s:x:", ["version=", "mem_start=", "mem_max="])
+        for o, a in opts:
+            if o in ["-v", "--version"]:
+                if len(a) > 0:
+                    version = a
+                    isShowList = False
+            if o in ["-s", "--mem_start"]:
+                if len(a) > 0:
+                    mem_start = a
+            if o in ["-x", "--mem_max"]:
+                if len(a) > 0:
+                    mem_max = a               
+
+        showVersionList(isShowList)
         game = GameDownloader(version)
         game.downloadGameJSON()
         game.downloadServer()
-        game.deployServer()
+        if len(mem_start) > 0 and len(mem_max) > 0 :
+            game.deployServer(mem_start=mem_start, mem_max=mem_max)
+        elif len(mem_start > 0):
+            game.deployServer(mem_start=mem_start)
+        elif len(mem_max > 0):
+            game.deployServer(mem_max=mem_max)
+        else :
+            game.deployServer()
     except getopt.GetoptError:
         print("The arguments is invalid!") 
