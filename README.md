@@ -52,7 +52,7 @@ This is not a game for one player, so you should invit someone you like to make 
 
 # Video Introduction
 
-https://youtu.be/gx-JeoW2K5I
+<https://youtu.be/gx-JeoW2K5I>
 
 
 # TODO List
