@@ -25,12 +25,15 @@ Requires Java Runtime Environment to be configured!
 
 ## Run Client
 
+`orzmc -h` to check the help info
 ```
 $ pip install orzmc
 $ orzmc
 ```
 
 ## Deploy Server
+
+`orzmcs -h` to check the help info
 
 ```
 $ pip install orzmc
@@ -41,7 +44,7 @@ The game resources are saved under user's home directory, and named `.minecraft`
 
 # Tips
 
-这不是一个人的游戏，而是...           两个人😏
+This is not a game for one player, so you should invited someone you like to make you guys own beautiful world!!!
 
 # Video Introduction
 
