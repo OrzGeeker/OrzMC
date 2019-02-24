@@ -2,6 +2,7 @@
 
 from .Mojang import Mojang
 from .Config import Config
+from .Spigot import Spigot
 from .utils import checkFileExist, isPy3, platformType, ColorString
 import json
 import requests
@@ -14,6 +15,7 @@ import hashlib
 import time
 import progressbar
 import io
+import shutil
 
 is_sigint_up = False
 def sigint_handler(signum, frame):
@@ -29,12 +31,11 @@ signal.signal(signal.SIGTERM, sigint_handler)
 
 class GameDownloader:
 
-
-    def __init__(self, version):
+    def __init__(self, version, isSpigot = False):
         self._game=None
         self._assets=None
         self._javaClassPathList = None
-        self.config = Config(version)
+        self.config = Config(version, isSpigot=isSpigot)
 
     def download(self, url, dir):
         global is_sigint_up
@@ -90,7 +91,7 @@ class GameDownloader:
             total = len(libs)
             
             errorMsg = []
-            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: ') as bar:
+            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: '):
                 for lib in libs: 
                     libName = lib.get('name')
                     downloads = lib.get('downloads')
@@ -107,7 +108,6 @@ class GameDownloader:
                     libPath = None
                     url = None
                     sha1 = None
-                    filePath = None
                     nativeKey = 'natives-'+ platformType()
                     if 'natives' in lib:
                         platform = lib.get('natives').get(platformType())
@@ -290,7 +290,6 @@ class GameDownloader:
     def gameArguments(self, user, resolution):
 
         mainCls = self.game().get('mainClass')
-        loggin = self.game().get('logging')
         classPathList = self.javaClassPathList()
         sep = ';' if platformType() == 'windows' else ':'
         classPath = sep.join(classPathList)
@@ -320,7 +319,7 @@ class GameDownloader:
         arguments = [os.popen('which java').read().strip() if platformType() != 'windows' else 'javaw ']
 
         jvmArgs = self.game().get('arguments').get('jvm')
-        argPattern = u'\$\{(.*)\}'
+        argPattern = r'\$\{(.*)\}'
         for arg in jvmArgs:
             if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
                 value_placeholder = re.search(argPattern,arg)
@@ -403,12 +402,14 @@ class GameDownloader:
 
     def deployServer(self, mem_start='512M', mem_max="1024M"):
         '''deploy minecraft server'''
-        self.startServer(self.startCommand(mem_start, mem_max))
-
-    def startCommand(self, mem_s, mem_x):
-        '''construct server start command'''
+        if self.config.isSpigot and not os.path.exists(self.config.server_spigot_jar_path()):
+            self.buildSpigotServer()
         (serverJARFilePath, _, _) = self.serverJARFilePath()
-        jvm_opts = ''
+        jarFilePath = self.config.server_spigot_jar_path() if self.config.isSpigot else serverJARFilePath
+        self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts=' -XX:+UseConcMarkSweepGC'))
+
+    def startCommand(self, mem_s, mem_x, serverJARFilePath, jvm_opts = ''):
+        '''construct server start command'''
         cmd = 'java' + jvm_opts + ' -Xms' + mem_s + ' -Xmx' + mem_x + ' -jar ' + serverJARFilePath + ' nogui'
         return cmd
 
@@ -417,8 +418,9 @@ class GameDownloader:
 
     def startServer(self, cmd):
         '''启动minecraft服务器'''
-        os.chdir(self.config.server_deploy_path())
         
+        os.chdir(self.config.server_deploy_path())
+
         # 如果没有eula.txt文件，则启动服务器生成
         if not self.checkEULA():
             os.system(cmd)
@@ -433,3 +435,39 @@ class GameDownloader:
         # 启动服务
         os.system(cmd)
 
+        # 设置服务器属性为离线模式
+        with io.open(self.config.properties_path(), 'r', encoding = 'utf-8') as f:
+            properties = f.read()
+            if 'online-mode=false' in properties:
+                offline_properties = ''
+            else:
+                offline_properties = properties.replace('online-mode=true', 'online-mode=false')
+        with io.open(self.config.properties_path(), 'w', encoding = 'utf-8') as f:
+            if len(offline_properties) > 0:
+                f.write(offline_properties)
+                print(ColorString.confirm('Setting the server to offline mode, next launch this setting take effect!!!'))
+
+    def buildSpigotServer(self):
+        '''构建SpigotServer'''
+        version = self.config.version
+        spigot = Spigot(version)
+        print(ColorString.warn('Start download the spigot build tool jar file...'))
+        self.download(spigot.build_tool_jar, self.config.server_deploy_build_path())
+        print(ColorString.confirm('Build tool jar download completed!!!'))
+        buildToolJarName = os.path.basename(spigot.build_tool_jar)
+        buildToolJarPath = os.path.join(self.config.server_deploy_build_path(), buildToolJarName)
+        versionCmd = ' --rev ' + version if len(version) > 0 else 'lastest'
+        linuxCmd = 'git config --global --unset core.autocrlf; java -jar ' + buildToolJarPath + versionCmd
+        macCmd = 'export MAVEN_OPTS="-Xmx2G"; java -Xmx2G -jar ' + buildToolJarPath + versionCmd
+        windowCmd = 'java -jar ' + buildToolJarPath + versionCmd
+        cmd = macCmd if platformType() == 'osx' else linuxCmd if platformType() == 'linux' else windowCmd
+        print(ColorString.warn('Start build the server jar file with build tool...'))
+        os.chdir(self.config.server_deploy_build_path())
+        os.system(cmd)
+        print(ColorString.confirm('Completed! And the spigot built server file generated!'))
+        shutil.move(self.config.server_spigot_jar_path(isInBuildDir=True), self.config.server_spigot_jar_path())
+        shutil.move(self.config.server_craftbukkit_jar_path(isInBuildDir=True), self.config.server_craftbukkit_jar_path())
+        os.chdir(self.config.server_deploy_path())
+        shutil.rmtree(self.config.server_deploy_build_path())
+
+        
