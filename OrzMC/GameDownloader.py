@@ -2,7 +2,7 @@
 
 from .Mojang import Mojang
 from .Config import Config
-from .utils import checkFileExist, isPy3, platformType
+from .utils import checkFileExist, isPy3, platformType, ColorString
 import json
 import requests
 import os
@@ -19,7 +19,7 @@ is_sigint_up = False
 def sigint_handler(signum, frame):
     global is_sigint_up
     is_sigint_up = True
-    print("Force Exit!")
+    print(ColorString.warn("\nForce Exit!"))
     exit(-1)
 
 signal.signal(signal.SIGINT, sigint_handler)
