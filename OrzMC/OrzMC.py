@@ -8,7 +8,7 @@ from .utils import hint, ColorString
 version = ""
 username = "guest"
 
-def showVersionList(isShow = True):
+def showVersionList(isShow = True, isServer = False):
     
     global version
 
@@ -32,7 +32,7 @@ def showVersionList(isShow = True):
     if len(releaseVersions) > 0:
         version = releaseVersions[0]
 
-    select = hint(ColorString.warn('\nPlease select a version number of above list to play %s ') % ColorString.error('(default: %s):' % version))
+    select = hint(ColorString.warn('\nPlease select a version number of above list to %s %s ') % ('deploy' if isServer else 'play' , ColorString.error('(default: %s):' % version)))
     if len(select) > 0:
         found = False
         for releaseVersion in releaseVersions: 
@@ -101,10 +101,11 @@ def downloadServer():
     mem_start = ""
     mem_max = ""
     isShowList = True
+    isSpigotServer = False
 
     try:
 
-        opts, _ = getopt.getopt(sys.argv[1:], "v:s:x:h", ["version=", "mem_start=", "mem_max=","help"])
+        opts, _ = getopt.getopt(sys.argv[1:], "v:s:x:ho", ["version=", "mem_start=", "mem_max=","help", "spigot"])
         for o, a in opts:
             if o in ["-v", "--version"]:
                 if len(a) > 0:
@@ -118,11 +119,16 @@ def downloadServer():
                     mem_max = a               
             if o in ["-h", "--help"]:
                 help(False)
+            if o in ["-o", "--spigot"]:
+                isSpigotServer = True
 
-        showVersionList(isShowList)
-        game = GameDownloader(version)
-        game.downloadGameJSON()
-        game.downloadServer()
+
+        showVersionList(isShowList, isServer=True)
+        game = GameDownloader(version, isSpigot=isSpigotServer)
+        if not isSpigotServer:
+            game.downloadGameJSON()
+            game.downloadServer()
+
         if len(mem_start) > 0 and len(mem_max) > 0 :
             game.deployServer(mem_start=mem_start, mem_max=mem_max)
         elif len(mem_start) > 0:
@@ -131,6 +137,7 @@ def downloadServer():
             game.deployServer(mem_max=mem_max)
         else :
             game.deployServer()
+
     except getopt.GetoptError:
         print("The arguments is invalid!") 
 
@@ -165,7 +172,7 @@ def help(isClient = True):
 
         Usage: 
            
-            orzmcs [-v server_version_number] [-s memory_start] [-x memory_max] [-h]
+            orzmcs [-v server_version_number] [-s memory_start] [-x memory_max] [-ho]
 
                 -v, --version 
                     Specified the Minecraft server version number to deploy
@@ -178,6 +185,9 @@ def help(isClient = True):
                 
                 -h, --help
                     show the server command usage info
+                
+                -o, --spigot
+                    deploy spigot server for performance boost
 
         """)
     exit(0)

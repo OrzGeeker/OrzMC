@@ -44,7 +44,7 @@ The game resources are saved under user's home directory, and named `.minecraft`
 
 # Tips
 
-This is not a game for one player, so you should invited someone you like to make you guys own beautiful world!!!
+This is not a game for one player, so you should invit someone you like to make you guys own beautiful world!!!
 
 # Video Introduction
 
@@ -53,8 +53,8 @@ https://youtu.be/gx-JeoW2K5I
 
 # TODO List
 
-- [ ] add Spigot Server deploy option
-- [ ] add a homepage for this project
+- [x] add Spigot Server deploy option
+- [x] add a homepage for this project
 - [ ] refine the project script for readable
 
 # Reference

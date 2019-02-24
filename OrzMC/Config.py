@@ -11,9 +11,11 @@ class Config:
     GAME_VERSION_DIR = os.path.join(GAME_ROOT_DIR,'versions')
     GAME_ASSET_DIR = os.path.join(GAME_ROOT_DIR,'assets')
     GAME_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'deploy')
+    GAME_SPIGOT_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'spigot')
 
-    def __init__(self,version):
+    def __init__(self,version, isSpigot = False):
         self.version=version
+        self.isSpigot = isSpigot
 
 
     def version_json_path(self):
@@ -66,9 +68,23 @@ class Config:
 
     def server_deploy_path(self):
         '''Server Deploy Path'''
-        deployPath = Config.GAME_DEPLOY_DIR
+        deployPath = Config.GAME_SPIGOT_DEPLOY_DIR if self.isSpigot else Config.GAME_DEPLOY_DIR
         makedirs(deployPath)
         return deployPath
 
     def eula_path(self):
         return os.path.join(self.server_deploy_path(), 'eula.txt')
+
+    def properties_path(self):
+        return os.path.join(self.server_deploy_path(), 'server.properties')
+    
+    def server_deploy_build_path(self):
+        deployBuildPath = os.path.join(self.server_deploy_path(), 'build')
+        makedirs(deployBuildPath)
+        return deployBuildPath
+
+    def server_spigot_jar_path(self, isInBuildDir=False):
+        return os.path.join(self.server_deploy_build_path() if isInBuildDir else self.server_deploy_path(), 'spigot-' + self.version + '.jar')
+
+    def server_craftbukkit_jar_path(self, isInBuildDir=False):
+        return os.path.join(self.server_deploy_build_path() if isInBuildDir else self.server_deploy_path(), 'craftbukkit-' + self.version + '.jar')
