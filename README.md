@@ -1,5 +1,3 @@
-![Minecraft-Client](screenshots/minecraft-client.png)
-
 # OrzMC
 
 A tool for deploying minecraft client and server
@@ -26,6 +24,8 @@ Requires Java Runtime Environment to be configured!
 **You should have a jre runtime on you device**
 
 ## Run Client
+
+![Minecraft-Client](screenshots/minecraft-client.png)
 
 `orzmc -h` to check the help info
 ```
