@@ -1,22 +1,22 @@
 # OrzMC
 
-A project for deploy minecraft client and server
+A tool for deploying minecraft client and server
 
-Only support Python >=2.7, <4
+Only supports Python >=2.7, <4
 
-Require Java Runtime Environment Configured!
+Requires Java Runtime Environment to be configured!
 
 # Supported Minecraft Client Version
 
-- support all version client version
+- supports all versions of client
 
-- you should make sure the version of the minecraft server that you will connect the same as client.
+- you should make sure the version of the minecraft server that you will connect to is the same as that of the client.
 
 - This Program has been uploaded into PyPI
 
-# Support Operation System
+# Supported Operating System
 
-- main for MacOS.
+- mainly for MacOS.
 - Maybe can run on windows, as a backup schema.
 
 # Usage
@@ -37,7 +37,7 @@ $ pip install orzmc
 $ orzmcs
 ```
 
-The Game Content be saved under user's home directory, and named `.minecraft`
+The game resources are saved under user's home directory, and named `.minecraft`
 
 # Tips
 
