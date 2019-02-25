@@ -27,14 +27,15 @@ Requires Java Runtime Environment to be configured!
 
 ![Minecraft-Client](screenshots/minecraft-client.png)
 
-`orzmc -h` to check the help info
-
 ### run the client normally with latest version and default username
+
+`orzmc -h` to check the help info
 
 ```bash
 $ pip install orzmc
 $ orzmc
 ```
+![orzmc](screenshots/orzmc.png)
 
 ### if you know the client version and your username
 
@@ -42,8 +43,6 @@ $ orzmc
 $ pip install orzmc
 $ orzmc -v 1.13.2 -u player
 ```
-
-![orzmc](screenshots/orzmc.png)
 
 ## Deploy Server
 
