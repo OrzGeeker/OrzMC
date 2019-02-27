@@ -90,6 +90,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] add world backup function
 - [ ] refine the project script for readable
 - [ ] automation the process of installing JDK/JRE Runtime
+- [ ] add some unit test case to guarantee quality
 
 # Reference
 
