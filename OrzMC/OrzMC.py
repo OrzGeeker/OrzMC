@@ -4,15 +4,97 @@ from .GameDownloader import GameDownloader
 import sys, getopt
 from .Mojang import Mojang
 from .utils import hint, ColorString
+from .Config import Config
 
-version = ""
-username = "guest"
 
-def showVersionList(isShow = True, isServer = False):
+config = None
+
+def start():
+
+    global config
+
+    is_client = True
+    version = None
+    username = None
+    game_type = Config.GAME_TYPE_PURE
+    mem_min = None
+    mem_max = None
+
+    try:
+
+        opts, _ = getopt.getopt(sys.argv[1:], "sv:u:t:m:x:h", ["server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "help"])
+
+        for o, a in opts:
+
+            if o in ["-s", "--server"]:
+                is_client = False
+
+            if o in ["-v", "--version"]:
+                if len(a) > 0:
+                    version = a
+
+            if o in ["-u", "--username"]:
+                if len(a) > 0:
+                    username = a
+
+            if o in ["-t", "--game_type"]:
+                if len(a) > 0:
+                    game_type = a
+
+            if o in ["-m" "--mem_min"]:
+                if len(a) > 0:
+                    mem_min = a
+
+            if o in ["-x", "--mem_max"]:
+                if len(a) > 0:
+                    mem_max = a
+
+            if o in ["-h", "--help"]:
+                help()
+
+        config = Config(is_client = is_client, version = version, username = username, game_type = game_type, mem_min = mem_min, mem_max = mem_max)
+        
+        # 交互前
+        config.status()
+
+        # 用户交互
+        userInteraction()
+
+        # 交互后
+        config.status()
+
+        if config.is_client:
+
+            # 启动客户端
+            startClient()
+        else:
+            # 启动服务端
+            startServer()
+
+    except getopt.GetoptError:
+
+        print("The arguments is invalid!") 
+
+
+def userInteraction():
     
-    global version
+    global config
 
-    if not isShow: return
+    if config == None: 
+        return 
+
+    showVersionList()
+
+    # 仅客户端显示
+    showUserName()
+
+    
+def showVersionList():
+
+    global config
+
+    if config.version != None:
+        return 
 
     allVersions = Mojang.get_version_list(update=True)
     releases = list(filter(lambda version: version.get('type') == 'release', allVersions))
@@ -30,164 +112,80 @@ def showVersionList(isShow = True, isServer = False):
     print(ColorString.string(versionInfo,ColorString.FG_GREEN,displayMode=ColorString.HIGHLIGHT))
 
     if len(releaseVersions) > 0:
-        version = releaseVersions[0]
+        config.version = releaseVersions[0] # 默认版本号
 
-    select = hint(ColorString.warn('\nPlease select a version number of above list to %s %s ') % ('deploy' if isServer else 'play' , ColorString.error('(default: %s):' % version)))
+    select = hint(ColorString.warn('\nPlease select a version number of above list to %s %s ') % ('deploy' if not config.is_client else 'play' , ColorString.error('(default: %s):' % config.version)))
     if len(select) > 0:
         found = False
         for releaseVersion in releaseVersions: 
             if releaseVersion == select.strip():
                 found = True
-                version = releaseVersion
-                print(ColorString.confirm('You choose the version: %s') % version)
+                config.version = releaseVersion
+                print(ColorString.confirm('You choose the version: %s') % config.version)
         if not found:
             print(ColorString.warn('There is no such a release version game, use default!'))
     else:
-        print(ColorString.confirm('You choose the default version(%s)!') % version)
+        print(ColorString.confirm('You choose the default version(%s)!') % config.version)
 
-def showUserName(isShow):
+def showUserName():
 
-    if not isShow: return 
+    global config
 
-    global username
+    if  not config.is_client or config.username != None:
+        return 
 
-    u = hint(ColorString.warn('Please choose a username %s ') % ColorString.error('(default: %s):' % username))
+    # 默认用户名
+    config.username = "guest"
+
+    u = hint(ColorString.warn('Please choose a username %s ') % ColorString.error('(default: %s):' % config.username))
     if len(u) > 0:
-        username = u
-        print(ColorString.confirm('You username in game is: %s') % username)
+        config.username = u
+        print(ColorString.confirm('You username in game is: %s') % config.username)
     else:
         print(ColorString.warn('Use the default username!!!'))
 
 
 def startClient():
+    global config
+    GameDownloader(config).startClient()
 
-    isShowList = True
-    isShowUserName = True
-
-    global version
-    global username
-
-    try:
-        opts, _ = getopt.getopt(sys.argv[1:], "v:u:h", ["version=", "username=","help"])
-        for o, a in opts:
-            if o in ["-v", "--version"]:
-                if len(a) > 0:
-                    version = a
-                    isShowList = False
-            if o in ["-u", "--username"]:
-                if len(a) > 0:
-                    username = a
-                    isShowUserName = False
-            if o in ["-h", "--help"]:
-                help()
-
-        showVersionList(isShowList)
-        showUserName(isShowUserName)
-        game = GameDownloader(version)
-        game.downloadGameJSON()
-        game.downloadClient()
-        game.downloadAssetIndex()
-        game.downloadAssetObjects()
-        game.donwloadLibraries()
-        game.startCient(user=username)
-
-    except getopt.GetoptError:
-        print("The arguments is invalid!")
-
-def downloadServer():
-    
-    global version
-
-    mem_start = ""
-    mem_max = ""
-    isShowList = True
-    isSpigotServer = False
-
-    try:
-
-        opts, _ = getopt.getopt(sys.argv[1:], "v:s:x:ho", ["version=", "mem_start=", "mem_max=","help", "spigot"])
-        for o, a in opts:
-            if o in ["-v", "--version"]:
-                if len(a) > 0:
-                    version = a
-                    isShowList = False
-            if o in ["-s", "--mem_start"]:
-                if len(a) > 0:
-                    mem_start = a
-            if o in ["-x", "--mem_max"]:
-                if len(a) > 0:
-                    mem_max = a               
-            if o in ["-h", "--help"]:
-                help(False)
-            if o in ["-o", "--spigot"]:
-                isSpigotServer = True
+def startServer():
+    global config
+    GameDownloader(config).deployServer()
 
 
-        showVersionList(isShowList, isServer=True)
-        game = GameDownloader(version, isSpigot=isSpigotServer)
-        if not isSpigotServer:
-            game.downloadGameJSON()
-            game.downloadServer()
+def help():
+    print("""
+    NAME
 
-        if len(mem_start) > 0 and len(mem_max) > 0 :
-            game.deployServer(mem_start=mem_start, mem_max=mem_max)
-        elif len(mem_start) > 0:
-            game.deployServer(mem_start=mem_start)
-        elif len(mem_max) > 0:
-            game.deployServer(mem_max=mem_max)
-        else :
-            game.deployServer()
+        orzmc -- A command line tool for start minecraft client or deploy minecraft server
 
-    except getopt.GetoptError:
-        print("The arguments is invalid!") 
+    Usage
 
+        orzmc [-v client_version_number] [-u username] [-h]
 
-def help(isClient = True):
+            -s, --server
+                deploy minecraft server, if there is no this flag, this command line tool start minecraft as default
+        
+            -v, --version  
+                Specified the Minecraft clinet version number to start
 
-    if isClient:
-        print("""
-        NAME
+            -u, --username 
+                pick an username for player when start the client
 
-            orzmc -- A command for start minecraft client
+            -t, --game_type
+                Specified the type of game, such as "pure"/"spigot"/"forge"
 
-        Usage
+            -m, --mem_min
+                Specified the JVM initial memory allocation
 
-            orzmc [-v client_version_number] [-u username] [-h]
+            -x, --mem_max
+                Specified the JVM max memory allocation
 
-                -v, --version  
-                    Specified the Minecraft clinet version number to start
+            -h, --help 
+                show the command usage info
 
-                -u, --username 
-                    pick an username for player when start the client
-
-                -h, --help 
-                    show the client command usage info
-
-        """)
-    else:
-        print("""
-        NAME
-
-            orzmcs -- A tool for deploy minecraft server
-
-        Usage: 
-           
-            orzmcs [-v server_version_number] [-s memory_start] [-x memory_max] [-ho]
-
-                -v, --version 
-                    Specified the Minecraft server version number to deploy
-                
-                -s, --mem_start 
-                    Specified the JVM initial memory allocation
-                
-                -x, --mem_max
-                    Specified the JVM max memory allocation
-                
-                -h, --help
-                    show the server command usage info
-                
-                -o, --spigot
-                    deploy spigot server for performance boost
-
-        """)
+    """)
     exit(0)
+
+    

@@ -35,8 +35,7 @@ setuptools.setup(
     ],
     entry_points = {
         'console_scripts': [
-            'orzmc = OrzMC:startClient',
-            'orzmcs = OrzMC:downloadServer'
+            'orzmc = OrzMC:start'
         ]
     }
 )

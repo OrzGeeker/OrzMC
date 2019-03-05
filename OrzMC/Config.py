@@ -5,6 +5,10 @@ from .utils import makedirs, platformType
 
 class Config:
 
+    GAME_TYPE_PURE = 'pure'
+    GAME_TYPE_SPIGOT = 'spigot'
+    GAME_TYPE_FORGE = 'forge'
+    
     BASE_PATH = os.path.expanduser('~')
     GAME_ROOT_DIR = os.path.join(BASE_PATH,'.minecraft')
     GAME_LIB_DIR = os.path.join(GAME_ROOT_DIR,'libraries')
@@ -13,10 +17,21 @@ class Config:
     GAME_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'deploy')
     GAME_SPIGOT_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'spigot')
 
-    def __init__(self,version, isSpigot = False):
-        self.version=version
-        self.isSpigot = isSpigot
 
+    def __init__(self, is_client=True, version=None, username=None, game_type=GAME_TYPE_PURE, mem_min=None, mem_max=None):
+        self.is_client = is_client
+        self.version = version
+        self.username = username
+        self.game_type = game_type
+        self.mem_min = mem_min
+        self.mem_max = mem_max
+        self.isSpigot = (self.game_type == Config.GAME_TYPE_SPIGOT)
+
+    def status(self):
+        print(self.is_client)
+        print(self.version)
+        print(self.username)
+        print(self.game_type)
 
     def version_json_path(self):
         '''Game Config JSON File Path'''

@@ -31,11 +31,11 @@ signal.signal(signal.SIGTERM, sigint_handler)
 
 class GameDownloader:
 
-    def __init__(self, version, isSpigot = False):
+    def __init__(self, config = None):
         self._game=None
         self._assets=None
         self._javaClassPathList = None
-        self.config = Config(version, isSpigot=isSpigot)
+        self.config = config
 
     def download(self, url, dir):
         global is_sigint_up
@@ -373,7 +373,20 @@ class GameDownloader:
         arguments = ' '.join(arguments)
         return arguments
 
-    def startCient(self, user, resolution = (None,None)):
+    def startClient(self):
+
+        if not self.config.is_client:
+            return 
+
+        self.downloadGameJSON()
+        self.downloadClient()
+        self.downloadAssetIndex()
+        self.downloadAssetObjects()
+        self.donwloadLibraries()
+
+        user = self.config.username
+        resolution = (None,None)
+
         global is_sigint_up
         if is_sigint_up:
             return
@@ -400,10 +413,22 @@ class GameDownloader:
         else:
             print("Server Jar File have been downloaded")
 
-    def deployServer(self, mem_start='512M', mem_max="1024M"):
+    def deployServer(self):
         '''deploy minecraft server'''
+
+        if self.config.is_client:
+            return
+
+        if self.config.game_type == Config.GAME_TYPE_PURE:
+            self.downloadGameJSON()
+            self.downloadServer()
+
+        mem_start = self.config.mem_min if self.config.mem_min != None else '512M'
+        mem_max = self.config.mem_max if self.config.mem_max != None else '1024M'
+
         if self.config.isSpigot and not os.path.exists(self.config.server_spigot_jar_path()):
             self.buildSpigotServer()
+            
         (serverJARFilePath, _, _) = self.serverJARFilePath()
         jarFilePath = self.config.server_spigot_jar_path() if self.config.isSpigot else serverJARFilePath
         self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts=' -XX:+UseConcMarkSweepGC'))
