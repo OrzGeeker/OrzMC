@@ -31,7 +31,8 @@ setuptools.setup(
     install_requires=[
         'requests',
         'progressbar2',
-        'twine'
+        'twine',
+        'beautifulsoup4'
     ],
     entry_points = {
         'console_scripts': [

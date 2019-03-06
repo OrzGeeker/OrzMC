@@ -3,6 +3,7 @@
 from .Mojang import Mojang
 from .Config import Config
 from .Spigot import Spigot
+from .Forge import Forge
 from .utils import checkFileExist, isPy3, platformType, ColorString
 import json
 import requests
@@ -66,20 +67,23 @@ class Game:
 
         if self.config.is_client:
             return
-
+        
         if self.config.isPure:
             self.downloadGameJSON()
             self.downloadServer()
             (serverJARFilePath, _, _) = self.serverJARFilePath()
             jarFilePath = serverJARFilePath
-        elif self.config.isSpigot and not os.path.exists(self.config.server_spigot_jar_path()):
-            self.buildSpigotServer()
+        elif self.config.isSpigot:
+            if not os.path.exists(self.config.server_spigot_jar_path()):
+                self.buildSpigotServer()
             jarFilePath = self.config.server_spigot_jar_path()
-        elif self.config.isForge and not os.path.exists(self.config.server_forge_jar_path()):
-            self.buildForgeServer()
+        elif self.config.isForge:
+            self.config.getForgeInfo()
+            if not os.path.exists(self.config.server_forge_jar_path()):
+                self.buildForgeServer()
             jarFilePath = self.config.server_forge_jar_path()
         else:
-            print(ColorString('Your choosed server is not exist!!!\nCurrently, there are three type server: pure/spigot/forge'))
+            print(ColorString.warn('Your choosed server is not exist!!!\nCurrently, there are three type server: pure/spigot/forge'))
             return
 
         mem_start = self.config.mem_min if self.config.mem_min != None else '512M'
@@ -486,10 +490,6 @@ class Game:
     def buildSpigotServer(self):
         '''构建SpigotServer'''
 
-        jarFilePath = self.config.server_spigot_jar_path()
-        if os.path.exist(jarFilePath):
-            return 
-
         version = self.config.version
         spigot = Spigot(version)
         print(ColorString.warn('Start download the spigot build tool jar file...'))
@@ -513,5 +513,18 @@ class Game:
     
     # 构建Forge服务器
     def buildForgeServer(self):
-        print('build forge server!')
-        pass
+        '''构建Forge服务器'''
+
+        print(ColorString.warn('Start download the forge installer jar file...'))
+        self.download(self.config.forgeInfo.forge_installer_url, self.config.server_deploy_path())
+        print(ColorString.confirm('Forge installer jar download completed!!!'))
+
+        installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
+        installServerCmd = 'java -jar ' + installerJarFilePath + ' --installServer'
+
+        print(ColorString.warn('Start install the forge server jar file ...'))
+        os.chdir(self.config.server_deploy_path())
+        os.system(installServerCmd)
+        print(ColorString.confirm('Completed! And the forge server file generated!'))
+
+
