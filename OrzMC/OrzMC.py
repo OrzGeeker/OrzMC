@@ -5,7 +5,7 @@ import sys, getopt
 from .Mojang import Mojang
 from .utils import hint, ColorString
 from .Config import Config
-
+from .Constants import *
 
 config = None
 
@@ -52,140 +52,93 @@ def start():
             if o in ["-h", "--help"]:
                 help()
 
+        # 生成配置信息对象
         config = Config(is_client = is_client, version = version, username = username, game_type = game_type, mem_min = mem_min, mem_max = mem_max)
         
         # 交互前
         config.status()
 
         # 用户交互
-        userInteraction()
+        userInteraction(config)
 
         # 交互后
         config.status()
 
         if config.is_client:
-
             # 启动客户端
-            startClient()
+            GameDownloader(config).startClient()
         else:
             # 启动服务端
-            startServer()
+            GameDownloader(config).deployServer()
 
     except getopt.GetoptError:
 
-        print("The arguments is invalid!") 
+        print(OPTION_ERR_INFO) 
 
 
-def userInteraction():
+def userInteraction(config):
     
-    global config
-
     if config == None: 
         return 
 
-    showVersionList()
+    # 显示可用版本信息
+    showVersionList(config)
 
     # 仅客户端显示
-    showUserName()
+    showUserName(config)
 
     
-def showVersionList():
-
-    global config
+def showVersionList(config):
 
     if config.version != None:
         return 
+    
+    releaseVersions = Mojang.get_release_version_id_list(update = True)
 
-    allVersions = Mojang.get_version_list(update=True)
-    releases = list(filter(lambda version: version.get('type') == 'release', allVersions))
-    releaseVersions = list(map(lambda info: info.get('id', ''), releases))
-    print(ColorString.warn('\nAll Release Versions as follow:\n'))
-    tabSpace = '\t'
-    lineLeadingSpace = '  '
-    versionInfo = lineLeadingSpace
+    print(ALL_VERSIONS_HINT)
+
+    versionInfo = LEADING_SPACE
     for index, releaseVersion in enumerate(releaseVersions): 
         versionInfo = versionInfo + str(releaseVersion)
         if (index + 1) % 9 == 0:
-            versionInfo = versionInfo + '\n' + lineLeadingSpace
+            versionInfo = versionInfo + '\n' + LEADING_SPACE
         else:
-            versionInfo = versionInfo + tabSpace
+            versionInfo = versionInfo + TAB_SPACE
+
     print(ColorString.string(versionInfo,ColorString.FG_GREEN,displayMode=ColorString.HIGHLIGHT))
 
     if len(releaseVersions) > 0:
         config.version = releaseVersions[0] # 默认版本号
 
-    select = hint(ColorString.warn('\nPlease select a version number of above list to %s %s ') % ('deploy' if not config.is_client else 'play' , ColorString.error('(default: %s):' % config.version)))
+    select = hint(SELECT_VERSION_HINT % ('deploy' if not config.is_client else 'play' , DEFAULT_VERSION_HINT % config.version))
     if len(select) > 0:
         found = False
         for releaseVersion in releaseVersions: 
             if releaseVersion == select.strip():
                 found = True
                 config.version = releaseVersion
-                print(ColorString.confirm('You choose the version: %s') % config.version)
+                print(CHOOSED_VERSION % config.version)
         if not found:
-            print(ColorString.warn('There is no such a release version game, use default!'))
+            print(NOT_FOUND_VERSION)
     else:
-        print(ColorString.confirm('You choose the default version(%s)!') % config.version)
+        print(CHOOSED_DEFAULT_VERSION % config.version)
 
-def showUserName():
+def showUserName(config):
 
-    global config
-
-    if  not config.is_client or config.username != None:
+    if config == None or not config.is_client or config.username != None:
         return 
 
-    # 默认用户名
-    config.username = "guest"
+    config.username = DEFAULT_USERNAME
 
-    u = hint(ColorString.warn('Please choose a username %s ') % ColorString.error('(default: %s):' % config.username))
+    u = hint(CHOOSE_USERNAME_HINT % config.username)
     if len(u) > 0:
         config.username = u
-        print(ColorString.confirm('You username in game is: %s') % config.username)
+        print(CHOOSED_USERNAME % config.username)
     else:
-        print(ColorString.warn('Use the default username!!!'))
-
-
-def startClient():
-    global config
-    GameDownloader(config).startClient()
-
-def startServer():
-    global config
-    GameDownloader(config).deployServer()
-
+        print(CHOOSED_DEFAULT_USERNAME)
 
 def help():
-    print("""
-    NAME
-
-        orzmc -- A command line tool for start minecraft client or deploy minecraft server
-
-    Usage
-
-        orzmc [-v client_version_number] [-u username] [-h]
-
-            -s, --server
-                deploy minecraft server, if there is no this flag, this command line tool start minecraft as default
-        
-            -v, --version  
-                Specified the Minecraft clinet version number to start
-
-            -u, --username 
-                pick an username for player when start the client
-
-            -t, --game_type
-                Specified the type of game, such as "pure"/"spigot"/"forge"
-
-            -m, --mem_min
-                Specified the JVM initial memory allocation
-
-            -x, --mem_max
-                Specified the JVM max memory allocation
-
-            -h, --help 
-                show the command usage info
-
-    """)
+    print(HELP_INFO)
     exit(0)
 
     
