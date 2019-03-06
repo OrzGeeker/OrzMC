@@ -34,12 +34,16 @@ class Mojang:
         return Mojang.versions
 
     @classmethod
-    def get_release_version_list(cls):
+    def get_release_version_list(cls, update = False):
         '''Get Game Release Version List'''
-        versions = Mojang.get_version_list()
+        versions = Mojang.get_version_list(update = update)
         release = list(filter(lambda version: version.get('type') == 'release', versions))
         return release
 
+    @classmethod
+    def get_release_version_id_list(cls, update = False):
+        releases = Mojang.get_release_version_list(update)
+        return list(map(lambda info: info.get('id', ''), releases))
 
     @classmethod
     def get_release_game_json(cls, id):
