@@ -16,6 +16,7 @@ class Config:
     GAME_ASSET_DIR = os.path.join(GAME_ROOT_DIR,'assets')
     GAME_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'deploy')
     GAME_SPIGOT_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'spigot')
+    GAME_FORGE_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'forge')
 
 
     def __init__(self, is_client=True, version=None, username=None, game_type=GAME_TYPE_PURE, mem_min=None, mem_max=None):
@@ -26,6 +27,8 @@ class Config:
         self.mem_min = mem_min
         self.mem_max = mem_max
         self.isSpigot = (self.game_type == Config.GAME_TYPE_SPIGOT)
+        self.isForge = (self.game_type == Config.GAME_TYPE_FORGE)
+        self.isPure = (self.game_type == Config.GAME_TYPE_PURE)
 
     def status(self):
         print(self.is_client)
@@ -83,7 +86,16 @@ class Config:
 
     def server_deploy_path(self):
         '''Server Deploy Path'''
-        deployPath = Config.GAME_SPIGOT_DEPLOY_DIR if self.isSpigot else Config.GAME_DEPLOY_DIR
+
+        if self.isPure:
+            deployPath = Config.GAME_DEPLOY_DIR
+        elif self.isSpigot:
+            deployPath = Config.GAME_SPIGOT_DEPLOY_DIR
+        elif self.isForge:
+            deployPath = Config.GAME_FORGE_DEPLOY_DIR
+        else:
+            deployPath = Config.GAME_DEPLOY_DIR
+
         makedirs(deployPath)
         return deployPath
 
@@ -103,3 +115,6 @@ class Config:
 
     def server_craftbukkit_jar_path(self, isInBuildDir=False):
         return os.path.join(self.server_deploy_build_path() if isInBuildDir else self.server_deploy_path(), 'craftbukkit-' + self.version + '.jar')
+
+    def server_forge_jar_path(self):
+        return os.path.join(self.server_deploy_path(), 'forge-' + self.version + '.jar')
