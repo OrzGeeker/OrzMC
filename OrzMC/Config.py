@@ -2,6 +2,7 @@
 
 import os
 from .utils import makedirs, platformType
+from .Forge import Forge
 
 class Config:
 
@@ -29,6 +30,12 @@ class Config:
         self.isSpigot = (self.game_type == Config.GAME_TYPE_SPIGOT)
         self.isForge = (self.game_type == Config.GAME_TYPE_FORGE)
         self.isPure = (self.game_type == Config.GAME_TYPE_PURE)
+
+    def getForgeInfo(self):
+        if self.isForge:
+            self.forgeInfo = Forge(version = self.version)
+        else:
+            self.forgeInfo = None
 
     def status(self):
         print(self.is_client)
@@ -117,4 +124,4 @@ class Config:
         return os.path.join(self.server_deploy_build_path() if isInBuildDir else self.server_deploy_path(), 'craftbukkit-' + self.version + '.jar')
 
     def server_forge_jar_path(self):
-        return os.path.join(self.server_deploy_path(), 'forge-' + self.version + '.jar')
+        return os.path.join(self.server_deploy_path(), self.forgeInfo.fullVersion + '.jar')
