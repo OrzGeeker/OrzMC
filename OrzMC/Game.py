@@ -29,13 +29,62 @@ signal.signal(signal.SIGHUP, sigint_handler)
 signal.signal(signal.SIGTERM, sigint_handler)
 
 
-class GameDownloader:
+class Game:
 
     def __init__(self, config = None):
         self._game=None
         self._assets=None
         self._javaClassPathList = None
         self.config = config
+
+    # 启动客户端
+    def startClient(self):
+
+        if not self.config.is_client:
+            return 
+
+        self.downloadGameJSON()
+        self.downloadClient()
+        self.downloadAssetIndex()
+        self.downloadAssetObjects()
+        self.donwloadLibraries()
+
+        user = self.config.username
+        resolution = (None,None)
+
+        global is_sigint_up
+        if is_sigint_up:
+            return
+
+        cmd = self.gameArguments(user,resolution)
+        backgroundCmd = 'start ' + cmd if platformType == 'windows' else cmd + ' &'
+        os.system(backgroundCmd)
+
+    # 部署服务端
+    def deployServer(self):
+        '''deploy minecraft server'''
+
+        if self.config.is_client:
+            return
+
+        if self.config.isPure:
+            self.downloadGameJSON()
+            self.downloadServer()
+            (serverJARFilePath, _, _) = self.serverJARFilePath()
+            jarFilePath = serverJARFilePath
+        elif self.config.isSpigot and not os.path.exists(self.config.server_spigot_jar_path()):
+            self.buildSpigotServer()
+            jarFilePath = self.config.server_spigot_jar_path()
+        elif self.config.isForge and not os.path.exists(self.config.server_forge_jar_path()):
+            self.buildForgeServer()
+            jarFilePath = self.config.server_forge_jar_path()
+        else:
+            print(ColorString('Your choosed server is not exist!!!\nCurrently, there are three type server: pure/spigot/forge'))
+            return
+
+        mem_start = self.config.mem_min if self.config.mem_min != None else '512M'
+        mem_max = self.config.mem_max if self.config.mem_max != None else '1024M'
+        self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts=' -XX:+UseConcMarkSweepGC'))
 
     def download(self, url, dir):
         global is_sigint_up
@@ -373,27 +422,6 @@ class GameDownloader:
         arguments = ' '.join(arguments)
         return arguments
 
-    def startClient(self):
-
-        if not self.config.is_client:
-            return 
-
-        self.downloadGameJSON()
-        self.downloadClient()
-        self.downloadAssetIndex()
-        self.downloadAssetObjects()
-        self.donwloadLibraries()
-
-        user = self.config.username
-        resolution = (None,None)
-
-        global is_sigint_up
-        if is_sigint_up:
-            return
-
-        cmd = self.gameArguments(user,resolution)
-        backgroundCmd = 'start ' + cmd if platformType == 'windows' else cmd + ' &'
-        os.system(backgroundCmd)
 
 # Server
     def serverJARFilePath(self):
@@ -413,25 +441,7 @@ class GameDownloader:
         else:
             print("Server Jar File have been downloaded")
 
-    def deployServer(self):
-        '''deploy minecraft server'''
 
-        if self.config.is_client:
-            return
-
-        if self.config.game_type == Config.GAME_TYPE_PURE:
-            self.downloadGameJSON()
-            self.downloadServer()
-
-        mem_start = self.config.mem_min if self.config.mem_min != None else '512M'
-        mem_max = self.config.mem_max if self.config.mem_max != None else '1024M'
-
-        if self.config.isSpigot and not os.path.exists(self.config.server_spigot_jar_path()):
-            self.buildSpigotServer()
-            
-        (serverJARFilePath, _, _) = self.serverJARFilePath()
-        jarFilePath = self.config.server_spigot_jar_path() if self.config.isSpigot else serverJARFilePath
-        self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts=' -XX:+UseConcMarkSweepGC'))
 
     def startCommand(self, mem_s, mem_x, serverJARFilePath, jvm_opts = ''):
         '''construct server start command'''
@@ -472,8 +482,14 @@ class GameDownloader:
                 f.write(offline_properties)
                 print(ColorString.confirm('Setting the server to offline mode, next launch this setting take effect!!!'))
 
+    # 构建SpigotServer
     def buildSpigotServer(self):
         '''构建SpigotServer'''
+
+        jarFilePath = self.config.server_spigot_jar_path()
+        if os.path.exist(jarFilePath):
+            return 
+
         version = self.config.version
         spigot = Spigot(version)
         print(ColorString.warn('Start download the spigot build tool jar file...'))
@@ -494,5 +510,8 @@ class GameDownloader:
         shutil.move(self.config.server_craftbukkit_jar_path(isInBuildDir=True), self.config.server_craftbukkit_jar_path())
         os.chdir(self.config.server_deploy_path())
         shutil.rmtree(self.config.server_deploy_build_path())
-
-        
+    
+    # 构建Forge服务器
+    def buildForgeServer(self):
+        print('build forge server!')
+        pass

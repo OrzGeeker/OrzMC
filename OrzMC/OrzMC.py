@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from .GameDownloader import GameDownloader
+from .Game import Game
 import sys, getopt
 from .Mojang import Mojang
 from .utils import hint, ColorString
@@ -55,21 +55,16 @@ def start():
         # 生成配置信息对象
         config = Config(is_client = is_client, version = version, username = username, game_type = game_type, mem_min = mem_min, mem_max = mem_max)
         
-        # 交互前
-        config.status()
-
         # 用户交互
         userInteraction(config)
 
-        # 交互后
-        config.status()
 
         if config.is_client:
             # 启动客户端
-            GameDownloader(config).startClient()
+            Game(config).startClient()
         else:
             # 启动服务端
-            GameDownloader(config).deployServer()
+            Game(config).deployServer()
 
     except getopt.GetoptError:
 
