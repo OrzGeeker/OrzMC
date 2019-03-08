@@ -17,7 +17,8 @@ class Config:
     GAME_ASSET_DIR = os.path.join(GAME_ROOT_DIR,'assets')
     GAME_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'deploy')
     GAME_SPIGOT_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'spigot')
-    GAME_FORGE_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'forge')
+    GAME_FORGE_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'forge-server')
+    GAME_FORGE_CLIENT_DIR = os.path.join(GAME_ROOT_DIR, 'forge-client')
 
 
     def __init__(self, is_client=True, version=None, username=None, game_type=GAME_TYPE_PURE, mem_min=None, mem_max=None):
@@ -125,3 +126,7 @@ class Config:
 
     def server_forge_jar_path(self):
         return os.path.join(self.server_deploy_path(), self.forgeInfo.fullVersion + '.jar')
+
+    def client_forge_path(self):
+        makedirs(Config.GAME_FROGE_CLIENT_DIR)
+        return Config.GAME_FROGE_CLIENT_DIR

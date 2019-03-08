@@ -44,11 +44,18 @@ class Game:
         if not self.config.is_client:
             return 
 
-        self.downloadGameJSON()
-        self.downloadClient()
-        self.downloadAssetIndex()
-        self.downloadAssetObjects()
-        self.donwloadLibraries()
+        if self.config.isPure :
+            self.downloadGameJSON()
+            self.downloadClient()
+            self.downloadAssetIndex()
+            self.downloadAssetObjects()
+            self.donwloadLibraries()
+        elif self.config.isForge:
+            self.config.getForgeInfo()
+            self.buildForgeClient()
+            return
+        else:
+            pass
 
         user = self.config.username
         resolution = (None,None)
@@ -511,6 +518,20 @@ class Game:
         os.chdir(self.config.server_deploy_path())
         shutil.rmtree(self.config.server_deploy_build_path())
     
+    def buildForgeClient(self):
+        '''构建Forge客户端'''
+        print(ColorString.warn('Start download the forge installer jar file...'))
+        self.download(self.config.forgeInfo.forge_installer_url, self.config.client_forge_path())
+        print(ColorString.confirm('Forge installer jar download completed!!!'))
+
+        installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
+        installClientCmd = 'java -jar ' + installerJarFilePath + ' --installClient'
+
+        print(ColorString.warn('Start install the forge client jar file ...'))
+        os.chdir(self.config.client_forge_path())
+        os.system(installClientCmd)
+        print(ColorString.confirm('Completed! And the forge client file generated!'))
+        
     # 构建Forge服务器
     def buildForgeServer(self):
         '''构建Forge服务器'''
@@ -526,5 +547,3 @@ class Game:
         os.chdir(self.config.server_deploy_path())
         os.system(installServerCmd)
         print(ColorString.confirm('Completed! And the forge server file generated!'))
-
-
