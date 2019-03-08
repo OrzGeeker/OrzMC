@@ -52,10 +52,11 @@ class Game:
             self.donwloadLibraries()
         elif self.config.isForge:
             self.config.getForgeInfo()
-            self.buildForgeClient()
-            return
+            if not os.path.exists(self.config.client_forge_jar_path()):
+                self.extractForgeClient()
         else:
-            pass
+            ColorString.warn('Not Known Client!!!!')
+            return
 
         user = self.config.username
         resolution = (None,None)
@@ -65,6 +66,7 @@ class Game:
             return
 
         cmd = self.gameArguments(user,resolution)
+        print(cmd)
         backgroundCmd = 'start ' + cmd if platformType == 'windows' else cmd + ' &'
         os.system(backgroundCmd)
 
@@ -208,6 +210,9 @@ class Game:
             if(len(errorMsg) > 0):
                 print('\n'.join(errorMsg))
             self._javaClassPathList.append(self.config.client_jar_path())
+            if self.config.isForge:
+                self._javaClassPathList.append(self.config.client_forge_jar_path())
+
         return self._javaClassPathList
 
 # Assets
@@ -518,18 +523,18 @@ class Game:
         os.chdir(self.config.server_deploy_path())
         shutil.rmtree(self.config.server_deploy_build_path())
     
-    def buildForgeClient(self):
+    def extractForgeClient(self):
         '''构建Forge客户端'''
         print(ColorString.warn('Start download the forge installer jar file...'))
         self.download(self.config.forgeInfo.forge_installer_url, self.config.client_forge_path())
         print(ColorString.confirm('Forge installer jar download completed!!!'))
 
         installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
-        installClientCmd = 'java -jar ' + installerJarFilePath + ' --installClient'
+        extractForgeClientCmd = 'java -jar ' + installerJarFilePath + ' --extract ' + self.config.versionDir()
 
         print(ColorString.warn('Start install the forge client jar file ...'))
         os.chdir(self.config.client_forge_path())
-        os.system(installClientCmd)
+        os.system(extractForgeClientCmd)
         print(ColorString.confirm('Completed! And the forge client file generated!'))
         
     # 构建Forge服务器

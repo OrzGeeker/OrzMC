@@ -70,7 +70,9 @@ class Config:
     def client_jar_path(self):
         '''Client Game JAR File Path'''
         return os.path.join(Config.GAME_VERSION_DIR,self.version,'client.jar')
-    
+
+    def client_forge_jar_path(self):
+        return os.path.join(Config.GAME_VERSION_DIR, self.version, self.forgeInfo.fullVersion + '.jar')        
 
     def client_library_dir(self, subpath = None):
         '''Client Dependiencies Libraries Directory'''
@@ -86,6 +88,11 @@ class Config:
         dir = os.path.join(self.GAME_VERSION_DIR, self.version, self.version + '-native')
         makedirs(dir)
         return dir
+
+    def client_forge_path(self):
+        path = Config.GAME_FORGE_CLIENT_DIR
+        makedirs(path)
+        return path
 
     # Server
     def server_jar_path(self):
@@ -126,7 +133,3 @@ class Config:
 
     def server_forge_jar_path(self):
         return os.path.join(self.server_deploy_path(), self.forgeInfo.fullVersion + '.jar')
-
-    def client_forge_path(self):
-        makedirs(Config.GAME_FROGE_CLIENT_DIR)
-        return Config.GAME_FROGE_CLIENT_DIR
