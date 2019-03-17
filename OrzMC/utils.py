@@ -57,6 +57,7 @@ class ColorString:
     BG_PURPLE = 45
     BG_CYAN = 46
     BG_WHITE = 47
+    BG_DEFAULT = 0
 
     DEFUALT = 0
     HIGHLIGHT = 1
@@ -66,8 +67,11 @@ class ColorString:
     INVISIBLE = 5
 
     @classmethod
-    def string(cls, str, fg = FG_WHITE, bg = BG_BLACK, displayMode = DEFUALT):
-        return '\033[%s;%s;%sm%s\033[0m' % (displayMode, fg, bg, str)
+    def string(cls, str, fg = FG_WHITE, bg = BG_DEFAULT, displayMode = DEFUALT):
+        if bg == ColorString.BG_DEFAULT:
+            return '\033[%s;%sm%s\033[0m' % (displayMode, fg, str)
+        else:
+            return '\033[%s;%s;%sm%s\033[0m' % (displayMode, fg, bg, str)
 
     @classmethod
     def warn(cls, str):
