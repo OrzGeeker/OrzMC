@@ -66,7 +66,6 @@ class Game:
             return
 
         cmd = self.gameArguments(user,resolution)
-        print(cmd)
         backgroundCmd = 'start ' + cmd if platformType == 'windows' else cmd + ' &'
         os.system(backgroundCmd)
 
@@ -95,9 +94,14 @@ class Game:
             print(ColorString.warn('Your choosed server is not exist!!!\nCurrently, there are three type server: pure/spigot/forge'))
             return
 
-        mem_start = self.config.mem_min if self.config.mem_min != None else '512M'
-        mem_max = self.config.mem_max if self.config.mem_max != None else '1024M'
-        self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts=' -XX:+UseConcMarkSweepGC'))
+        mem_start = self.config.mem_min
+        mem_max = self.config.mem_max
+        jvm_opts = ' '.join([ 
+            '-XX:+UseG1GC',
+            '-XX:-UseAdaptiveSizePolicy',
+            '-XX:-OmitStackTraceInFastThrow'
+        ])
+        self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts= jvm_opts))
 
     def download(self, url, dir):
         global is_sigint_up
@@ -354,6 +358,7 @@ class Game:
 
     def gameArguments(self, user, resolution):
 
+        argPattern = r'\$\{(.*)\}'
         mainCls = self.game().get('mainClass')
         classPathList = self.javaClassPathList()
         sep = ';' if platformType() == 'windows' else ':'
@@ -383,8 +388,19 @@ class Game:
 
         arguments = [os.popen('which java').read().strip() if platformType() != 'windows' else 'javaw ']
 
+        mem_min = self.config.mem_min
+        mem_max = self.config.mem_max
+
+        jvm_opts = [
+            '-Xms%s' % mem_min,
+            '-Xmx%s' % mem_max,
+            '-XX:+UseG1GC',
+            '-XX:-UseAdaptiveSizePolicy',
+            '-XX:-OmitStackTraceInFastThrow'
+        ]
+        arguments.extend(jvm_opts)
+
         jvmArgs = self.game().get('arguments').get('jvm')
-        argPattern = r'\$\{(.*)\}'
         for arg in jvmArgs:
             if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
                 value_placeholder = re.search(argPattern,arg)
@@ -461,7 +477,7 @@ class Game:
 
     def startCommand(self, mem_s, mem_x, serverJARFilePath, jvm_opts = ''):
         '''construct server start command'''
-        cmd = 'java' + jvm_opts + ' -Xms' + mem_s + ' -Xmx' + mem_x + ' -jar ' + serverJARFilePath + ' nogui'
+        cmd = 'java ' + jvm_opts + ' -Xms' + mem_s + ' -Xmx' + mem_x + ' -jar ' + serverJARFilePath + ' nogui'
         return cmd
 
     def checkEULA(self):

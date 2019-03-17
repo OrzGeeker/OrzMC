@@ -17,8 +17,8 @@ def start():
     version = None
     username = None
     game_type = Config.GAME_TYPE_PURE
-    mem_min = None
-    mem_max = None
+    mem_min = '512M'
+    mem_max = '2048M'
 
     try:
 
@@ -94,8 +94,8 @@ def showVersionList(config):
 
     versionInfo = LEADING_SPACE
     for index, releaseVersion in enumerate(releaseVersions): 
-        versionInfo = versionInfo + str(releaseVersion)
-        if (index + 1) % 9 == 0:
+        versionInfo = versionInfo + VERSION_FORMATTER.format(str(releaseVersion))
+        if (index + 1) % 5 == 0:
             versionInfo = versionInfo + '\n' + LEADING_SPACE
         else:
             versionInfo = versionInfo + TAB_SPACE

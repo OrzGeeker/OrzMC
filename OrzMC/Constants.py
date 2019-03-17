@@ -39,8 +39,9 @@ OPTION_ERR_INFO = "The option is invalid!"
 from .utils import ColorString
 # 选择版本
 ALL_VERSIONS_HINT = ColorString.warn('\nAll Release Versions as follow:\n')
-TAB_SPACE = '\t'
+TAB_SPACE = ''
 LEADING_SPACE = '  '
+VERSION_FORMATTER='{:10}'
 SELECT_VERSION_HINT = ColorString.warn('\nPlease select a version number of above list to %s %s ')
 DEFAULT_VERSION_HINT = ColorString.error('(default: %s):')
 CHOOSED_VERSION = ColorString.confirm('You choose the version: %s')
