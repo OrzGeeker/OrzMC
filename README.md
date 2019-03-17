@@ -23,13 +23,47 @@ Requires Java Runtime Environment to be configured!
 
 **You should have a jre runtime on you device**
 
+`orzmc -h` to check the help info
+
+```bash
+(py3) $ orzmc -h 
+
+    NAME
+
+        orzmc -- A command line tool for start minecraft client or deploy minecraft server
+
+    Usage
+
+        orzmc [-v client_version_number] [-u username] [-h]
+
+            -s, --server
+                deploy minecraft server, if there is no this flag, this command line tool start minecraft a
+s default
+        
+            -v, --version  
+                Specified the Minecraft clinet version number to start
+
+            -u, --username 
+                pick an username for player when start the client
+
+            -t, --game_type
+                Specified the type of game, such as "pure"/"spigot"/"forge"
+
+            -m, --mem_min
+                Specified the JVM initial memory allocation
+
+            -x, --mem_max
+                Specified the JVM max memory allocation
+
+            -h, --help 
+                show the command usage info
+```
+
 ## Run Client
 
 ![Minecraft-Client](screenshots/minecraft-client.png)
 
 ### run the client normally with latest version and default username
-
-`orzmc -h` to check the help info
 
 ```bash
 $ pip install orzmc
@@ -41,12 +75,10 @@ $ orzmc
 
 ```bash
 $ pip install orzmc
-$ orzmc -v 1.13.2 -u player
+$ orzmc -v 1.13.2 -u player_name
 ```
 
 ## Deploy Server
-
-**`orzmcs -h` to check the help info**
 
 ### use default setting to deploy the server
 
@@ -54,7 +86,7 @@ default set jvm initial memory alloc `512M`, and max memory alloc `1024M`
 
 ```bash
 $ pip install orzmc
-$ orzmcs
+$ orzmc -s
 ```
 
 The pure official server deploy directory located in the path: `~/.minecraft/deploy/`
@@ -63,14 +95,14 @@ The pure official server deploy directory located in the path: `~/.minecraft/dep
 
 ```bash
 $ pip install orzmc
-$ orzmcs -s 512M -x 2G -v 1.13.2
+$ orzmc -s -m 512M -x 2G -v 1.13.2
 ```
 
 ### you can also deploy the spigot minecraft server with option `-o`
 
 ```bash
 $ pip install orzmc
-$ orzmcs -o -s 512M -x 1G -v 1.13.2
+$ orzmc -s -t spigot -m 512M -x 1G -v 1.13.2
 ```
 
 The Spigot Server deploy directory located in the path: `~/.minecraft/spigot/`
