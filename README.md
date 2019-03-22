@@ -91,7 +91,7 @@ $ orzmc -s
 
 The pure official server deploy directory located in the path: `~/.minecraft/deploy/`
 
-### you can specify the initial memory and max memory alloced for the jvm with options `-s` and `-x` to run the minecraft server
+### you can specify the initial memory and max memory alloced for the jvm with options `-m` and `-x` to run the minecraft server
 
 ```bash
 $ pip install orzmc
