@@ -5,32 +5,35 @@ from .utils import makedirs, platformType
 from .Forge import Forge
 
 class Config:
-
+    '''Public Definitions'''
     GAME_TYPE_PURE = 'pure'
     GAME_TYPE_SPIGOT = 'spigot'
     GAME_TYPE_FORGE = 'forge'
     
+    '''Private Definitions'''
     BASE_PATH = os.path.expanduser('~')
     GAME_ROOT_DIR = os.path.join(BASE_PATH,'.minecraft')
-    GAME_LIB_DIR = os.path.join(GAME_ROOT_DIR,'libraries')
-    GAME_VERSION_DIR = os.path.join(GAME_ROOT_DIR,'versions')
-    GAME_ASSET_DIR = os.path.join(GAME_ROOT_DIR,'assets')
-    GAME_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'deploy')
-    GAME_SPIGOT_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'spigot')
-    GAME_FORGE_DEPLOY_DIR = os.path.join(GAME_ROOT_DIR, 'forge-server')
-    GAME_FORGE_CLIENT_DIR = os.path.join(GAME_ROOT_DIR, 'forge-client')
+    GAME_VERSIONS_DIR = os.path.join(GAME_ROOT_DIR,'versions')
 
-
-    def __init__(self, is_client=True, version=None, username=None, game_type=GAME_TYPE_PURE, mem_min=None, mem_max=None):
+    def __init__(self, is_client=True, version=None, username=None, game_type=GAME_TYPE_PURE, mem_min=None, mem_max=None, debug = False):
         self.is_client = is_client
         self.version = version
         self.username = username
-        self.game_type = game_type
         self.mem_min = mem_min
         self.mem_max = mem_max
-        self.isSpigot = (self.game_type == Config.GAME_TYPE_SPIGOT)
-        self.isForge = (self.game_type == Config.GAME_TYPE_FORGE)
-        self.isPure = (self.game_type == Config.GAME_TYPE_PURE)
+        self.isPure = (game_type == Config.GAME_TYPE_PURE)
+        self.isSpigot = (game_type == Config.GAME_TYPE_SPIGOT)
+        self.isForge = (game_type == Config.GAME_TYPE_FORGE)
+        self.debug = debug
+
+        if self.isPure:
+            self.game_type = Config.GAME_TYPE_PURE
+        elif self.isSpigot:
+            self.game_type = Config.GAME_TYPE_SPIGOT
+        elif self.isForge: 
+            self.game_type = Config.GAME_TYPE_FORGE
+        else:
+            self.game_type = ''
 
     def getForgeInfo(self):
         if self.isForge:
@@ -38,98 +41,101 @@ class Config:
         else:
             self.forgeInfo = None
 
-    def status(self):
-        print(self.is_client)
-        print(self.version)
-        print(self.username)
-        print(self.game_type)
+    def java_class_path_list_separator(self):
+        return ';' if platformType() == 'windows' else ':'
 
-    def version_json_path(self):
-        '''Game Config JSON File Path'''
-        return os.path.join(self.versionDir(),self.version+'.json')    
+    @classmethod
+    def game_root_dir(cls):
+        '''Game Root Dir'''
+        makedirs(Config.GAME_ROOT_DIR)
+        return Config.GAME_ROOT_DIR
 
-    # Client
-    def assets_indexes_dir(self):
-        '''Client Assets Index JSON File Directory'''
-        dir = os.path.join(Config.GAME_ASSET_DIR,'indexes')
-        makedirs(dir)
-        return dir
-    
-    def assets_objects_dir(self, hash):
-        '''Client Assets Object Directory'''
-        dir = os.path.join(Config.GAME_ASSET_DIR,'objects',hash[0:2])
-        makedirs(dir)
-        return dir
-    
-    def versionDir(self):
-        '''Client Version Related Directory'''
-        dir = os.path.join(Config.GAME_VERSION_DIR,self.version)
-        makedirs(dir)
-        return dir
+    def game_versions_dir(self):
+        '''Game Versions Dir'''
+        makedirs(Config.GAME_VERSIONS_DIR)
+        return Config.GAME_VERSIONS_DIR
 
-    def client_jar_path(self):
-        '''Client Game JAR File Path'''
-        return os.path.join(Config.GAME_VERSION_DIR,self.version,'client.jar')
+    def game_version_dir(self):
+        '''Version Related Directory'''
+        version_dir = os.path.join(self.game_versions_dir(),self.version)
+        makedirs(version_dir)
+        return version_dir
 
-    def client_forge_jar_path(self):
-        return os.path.join(Config.GAME_VERSION_DIR, self.version, self.forgeInfo.fullVersion + '.jar')        
+    def game_version_json_file_path(self):
+        return os.path.join(self.game_version_dir(), self.version + '.json')
 
-    def client_library_dir(self, subpath = None):
-        '''Client Dependiencies Libraries Directory'''
-        dir = Config.GAME_LIB_DIR
+    ### Client
+    def game_version_client_dir(self):
+        client_dir = os.path.join(self.game_version_dir(), 'client', Config.GAME_TYPE_PURE)
+        makedirs(client_dir)
+        return client_dir
+
+    def game_version_client_assets_dir(self):
+        assets_root_dir = os.path.join(self.game_version_client_dir(), 'assets')
+        makedirs(assets_root_dir)
+        return assets_root_dir
+
+    def game_version_client_assets_indexs_dir(self):
+        assets_indexs_dir = os.path.join(self.game_version_client_assets_dir(), 'indexes')
+        makedirs(assets_indexs_dir)
+        return assets_indexs_dir
+
+    def game_version_client_assets_objects_dir(self, hash):
+        assets_objects_dir = os.path.join(self.game_version_client_assets_dir(), 'objects', hash[0:2])
+        makedirs(assets_objects_dir)
+        return assets_objects_dir
+
+    def game_version_client_jar_filename(self):
+        if self.isForge:
+            return self.forgeInfo.fullVersion + '.jar'
+        else:
+            return self.version + '.jar'
+
+    def game_version_client_jar_file_path(self):
+        jar_file_path = os.path.join(self.game_version_client_dir(), self.game_version_client_jar_filename())
+        return jar_file_path
+
+    def game_version_client_library_dir(self, subpath = None):
+        lib_dir = os.path.join(self.game_version_client_dir(), 'libraries')
         if None != subpath:
             subdir =  os.path.dirname(subpath)
-            dir = os.path.join(dir,subdir)
-        makedirs(dir)
-        return dir
-        
-    def client_native_dir(self):
-        '''Client Native Related dependencies Directory'''
-        dir = os.path.join(self.GAME_VERSION_DIR, self.version, self.version + '-native')
-        makedirs(dir)
-        return dir
-
-    def client_forge_path(self):
-        path = Config.GAME_FORGE_CLIENT_DIR
-        makedirs(path)
-        return path
-
-    # Server
-    def server_jar_path(self):
-        '''Server Game JAR File Path'''
-        return os.path.join(Config.GAME_VERSION_DIR,self.version)
-
-    def server_deploy_path(self):
-        '''Server Deploy Path'''
-
-        if self.isPure:
-            deployPath = Config.GAME_DEPLOY_DIR
-        elif self.isSpigot:
-            deployPath = Config.GAME_SPIGOT_DEPLOY_DIR
-        elif self.isForge:
-            deployPath = Config.GAME_FORGE_DEPLOY_DIR
-        else:
-            deployPath = Config.GAME_DEPLOY_DIR
-
-        makedirs(deployPath)
-        return deployPath
-
-    def eula_path(self):
-        return os.path.join(self.server_deploy_path(), 'eula.txt')
-
-    def properties_path(self):
-        return os.path.join(self.server_deploy_path(), 'server.properties')
+            lib_dir = os.path.join(lib_dir,subdir)
+        makedirs(lib_dir)
+        return lib_dir
     
-    def server_deploy_build_path(self):
-        deployBuildPath = os.path.join(self.server_deploy_path(), 'build')
-        makedirs(deployBuildPath)
-        return deployBuildPath
+    def game_version_client_native_library_dir(self):
+        native_lib_dir = os.path.join(self.game_version_client_dir(),'native')
+        makedirs(native_lib_dir)
+        return native_lib_dir
 
-    def server_spigot_jar_path(self, isInBuildDir=False):
-        return os.path.join(self.server_deploy_build_path() if isInBuildDir else self.server_deploy_path(), 'spigot-' + self.version + '.jar')
+    ### Server
+    def game_version_server_dir(self):
+        server_dir = os.path.join(self.game_version_dir(), 'server', self.game_type)
+        makedirs(server_dir)
+        return server_dir
 
-    def server_craftbukkit_jar_path(self, isInBuildDir=False):
-        return os.path.join(self.server_deploy_build_path() if isInBuildDir else self.server_deploy_path(), 'craftbukkit-' + self.version + '.jar')
+    def game_version_server_jar_filename(self):
+        if self.isForge:
+            return self.forgeInfo.fullVersion + '.jar'
+        elif self.isSpigot:
+            return 'spigot-' + self.version + '.jar'
+        elif self.isPure:
+            return self.version + '.jar'
+        else:
+            return ''
 
-    def server_forge_jar_path(self):
-        return os.path.join(self.server_deploy_path(), self.forgeInfo.fullVersion + '.jar')
+    def game_version_server_jar_file_path(self, isInBuildDir=False):
+        jar_file_path = os.path.join(self.game_version_server_build_dir() if isInBuildDir else self.game_version_server_dir(), self.game_version_server_jar_filename())
+        return jar_file_path
+
+    def game_version_server_eula_file_path(self):
+        return os.path.join(self.game_version_server_dir(), 'eula.txt')
+
+    def game_version_server_properties_file_path(self):
+        return os.path.join(self.game_version_server_dir(), 'server.properties')
+
+    def game_version_server_build_dir(self):
+        build_path = os.path.join(self.game_version_server_dir(), 'build')
+        makedirs(build_path)
+        return build_path        
+    

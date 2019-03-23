@@ -18,13 +18,16 @@ HELP_INFO = """
                 pick an username for player when start the client
 
             -t, --game_type
-                Specified the type of game, such as "pure"/"spigot"/"forge"
+                Specified the type of game: "pure"/"spigot"/"forge" for server, "pure/forge" for client
 
             -m, --mem_min
                 Specified the JVM initial memory allocation
 
             -x, --mem_max
                 Specified the JVM max memory allocation
+
+            -V, --Verbose
+                Output some debug info for bugfix
 
             -h, --help 
                 show the command usage info
