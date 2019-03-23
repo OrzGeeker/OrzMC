@@ -114,6 +114,8 @@ $ pip install orzmc
 $ orzmc -s -t forge -m 512M -x 1G -v 1.13.2
 ```
 
+由于Forge包是用JDK 8编译的，所以建安装的JDK环境为JDK8系统，不要太高，目前不兼容，会出现无法部署Forge服务器的情况。
+
 ---
 
 The game resources are saved under user's home directory, and named `.minecraft`
