@@ -558,14 +558,45 @@ class Game:
         self.download(self.config.forgeInfo.forge_installer_url, self.config.game_version_client_dir())
         print(ColorString.confirm('Forge installer jar download completed!!!'))
 
-        installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
-        extractForgeClientCmd = 'java -jar ' + installerJarFilePath + ' --extract ' + self.config.game_version_client_dir()
+        self.writeLauncherProfilesJSON()
 
+        installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
+        extractForgeClientCmd = 'java -jar ' + installerJarFilePath
+        
         print(ColorString.warn('Start install the forge client jar file ...'))
         os.chdir(self.config.game_version_client_dir())
         os.system(extractForgeClientCmd)
         print(ColorString.confirm('Completed! And the forge client file generated!'))
         
+    def writeLauncherProfilesJSON(self):
+        launcher_profiles_json_file_path = os.path.join(self.config.game_version_client_dir(), 'launcher_profiles.json');
+        launcher_profiles_json_file_content = '''
+{
+  "profiles": {
+    "(Default)": {
+      "name": "(Default)"
+    },
+    "forge": {
+      "name": "forge",
+      "type": "custom",
+      "lastVersionId": "1.13.2-forge-25.0.92"
+    }
+  },
+  "selectedProfile": "(Default)",
+  "clientToken": "00f2acc9-f4f0-48e0-9066-0d6da56abb45",
+  "authenticationDatabase": {}
+}
+        '''
+        if isPy3:
+            with open(launcher_profiles_json_file_path,'w',encoding='utf-8') as f:
+                f.write(launcher_profiles_json_file_content)
+        else: 
+            with open(launcher_profiles_json_file_path,'w') as f:
+                f.write(launcher_profiles_json_file_content.encode('utf-8')) 
+
+        client_dir = self.config.game_version_client_dir()
+        print(ColorString.warn('Please selected directory path: ') + ColorString.confirm(client_dir)) 
+
     # 构建Forge服务器
     def buildForgeServer(self):
         '''构建Forge服务器'''
