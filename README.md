@@ -82,7 +82,7 @@ $ orzmc -v 1.13.2 -u player_name
 
 ## Deploy Server
 
-### use default setting to deploy the server
+### use default setting to deploy the pure server
 
 default set jvm initial memory alloc `512M`, and max memory alloc `1024M`
 
@@ -98,11 +98,20 @@ $ pip install orzmc
 $ orzmc -s -m 512M -x 2G -v 1.13.2
 ```
 
-### you can also deploy the spigot minecraft server with option `-o`
+### you can also deploy the spigot/forge minecraft server with option `-t`
+
+#### Spigot Server
 
 ```bash
 $ pip install orzmc
 $ orzmc -s -t spigot -m 512M -x 1G -v 1.13.2
+```
+
+#### Forge Server
+
+```bash
+$ pip install orzmc
+$ orzmc -s -t forge -m 512M -x 1G -v 1.13.2
 ```
 
 ---
@@ -121,6 +130,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] refine the project script for readable
 - [ ] automation the process of installing JDK/JRE Runtime
 - [ ] add some unit test case to guarantee quality
+- [ ] create a Docker Mojang Mirror Server for personal CDN 
 
 # Reference
 
