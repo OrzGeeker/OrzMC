@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from bs4 import BeautifulSoup
 import requests
 from .utils import ColorString

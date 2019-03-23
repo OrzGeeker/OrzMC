@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 # 帮助信息
 HELP_INFO = """
     NAME
