@@ -19,10 +19,11 @@ def start():
     game_type = Config.GAME_TYPE_PURE
     mem_min = '512M'
     mem_max = '2048M'
+    debug = False
 
     try:
 
-        opts, _ = getopt.getopt(sys.argv[1:], "sv:u:t:m:x:h", ["server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "help"])
+        opts, _ = getopt.getopt(sys.argv[1:], "sv:u:t:m:x:Vh", ["server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "Verbose" ,"help"])
 
         for o, a in opts:
 
@@ -49,11 +50,14 @@ def start():
                 if len(a) > 0:
                     mem_max = a
 
+            if o in ["-V", "--Verbose"]:
+                    debug = True
+
             if o in ["-h", "--help"]:
                 help()
 
         # 生成配置信息对象
-        config = Config(is_client = is_client, version = version, username = username, game_type = game_type, mem_min = mem_min, mem_max = mem_max)
+        config = Config(is_client = is_client, version = version, username = username, game_type = game_type, mem_min = mem_min, mem_max = mem_max, debug=debug)
         
         # 用户交互
         userInteraction(config)

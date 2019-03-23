@@ -52,7 +52,7 @@ class Game:
             self.donwloadLibraries()
         elif self.config.isForge:
             self.config.getForgeInfo()
-            if not os.path.exists(self.config.client_forge_jar_path()):
+            if not os.path.exists(self.config.game_version_client_jar_file_path()):
                 self.extractForgeClient()
         else:
             ColorString.warn('Not Known Client!!!!')
@@ -67,7 +67,18 @@ class Game:
 
         cmd = self.gameArguments(user,resolution)
         backgroundCmd = 'start ' + cmd if platformType == 'windows' else cmd + ' &'
+        os.chdir(self.config.game_version_client_dir())
         os.system(backgroundCmd)
+        self.formatOutputClientCmd(backgroundCmd)
+
+    def formatOutputClientCmd(self, cmd):
+        if self.config.debug and len(cmd) > 0: 
+            for e in cmd.split(' '):
+                if 'jar' in e:
+                    for c in e.split(self.config.java_class_path_list_separator()):
+                        print(c)
+                else:
+                    print(e)
 
     # 部署服务端
     def deployServer(self):
@@ -82,33 +93,37 @@ class Game:
             (serverJARFilePath, _, _) = self.serverJARFilePath()
             jarFilePath = serverJARFilePath
         elif self.config.isSpigot:
-            if not os.path.exists(self.config.server_spigot_jar_path()):
+            if not os.path.exists(self.config.game_version_server_jar_file_path()):
                 self.buildSpigotServer()
-            jarFilePath = self.config.server_spigot_jar_path()
+            jarFilePath = self.config.game_version_server_jar_file_path()
         elif self.config.isForge:
             self.config.getForgeInfo()
-            if not os.path.exists(self.config.server_forge_jar_path()):
+            if not os.path.exists(self.config.game_version_server_jar_file_path()):
                 self.buildForgeServer()
-            jarFilePath = self.config.server_forge_jar_path()
+            jarFilePath = self.config.game_version_server_jar_file_path()
         else:
             print(ColorString.warn('Your choosed server is not exist!!!\nCurrently, there are three type server: pure/spigot/forge'))
             return
 
         mem_start = self.config.mem_min
         mem_max = self.config.mem_max
+
         jvm_opts = ' '.join([ 
             '-XX:+UseG1GC',
             '-XX:-UseAdaptiveSizePolicy',
             '-XX:-OmitStackTraceInFastThrow'
         ])
+
         self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts= jvm_opts))
 
-    def download(self, url, dir):
+    def download(self, url, dir, name = None):
         global is_sigint_up
         if is_sigint_up:
             return
-        
-        filename = os.path.basename(url)
+        if name == None:
+            filename = os.path.basename(url)
+        else:
+            filename = name
         with open(os.path.join(dir,filename),'wb') as f:
             f.write(requests.get(url).content)
 
@@ -123,7 +138,7 @@ class Game:
             return
 
         '''Download Game Json Configure File'''
-        version_json_path = self.config.version_json_path()
+        version_json_path = self.config.game_version_json_file_path()
         (url, hash) = Mojang.get_release_game_json(self.config.version)
         if not checkFileExist(version_json_path, hash):
             print("Download Game Json Configure File!")
@@ -140,13 +155,13 @@ class Game:
 
     def game(self):
         if self._game == None:
-            self._game = self.loadJSON(self.config.version_json_path())
+            self._game = self.loadJSON(self.config.game_version_json_file_path())
         return self._game
     
     def assets(self):
         if self._assets == None:
             index_json_url = self.game().get('assetIndex').get('url')
-            index_json_path = os.path.join(self.config.assets_indexes_dir(), os.path.basename(index_json_url))
+            index_json_path = os.path.join(self.config.game_version_client_assets_indexs_dir(), os.path.basename(index_json_url))
             self._assets = self.loadJSON(index_json_path)
         return self._assets
 
@@ -184,7 +199,7 @@ class Game:
                             libPath = downloads.get('classifiers').get(platform).get('path')
                             url = downloads.get('classifiers').get(platform).get('url')
                             sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                            nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                            nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
                             if not checkFileExist(nativeFilePath,sha1):
                                 errorMsg.append("Not Exist: %s" % nativeFilePath)
                                 continue
@@ -195,7 +210,7 @@ class Game:
                         if classifiers and nativeKey in downloads.get('classifiers'):
                             url = downloads.get('classifiers').get(nativeKey).get('url')
                             sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                            nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                            nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
                             if not checkFileExist(nativeFilePath,sha1):
                                 errorMsg.append("Not Exist: %s" % nativeFilePath)
                                 continue
@@ -205,7 +220,7 @@ class Game:
                         libPath = downloads.get('artifact').get('path')
                         url = downloads.get('artifact').get('url')
                         sha1 = downloads.get('artifact').get('sha1')
-                        libFilePath = os.path.join(self.config.client_library_dir(), libPath)
+                        libFilePath = os.path.join(self.config.game_version_client_library_dir(), libPath)
                         if not checkFileExist(libFilePath,sha1):
                             errorMsg.append("Not Exist: %s" % libFilePath)
                             continue            
@@ -213,9 +228,7 @@ class Game:
                             self._javaClassPathList.append(libFilePath)
             if(len(errorMsg) > 0):
                 print('\n'.join(errorMsg))
-            self._javaClassPathList.append(self.config.client_jar_path())
-            if self.config.isForge:
-                self._javaClassPathList.append(self.config.client_forge_jar_path())
+            self._javaClassPathList.append(self.config.game_version_client_jar_file_path())
 
         return self._javaClassPathList
 
@@ -231,7 +244,7 @@ class Game:
         assetIndex = self.game().get('assetIndex')
         index_json_url = assetIndex.get('url')
         index_json_sha1 = assetIndex.get('sha1')
-        index_json_path= os.path.join(self.config.assets_indexes_dir(), os.path.basename(index_json_url))
+        index_json_path= os.path.join(self.config.game_version_client_assets_indexs_dir(), os.path.basename(index_json_url))
         if not checkFileExist(index_json_path,index_json_sha1):
             print("Download assetIndex JSON File")
             index_json_str = requests.get(index_json_url).text
@@ -261,7 +274,7 @@ class Game:
                 outInfo = '%d/%d(%s)' % (index, total, name)
                 hash = object.get('hash')
                 url = Mojang.assets_objects_url(hash)
-                object_dir = self.config.assets_objects_dir(hash)
+                object_dir = self.config.game_version_client_assets_objects_dir(hash)
                 object_filePath = os.path.join(object_dir,os.path.basename(url))
                 if not checkFileExist(object_filePath, hash):
                     try:
@@ -312,23 +325,23 @@ class Game:
                         libPath = downloads.get('classifiers').get(platform).get('path')
                         url = downloads.get('classifiers').get(platform).get('url')
                         sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
                         if not checkFileExist(nativeFilePath,sha1):
-                            self.download(url,self.config.client_native_dir())
+                            self.download(url,self.config.game_version_client_native_library_dir())
                         
                 else:
                     classifiers = downloads.get('classifiers')
                     if classifiers and nativeKey in downloads.get('classifiers'):
                         url = downloads.get('classifiers').get(nativeKey).get('url')
                         sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.client_native_dir(),os.path.basename(url))
+                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
                         if not checkFileExist(nativeFilePath,sha1):
-                            self.download(url,self.config.client_native_dir())
+                            self.download(url,self.config.game_version_client_native_library_dir())
                     
                     libPath = downloads.get('artifact').get('path')
                     url = downloads.get('artifact').get('url')
                     sha1 = downloads.get('artifact').get('sha1')
-                    fileDir = self.config.client_library_dir(libPath)
+                    fileDir = self.config.game_version_client_library_dir(libPath)
                     filePath=os.path.join(fileDir,os.path.basename(url))
                     if not checkFileExist(filePath,sha1):
                         self.download(url,fileDir)
@@ -348,10 +361,10 @@ class Game:
         client = self.game().get('downloads').get('client')
         clientUrl = client.get('url')
         sha1 = client.get('sha1')
-        clientJARFilePath = os.path.join(self.config.versionDir(), os.path.basename(clientUrl))
+        clientJARFilePath = self.config.game_version_client_jar_file_path()
         if not checkFileExist(clientJARFilePath, sha1):
             print('Downloading the client jar file ...')
-            self.download(clientUrl,self.config.versionDir())
+            self.download(clientUrl,self.config.game_version_client_dir(), self.config.game_version_client_jar_filename())
             print("Client Download Completed!")
         else:
             print("Client Jar File have been downloaded")
@@ -361,7 +374,7 @@ class Game:
         argPattern = r'\$\{(.*)\}'
         mainCls = self.game().get('mainClass')
         classPathList = self.javaClassPathList()
-        sep = ';' if platformType() == 'windows' else ':'
+        sep = self.config.java_class_path_list_separator()
         classPath = sep.join(classPathList)
         (res_width, res_height) = resolution
 
@@ -369,8 +382,8 @@ class Game:
             # for game args
             "auth_player_name" : user,
             "version_name" : self.game().get('id'),
-            "game_directory" : self.config.GAME_ROOT_DIR,
-            "assets_root" : self.config.GAME_ASSET_DIR,
+            "game_directory" : self.config.game_version_client_dir(),
+            "assets_root" : self.config.game_version_client_assets_dir(),
             "assets_index_name" : self.game().get('assets'),
             "auth_uuid" : ''.join(str(uuid.uuid1()).split('-')),
             "auth_access_token" : ''.join(str(uuid.uuid1()).split('-')),
@@ -379,7 +392,7 @@ class Game:
             "resolution_width":res_width if res_width else "",
             "resolution_height":res_height if res_height else "",
             # for jvm args
-            "natives_directory": self.config.client_native_dir(),
+            "natives_directory": self.config.game_version_client_native_library_dir(),
             "launcher_name": "OrzMC",
             "launcher_version": '1.0',
             "classpath": classPath,
@@ -460,7 +473,7 @@ class Game:
             server = self.game().get('downloads').get('server')
             serverUrl = server.get('url')
             sha1 = server.get('sha1')
-            serverJARFilePath = os.path.join(self.config.versionDir(), os.path.basename(serverUrl))
+            serverJARFilePath = self.config.game_version_server_jar_file_path()
             return (serverJARFilePath, serverUrl, sha1)
 
     def downloadServer(self):
@@ -468,10 +481,11 @@ class Game:
         (serverJARFilePath, serverUrl, sha1) = self.serverJARFilePath()
         if not checkFileExist(serverJARFilePath, sha1):
             print('Downloading the server jar file ...')
-            self.download(serverUrl,self.config.server_jar_path())
+            self.download(serverUrl,self.config.game_version_server_dir(), self.config.game_version_server_jar_filename())
             print("Server Download Completed!")
         else:
             print("Server Jar File have been downloaded")
+
 
 
 
@@ -481,35 +495,35 @@ class Game:
         return cmd
 
     def checkEULA(self):
-        return os.path.exists(self.config.eula_path())
+        return os.path.exists(self.config.game_version_server_eula_file_path())
 
     def startServer(self, cmd):
         '''启动minecraft服务器'''
         
-        os.chdir(self.config.server_deploy_path())
+        os.chdir(self.config.game_version_server_dir())
 
         # 如果没有eula.txt文件，则启动服务器生成
         if not self.checkEULA():
             os.system(cmd)
 
         # 同意eula
-        with io.open(self.config.eula_path(), 'r', encoding = 'utf-8') as f:
+        with io.open(self.config.game_version_server_eula_file_path(), 'r', encoding = 'utf-8') as f:
             eula = f.read()
             checkEULA = eula.replace('false', 'true')
-        with io.open(self.config.eula_path(), 'w', encoding = 'utf-8') as f:
+        with io.open(self.config.game_version_server_eula_file_path(), 'w', encoding = 'utf-8') as f:
             f.write(checkEULA)
         
         # 启动服务
         os.system(cmd)
 
         # 设置服务器属性为离线模式
-        with io.open(self.config.properties_path(), 'r', encoding = 'utf-8') as f:
+        with io.open(self.config.game_version_server_properties_file_path(), 'r', encoding = 'utf-8') as f:
             properties = f.read()
             if 'online-mode=false' in properties:
                 offline_properties = ''
             else:
                 offline_properties = properties.replace('online-mode=true', 'online-mode=false')
-        with io.open(self.config.properties_path(), 'w', encoding = 'utf-8') as f:
+        with io.open(self.config.game_version_server_properties_file_path(), 'w', encoding = 'utf-8') as f:
             if len(offline_properties) > 0:
                 f.write(offline_properties)
                 print(ColorString.confirm('Setting the server to offline mode, next launch this setting take effect!!!'))
@@ -521,35 +535,34 @@ class Game:
         version = self.config.version
         spigot = Spigot(version)
         print(ColorString.warn('Start download the spigot build tool jar file...'))
-        self.download(spigot.build_tool_jar, self.config.server_deploy_build_path())
+        self.download(spigot.build_tool_jar, self.config.game_version_server_build_dir())
         print(ColorString.confirm('Build tool jar download completed!!!'))
         buildToolJarName = os.path.basename(spigot.build_tool_jar)
-        buildToolJarPath = os.path.join(self.config.server_deploy_build_path(), buildToolJarName)
+        buildToolJarPath = os.path.join(self.config.game_version_server_build_dir(), buildToolJarName)
         versionCmd = ' --rev ' + version if len(version) > 0 else 'lastest'
         linuxCmd = 'git config --global --unset core.autocrlf; java -jar ' + buildToolJarPath + versionCmd
         macCmd = 'export MAVEN_OPTS="-Xmx2G"; java -Xmx2G -jar ' + buildToolJarPath + versionCmd
         windowCmd = 'java -jar ' + buildToolJarPath + versionCmd
         cmd = macCmd if platformType() == 'osx' else linuxCmd if platformType() == 'linux' else windowCmd
         print(ColorString.warn('Start build the server jar file with build tool...'))
-        os.chdir(self.config.server_deploy_build_path())
+        os.chdir(self.config.game_version_server_build_dir())
         os.system(cmd)
         print(ColorString.confirm('Completed! And the spigot built server file generated!'))
-        shutil.move(self.config.server_spigot_jar_path(isInBuildDir=True), self.config.server_spigot_jar_path())
-        shutil.move(self.config.server_craftbukkit_jar_path(isInBuildDir=True), self.config.server_craftbukkit_jar_path())
-        os.chdir(self.config.server_deploy_path())
-        shutil.rmtree(self.config.server_deploy_build_path())
+        shutil.move(self.config.game_version_server_jar_file_path(isInBuildDir=True), self.config.game_version_server_jar_file_path())
+        os.chdir(self.config.game_version_server_dir())
+        shutil.rmtree(self.config.game_version_server_build_dir())
     
     def extractForgeClient(self):
         '''构建Forge客户端'''
         print(ColorString.warn('Start download the forge installer jar file...'))
-        self.download(self.config.forgeInfo.forge_installer_url, self.config.client_forge_path())
+        self.download(self.config.forgeInfo.forge_installer_url, self.config.game_version_client_dir())
         print(ColorString.confirm('Forge installer jar download completed!!!'))
 
         installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
-        extractForgeClientCmd = 'java -jar ' + installerJarFilePath + ' --extract ' + self.config.versionDir()
+        extractForgeClientCmd = 'java -jar ' + installerJarFilePath + ' --extract ' + self.config.game_version_client_dir()
 
         print(ColorString.warn('Start install the forge client jar file ...'))
-        os.chdir(self.config.client_forge_path())
+        os.chdir(self.config.game_version_client_dir())
         os.system(extractForgeClientCmd)
         print(ColorString.confirm('Completed! And the forge client file generated!'))
         
@@ -558,13 +571,12 @@ class Game:
         '''构建Forge服务器'''
 
         print(ColorString.warn('Start download the forge installer jar file...'))
-        self.download(self.config.forgeInfo.forge_installer_url, self.config.server_deploy_path())
+        self.download(self.config.forgeInfo.forge_installer_url, self.config.game_version_server_dir())
         print(ColorString.confirm('Forge installer jar download completed!!!'))
 
         installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
         installServerCmd = 'java -jar ' + installerJarFilePath + ' --installServer'
-
         print(ColorString.warn('Start install the forge server jar file ...'))
-        os.chdir(self.config.server_deploy_path())
+        os.chdir(self.config.game_version_server_dir())
         os.system(installServerCmd)
         print(ColorString.confirm('Completed! And the forge server file generated!'))

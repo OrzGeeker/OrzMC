@@ -16,8 +16,7 @@ class Mojang:
     @classmethod
     def get_version_list(cls, update=False):
         '''Get All Version Game Configuration'''
-        makedirs(Config.GAME_ROOT_DIR)
-        localFilePath = os.path.join(Config.GAME_ROOT_DIR,os.path.basename(Mojang.version_list_url))
+        localFilePath = os.path.join(Config.game_root_dir(),os.path.basename(Mojang.version_list_url))
         resp = None
         if (not update) and os.path.exists(localFilePath):
             with open(localFilePath,'r') as localFile:

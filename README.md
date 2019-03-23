@@ -26,7 +26,7 @@ Requires Java Runtime Environment to be configured!
 `orzmc -h` to check the help info
 
 ```bash
-(py3) $ orzmc -h 
+$ orzmc -h
 
     NAME
 
@@ -37,8 +37,7 @@ Requires Java Runtime Environment to be configured!
         orzmc [-v client_version_number] [-u username] [-h]
 
             -s, --server
-                deploy minecraft server, if there is no this flag, this command line tool start minecraft a
-s default
+                deploy minecraft server, if there is no this flag, this command line tool start minecraft as default
         
             -v, --version  
                 Specified the Minecraft clinet version number to start
@@ -47,13 +46,16 @@ s default
                 pick an username for player when start the client
 
             -t, --game_type
-                Specified the type of game, such as "pure"/"spigot"/"forge"
+                Specified the type of game: "pure"/"spigot"/"forge" for server, "pure/forge" for client
 
             -m, --mem_min
                 Specified the JVM initial memory allocation
 
             -x, --mem_max
                 Specified the JVM max memory allocation
+
+            -V, --Verbose
+                Output some debug info for bugfix
 
             -h, --help 
                 show the command usage info
@@ -89,8 +91,6 @@ $ pip install orzmc
 $ orzmc -s
 ```
 
-The pure official server deploy directory located in the path: `~/.minecraft/deploy/`
-
 ### you can specify the initial memory and max memory alloced for the jvm with options `-s` and `-x` to run the minecraft server
 
 ```bash
@@ -104,8 +104,6 @@ $ orzmc -s -m 512M -x 2G -v 1.13.2
 $ pip install orzmc
 $ orzmc -s -t spigot -m 512M -x 1G -v 1.13.2
 ```
-
-The Spigot Server deploy directory located in the path: `~/.minecraft/spigot/`
 
 ---
 
