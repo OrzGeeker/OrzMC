@@ -562,7 +562,7 @@ class Game:
 
         installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
         extractForgeClientCmd = 'java -jar ' + installerJarFilePath
-        
+
         print(ColorString.warn('Start install the forge client jar file ...'))
         os.chdir(self.config.game_version_client_dir())
         os.system(extractForgeClientCmd)
@@ -579,7 +579,7 @@ class Game:
     "forge": {
       "name": "forge",
       "type": "custom",
-      "lastVersionId": "1.13.2-forge-25.0.92"
+      "lastVersionId": "forge-1.13.2-25.0.92"
     }
   },
   "selectedProfile": "(Default)",
