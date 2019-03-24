@@ -86,9 +86,6 @@ class Config:
         return assets_objects_dir
 
     def game_version_client_jar_filename(self):
-        if self.isForge:
-            return self.forgeInfo.fullVersion + '.jar'
-        else:
             return self.version + '.jar'
 
     def game_version_client_jar_file_path(self):
@@ -107,6 +104,10 @@ class Config:
         native_lib_dir = os.path.join(self.game_version_client_dir(),'native')
         makedirs(native_lib_dir)
         return native_lib_dir
+
+    def game_version_forge_json_file_path(self):
+        forge_json_file_name = '-'.join([self.version, self.forgeInfo.briefVersion]) + '.json'
+        return os.path.join(self.game_version_client_dir(), forge_json_file_name)
 
     ### Server
     def game_version_server_dir(self):
