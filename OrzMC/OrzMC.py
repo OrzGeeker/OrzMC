@@ -103,6 +103,8 @@ def showVersionList(config):
             versionInfo = versionInfo + '\n' + LEADING_SPACE
         else:
             versionInfo = versionInfo + TAB_SPACE
+        if releaseVersion == '1.13': 
+            break
 
     print(ColorString.string(versionInfo,ColorString.FG_GREEN,displayMode=ColorString.HIGHLIGHT))
 
