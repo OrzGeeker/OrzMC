@@ -8,7 +8,7 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 
 # Introduction Video on YouTube(Need VPN in China)
 
-- [A Brief Introduction for the project](https://youtu.be/gx-JeoW2K5I)
+- [A Brief Introduction for the project](https://youtu.be/uNDx__muBVY)
 
 # Supported Minecraft Client Version
 
