@@ -60,7 +60,7 @@ class Game:
             return
 
         user = self.config.username
-        resolution = (1440,900)
+        resolution = ('720', '450')
 
         global is_sigint_up
         if is_sigint_up:
@@ -428,7 +428,11 @@ class Game:
 
         game_arguments = self.game().get('arguments')
         jvmArgs = game_arguments.get('jvm') if game_arguments != None else None
-                    
+
+        if jvmArgs != None and self.config.isForge:
+            jvmArgs.append('-Dfml.ignoreInvalidMinecraftCertificates=true')
+            jvmArgs.append('-Dfml.ignorePatchDiscrepancies=true')
+
         if jvmArgs != None:
             for arg in jvmArgs:
                 if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
@@ -452,7 +456,7 @@ class Game:
         arguments.append(mainCls)
 
         gameArgs = game_arguments.get('game') if game_arguments != None else None
-        
+
         if gameArgs != None:
             for arg in gameArgs:
                 if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
