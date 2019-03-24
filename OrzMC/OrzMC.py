@@ -17,8 +17,8 @@ def start():
     version = None
     username = None
     game_type = Config.GAME_TYPE_PURE
-    mem_min = '512M'
-    mem_max = '2048M'
+    mem_min = '128M'
+    mem_max = '2G'
     debug = False
 
     try:

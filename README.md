@@ -4,11 +4,15 @@ A tool for deploying minecraft client and server
 
 Only supports Python >=2.7, <4
 
-Requires Java Runtime Environment to be configured!
+Requires JDK 1.8 to be configured, not higher than this version, becuase forge cannot run on higher jdk versions such as 1.12!
+
+# Introduction Video on YouTube(Need VPN in China)
+
+- [A Brief Introduction for the project](https://youtu.be/gx-JeoW2K5I)
 
 # Supported Minecraft Client Version
 
-- supports all versions of client
+- supports versions of client `>= 1.13`
 
 - you should make sure the version of the minecraft server that you will connect to is the same as that of the client.
 
@@ -17,11 +21,9 @@ Requires Java Runtime Environment to be configured!
 # Supported Operating System
 
 - mainly for MacOS.
-- Maybe can run on windows, as a backup schema.
+- Maybe can run on windows, as a backup schema, not yet test on windows platform.
 
 # Usage
-
-**You should have a jre runtime on you device**
 
 `orzmc -h` to check the help info
 
@@ -46,7 +48,7 @@ $ orzmc -h
                 pick an username for player when start the client
 
             -t, --game_type
-                Specified the type of game: "pure"/"spigot"/"forge" for server, "pure/forge" for client
+                Specified the type of game: "pure"/"spigot"/"forge" for server, "pure/forge" for client, default 'pure'
 
             -m, --mem_min
                 Specified the JVM initial memory allocation
@@ -63,15 +65,15 @@ $ orzmc -h
 
 ## Run Client
 
-![Minecraft-Client](screenshots/minecraft-client.png)
-
-### run the client normally with latest version and default username
+### run the pure client normally with latest version and default username
 
 ```bash
 $ pip install orzmc
 $ orzmc
 ```
 ![orzmc](screenshots/orzmc.png)
+
+![Minecraft-Client](screenshots/minecraft-client.png)
 
 ### if you know the client version and your username
 
@@ -80,11 +82,22 @@ $ pip install orzmc
 $ orzmc -v 1.13.2 -u player_name
 ```
 
+### you can also runt the forge client
+
+```bash
+$ pip install orzmc
+$ orzmc -t forge
+```
+
+![orzmc](screenshots/orzmc-forge.png)
+
+![Minecraft-Forge-Client](screenshots/minecraft-forge-client.png)
+
 ## Deploy Server
 
 ### use default setting to deploy the pure server
 
-default set jvm initial memory alloc `512M`, and max memory alloc `1024M`
+default set jvm initial memory alloc `128M`, and max memory alloc `2G`
 
 ```bash
 $ pip install orzmc
@@ -128,6 +141,7 @@ This is not a game for one player, so you should invit someone you like to make 
 
 - [x] add Spigot Server deploy option
 - [x] add a homepage for this project
+- [x] support forge client and server on MacOS, Yep!!!🤪 
 - [ ] add world backup function
 - [ ] refine the project script for readable
 - [ ] automation the process of installing JDK/JRE Runtime
@@ -137,7 +151,9 @@ This is not a game for one player, so you should invit someone you like to make 
 # Reference
 
 - [SpigotMC](https://www.spigotmc.org/)
-
-# Videos
-
-- [A Brief Introduction for the project](https://youtu.be/gx-JeoW2K5I)
+- [Minecraft Forge](https://files.minecraftforge.net)
+- [Minecraft 中文资源站](http://www.minecraftxz.com)
+- [Minecraft 中文百科](https://minecraft-zh.gamepedia.com/Minecraft_Wiki)
+- [Minecraft 官方Wiki](https://minecraft.gamepedia.com/Minecraft_Wiki)
+- [Minecraft 微软官方](https://www.minecraft.net/zh-hans/)
+- [Minecraft 网易官方](http://mc.163.com)
