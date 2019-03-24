@@ -34,6 +34,7 @@ class Game:
 
     def __init__(self, config = None):
         self._game=None
+        self._forgeGame = None
         self._assets=None
         self._javaClassPathList = None
         self.config = config
@@ -52,14 +53,14 @@ class Game:
             self.donwloadLibraries()
         elif self.config.isForge:
             self.config.getForgeInfo()
-            if not os.path.exists(self.config.game_version_client_jar_file_path()):
+            if not os.path.exists(self.config.game_version_client_jar_file_path()) or not os.path.exists(self.config.game_version_forge_json_file_path()):
                 self.extractForgeClient()
         else:
             ColorString.warn('Not Known Client!!!!')
             return
 
         user = self.config.username
-        resolution = (None,None)
+        resolution = (1440,900)
 
         global is_sigint_up
         if is_sigint_up:
@@ -159,6 +160,11 @@ class Game:
         if self._game == None:
             self._game = self.loadJSON(self.config.game_version_json_file_path())
         return self._game
+
+    def forgeGame(self):
+        if self._forgeGame == None:
+            self._forgeGame = self.loadJSON(self.config.game_version_forge_json_file_path())
+        return self._forgeGame
     
     def assets(self):
         if self._assets == None:
@@ -230,6 +236,11 @@ class Game:
                             self._javaClassPathList.append(libFilePath)
             if(len(errorMsg) > 0):
                 print('\n'.join(errorMsg))
+
+            if self.config.isForge:
+                forge_class_path = map(lambda lib:  os.path.join(self.config.game_version_client_library_dir(),lib.get('downloads').get('artifact').get('path')) ,self.forgeGame().get('libraries')) 
+                self._javaClassPathList.extend(forge_class_path)
+
             self._javaClassPathList.append(self.config.game_version_client_jar_file_path())
 
         return self._javaClassPathList
@@ -374,7 +385,7 @@ class Game:
     def gameArguments(self, user, resolution):
 
         argPattern = r'\$\{(.*)\}'
-        mainCls = self.game().get('mainClass')
+        mainCls =  self.forgeGame().get('mainClass') if self.config.isForge else self.game().get('mainClass')
         classPathList = self.javaClassPathList()
         sep = self.config.java_class_path_list_separator()
         classPath = sep.join(classPathList)
@@ -383,7 +394,7 @@ class Game:
         configuration = {
             # for game args
             "auth_player_name" : user,
-            "version_name" : self.game().get('id'),
+            "version_name" : self.forgeGame().get('id') if self.config.isForge else self.game().get('id'),
             "game_directory" : self.config.game_version_client_dir(),
             "assets_root" : self.config.game_version_client_assets_dir(),
             "assets_index_name" : self.game().get('assets'),
@@ -415,56 +426,63 @@ class Game:
         ]
         arguments.extend(jvm_opts)
 
-        jvmArgs = self.game().get('arguments').get('jvm')
-        for arg in jvmArgs:
-            if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
-                value_placeholder = re.search(argPattern,arg)
-                if value_placeholder:
-                    argValue = configuration.get(value_placeholder.group(1))
-                    argStr = re.sub(argPattern,argValue,arg)
-                    arguments.append(argStr)
-                else:
-                    arguments.append(arg)            
-            elif isinstance(arg, dict):
-                isValid = False
-                rules = arg.get('rules')
-                for rule in rules:
-                    if rule.get('os').get('name') == platformType() and rule.get('action') == 'allow':
-                        isValid = True
-                        break
-                if isValid:
-                    arguments.extend(arg.get('value'))
+        game_arguments = self.game().get('arguments')
+        jvmArgs = game_arguments.get('jvm') if game_arguments != None else None
+                    
+        if jvmArgs != None:
+            for arg in jvmArgs:
+                if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
+                    value_placeholder = re.search(argPattern,arg)
+                    if value_placeholder:
+                        argValue = configuration.get(value_placeholder.group(1))
+                        argStr = re.sub(argPattern,argValue,arg)
+                        arguments.append(argStr)
+                    else:
+                        arguments.append(arg)            
+                elif isinstance(arg, dict):
+                    isValid = False
+                    rules = arg.get('rules')
+                    for rule in rules:
+                        if rule.get('os').get('name') == platformType() and rule.get('action') == 'allow':
+                            isValid = True
+                            break
+                    if isValid:
+                        arguments.extend(arg.get('value'))
 
         arguments.append(mainCls)
 
-        gameArgs = self.game().get('arguments').get('game')
-        for arg in gameArgs:
-            if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
-                value_placeholder = re.search(argPattern,arg)
-                if value_placeholder:
-                    argValue = configuration.get(value_placeholder.group(1))
-                    argStr = re.sub(argPattern,argValue,arg)
-                    arguments.append(argStr)
-                else:
-                    arguments.append(arg)
-            elif isinstance(arg, dict):
-                for rule in arg.get('rules'):
-                    if rule.get('action') == 'allow':
-                        if rule.get('features').get('is_demo_user'):
-                            if user ==  None:
-                                arguments.append(arg.get('value'))
-                        if rule.get('features').get('has_custom_resolution'):
-                            value = arg.get('value')
-                            for arg in value:
-                                if isinstance(arg, str):
-                                    value_placeholder = re.search(argPattern,arg)
-                                    if value_placeholder:
-                                        argValue = configuration.get(value_placeholder.group(1))
-                                        argStr = re.sub(argPattern,argValue,arg)
-                                        arguments.append(argStr)
-                                    else:
-                                        arguments.append(arg)  
+        gameArgs = game_arguments.get('game') if game_arguments != None else None
+        
+        if gameArgs != None:
+            for arg in gameArgs:
+                if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
+                    value_placeholder = re.search(argPattern,arg)
+                    if value_placeholder:
+                        argValue = configuration.get(value_placeholder.group(1))
+                        argStr = re.sub(argPattern,argValue,arg)
+                        arguments.append(argStr)
+                    else:
+                        arguments.append(arg)
+                elif isinstance(arg, dict):
+                    for rule in arg.get('rules'):
+                        if rule.get('action') == 'allow':
+                            if rule.get('features').get('is_demo_user'):
+                                if user ==  None:
+                                    arguments.append(arg.get('value'))
+                            if rule.get('features').get('has_custom_resolution'):
+                                value = arg.get('value')
+                                for arg in value:
+                                    if isinstance(arg, str):
+                                        value_placeholder = re.search(argPattern,arg)
+                                        if value_placeholder:
+                                            argValue = configuration.get(value_placeholder.group(1))
+                                            argStr = re.sub(argPattern,argValue,arg)
+                                            arguments.append(argStr)
+                                        else:
+                                            arguments.append(arg)  
 
+        if self.config.isForge:
+            arguments.extend(self.forgeGame().get('arguments').get('game'))
 
         arguments = ' '.join(arguments)
         return arguments
@@ -572,9 +590,25 @@ class Game:
         os.chdir(self.config.game_version_client_dir())
         os.system(extractForgeClientCmd)
         print(ColorString.confirm('Completed! And the forge client file generated!'))
-        
+
+        forge_client_versions_dir = os.path.join(self.config.game_version_client_dir(), 'versions')
+        pure_client_jar = os.path.join(forge_client_versions_dir, self.config.version, self.config.version + '.jar')
+        dst_client_jar = os.path.join(self.config.game_version_client_dir(), os.path.basename(pure_client_jar))
+        if os.path.exists(pure_client_jar) and not os.path.exists(dst_client_jar):
+            shutil.move(pure_client_jar, self.config.game_version_client_dir())
+
+        forge_version_full_name = os.path.basename(self.config.game_version_forge_json_file_path())
+        (forge_version_name, _) = os.path.splitext(forge_version_full_name)
+        forge_json_file = os.path.join(forge_client_versions_dir, forge_version_name, forge_version_full_name)
+        print(forge_json_file)
+        dst_forge_json_file = os.path.join(self.config.game_version_client_dir(), os.path.basename(forge_json_file))
+        if os.path.exists(forge_json_file) and not os.path.exists(dst_forge_json_file):
+            shutil.move(forge_json_file, self.config.game_version_client_dir())
+
+        shutil.rmtree(forge_client_versions_dir)
+
     def writeLauncherProfilesJSON(self):
-        launcher_profiles_json_file_path = os.path.join(self.config.game_version_client_dir(), 'launcher_profiles.json');
+        launcher_profiles_json_file_path = os.path.join(self.config.game_version_client_dir(), 'launcher_profiles.json')
         launcher_profiles_json_file_content = '''
 {
   "profiles": {
