@@ -154,8 +154,8 @@ This is not a game for one player, so you should invit someone you like to make 
 
 - [SpigotMC](https://www.spigotmc.org/)
 - [Minecraft Forge](https://files.minecraftforge.net)
-- [CurseForge](https://minecraft.curseforge.com)
-- [Minecraft 中文资源站](http://www.minecraftxz.com)
+- [CurseForge](https://minecraft.curseforge.com)(最新版的相关资源下载的最好的地方)
+- [Minecraft 中文资源站](http://www.minecraftxz.com)(老旧版的资源下载站，不需要翻墙)
 - [Minecraft 中文百科](https://minecraft-zh.gamepedia.com/Minecraft_Wiki)
 - [Minecraft 官方Wiki](https://minecraft.gamepedia.com/Minecraft_Wiki)
 - [Minecraft 微软官方](https://www.minecraft.net/zh-hans/)
