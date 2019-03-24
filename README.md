@@ -8,7 +8,9 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 
 # Introduction Video on YouTube(Need VPN in China)
 
-- [A Brief Introduction for the project](https://youtu.be/uNDx__muBVY)
+- [[1]Minecraft 开服工具以及MacOS启动器支持1.13.2 OrzMC-1.0.22](https://youtu.be/uNDx__muBVY)
+
+- [[2]Minecraft 开服工具以及MacOS启动器支持1.13.2 OrzMC-1.0.22](https://youtu.be/sC8xHHhgNC4)
 
 # Supported Minecraft Client Version
 
