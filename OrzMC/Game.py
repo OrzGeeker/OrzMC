@@ -101,6 +101,8 @@ class Game:
             if not os.path.exists(self.config.game_version_server_jar_file_path()):
                 self.buildForgeServer()
             jarFilePath = self.config.game_version_server_jar_file_path()
+            if not os.path.exists(jarFilePath):
+                jarFilePath = jarFilePath.replace(self.config.forgeInfo.fullVersion, self.config.forgeInfo.fullVersion + '-universal')
         else:
             print(ColorString.warn('Your choosed server is not exist!!!\nCurrently, there are three type server: pure/spigot/forge'))
             return
@@ -504,7 +506,10 @@ class Game:
 
         # 如果没有eula.txt文件，则启动服务器生成
         if not self.checkEULA():
-            os.system(cmd)
+            if self.config.isForge:
+                self.generateForgeServerEULA()
+            else:
+                os.system(cmd)
 
         # 同意eula
         with io.open(self.config.game_version_server_eula_file_path(), 'r', encoding = 'utf-8') as f:
@@ -611,3 +616,10 @@ class Game:
         os.chdir(self.config.game_version_server_dir())
         os.system(installServerCmd)
         print(ColorString.confirm('Completed! And the forge server file generated!'))
+
+
+    def generateForgeServerEULA(self):
+        if self.config.isForge and not self.checkEULA(): 
+            pure_server_jar = os.path.join(self.config.game_version_server_dir(), '.'.join(['minecraft_server',self.config.version,'jar']))
+            boot_cmd = 'java -jar ' + pure_server_jar
+            os.system(boot_cmd)
