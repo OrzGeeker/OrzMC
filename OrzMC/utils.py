@@ -10,13 +10,26 @@ isPy3 = (sys.version_info.major >= 3)
 def checkFileExist(filePath, hash):
     if not os.path.exists(filePath):
         return False
-    
+    ret = (computeHash(filePath) == hash)   
+    if not ret:
+        print('sha1 check failed: ' + filePath)
+    return ret
+
+def computeHash(filePath):
+    if not os.path.exists(filePath):
+        return None
     with open(filePath, 'rb') as f:
         computeHash = hashlib.sha1(f.read()).hexdigest()
-        ret = (computeHash == hash)
-        if not ret:
-            print('sha1 check failed: ' + filePath)
-        return ret
+        return computeHash
+
+def writeContentToFile(content, filePath):
+        if content != None:
+            if isPy3:
+                with open(filePath,'w',encoding='utf-8') as f:
+                    f.write(content)
+            else:
+                with open(filePath,'w') as f:
+                    f.write(content.encode('utf-8'))
 
 def makedirs(path):
     if not os.path.exists(path):
