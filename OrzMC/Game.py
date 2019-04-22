@@ -4,7 +4,7 @@ from .Mojang import Mojang
 from .Config import Config
 from .Spigot import Spigot
 from .Forge import Forge
-from .utils import checkFileExist, isPy3, platformType, ColorString
+from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile
 import json
 import requests
 import os
@@ -146,13 +146,7 @@ class Game:
         if not checkFileExist(version_json_path, hash):
             print("Download Game Json Configure File!")
             jsonStr = requests.get(url).text
-            if jsonStr != None:
-                if isPy3:
-                    with open(version_json_path,'w',encoding='utf-8') as f:
-                        f.write(jsonStr)
-                else:
-                    with open(version_json_path,'w') as f:
-                        f.write(jsonStr.encode('utf-8'))
+            writeContentToFile(jsonStr, version_json_path)
         else: 
             print("Game Json Configure File have been downloaded!")
 

@@ -57,7 +57,15 @@ def start():
                 help()
 
         # 生成配置信息对象
-        config = Config(is_client = is_client, version = version, username = username, game_type = game_type, mem_min = mem_min, mem_max = mem_max, debug=debug)
+        config = Config(
+            is_client = is_client,
+            version = version,
+            username = username,
+            game_type = game_type,
+            mem_min = mem_min,
+            mem_max = mem_max,
+            debug=debug
+        )
         
         # 用户交互
         userInteraction(config)
