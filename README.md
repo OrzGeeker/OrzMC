@@ -160,3 +160,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [Minecraft 官方Wiki](https://minecraft.gamepedia.com/Minecraft_Wiki)
 - [Minecraft 微软官方](https://www.minecraft.net/zh-hans/)
 - [Minecraft 网易官方](http://mc.163.com)
+
+# Tips 
+
+制作资源包，压缩是要在assets同级目录选择所有文件，而不是在父目录下压缩
