@@ -541,11 +541,12 @@ class Game:
         with io.open(self.config.game_version_server_properties_file_path(), 'r', encoding = 'utf-8') as f:
             properties = f.read()
             if 'online-mode=false' in properties:
-                offline_properties = ''
+                offline_properties = None
             else:
                 offline_properties = properties.replace('online-mode=true', 'online-mode=false')
-        with io.open(self.config.game_version_server_properties_file_path(), 'w', encoding = 'utf-8') as f:
-            if len(offline_properties) > 0:
+
+        if offline_properties != None:
+            with io.open(self.config.game_version_server_properties_file_path(), 'w', encoding = 'utf-8') as f:
                 f.write(offline_properties)
                 print(ColorString.confirm('Setting the server to offline mode, next launch this setting take effect!!!'))
 

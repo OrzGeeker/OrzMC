@@ -42,7 +42,7 @@ def start():
                 if len(a) > 0:
                     game_type = a
 
-            if o in ["-m" "--mem_min"]:
+            if o in ["-m", "--mem_min"]:
                 if len(a) > 0:
                     mem_min = a
 

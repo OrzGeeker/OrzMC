@@ -169,3 +169,7 @@ This is not a game for one player, so you should invit someone you like to make 
 # Tips 
 
 制作资源包，压缩是要在assets同级目录选择所有文件，而不是在父目录下压缩
+
+# 关于Mac上玩时，无线网络总是断开重连的总题解决方案
+
+网络设置，编辑位置，随便编写个名字，然后高级，里面选择DHCP续租，完成，就不会掉线了。
