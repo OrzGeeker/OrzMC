@@ -173,3 +173,16 @@ This is not a game for one player, so you should invit someone you like to make 
 # 关于Mac上玩时，无线网络总是断开重连的总题解决方案
 
 网络设置，编辑位置，随便编写个名字，然后高级，里面选择DHCP续租，完成，就不会掉线了。
+
+# 测试你的服务器可以支持几个玩家同时在线
+
+安装服务器网速测试工具`speedtest-cli`, 并测速:
+
+```bash
+$ pip install speedtest-cli
+$ speedtest-cli
+```
+
+将得到的上下行网速填入下面网址对应页面的区域时, 并将服务器的内存大小也填入, 开始计算即可
+
+[测试网址](http://canihostaminecraftserver.com)
