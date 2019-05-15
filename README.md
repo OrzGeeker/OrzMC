@@ -117,6 +117,8 @@ $ orzmc -s -m 512M -x 2G -v 1.13.2
 
 #### Spigot Server
 
+you should installed `jre` and `git` tools before you run commands below.
+
 ```bash
 $ pip install orzmc
 $ orzmc -s -t spigot -m 512M -x 1G -v 1.13.2
