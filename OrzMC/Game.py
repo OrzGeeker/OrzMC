@@ -111,10 +111,30 @@ class Game:
         mem_start = self.config.mem_min
         mem_max = self.config.mem_max
 
-        jvm_opts = ' '.join([ 
-            '-XX:+UseG1GC',
-            '-XX:-UseAdaptiveSizePolicy',
-            '-XX:-OmitStackTraceInFastThrow'
+        jvm_opts = ' '.join([
+            '-server',
+            '-XX:-UseVMInterruptibleIO',
+            '-XX:NewRatio=3',
+            '-XX:+UseConcMarkSweepGC',
+            '-XX:+UseParNewGC',
+            '-XX:+CMSIncrementalPacing',
+            '-XX:ParallelGCThreads=4',
+            '-XX:+AggressiveOpts',
+            '-XX:+UseFastAccessorMethods',
+            '-XX:+UseBiasedLocking',
+            '-XX:+CMSParallelRemarkEnabled',
+            '-XX:MaxGCPauseMillis=50',
+            '-XX:+UseAdaptiveGCBoundary',
+            '-XX:-UseGCOverheadLimit',
+            '-XX:SurvivorRatio=8',
+            '-XX:TargetSurvivorRatio=90',
+            '-XX:MaxTenuringThreshold=15',
+            '-XX:+DisableExplicitGC',
+            '-Xnoclassgc',
+            '-oss4M',
+            '-ss4M',
+            '-XX:CMSInitiatingOccupancyFraction=60',
+            '-XX:SoftRefLRUPolicyMSPerMB=2048'
         ])
 
         self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts= jvm_opts))
