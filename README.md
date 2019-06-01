@@ -23,7 +23,7 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 # Supported Operating System
 
 - mainly for MacOS.
-- Maybe can run on windows, as a backup schema, not yet test on windows platform.
+- If your operating system is Linux or windows, there is another launcher which is beautiful and flexable: [HMCL](https://hmcl.huangyuhui.net), you can use it play this game.
 
 # Usage
 
@@ -32,7 +32,7 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 ```bash
 $ orzmc -h
 
-    NAME
+   NAME
 
         orzmc -- A command line tool for start minecraft client or deploy minecraft server
 
@@ -50,7 +50,7 @@ $ orzmc -h
                 pick an username for player when start the client
 
             -t, --game_type
-                Specified the type of game: "pure"/"spigot"/"forge" for server, "pure/forge" for client, default 'pure'
+                Specified the type of game: "pure"/"spigot"/"forge" for server, "pure/forge" for client
 
             -m, --mem_min
                 Specified the JVM initial memory allocation
@@ -63,6 +63,9 @@ $ orzmc -h
 
             -h, --help 
                 show the command usage info
+
+            -f, --forceUpgrade
+                when deploy spigot server, the option can upgrade your map from old game version
 ```
 
 ## Run Client
@@ -81,10 +84,10 @@ $ orzmc
 
 ```bash
 $ pip install orzmc
-$ orzmc -v 1.13.2 -u player_name
+$ orzmc -v 1.14.2 -u player_name
 ```
 
-### you can also runt the forge client
+### you can also run the forge client
 
 ```bash
 $ pip install orzmc
@@ -99,7 +102,7 @@ $ orzmc -t forge
 
 ### use default setting to deploy the pure server
 
-default set jvm initial memory alloc `128M`, and max memory alloc `2G`
+default set jvm initial memory alloc `512M`, and max memory alloc `2G`
 
 ```bash
 $ pip install orzmc
@@ -110,7 +113,7 @@ $ orzmc -s
 
 ```bash
 $ pip install orzmc
-$ orzmc -s -m 512M -x 2G -v 1.13.2
+$ orzmc -s -m 512M -x 2G -v 1.14.2
 ```
 
 ### you can also deploy the spigot/forge minecraft server with option `-t`
@@ -121,14 +124,14 @@ you should installed `jre` and `git` tools before you run commands below.
 
 ```bash
 $ pip install orzmc
-$ orzmc -s -t spigot -m 512M -x 1G -v 1.13.2
+$ orzmc -s -t spigot -m 512M -x 1G -v 1.14.2
 ```
 
 #### Forge Server
 
 ```bash
 $ pip install orzmc
-$ orzmc -s -t forge -m 512M -x 1G -v 1.13.2
+$ orzmc -s -t forge -m 512M -x 1G -v 1.14.2
 ```
 
 由于Forge包是用JDK 8编译的，所以建安装的JDK环境为JDK8系统，不要太高，目前不兼容，会出现无法部署Forge服务器的情况。
@@ -150,6 +153,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] automation the process of installing JDK/JRE Runtime
 - [ ] add some unit test case to guarantee quality
 - [ ] create a Docker Mojang Mirror Server for personal CDN 
+- [ ] backup your world map files
 
 # Done List
 
@@ -191,3 +195,16 @@ $ speedtest-cli
 将得到的上下行网速填入下面网址对应页面的区域时, 并将服务器的内存大小也填入, 开始计算即可
 
 [测试网址](http://canihostaminecraftserver.com)
+
+# Spigot服务器支持将低版本游戏的地图更新到新版本
+
+只需要在启动命令中添加 `--forceUpgrade` 选项，启动一次服务器地图更新后，启动服务器就不需要添加这个选项了。
+
+Spigot的地图文件有三个目录：
+
+- `world` 对应纯净服的主世界地图目录: `world`
+- `world_nether` 对应纯净服的下界地图： `world/DIM-1`
+- `world_the_end` 对应纯净服的末路之地地图: `world/DIM1`
+
+从纯净服迁移到Spigot服时，将对应文件夹复制到对应目录下，重启服务即可完成地图迁移。
+

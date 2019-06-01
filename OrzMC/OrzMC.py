@@ -17,13 +17,14 @@ def start():
     version = None
     username = None
     game_type = Config.GAME_TYPE_PURE
-    mem_min = '128M'
+    mem_min = '512M'
     mem_max = '2G'
     debug = False
+    force_upgrade = False
 
     try:
 
-        opts, _ = getopt.getopt(sys.argv[1:], "sv:u:t:m:x:Vh", ["server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "Verbose" ,"help"])
+        opts, _ = getopt.getopt(sys.argv[1:], "sv:u:t:m:x:Vhf", ["server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "Verbose" ,"help", "forceUpgrade"])
 
         for o, a in opts:
 
@@ -55,6 +56,10 @@ def start():
 
             if o in ["-h", "--help"]:
                 help()
+            
+            if o in ["-f", "--forceUpgrade"]:
+                force_upgrade = True
+
 
         # 生成配置信息对象
         config = Config(
@@ -64,7 +69,8 @@ def start():
             game_type = game_type,
             mem_min = mem_min,
             mem_max = mem_max,
-            debug=debug
+            debug=debug,
+            force_upgrade=force_upgrade
         )
         
         # 用户交互

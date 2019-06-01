@@ -15,7 +15,15 @@ class Config:
     GAME_ROOT_DIR = os.path.join(BASE_PATH,'.minecraft')
     GAME_VERSIONS_DIR = os.path.join(GAME_ROOT_DIR,'versions')
 
-    def __init__(self, is_client=True, version=None, username=None, game_type=GAME_TYPE_PURE, mem_min=None, mem_max=None, debug = False):
+    def __init__(self,
+                is_client=True,
+                version=None,
+                username=None,
+                game_type=GAME_TYPE_PURE,
+                mem_min=None,
+                mem_max=None,
+                debug = False,
+                force_upgrade = False):
         self.is_client = is_client
         self.version = version
         self.username = username
@@ -25,6 +33,7 @@ class Config:
         self.isSpigot = (game_type == Config.GAME_TYPE_SPIGOT)
         self.isForge = (game_type == Config.GAME_TYPE_FORGE)
         self.debug = debug
+        self.force_upgrade = force_upgrade
 
         if self.isPure:
             self.game_type = Config.GAME_TYPE_PURE

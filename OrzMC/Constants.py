@@ -32,6 +32,9 @@ HELP_INFO = """
 
             -h, --help 
                 show the command usage info
+
+            -f, --forceUpgrade
+                when deploy spigot server, the option can upgrade your map from old game version
 """
 
 # 默认用户名

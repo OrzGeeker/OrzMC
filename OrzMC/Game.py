@@ -134,10 +134,12 @@ class Game:
             '-oss4M',
             '-ss4M',
             '-XX:CMSInitiatingOccupancyFraction=60',
-            '-XX:SoftRefLRUPolicyMSPerMB=2048'
+            '-XX:SoftRefLRUPolicyMSPerMB=2048',
+            '-Xms' + mem_start,
+            '-Xmx' + mem_max
         ])
-
-        self.startServer(self.startCommand(mem_start, mem_max, jarFilePath, jvm_opts= jvm_opts))
+        jarArgs = ['--forceUpgrade', 'nogui'] if self.config.isSpigot and self.config.force_upgrade else ['nogui']
+        self.startServer(self.startCommand(jvm_opts= jvm_opts, serverJARFilePath = jarFilePath, jarArgs = jarArgs))
 
     def download(self, url, dir, name = None):
         global is_sigint_up
@@ -525,11 +527,16 @@ class Game:
             print("Server Jar File have been downloaded")
 
 
-
-
-    def startCommand(self, mem_s, mem_x, serverJARFilePath, jvm_opts = ''):
+    def startCommand(self, jvm_opts = '', serverJARFilePath = '', jarArgs = ['nogui']):
         '''construct server start command'''
-        cmd = 'java ' + jvm_opts + ' -Xms' + mem_s + ' -Xmx' + mem_x + ' -jar ' + serverJARFilePath + ' nogui'
+        argList = [
+            'java',
+            jvm_opts,
+            '-jar',
+            serverJARFilePath
+        ]
+        argList.extend(jarArgs)
+        cmd = ' '.join(argList)
         return cmd
 
     def checkEULA(self):
@@ -537,7 +544,7 @@ class Game:
 
     def startServer(self, cmd):
         '''启动minecraft服务器'''
-        
+
         os.chdir(self.config.game_version_server_dir())
 
         # 如果没有eula.txt文件，则启动服务器生成
@@ -555,6 +562,10 @@ class Game:
             f.write(checkEULA)
         
         # 启动服务
+        
+        if self.config.debug:
+            print cmd
+
         os.system(cmd)
 
         # 设置服务器属性为离线模式
