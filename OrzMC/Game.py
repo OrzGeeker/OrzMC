@@ -4,7 +4,7 @@ from .Mojang import Mojang
 from .Config import Config
 from .Spigot import Spigot
 from .Forge import Forge
-from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile
+from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
 import json
 import requests
 import os
@@ -17,6 +17,7 @@ import time
 import progressbar
 import io
 import shutil
+import time
 
 is_sigint_up = False
 def sigint_handler(signum, frame):
@@ -86,6 +87,10 @@ class Game:
         '''deploy minecraft server'''
 
         if self.config.is_client:
+            return
+
+        if self.config.backup:
+            self.backupWorld()
             return
         
         if self.config.isPure:
@@ -564,7 +569,7 @@ class Game:
         # 启动服务
         
         if self.config.debug:
-            print cmd
+            print(cmd)
 
         os.system(cmd)
 
@@ -687,3 +692,16 @@ class Game:
             pure_server_jar = os.path.join(self.config.game_version_server_dir(), '.'.join(['minecraft_server',self.config.version,'jar']))
             boot_cmd = 'java -jar ' + pure_server_jar
             os.system(boot_cmd)
+
+    
+    def backupWorld(self):
+        world_paths = self.config.game_version_server_world_dirs()
+        if world_paths:            
+            backup_path = self.config.game_version_server_world_backup_dir()
+            now = time.localtime()
+            fileName = '_'.join([time.strftime('%Y-%m-%dT%H:%M:%S', now), self.config.game_type, self.config.version]) + '.zip'
+            world_backup_file = os.path.join(backup_path, fileName)
+            zip(world_paths, world_backup_file)
+            print(ColorString.confirm("backuped world file: %s!!!" % world_backup_file ))
+        else: 
+            print(ColorString.error('There is no world directory!!!'))

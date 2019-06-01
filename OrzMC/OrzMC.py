@@ -21,12 +21,15 @@ def start():
     mem_max = '2G'
     debug = False
     force_upgrade = False
+    backup = False
 
     try:
 
-        opts, _ = getopt.getopt(sys.argv[1:], "sv:u:t:m:x:Vhf", ["server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "Verbose" ,"help", "forceUpgrade"])
+        opts, _ = getopt.getopt(sys.argv[1:], "bsv:u:t:m:x:Vhf", ["backup", "server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "Verbose" ,"help", "forceUpgrade"])
 
         for o, a in opts:
+            if o in ["-b", "--backup"]:
+                backup = True
 
             if o in ["-s", "--server"]:
                 is_client = False
@@ -70,7 +73,8 @@ def start():
             mem_min = mem_min,
             mem_max = mem_max,
             debug=debug,
-            force_upgrade=force_upgrade
+            force_upgrade=force_upgrade,
+            backup= backup
         )
         
         # 用户交互

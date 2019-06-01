@@ -3,6 +3,7 @@
 import os
 from .utils import makedirs, platformType
 from .Forge import Forge
+import json
 
 class Config:
     '''Public Definitions'''
@@ -23,7 +24,8 @@ class Config:
                 mem_min=None,
                 mem_max=None,
                 debug = False,
-                force_upgrade = False):
+                force_upgrade = False,
+                backup = False):
         self.is_client = is_client
         self.version = version
         self.username = username
@@ -34,6 +36,7 @@ class Config:
         self.isForge = (game_type == Config.GAME_TYPE_FORGE)
         self.debug = debug
         self.force_upgrade = force_upgrade
+        self.backup = backup
 
         if self.isPure:
             self.game_type = Config.GAME_TYPE_PURE
@@ -147,5 +150,41 @@ class Config:
     def game_version_server_build_dir(self):
         build_path = os.path.join(self.game_version_server_dir(), 'build')
         makedirs(build_path)
-        return build_path        
+        return build_path
     
+    def game_version_server_world_dirs(self):
+        worldName = 'world'
+        properties_file_path = self.game_version_server_properties_file_path()
+
+        if os.path.exists(properties_file_path):
+            with open(properties_file_path, 'r') as f:
+                for line in f.readlines():
+                    if 'level-name' in line:
+                        worldName = line.strip('\n').split('=')[1]
+        else:
+            return None
+
+        game_dir = self.game_version_server_dir()
+
+        world_dirs = []
+        world_dir = os.path.join(game_dir,worldName)
+        if world_dir and os.path.exists(world_dir):
+            world_dirs.append(world_dir)
+
+        if self.isSpigot:
+            world_nether_dir = world_dir + '_nether'
+            world_the_end_dir = world_dir + '_the_end'
+            if world_nether_dir and os.path.exists(world_nether_dir):
+                world_dirs.append(world_nether_dir)
+            if world_the_end_dir and os.path.exists(world_the_end_dir):
+                world_dirs.append(world_the_end_dir)
+
+        if len(world_dirs):
+            return world_dirs
+        else:
+            return None
+    
+    def game_version_server_world_backup_dir(self):
+        backup_dir = os.path.join(Config.BASE_PATH, 'minecraft_world_backup')
+        makedirs(backup_dir)
+        return backup_dir

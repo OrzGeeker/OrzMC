@@ -153,13 +153,13 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] automation the process of installing JDK/JRE Runtime
 - [ ] add some unit test case to guarantee quality
 - [ ] create a Docker Mojang Mirror Server for personal CDN 
-- [ ] backup your world map files
 
 # Done List
 
 - [x] add Spigot Server deploy option
 - [x] add a homepage for this project
 - [x] support forge client and server on MacOS, Yep!!!🤪 
+- [x] backup your world map files
 
 # Reference
 
