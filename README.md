@@ -66,6 +66,9 @@ $ orzmc -h
 
             -f, --forceUpgrade
                 when deploy spigot server, the option can upgrade your map from old game version
+
+            -b, --backup
+                backup your minecraft world into ~/minecraft_world_backup directory as zip file!
 ```
 
 ## Run Client
