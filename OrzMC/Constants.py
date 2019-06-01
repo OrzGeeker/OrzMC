@@ -35,6 +35,9 @@ HELP_INFO = """
 
             -f, --forceUpgrade
                 when deploy spigot server, the option can upgrade your map from old game version
+
+            -b, --backup
+                backup your minecraft world into ~/minecraft_world_backup directory as zip file!
 """
 
 # 默认用户名
