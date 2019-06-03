@@ -6,12 +6,6 @@ Only supports Python >=2.7, <4
 
 Requires JDK 1.8 to be configured, not higher than this version, becuase forge cannot run on higher jdk versions such as 1.12!
 
-# Introduction Video on YouTube(Need VPN in China)
-
-- [[1]Minecraft 开服工具以及MacOS启动器支持1.13.2 OrzMC-1.0.22](https://youtu.be/uNDx__muBVY)
-
-- [[2]Minecraft 开服工具以及MacOS启动器支持1.13.2 OrzMC-1.0.22](https://youtu.be/sC8xHHhgNC4)
-
 # Supported Minecraft Client Version
 
 - supports versions of client `>= 1.13`
@@ -79,9 +73,6 @@ $ orzmc -h
 $ pip install orzmc
 $ orzmc
 ```
-![orzmc](screenshots/orzmc.png)
-
-![Minecraft-Client](screenshots/minecraft-client.png)
 
 ### if you know the client version and your username
 
@@ -96,10 +87,6 @@ $ orzmc -v 1.14.2 -u player_name
 $ pip install orzmc
 $ orzmc -t forge
 ```
-
-![orzmc](screenshots/orzmc-forge.png)
-
-![Minecraft-Forge-Client](screenshots/minecraft-forge-client.png)
 
 ## Deploy Server
 
@@ -142,8 +129,6 @@ $ orzmc -s -t forge -m 512M -x 1G -v 1.14.2
 ---
 
 The game resources are saved under user's home directory, and named `.minecraft`
-
-# Tips
 
 This is not a game for one player, so you should invit someone you like to make you guys own beautiful world!!!
 
@@ -211,3 +196,7 @@ Spigot的地图文件有三个目录：
 
 从纯净服迁移到Spigot服时，将对应文件夹复制到对应目录下，重启服务即可完成地图迁移。
 
+# 为服务器添加自定义图标
+
+在服务器启动根目录下面(也就是和`jar`文件同一级目录下面), 放置`64x64`大小的`png`图片, 然后重新启动服务器.
+这时再连接服务器时, 就会把自定义的`64x64`的图片展示出来.
