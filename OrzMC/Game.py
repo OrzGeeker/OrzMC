@@ -4,6 +4,7 @@ from .Mojang import Mojang
 from .Config import Config
 from .Spigot import Spigot
 from .Forge import Forge
+from .CleanUp import CleanUp
 from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
 import json
 import requests
@@ -24,6 +25,7 @@ def sigint_handler(signum, frame):
     global is_sigint_up
     is_sigint_up = True
     print(ColorString.warn("\nForce Exit!"))
+    CleanUp.executeCleanTask()
     exit(-1)
 
 signal.signal(signal.SIGINT, sigint_handler)
@@ -701,7 +703,16 @@ class Game:
             now = time.localtime()
             fileName = '_'.join([time.strftime('%Y-%m-%dT%H:%M:%S', now), self.config.game_type, self.config.version]) + '.zip'
             world_backup_file = os.path.join(backup_path, fileName)
+
+            def backupWorld_cleanUp():
+                if os.path.isfile(world_backup_file) and os.path.exists(world_backup_file):
+                    os.remove(world_backup_file)
+                    print(ColorString.warn("Removed Invalid World Backup File: %s" % world_backup_file))
+
+            print(ColorString.hint('Start Executing ZIP ...'))
+            CleanUp.registerTask('backupWorld_cleanUp', backupWorld_cleanUp)
             zip(world_paths, world_backup_file)
-            print(ColorString.confirm("backuped world file: %s!!!" % world_backup_file ))
+            CleanUp.cancelTask('backupWorld_cleanUp')
+            print(ColorString.confirm("Completed! backuped world file: %s!!!" % world_backup_file ))
         else: 
             print(ColorString.error('There is no world directory!!!'))
