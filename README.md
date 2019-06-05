@@ -164,7 +164,7 @@ This is not a game for one player, so you should invit someone you like to make 
 
 # Tips 
 
-- 制作资源包，压缩是要在assets同级目录选择所有文件，而不是在父目录下压缩, 先进入`assets`目录下面, 再执行指令`zip -r resourcepack.zip ./*`生成压缩文件, 可以导出作为资源包使用.
+- 制作资源包，压缩是要在assets同级目录选择所有文件，而不是在父目录下压缩, 先进入`assets`目录下面, 再执行指令`zip -r resourcepack.zip ./*`生成压缩文件, 可以导出作为资源包使用. 查看资源包的`SHA-1`值使用: `echo -e "SHA-1: " "$(shasum -b resourcepack.zip | cut -d ' ' -f 1)"`
 - 使用query协议查询服务器状态需要用到UDP协议，所以在云服务器上部署需要允许这个协议访问对应的端口
 
 # 关于Mac上玩时，无线网络总是断开重连的总题解决方案
