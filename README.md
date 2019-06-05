@@ -204,3 +204,38 @@ Spigot的地图文件有三个目录：
 # 添加自定义音乐播放
 
 mp3转ogg指令: `ffmpeg -i origin.mp3 -map 0:a:0 output.ogg`
+
+资源包目录定义:
+```bash
+├── assets
+│   └── minecraft
+│       ├── sounds
+│       │   └── music
+│       │       └── joker
+│       │           └── joker.ogg
+│       ├── sounds.json
+│       └── textures
+│           └── entity
+│               ├── alex.png
+│               └── steve.png
+├── pack.mcmeta
+└── pack.png
+```
+
+只需要在`minecraft`目录下创建`sounds`目录,用来存放声音文件`ogg`格式, 并且要确保播放的声音通道是音频通道的第一个通道. 然后创建同目录级别的`sounds.json`文件, 用来定义声音文件和游戏中声音事件的对应关系.
+
+```json
+{
+    "music.joker": {
+        "sounds": [
+          {
+            "name": "music/joker/joker",
+            "stream": true,
+            "volume": 1
+          }
+        ]
+      }
+}
+```
+
+如上, 定义了一个游戏声音事件`music.joker`, 它使用声音文件: `music/joker/joker`, 在游戏内, 可以使用指令`/playsound` 进行播放, 如果和命令方法配合使用, 则可以有其它的好玩的用法. ;-D
