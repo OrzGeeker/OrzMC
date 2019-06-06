@@ -239,3 +239,21 @@ mp3转ogg指令: `ffmpeg -i origin.mp3 -map 0:a:0 output.ogg`
 ```
 
 如上, 定义了一个游戏声音事件`music.joker`, 它使用声音文件: `music/joker/joker`, 在游戏内, 可以使用指令`/playsound` 进行播放, 如果和命令方法配合使用, 则可以有其它的好玩的用法. ;-D
+
+# 添加了Spigot服务systemd服务脚本
+
+```bash
+scripts/systemd/
+└── minecraft.service
+
+0 directories, 1 file
+```
+
+部署时将`minecraft.service`文件放入`/etc/systemd/system/`目录下面, 运行命令:
+
+```
+$ sudo systemctl daemon-reload    // 加载服务脚本
+$ sudo systemctl start minecraft  // 启动服务
+$ sudo systemctl stop minecraft   // 停止服务
+$ sudo systemctl reload minecraft // 重新加载游戏
+```
