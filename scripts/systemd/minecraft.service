@@ -1,0 +1,24 @@
+[Unit]
+Description=Joker Minecraft Server
+After=network.target
+
+[Service]
+User=joker
+WorkingDirectory=~
+Environment=TITLE='jokermc'
+Environment=STOP_SHUTDOWN='服务器即将关闭, 正在保存地图...'
+Environment=MC_VERSION='1.14.2'
+Environment=MC_MIN='1G'
+Environment=MC_MAX='2G'
+Environment=MC_SERVER_TYPE='spigot'
+ExecStart=/bin/sh -c '/usr/bin/screen -DmS $TITLE /home/joker/.local/bin/orzmc -s -v ${MC_VERSION} -m ${MC_MIN} -x ${MC_MAX} -t ${MC_SERVER_TYPE}'
+ExecReload=/usr/bin/screen -p 0 -S $TITLE -X eval 'stuff "reload"\\015'
+ExecStop=/usr/bin/screen -p 0 -S $TITLE -X eval 'stuff "say ${STOP_SHUTDOWN}"\\015'
+ExecStop=/usr/bin/screen -p 0 -S $TITLE -X eval 'stuff "save-all"\\015'
+ExecStop=/usr/bin/screen -p 0 -S $TITLE -X eval 'stuff "stop"\\015'
+ExecStop=/bin/sleep 10
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target
