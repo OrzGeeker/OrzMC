@@ -63,7 +63,7 @@ class Game:
             return
 
         user = self.config.username
-        resolution = ('720', '450')
+        resolution = ('960', '540')
 
         global is_sigint_up
         if is_sigint_up:
@@ -445,7 +445,8 @@ class Game:
             '-Xmx%s' % mem_max,
             '-XX:+UseG1GC',
             '-XX:-UseAdaptiveSizePolicy',
-            '-XX:-OmitStackTraceInFastThrow'
+            '-XX:-OmitStackTraceInFastThrow',
+            '-Djava.net.preferIPv4Stack=true'
         ]
         arguments.extend(jvm_opts)
 

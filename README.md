@@ -169,7 +169,7 @@ This is not a game for one player, so you should invit someone you like to make 
 
 # 关于Mac上玩时，无线网络总是断开重连的总题解决方案
 
-网络设置，编辑位置，随便编写个名字，然后高级，里面选择DHCP续租，完成，就不会掉线了。
+这个可能是因为网络问题, minecraft的bug列表中可以搜索到这个问题: [MC-98598](https://bugs.mojang.com/browse/MC-98598),提供了解决方案: JVM启动参数中指定使用`IPv4`: `-Djava.net.preferIPv4Stack=true`
 
 # 测试你的服务器可以支持几个玩家同时在线
 
