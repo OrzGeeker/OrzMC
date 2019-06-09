@@ -10,6 +10,7 @@ class Config:
     GAME_TYPE_PURE = 'pure'
     GAME_TYPE_SPIGOT = 'spigot'
     GAME_TYPE_FORGE = 'forge'
+    GAME_TYPE_PAPER = 'paper'
     
     '''Private Definitions'''
     BASE_PATH = os.path.expanduser('~')
@@ -34,6 +35,7 @@ class Config:
         self.isPure = (game_type == Config.GAME_TYPE_PURE)
         self.isSpigot = (game_type == Config.GAME_TYPE_SPIGOT)
         self.isForge = (game_type == Config.GAME_TYPE_FORGE)
+        self.isPaper = (game_type == Config.GAME_TYPE_PAPER)
         self.debug = debug
         self.force_upgrade = force_upgrade
         self.backup = backup
@@ -42,6 +44,8 @@ class Config:
             self.game_type = Config.GAME_TYPE_PURE
         elif self.isSpigot:
             self.game_type = Config.GAME_TYPE_SPIGOT
+        elif self.isPaper:
+            self.game_type = Config.GAME_TYPE_PAPER
         elif self.isForge: 
             self.game_type = Config.GAME_TYPE_FORGE
         else:
@@ -132,6 +136,8 @@ class Config:
             return self.forgeInfo.fullVersion + '.jar'
         elif self.isSpigot:
             return 'spigot-' + self.version + '.jar'
+        elif self.isPaper:
+            return 'paper-' + self.version + '.jar'
         elif self.isPure:
             return self.version + '.jar'
         else:
@@ -171,7 +177,7 @@ class Config:
         if world_dir and os.path.exists(world_dir):
             world_dirs.append(world_dir)
 
-        if self.isSpigot:
+        if self.isSpigot or self.isPaper:
             world_nether_dir = world_dir + '_nether'
             world_the_end_dir = world_dir + '_the_end'
             if world_nether_dir and os.path.exists(world_nether_dir):
