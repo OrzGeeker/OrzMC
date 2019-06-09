@@ -272,8 +272,11 @@ $ sudo systemctl reload minecraft // 重新加载游戏
 
 ## 用户命令
 使用`/register <password>` 注册用户密码
+
 使用`/changepass <old> <new>` 变更用户密码
+
 使用`/login <password>` 命令可以登录
+
 使用`/logout` 可以登出
 
 ## 游戏地图相关插件
