@@ -275,3 +275,17 @@ $ sudo systemctl reload minecraft // 重新加载游戏
 使用`/changepass <old> <new>` 变更用户密码
 使用`/login <password>` 命令可以登录
 使用`/logout` 可以登出
+
+
+# 升级服务器版本时需要迁移的文件
+
+```
+.
+├── eula.txt            // eula协议同意文件
+├── plugins             // 服务器安装的插件
+├── server-icon.png     // 服务器自定义图标
+├── server.properties   // 服务器配置属性
+├── world               // Spigot服务器主世界地图
+├── world_nether        // Spigot服务器下界地图
+└── world_the_end       // Spigot服务器末路之地地图
+```
