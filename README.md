@@ -152,7 +152,10 @@ This is not a game for one player, so you should invit someone you like to make 
 # Reference
 
 - [SpigotMC](https://www.spigotmc.org/)
+- [Paper](https://papermc.io)
+- [Sponge](https://www.spongepowered.org)
 - [Minecraft Forge](https://files.minecraftforge.net)
+- [Optifine](https://www.optifine.net/home)
 - [CurseForge](https://minecraft.curseforge.com)(最新版的相关资源下载的最好的地方)
 - [Minecraft 中文资源站](http://www.minecraftxz.com)(老旧版的资源下载站，不需要翻墙)
 - [Minecraft 中文百科](https://minecraft-zh.gamepedia.com/Minecraft_Wiki)
@@ -308,3 +311,4 @@ $ sudo systemctl reload minecraft // 重新加载游戏
 
 - 从Vanilla迁移，因为地图抽离成三个文件夹，这个抽离过程会自动进行
 - 从Spigot迁移，不需要做任何操作，只需要替换jar文件即可。
+- 据说能显著提升性能
