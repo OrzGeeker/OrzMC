@@ -5,6 +5,7 @@ from .Config import Config
 from .Spigot import Spigot
 from .Forge import Forge
 from .CleanUp import CleanUp
+from .PaperAPI import PaperAPI
 from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
 import json
 import requests
@@ -104,6 +105,10 @@ class Game:
             if not os.path.exists(self.config.game_version_server_jar_file_path()):
                 self.buildSpigotServer()
             jarFilePath = self.config.game_version_server_jar_file_path()
+        elif self.config.isPaper:
+            if not os.path.exists(self.config.game_version_server_jar_file_path()):
+                self.downloadPaperServerJarFile()
+            jarFilePath = self.config.game_version_server_jar_file_path()
         elif self.config.isForge:
             self.config.getForgeInfo()
             if not os.path.exists(self.config.game_version_server_jar_file_path()):
@@ -145,7 +150,7 @@ class Game:
             '-Xms' + mem_start,
             '-Xmx' + mem_max
         ])
-        jarArgs = ['--forceUpgrade', 'nogui'] if self.config.isSpigot and self.config.force_upgrade else ['nogui']
+        jarArgs = ['--forceUpgrade', 'nogui'] if (self.config.isSpigot or self.config.isPaper) and self.config.force_upgrade else ['nogui']
         self.startServer(self.startCommand(jvm_opts= jvm_opts, serverJARFilePath = jarFilePath, jarArgs = jarArgs))
 
     def download(self, url, dir, name = None):
@@ -717,3 +722,16 @@ class Game:
             print(ColorString.confirm("Completed! backuped world file: %s!!!" % world_backup_file ))
         else: 
             print(ColorString.error('There is no world directory!!!'))
+
+
+    def downloadPaperServerJarFile(self):
+        url = PaperAPI.downloadURL(
+                api_version = 'v1',
+                project_name = 'paper',
+                project_version = self.config.version,
+                build_id = 'latest'
+            )
+        if url and len(url) > 0:
+            print(ColorString.hint("Downloading Paper Server Jar File!!!"))
+            self.download(url, self.config.game_version_server_dir(), self.config.game_version_server_jar_filename())
+            print(ColorString.confirm("Paper Server Jar File Downloaded!!"))
