@@ -276,6 +276,13 @@ $ sudo systemctl reload minecraft // 重新加载游戏
 使用`/login <password>` 命令可以登录
 使用`/logout` 可以登出
 
+## 游戏地图相关插件
+- [WorldEdit](https://github.com/EngineHub/WorldEdit)：编辑地图
+- [WorldGuard](https://github.com/enginehub/worldguard)：保护地图
+- [CraftBook](https://www.curseforge.com/minecraft/bukkit-plugins/craftbook)
+
+## 权限管理插件
+- [EssentialsX](https://github.com/Essentials/Essentials)
 
 # 升级服务器版本时需要迁移的文件
 
@@ -289,3 +296,12 @@ $ sudo systemctl reload minecraft // 重新加载游戏
 ├── world_nether        // Spigot服务器下界地图
 └── world_the_end       // Spigot服务器末路之地地图
 ```
+
+
+# Paper基于Spigot/Bukkit，兼容插件，性能更好
+
+[Paper官网](https://papermc.io)
+[Paper文档](https://paper.readthedocs.io/en/stable/index.html)
+
+- 从Vanilla迁移，因为地图抽离成三个文件夹，这个抽离过程会自动进行
+- 从Spigot迁移，不需要做任何操作，只需要替换jar文件即可。
