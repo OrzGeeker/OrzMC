@@ -310,5 +310,5 @@ $ sudo systemctl reload minecraft // 重新加载游戏
 [Paper文档](https://paper.readthedocs.io/en/stable/index.html)
 
 - 从Vanilla迁移，因为地图抽离成三个文件夹，这个抽离过程会自动进行
-- 从Spigot迁移，不需要做任何操作，只需要替换jar文件即可。
+- 从Spigot迁移，不需要做任何操作，只需要替换jar文件即可。
 - 据说能显著提升性能
