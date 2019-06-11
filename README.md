@@ -268,7 +268,7 @@ $ sudo systemctl reload minecraft // 重新加载游戏
 `Spigot`服务器添加插件:
 - [ProtocolLib](https://github.com/dmulloy2/ProtocolLib/releases)：这个插件是`FastLogin`依赖插件
 - [FastLogin](https://github.com/games647/FastLogin/releases)：这个用来处理登录，需要配合其它专门处理登录的插件使用
-- [LoginSecurity](https://github.com/lenis0012/LoginSecurity-2/releases)： 用来处理离线模式下的用户登录
+- [LoginSecurity](https://github.com/lenis0012/LoginSecurity-2/releases)： 用来处理离线模式下的用户登录
 
 ## 管理员命令
 使用`/lac`移除密码并重新载入游戏
