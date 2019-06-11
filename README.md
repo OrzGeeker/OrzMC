@@ -21,49 +21,19 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 
 # Usage
 
-`orzmc -h` to check the help info
+## Installation
 
 ```bash
-$ orzmc -h
-
-   NAME
-
-        orzmc -- A command line tool for start minecraft client or deploy minecraft server
-
-    Usage
-
-        orzmc [-v client_version_number] [-u username] [-h]
-
-            -s, --server
-                deploy minecraft server, if there is no this flag, this command line tool start minecraft as default
-        
-            -v, --version  
-                Specified the Minecraft clinet version number to start
-
-            -u, --username 
-                pick an username for player when start the client
-
-            -t, --game_type
-                Specified the type of game: "pure"/"spigot"/"forge" for server, "pure/forge" for client
-
-            -m, --mem_min
-                Specified the JVM initial memory allocation
-
-            -x, --mem_max
-                Specified the JVM max memory allocation
-
-            -V, --Verbose
-                Output some debug info for bugfix
-
-            -h, --help 
-                show the command usage info
-
-            -f, --forceUpgrade
-                when deploy spigot server, the option can upgrade your map from old game version
-
-            -b, --backup
-                backup your minecraft world into ~/minecraft_world_backup directory as zip file!
+$ pip install orzmc
 ```
+execute `orzmc -h` in shell to check the help info about this python `CLI` tool
+
+## What You Can Do
+
+- Run Minecraft Client Downloaded From Mojang Office API
+- Deploy Minecraft Server on your own Clound Manchine
+- Backup world for your minecraft server
+- ForceUpgrade your world from old version to newer
 
 ## Run Client
 
