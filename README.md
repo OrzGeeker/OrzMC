@@ -106,14 +106,13 @@ This is not a game for one player, so you should invit someone you like to make 
 
 - [ ] fire an weixin public account and group for uses get newest information and communicate with each other
 - [ ] implement RCON Protocol for remote control Minecraft Server
-- [ ] add world backup function
 - [ ] refine the project script for readable
 - [ ] automation the process of installing JDK/JRE Runtime
 - [ ] add some unit test case to guarantee quality
-- [ ] create a Docker Mojang Mirror Server for personal CDN 
+- [ ] use BMCLAPI to boost client download speed
 
 # Done List
-
+- [x] add Paper Server deploy option
 - [x] add Spigot Server deploy option
 - [x] add a homepage for this project
 - [x] support forge client and server on MacOS, Yep!!!🤪 
@@ -121,8 +120,8 @@ This is not a game for one player, so you should invit someone you like to make 
 
 # Reference
 
-- [SpigotMC](https://www.spigotmc.org/)
 - [Paper](https://papermc.io)
+- [SpigotMC](https://www.spigotmc.org/)
 - [Sponge](https://www.spongepowered.org)
 - [Minecraft Forge](https://files.minecraftforge.net)
 - [Optifine](https://www.optifine.net/home)
@@ -134,6 +133,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [Minecraft 网易官方](http://mc.163.com)
 - [Query协议](https://wiki.vg/Query)
 - [RCON协议](https://wiki.vg/RCON)
+- [Server List Ping协议](https://wiki.vg/Server_List_Ping)
 
 # Tips 
 
