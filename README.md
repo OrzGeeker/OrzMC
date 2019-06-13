@@ -261,17 +261,14 @@ exec
 
 # 添加离线登录功能，用来保护帐号
 
-参考这篇说明：<https://github.com/games647/FastLogin>
-
-`Spigot`服务器添加插件:
-- [ProtocolLib](https://github.com/dmulloy2/ProtocolLib/releases)：这个插件是`FastLogin`依赖插件
-- [FastLogin](https://github.com/games647/FastLogin/releases)：这个用来处理登录，需要配合其它专门处理登录的插件使用
 - [LoginSecurity](https://github.com/lenis0012/LoginSecurity-2/releases)： 用来处理离线模式下的用户登录
 
 ## 管理员命令
+
 使用`/lac`移除密码并重新载入游戏
 
 ## 用户命令
+
 使用`/register <password>` 注册用户密码
 
 使用`/changepass <old> <new>` 变更用户密码
@@ -280,13 +277,19 @@ exec
 
 使用`/logout` 可以登出
 
-## 游戏地图相关插件
-- [WorldEdit](https://github.com/EngineHub/WorldEdit)：编辑地图
-- [WorldGuard](https://github.com/enginehub/worldguard)：保护地图
-- [CraftBook](https://www.curseforge.com/minecraft/bukkit-plugins/craftbook)
-
 ## 权限管理插件
-- [EssentialsX](https://github.com/Essentials/Essentials)
+
+- [EssentialsX](https://github.com/EssentialsX/Essentials)
+- [EssentialsX Doc](http://ess3.net)
+- [LuckPerms](https://luckperms.github.io)
+- [LuckPerms Doc](https://github.com/lucko/LuckPerms/wiki)
+- [Valut](https://github.com/milkbowl/Vault)
+- [Valut Download](https://dev.bukkit.org/projects/vault/files)
+- [Valut Doc](http://milkbowl.github.io/VaultAPI/)
+
+## 游戏地图相关插件(Paper 1.14.2上暂不可用)
+
+- [一组优秀的插件](http://enginehub.org)
 
 # 升级服务器版本时需要迁移的文件
 
