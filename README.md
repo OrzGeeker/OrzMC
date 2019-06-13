@@ -232,6 +232,33 @@ $ sudo systemctl stop minecraft   // 停止服务
 $ sudo systemctl reload minecraft // 重新加载游戏
 ```
 
+# 添加了用户游戏提醒脚本，使用crontab添加定时任务
+
+`scripts/crontab/mc_cron.sh`
+
+```
+#!/usr/bin/env bash
+
+TITLE="jokermc"
+
+function exec() {
+	/usr/bin/screen -p 0 -S $TITLE -X eval 'stuff "title @a times 10 100 10"\\015'
+	/usr/bin/screen -p 0 -S $TITLE -X eval 'stuff "title @a title {\\"text\\":\\"温馨提示\\",\\"color\\":\\"white\\",\\"bold\\":\\"true\\"}"\\015'
+	/usr/bin/screen -p 0 -S $TITLE -X eval 'stuff "title @a subtitle {\\"text\\":\\"各位冒险家们注意早点休息啦!\\",\\"color\\":\\"yellow\\",\\"bold\\":\\"true\\"}"\\015'
+}
+
+exec
+```
+
+使用`crontab -e`添加定时执行任务，目前我设置为每天凌晨两点提醒用户游戏时间太长，注意休息
+
+```
+# m h  dom mon dow   command
+0 2 * * *  /home/joker/mc_cron.sh
+```
+
+这里的配置中有一些需要跟据自己的部署环境进行调整。各位大佬应该注意一下～～～
+
 # 添加离线登录功能，用来保护帐号
 
 参考这篇说明：<https://github.com/games647/FastLogin>
