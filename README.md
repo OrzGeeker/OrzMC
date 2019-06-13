@@ -134,7 +134,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [Query协议](https://wiki.vg/Query)
 - [RCON协议](https://wiki.vg/RCON)
 - [Server List Ping协议](https://wiki.vg/Server_List_Ping)
-- [Minecraft官方Bug报告和查询](https://bugs.mojang.com/secure/Dashboard.jspa)
+- [Minecraft官方Bug报告和查询](https://bugs.mojang.com/projects)
 
 # Tips 
 
