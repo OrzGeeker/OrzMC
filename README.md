@@ -122,6 +122,7 @@ This is not a game for one player, so you should invit someone you like to make 
 
 - [Paper](https://papermc.io)
 - [SpigotMC](https://www.spigotmc.org/)
+- [Bukkit](https://bukkit.org)
 - [Sponge](https://www.spongepowered.org)
 - [Minecraft Forge](https://files.minecraftforge.net)
 - [Optifine](https://www.optifine.net/home)
@@ -259,15 +260,19 @@ exec
 
 这里的配置中有一些需要跟据自己的部署环境进行调整。各位大佬应该注意一下～～～
 
-# 添加离线登录功能，用来保护帐号
+# 服务器添加插件
+
+插件下载地址： [Bukkit Plugins](https://dev.bukkit.org/bukkit-plugins)
+
+## 离线模式登录插件
 
 - [LoginSecurity](https://github.com/lenis0012/LoginSecurity-2/releases)： 用来处理离线模式下的用户登录
 
-## 管理员命令
+### 管理员命令
 
 使用`/lac`移除密码并重新载入游戏
 
-## 用户命令
+### 用户命令
 
 使用`/register <password>` 注册用户密码
 
@@ -279,13 +284,12 @@ exec
 
 ## 权限管理插件
 
-- [EssentialsX](https://github.com/EssentialsX/Essentials)
-- [EssentialsX Doc](http://ess3.net)
 - [LuckPerms](https://luckperms.github.io)
 - [LuckPerms Doc](https://github.com/lucko/LuckPerms/wiki)
-- [Valut](https://github.com/milkbowl/Vault)
-- [Valut Download](https://dev.bukkit.org/projects/vault/files)
-- [Valut Doc](http://milkbowl.github.io/VaultAPI/)
+
+## 指令扩展插件
+
+- [EssentialsPro](https://github.com/TheDoffman/EssentialsPro)
 
 ## 游戏地图相关插件(Paper 1.14.2上暂不可用)
 
