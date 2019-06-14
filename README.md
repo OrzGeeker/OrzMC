@@ -6,6 +6,10 @@ Only supports Python >=2.7, <4
 
 Requires JDK 1.8 to be configured, not higher than this version, becuase forge cannot run on higher jdk versions such as 1.12!
 
+**Hint**
+
+If you not a CLI enthusiast, you can download `HMCL` Client Launcher: <https://hmcl.huangyuhui.net>, which is beautiful、flexable and powerful. But this tools also can be used deploy server on your Cloud Host which run Unix-like OS.
+
 # Supported Minecraft Client Version
 
 - supports versions of client `>= 1.13`
@@ -16,8 +20,7 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 
 # Supported Operating System
 
-- mainly for MacOS.
-- If your operating system is Linux or windows, there is another launcher which is beautiful and flexable: [HMCL](https://hmcl.huangyuhui.net), you can use it play this game.
+- mainly for MacOS and Linux required `JRE >= 1.8` and `Git` installed.
 
 # Usage
 
@@ -288,6 +291,8 @@ exec
 - [LuckPerms Doc](https://github.com/lucko/LuckPerms/wiki)
 
 ## 指令扩展插件
+
+目前tp指令被覆盖，无法配合命令方法使用，主要是因为tp不能识别目标选择器: @a @e @r @s @p, 如果地图没有开启命令方块，可以使用这个插件扩展命令 
 
 - [EssentialsPro](https://github.com/TheDoffman/EssentialsPro)
 
