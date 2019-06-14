@@ -6,8 +6,6 @@ Only supports Python >=2.7, <4
 
 Requires JDK 1.8 to be configured, not higher than this version, becuase forge cannot run on higher jdk versions such as 1.12!
 
-`**Hint**`
-
 **If you not a CLI enthusiast, you can download `HMCL` Client Launcher: <https://hmcl.huangyuhui.net>, which is beautiful、flexable and powerful. But this tools also can be used deploy server on your Cloud Host which run Unix-like OS.**
 
 # Supported Minecraft Client Version
