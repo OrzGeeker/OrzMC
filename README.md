@@ -294,7 +294,7 @@ exec
 
 - [EssentialsPro](https://github.com/TheDoffman/EssentialsPro)
 
-由于目前tp指令被EssentialsPro覆盖，无法配合命令方法使用，主要是因为tp不能识别目标选择器: @a @e @r @s @p, 如果地图没有开启命令方块，可以使用这个插件扩展命令。使用替代方案，单独扩展指令：
+由于目前tp指令被EssentialsPro覆盖，无法配合命令方法使用，主要是因为tp不能识别目标选择器: @a @e @r @s @p, 如果地图没有开启命令方块，可以使用这个插件扩展命令。使用替代方案，单独扩展指令：
 
 - [GetMeHome](https://dev.bukkit.org/projects/getmehome): 设置回家指令
 - [ChatColor](https://dev.bukkit.org/projects/chatcolor-s/files): 设置消息颜色
