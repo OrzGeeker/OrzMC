@@ -328,4 +328,10 @@ exec
 
 自己也在阿里云上部署了一个私人`Minecraft`服务器，地址：`jokerhub.cn`，使用默认端口号：`25565`。
 
+# 客户端开光影
+
+- [BSL Shaders](https://bitslablab.com)
+- [Optifine](https://www.optifine.net/home)
+- [Chromahills](http://chromahills.com)
+
 😎欢迎大家一起来玩😎
