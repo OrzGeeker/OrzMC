@@ -111,6 +111,8 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] automation the process of installing JDK/JRE Runtime
 - [ ] add some unit test case to guarantee quality
 - [ ] use BMCLAPI to boost client download speed
+- [ ] use Optfine to lauch client
+- [ ] refactor project for extension
 
 # Done List
 - [x] add Paper Server deploy option
@@ -328,6 +330,7 @@ exec
 
 自己也在阿里云上部署了一个私人`Minecraft`服务器，地址：`jokerhub.cn`，使用默认端口号：`25565`。
 
+<<<<<<< HEAD
 # 客户端开光影
 
 - [BSL Shaders](https://bitslablab.com)
@@ -335,3 +338,6 @@ exec
 - [Chromahills](http://chromahills.com)
 
 😎欢迎大家一起来玩😎
+=======
+😎欢迎大家一起来玩😎
+>>>>>>> f7d3f8acfd3777c6633b16fd2b833c862f6f4363
