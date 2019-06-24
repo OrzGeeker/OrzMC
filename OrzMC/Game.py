@@ -125,28 +125,6 @@ class Game:
 
         jvm_opts = ' '.join([
             '-server',
-            '-XX:-UseVMInterruptibleIO',
-            '-XX:NewRatio=3',
-            '-XX:+UseConcMarkSweepGC',
-            '-XX:+UseParNewGC',
-            '-XX:+CMSIncrementalPacing',
-            '-XX:ParallelGCThreads=4',
-            '-XX:+AggressiveOpts',
-            '-XX:+UseFastAccessorMethods',
-            '-XX:+UseBiasedLocking',
-            '-XX:+CMSParallelRemarkEnabled',
-            '-XX:MaxGCPauseMillis=50',
-            '-XX:+UseAdaptiveGCBoundary',
-            '-XX:-UseGCOverheadLimit',
-            '-XX:SurvivorRatio=8',
-            '-XX:TargetSurvivorRatio=90',
-            '-XX:MaxTenuringThreshold=15',
-            '-XX:+DisableExplicitGC',
-            '-Xnoclassgc',
-            '-oss4M',
-            '-ss4M',
-            '-XX:CMSInitiatingOccupancyFraction=60',
-            '-XX:SoftRefLRUPolicyMSPerMB=2048',
             '-Xms' + mem_start,
             '-Xmx' + mem_max
         ])
@@ -516,7 +494,7 @@ class Game:
 
         if self.config.isForge:
             arguments.extend(self.forgeGame().get('arguments').get('game'))
-
+            
         arguments = ' '.join(arguments)
         return arguments
 
