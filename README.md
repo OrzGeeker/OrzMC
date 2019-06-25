@@ -16,7 +16,6 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 
 - This Program has been uploaded into PyPI
 
-<<<<<<< HEAD
 ### Supported Operating System
 
 - mainly for MacOS and Linux required `JRE >= 1.8` and `Git` installed.
@@ -24,78 +23,45 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 ### Usage
 
 #### Installation
-=======
-## Supported Operating System
-
-- mainly for MacOS and Linux required `JRE >= 1.8` and `Git` installed.
-
-## Usage
-
-### Installation
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 ```bash
 $ pip install orzmc
 ```
 execute `orzmc -h` in shell to check the help info about this python `CLI` tool
 
-<<<<<<< HEAD
 #### What You Can Do
-=======
-### What You Can Do
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 - Run Minecraft Client Downloaded From Mojang Office API
 - Deploy Minecraft Server on your own Clound Manchine
 - Backup world for your minecraft server
 - ForceUpgrade your world from old version to newer
 
-<<<<<<< HEAD
 #### Run Client
 
 ##### run the pure client normally with latest version and default username
-=======
-### Run Client
-
-#### run the pure client normally with latest version and default username
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 ```bash
 $ pip install orzmc
 $ orzmc
 ```
 
-<<<<<<< HEAD
 ##### if you know the client version and your username
-=======
-#### if you know the client version and your username
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 ```bash
 $ pip install orzmc
 $ orzmc -v 1.14.2 -u player_name
 ```
 
-<<<<<<< HEAD
 ##### you can also run the forge client
-=======
-#### you can also run the forge client
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 ```bash
 $ pip install orzmc
 $ orzmc -t forge
 ```
 
-<<<<<<< HEAD
 #### Deploy Server
 
 ##### use default setting to deploy the pure server
-=======
-### Deploy Server
-
-#### use default setting to deploy the pure server
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 default set jvm initial memory alloc `512M`, and max memory alloc `2G`
 
@@ -104,26 +70,16 @@ $ pip install orzmc
 $ orzmc -s
 ```
 
-<<<<<<< HEAD
 ##### you can specify the initial memory and max memory alloced for the jvm with options `-s` and `-x` to run the minecraft server
-=======
-#### you can specify the initial memory and max memory alloced for the jvm with options `-s` and `-x` to run the minecraft server
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 ```bash
 $ pip install orzmc
 $ orzmc -s -m 512M -x 2G -v 1.14.2
 ```
 
-<<<<<<< HEAD
 ##### you can also deploy the spigot/forge minecraft server with option `-t`
 
 ###### Spigot Server
-=======
-#### you can also deploy the spigot/forge minecraft server with option `-t`
-
-##### Spigot Server
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 you should installed `jre` and `git` tools before you run commands below.
 
@@ -132,11 +88,7 @@ $ pip install orzmc
 $ orzmc -s -t spigot -m 512M -x 1G -v 1.14.2
 ```
 
-<<<<<<< HEAD
 ###### Forge Server
-=======
-##### Forge Server
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 ```bash
 $ pip install orzmc
@@ -151,11 +103,7 @@ The game resources are saved under user's home directory, and named `.minecraft`
 
 This is not a game for one player, so you should invit someone you like to make you guys own beautiful world!!!
 
-<<<<<<< HEAD
 ### TODO List
-=======
-## TODO List
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 - [ ] fire an weixin public account and group for uses get newest information and communicate with each other
 - [ ] implement RCON Protocol for remote control Minecraft Server
@@ -167,22 +115,14 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] refactor project for extension
 - [ ] publish wechat Emoticon
 
-<<<<<<< HEAD
 ### Done List
-=======
-## Done List
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 - [x] add Paper Server deploy option
 - [x] add Spigot Server deploy option
 - [x] add a homepage for this project
 - [x] support forge client and server on MacOS, Yep!!!🤪 
 - [x] backup your world map files
 
-<<<<<<< HEAD
 ### Reference
-=======
-## Reference
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 - [Paper](https://papermc.io)
 - [SpigotMC](https://www.spigotmc.org/)
@@ -201,28 +141,16 @@ This is not a game for one player, so you should invit someone you like to make 
 - [Server List Ping协议](https://wiki.vg/Server_List_Ping)
 - [Minecraft官方Bug报告和查询](https://bugs.mojang.com/projects)
 
-<<<<<<< HEAD
 ### Tips 
-=======
-## Tips 
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 - 制作资源包，压缩是要在assets同级目录选择所有文件，而不是在父目录下压缩, 先进入`assets`目录下面, 再执行指令`zip -r resourcepack.zip ./*`生成压缩文件, 可以导出作为资源包使用. 查看资源包的`SHA-1`值使用: `echo -e "SHA-1: " "$(shasum -b resourcepack.zip | cut -d ' ' -f 1)"`
 - 使用query协议查询服务器状态需要用到UDP协议，所以在云服务器上部署需要允许这个协议访问对应的端口
 
-<<<<<<< HEAD
 ### 关于Mac上玩时，无线网络总是断开重连的总题解决方案
 
 这个可能是因为网络问题, minecraft的bug列表中可以搜索到这个问题: [MC-98598](https://bugs.mojang.com/browse/MC-98598),提供了解决方案: JVM启动参数中指定使用`IPv4`: `-Djava.net.preferIPv4Stack=true`
 
 ### 测试你的服务器可以支持几个玩家同时在线
-=======
-## 关于Mac上玩时，无线网络总是断开重连的总题解决方案
-
-这个可能是因为网络问题, minecraft的bug列表中可以搜索到这个问题: [MC-98598](https://bugs.mojang.com/browse/MC-98598),提供了解决方案: JVM启动参数中指定使用`IPv4`: `-Djava.net.preferIPv4Stack=true`
-
-## 测试你的服务器可以支持几个玩家同时在线
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 安装服务器网速测试工具`speedtest-cli`, 并测速:
 
@@ -235,11 +163,7 @@ $ speedtest-cli
 
 [测试网址](http://canihostaminecraftserver.com)
 
-<<<<<<< HEAD
 ### Spigot服务器支持将低版本游戏的地图更新到新版本
-=======
-## Spigot服务器支持将低版本游戏的地图更新到新版本
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 只需要在启动命令中添加 `--forceUpgrade` 选项，启动一次服务器地图更新后，启动服务器就不需要添加这个选项了。
 
@@ -251,19 +175,11 @@ Spigot的地图文件有三个目录：
 
 从纯净服迁移到Spigot服时，将对应文件夹复制到对应目录下，重启服务即可完成地图迁移。
 
-<<<<<<< HEAD
 ### 为服务器添加自定义图标
 
 在服务端`jar`文件同一级目录下面, 放置命名为`server-icon.png`尺寸为`64x64`的`png`图片,然后重新启动服务端。之后再用客户端连接时, 就会把自定义的`64x64`的图片展示在服务端列表里.
 
 ### 添加自定义音乐播放
-=======
-## 为服务器添加自定义图标
-
-在服务端`jar`文件同一级目录下面, 放置命名为`server-icon.png`尺寸为`64x64`的`png`图片,然后重新启动服务端。之后再用客户端连接时, 就会把自定义的`64x64`的图片展示在服务端列表里.
-
-## 添加自定义音乐播放
->>>>>>> ed70af3d918f383eff015b44791256b671cf7a89
 
 mp3转ogg指令: `ffmpeg -i origin.mp3 -map 0:a:0 output.ogg`
 
