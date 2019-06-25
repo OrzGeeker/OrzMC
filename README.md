@@ -113,6 +113,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] use BMCLAPI to boost client download speed
 - [ ] use Optfine to lauch client
 - [ ] refactor project for extension
+- [ ] publish wechat Emoticon
 
 # Done List
 - [x] add Paper Server deploy option

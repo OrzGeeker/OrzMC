@@ -14,7 +14,7 @@ class Config:
     
     '''Private Definitions'''
     BASE_PATH = os.path.expanduser('~')
-    GAME_ROOT_DIR = os.path.join(BASE_PATH,'.minecraft')
+    GAME_ROOT_DIR = os.path.join(BASE_PATH,'minecraft')
     GAME_VERSIONS_DIR = os.path.join(GAME_ROOT_DIR,'versions')
 
     def __init__(self,
