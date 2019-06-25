@@ -8,7 +8,7 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 
 **If you not a CLI enthusiast, you can download `HMCL` Client Launcher: <https://hmcl.huangyuhui.net>, which is beautiful、flexable and powerful. But this tools also can be used deploy server on your Cloud Host which run Unix-like OS.**
 
-# Supported Minecraft Client Version
+## Supported Minecraft Client Version
 
 - supports versions of client `>= 1.13`
 
@@ -16,52 +16,52 @@ Requires JDK 1.8 to be configured, not higher than this version, becuase forge c
 
 - This Program has been uploaded into PyPI
 
-# Supported Operating System
+### Supported Operating System
 
 - mainly for MacOS and Linux required `JRE >= 1.8` and `Git` installed.
 
-# Usage
+### Usage
 
-## Installation
+#### Installation
 
 ```bash
 $ pip install orzmc
 ```
 execute `orzmc -h` in shell to check the help info about this python `CLI` tool
 
-## What You Can Do
+#### What You Can Do
 
 - Run Minecraft Client Downloaded From Mojang Office API
 - Deploy Minecraft Server on your own Clound Manchine
 - Backup world for your minecraft server
 - ForceUpgrade your world from old version to newer
 
-## Run Client
+#### Run Client
 
-### run the pure client normally with latest version and default username
+##### run the pure client normally with latest version and default username
 
 ```bash
 $ pip install orzmc
 $ orzmc
 ```
 
-### if you know the client version and your username
+##### if you know the client version and your username
 
 ```bash
 $ pip install orzmc
 $ orzmc -v 1.14.2 -u player_name
 ```
 
-### you can also run the forge client
+##### you can also run the forge client
 
 ```bash
 $ pip install orzmc
 $ orzmc -t forge
 ```
 
-## Deploy Server
+#### Deploy Server
 
-### use default setting to deploy the pure server
+##### use default setting to deploy the pure server
 
 default set jvm initial memory alloc `512M`, and max memory alloc `2G`
 
@@ -70,16 +70,16 @@ $ pip install orzmc
 $ orzmc -s
 ```
 
-### you can specify the initial memory and max memory alloced for the jvm with options `-s` and `-x` to run the minecraft server
+##### you can specify the initial memory and max memory alloced for the jvm with options `-s` and `-x` to run the minecraft server
 
 ```bash
 $ pip install orzmc
 $ orzmc -s -m 512M -x 2G -v 1.14.2
 ```
 
-### you can also deploy the spigot/forge minecraft server with option `-t`
+##### you can also deploy the spigot/forge minecraft server with option `-t`
 
-#### Spigot Server
+###### Spigot Server
 
 you should installed `jre` and `git` tools before you run commands below.
 
@@ -88,7 +88,7 @@ $ pip install orzmc
 $ orzmc -s -t spigot -m 512M -x 1G -v 1.14.2
 ```
 
-#### Forge Server
+###### Forge Server
 
 ```bash
 $ pip install orzmc
@@ -103,7 +103,7 @@ The game resources are saved under user's home directory, and named `.minecraft`
 
 This is not a game for one player, so you should invit someone you like to make you guys own beautiful world!!!
 
-# TODO List
+### TODO List
 
 - [ ] fire an weixin public account and group for uses get newest information and communicate with each other
 - [ ] implement RCON Protocol for remote control Minecraft Server
@@ -115,14 +115,14 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] refactor project for extension
 - [ ] publish wechat Emoticon
 
-# Done List
+### Done List
 - [x] add Paper Server deploy option
 - [x] add Spigot Server deploy option
 - [x] add a homepage for this project
 - [x] support forge client and server on MacOS, Yep!!!🤪 
 - [x] backup your world map files
 
-# Reference
+### Reference
 
 - [Paper](https://papermc.io)
 - [SpigotMC](https://www.spigotmc.org/)
@@ -141,16 +141,16 @@ This is not a game for one player, so you should invit someone you like to make 
 - [Server List Ping协议](https://wiki.vg/Server_List_Ping)
 - [Minecraft官方Bug报告和查询](https://bugs.mojang.com/projects)
 
-# Tips 
+### Tips 
 
 - 制作资源包，压缩是要在assets同级目录选择所有文件，而不是在父目录下压缩, 先进入`assets`目录下面, 再执行指令`zip -r resourcepack.zip ./*`生成压缩文件, 可以导出作为资源包使用. 查看资源包的`SHA-1`值使用: `echo -e "SHA-1: " "$(shasum -b resourcepack.zip | cut -d ' ' -f 1)"`
 - 使用query协议查询服务器状态需要用到UDP协议，所以在云服务器上部署需要允许这个协议访问对应的端口
 
-# 关于Mac上玩时，无线网络总是断开重连的总题解决方案
+### 关于Mac上玩时，无线网络总是断开重连的总题解决方案
 
 这个可能是因为网络问题, minecraft的bug列表中可以搜索到这个问题: [MC-98598](https://bugs.mojang.com/browse/MC-98598),提供了解决方案: JVM启动参数中指定使用`IPv4`: `-Djava.net.preferIPv4Stack=true`
 
-# 测试你的服务器可以支持几个玩家同时在线
+### 测试你的服务器可以支持几个玩家同时在线
 
 安装服务器网速测试工具`speedtest-cli`, 并测速:
 
@@ -163,7 +163,7 @@ $ speedtest-cli
 
 [测试网址](http://canihostaminecraftserver.com)
 
-# Spigot服务器支持将低版本游戏的地图更新到新版本
+### Spigot服务器支持将低版本游戏的地图更新到新版本
 
 只需要在启动命令中添加 `--forceUpgrade` 选项，启动一次服务器地图更新后，启动服务器就不需要添加这个选项了。
 
@@ -175,11 +175,11 @@ Spigot的地图文件有三个目录：
 
 从纯净服迁移到Spigot服时，将对应文件夹复制到对应目录下，重启服务即可完成地图迁移。
 
-# 为服务器添加自定义图标
+### 为服务器添加自定义图标
 
 在服务端`jar`文件同一级目录下面, 放置命名为`server-icon.png`尺寸为`64x64`的`png`图片,然后重新启动服务端。之后再用客户端连接时, 就会把自定义的`64x64`的图片展示在服务端列表里.
 
-# 添加自定义音乐播放
+### 添加自定义音乐播放
 
 mp3转ogg指令: `ffmpeg -i origin.mp3 -map 0:a:0 output.ogg`
 
@@ -218,7 +218,7 @@ mp3转ogg指令: `ffmpeg -i origin.mp3 -map 0:a:0 output.ogg`
 
 如上, 定义了一个游戏声音事件`music.joker`, 它使用声音文件: `music/joker/joker`, 在游戏内, 可以使用指令`/playsound` 进行播放, 如果和命令方法配合使用, 则可以有其它的好玩的用法. ;-D
 
-# 添加了Spigot服务systemd服务脚本
+## 添加了Spigot服务systemd服务脚本
 
 ```bash
 scripts/systemd/
@@ -236,7 +236,7 @@ $ sudo systemctl stop minecraft   // 停止服务
 $ sudo systemctl reload minecraft // 重新加载游戏
 ```
 
-# 添加了用户游戏提醒脚本，使用crontab添加定时任务
+## 添加了用户游戏提醒脚本，使用crontab添加定时任务
 
 `scripts/crontab/mc_cron.sh`
 
@@ -263,19 +263,19 @@ exec
 
 这里的配置中有一些需要跟据自己的部署环境进行调整。各位大佬应该注意一下～～～
 
-# 服务器添加插件
+## 服务器添加插件
 
 插件下载地址： [Bukkit Plugins](https://dev.bukkit.org/bukkit-plugins)
 
-## 离线模式登录插件
+### 离线模式登录插件
 
 - [LoginSecurity](https://github.com/lenis0012/LoginSecurity-2/releases)： 用来处理离线模式下的用户登录
 
-### 管理员命令
+#### 管理员命令
 
 使用`/lac`移除密码并重新载入游戏
 
-### 用户命令
+#### 用户命令
 
 使用`/register <password>` 注册用户密码
 
@@ -285,12 +285,12 @@ exec
 
 使用`/logout` 可以登出
 
-## 权限管理插件
+### 权限管理插件
 
 - [LuckPerms](https://luckperms.github.io)
 - [LuckPerms Doc](https://github.com/lucko/LuckPerms/wiki)
 
-## 指令扩展插件
+### 指令扩展插件
 
 - [EssentialsPro](https://github.com/TheDoffman/EssentialsPro)
 
@@ -300,11 +300,11 @@ exec
 - [ChatColor](https://dev.bukkit.org/projects/chatcolor-s/files): 设置消息颜色
 - [ChatColor Doc](https://dev.bukkit.org/projects/chatcolor-s)
 
-## 游戏地图相关插件(Paper 1.14.2上暂不可用)
+### 游戏地图相关插件(Paper 1.14.2上暂不可用)
 
 - [一组优秀的插件](http://enginehub.org)
 
-# 升级服务器版本时需要迁移的文件
+## 升级服务器版本时需要迁移的文件
 
 ```
 .
@@ -318,7 +318,7 @@ exec
 ```
 
 
-# Paper基于Spigot/Bukkit，兼容插件，性能更好
+## Paper基于Spigot/Bukkit，兼容插件，性能更好
 
 [Paper官网](https://papermc.io)
 [Paper文档](https://paper.readthedocs.io/en/stable/index.html)
@@ -327,11 +327,11 @@ exec
 - 从Spigot迁移，不需要做任何操作，只需要替换jar文件即可。
 - 据说能显著提升性能
 
-# 个人私服
+## 个人私服
 
 自己也在阿里云上部署了一个私人`Minecraft`服务器，地址：`jokerhub.cn`，使用默认端口号：`25565`。
 
-# 客户端开光影
+## 客户端开光影
 
 - [BSL Shaders](https://bitslablab.com)
 - [Optifine](https://www.optifine.net/home)
