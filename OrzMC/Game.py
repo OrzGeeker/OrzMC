@@ -630,7 +630,7 @@ class Game:
         shutil.rmtree(forge_client_versions_dir)
 
     def writeLauncherProfilesJSON(self):
-        launcher_profiles_json_file_path = os.path.join(self.config.game_version_client_dir(), 'launcher_profiles.json')
+        launcher_profiles_json_file_path = self.config.game_version_launcher_profiles_json_path()
         if not os.path.exists(launcher_profiles_json_file_path):
             launcher_profiles_json_file_content = '''
     {

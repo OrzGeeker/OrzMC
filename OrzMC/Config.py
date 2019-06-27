@@ -134,6 +134,9 @@ class Config:
     def game_version_forge_json_file_path(self):
         forge_json_file_name = '-'.join([self.version, self.forgeInfo.briefVersion]) + '.json'
         return os.path.join(self.game_version_client_dir(), forge_json_file_name)
+    
+    def game_version_launcher_profiles_json_path(self):
+        return os.path.join(self.game_version_client_dir(), 'launcher_profiles.json')
 
     ### Server
     def game_version_server_dir(self):
