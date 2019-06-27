@@ -55,6 +55,7 @@ class Game:
             self.downloadAssetIndex()
             self.downloadAssetObjects()
             self.donwloadLibraries()
+            self.writeLauncherProfilesJSON()
         elif self.config.isForge:
             self.config.getForgeInfo()
             if not os.path.exists(self.config.game_version_client_jar_file_path()) or not os.path.exists(self.config.game_version_forge_json_file_path()):
@@ -383,7 +384,7 @@ class Game:
         clientJARFilePath = self.config.game_version_client_jar_file_path()
         if not checkFileExist(clientJARFilePath, sha1):
             print('Downloading the client jar file ...')
-            self.download(clientUrl,self.config.game_version_client_dir(), self.config.game_version_client_jar_filename())
+            self.download(clientUrl,os.path.dirname(clientJARFilePath), self.config.game_version_client_jar_filename())
             print("Client Download Completed!")
         else:
             print("Client Jar File have been downloaded")
@@ -630,32 +631,25 @@ class Game:
 
     def writeLauncherProfilesJSON(self):
         launcher_profiles_json_file_path = os.path.join(self.config.game_version_client_dir(), 'launcher_profiles.json')
-        launcher_profiles_json_file_content = '''
-{
-  "profiles": {
-    "(Default)": {
-      "name": "(Default)"
+        if not os.path.exists(launcher_profiles_json_file_path):
+            launcher_profiles_json_file_content = '''
+    {
+    "profiles": {
+        "(Default)": {
+        "name": "(Default)"
+        }
     },
-    "forge": {
-      "name": "forge",
-      "type": "custom",
-      "lastVersionId": "forge-1.13.2-25.0.92"
+    "selectedProfile": "(Default)",
+    "authenticationDatabase": {}
     }
-  },
-  "selectedProfile": "(Default)",
-  "clientToken": "00f2acc9-f4f0-48e0-9066-0d6da56abb45",
-  "authenticationDatabase": {}
-}
-        '''
-        if isPy3:
-            with open(launcher_profiles_json_file_path,'w',encoding='utf-8') as f:
-                f.write(launcher_profiles_json_file_content)
-        else: 
-            with open(launcher_profiles_json_file_path,'w') as f:
-                f.write(launcher_profiles_json_file_content.encode('utf-8')) 
+            '''
 
-        client_dir = self.config.game_version_client_dir()
-        print(ColorString.warn('Please selected directory path: ') + ColorString.confirm(client_dir)) 
+            if isPy3:
+                with open(launcher_profiles_json_file_path,'w',encoding='utf-8') as f:
+                    f.write(launcher_profiles_json_file_content)
+            else: 
+                with open(launcher_profiles_json_file_path,'w') as f:
+                    f.write(launcher_profiles_json_file_content.encode('utf-8')) 
 
     # 构建Forge服务器
     def buildForgeServer(self):
