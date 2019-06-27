@@ -77,9 +77,6 @@ class Config:
         makedirs(version_dir)
         return version_dir
 
-    def game_version_json_file_path(self):
-        return os.path.join(self.game_version_dir(), self.version + '.json')
-
     ### Client
     def game_version_client_dir(self):
         client_dir = os.path.join(self.game_version_dir(), 'client', Config.GAME_TYPE_PURE)
@@ -101,13 +98,6 @@ class Config:
         makedirs(assets_objects_dir)
         return assets_objects_dir
 
-    def game_version_client_jar_filename(self):
-            return self.version + '.jar'
-
-    def game_version_client_jar_file_path(self):
-        jar_file_path = os.path.join(self.game_version_client_dir(), self.game_version_client_jar_filename())
-        return jar_file_path
-
     def game_version_client_library_dir(self, subpath = None):
         lib_dir = os.path.join(self.game_version_client_dir(), 'libraries')
         if None != subpath:
@@ -116,10 +106,30 @@ class Config:
         makedirs(lib_dir)
         return lib_dir
     
+    def game_version_client_versions_dir(self):
+        dir = os.path.join(self.game_version_client_dir(),'versions')
+        makedirs(dir)
+        return dir
+
+    def game_version_client_versions_version_dir(self):
+        dir = os.path.join(self.game_version_client_versions_dir(), self.version)
+        makedirs(dir)
+        return dir
+
     def game_version_client_native_library_dir(self):
-        native_lib_dir = os.path.join(self.game_version_client_dir(),'native')
+        native_lib_dir = os.path.join(self.game_version_client_versions_version_dir(), self.version + '-natives')
         makedirs(native_lib_dir)
         return native_lib_dir
+
+    def game_version_json_file_path(self):
+        return os.path.join(self.game_version_client_versions_version_dir(), self.version + '.json')
+
+    def game_version_client_jar_filename(self):
+        return self.version + '.jar'
+
+    def game_version_client_jar_file_path(self):
+        jar_file_path = os.path.join(self.game_version_client_versions_version_dir(), self.game_version_client_jar_filename())
+        return jar_file_path
 
     def game_version_forge_json_file_path(self):
         forge_json_file_name = '-'.join([self.version, self.forgeInfo.briefVersion]) + '.json'
