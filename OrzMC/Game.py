@@ -427,9 +427,6 @@ class Game:
         jvm_opts = [
             '-Xms%s' % mem_min,
             '-Xmx%s' % mem_max,
-            '-XX:+UseG1GC',
-            '-XX:-UseAdaptiveSizePolicy',
-            '-XX:-OmitStackTraceInFastThrow',
             '-Djava.net.preferIPv4Stack=true'
         ]
         arguments.extend(jvm_opts)
