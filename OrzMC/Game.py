@@ -4,6 +4,7 @@ from .Mojang import Mojang
 from .Config import Config
 from .Spigot import Spigot
 from .Forge import Forge
+from .OptiFine import OptiFine
 from .CleanUp import CleanUp
 from .PaperAPI import PaperAPI
 from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
@@ -19,7 +20,7 @@ import time
 import progressbar
 import io
 import shutil
-import time
+import datetime
 
 is_sigint_up = False
 def sigint_handler(signum, frame):
@@ -392,8 +393,16 @@ class Game:
     def gameArguments(self, user, resolution):
 
         argPattern = r'\$\{(.*)\}'
+
         mainCls =  self.forgeGame().get('mainClass') if self.config.isForge else self.game().get('mainClass')
         classPathList = self.javaClassPathList()
+
+        if self.config.isPure and self.config.optifine:
+            optifine_config = OptiFine.json_configuration(self.config)
+            if optifine_config != None:
+                mainCls = optifine_config.get('mainClass')
+                classPathList.extend(OptiFine.library_optifine_jar_paths(self.config))
+
         sep = self.config.java_class_path_list_separator()
         classPath = sep.join(classPathList)
         (res_width, res_height) = resolution
@@ -407,8 +416,8 @@ class Game:
             "assets_index_name" : self.game().get('assets'),
             "auth_uuid" : ''.join(str(uuid.uuid1()).split('-')),
             "auth_access_token" : ''.join(str(uuid.uuid1()).split('-')),
-            "user_type" : "Legacy",
-            "version_type" : "OrzMC",
+            "user_type" : "mojang",
+            "version_type" : "release",
             "resolution_width":res_width if res_width else "",
             "resolution_height":res_height if res_height else "",
             # for jvm args
@@ -492,7 +501,11 @@ class Game:
 
         if self.config.isForge:
             arguments.extend(self.forgeGame().get('arguments').get('game'))
-            
+        
+        if self.config.isPure and self.config.optifine:
+            optifine_config = OptiFine.json_configuration(self.config)
+            if optifine_config != None:
+                arguments.extend(optifine_config.get('arguments').get('game'))
         arguments = ' '.join(arguments)
         return arguments
 
@@ -600,8 +613,6 @@ class Game:
         self.download(self.config.forgeInfo.forge_installer_url, self.config.game_version_client_dir())
         print(ColorString.confirm('Forge installer jar download completed!!!'))
 
-        self.writeLauncherProfilesJSON()
-
         installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
         extractForgeClientCmd = 'java -jar ' + installerJarFilePath
 
@@ -629,17 +640,23 @@ class Game:
     def writeLauncherProfilesJSON(self):
         launcher_profiles_json_file_path = self.config.game_version_launcher_profiles_json_path()
         if not os.path.exists(launcher_profiles_json_file_path):
-            launcher_profiles_json_file_content = '''
-    {
-    "profiles": {
-        "(Default)": {
-        "name": "(Default)"
-        }
-    },
-    "selectedProfile": "(Default)",
-    "authenticationDatabase": {}
-    }
-            '''
+            time = datetime.datetime.now().isoformat()
+            version = self.config.version
+            content = {
+                'profiles': { 
+                    version: {
+                        'created': time,
+                        'type': 'pure',
+                        'name': version,
+                        'lastVersionId': version,
+                        'lastUsed': time
+                    }
+                },
+                'selectedProfile': version,
+                'authenticationDatabase': {}
+            }
+
+            launcher_profiles_json_file_content = json.dumps(content)
 
             if isPy3:
                 with open(launcher_profiles_json_file_path,'w',encoding='utf-8') as f:

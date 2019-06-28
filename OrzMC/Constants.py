@@ -38,6 +38,9 @@ HELP_INFO = """
 
             -b, --backup
                 backup your minecraft world into ~/minecraft_world_backup directory as zip file!
+            
+            -o, --optifine
+                if you have installed optifine for client, you can add this option to launch client with optifine be activated
 """
 
 # 默认用户名
