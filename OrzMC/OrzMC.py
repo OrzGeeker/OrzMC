@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 from .Game import Game
-import sys, getopt
+import sys, getopt, os, json
 from .Mojang import Mojang
 from .utils import hint, ColorString
 from .Config import Config
@@ -22,10 +22,11 @@ def start():
     debug = False
     force_upgrade = False
     backup = False
+    isOptiFine = False
 
     try:
 
-        opts, _ = getopt.getopt(sys.argv[1:], "bsv:u:t:m:x:Vhf", ["backup", "server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "Verbose" ,"help", "forceUpgrade"])
+        opts, _ = getopt.getopt(sys.argv[1:], "bsv:u:t:m:x:Vhfo", ["backup", "server", "version=", "username=", "game_type=", "mem_min=", "mem_max=", "Verbose" ,"help", "forceUpgrade", "optifine"])
 
         for o, a in opts:
             if o in ["-b", "--backup"]:
@@ -63,6 +64,8 @@ def start():
             if o in ["-f", "--forceUpgrade"]:
                 force_upgrade = True
 
+            if o in ["-o", "--optifine"]:
+                isOptiFine = True
 
         # 生成配置信息对象
         config = Config(
@@ -74,7 +77,8 @@ def start():
             mem_max = mem_max,
             debug=debug,
             force_upgrade=force_upgrade,
-            backup= backup
+            backup= backup,
+            optifine=isOptiFine
         )
         
         # 用户交互
@@ -103,6 +107,8 @@ def userInteraction(config):
 
     # 仅客户端显示
     showUserName(config)
+    
+    selectLauncherProfile(config)
 
     
 def showVersionList(config):
@@ -160,4 +166,47 @@ def help():
     print(HELP_INFO)
     exit(0)
 
-    
+
+def selectLauncherProfile(config):
+
+    if config == None or not config.is_client or not config.isPure or not config.optifine:
+        return 
+
+    launcher_profiles_json_file_path = config.game_version_launcher_profiles_json_path()
+
+    if os.path.exists(launcher_profiles_json_file_path):
+        content = None
+        with open(launcher_profiles_json_file_path, 'r') as f:
+            content = json.load(f)
+            profiles = content.get('profiles', None)
+            count = len(profiles)
+            if count > 0:
+                print(ColorString.warn("There are those profiles you can choose to launch: "))
+                index = 0
+                selectedIndex = 0
+                keys = profiles.keys()
+                for key in keys:
+                    index = index + 1
+                    if key == content['selectedProfile']:
+                        selectedIndex = index
+                    isSelected = '*' if key == content['selectedProfile'] else ' '
+                    print(ColorString.hint('\t%s %s. %s' % (isSelected, index, key)))
+
+                options = "[1 - %s] " % count if count > 1 else ""
+                try:
+                    input = hint(ColorString.warn("Which one you choose %s: " % options))
+                    which = int(input) if input and len(input) > 0 else selectedIndex
+                    if which >= 1 and which <= count:
+                        selected_key = keys[which - 1]
+                        config.lastVersionId = profiles.get(selected_key).get('lastVersionId')
+                        content['selectedProfile'] = selected_key
+                    else: 
+                        print(ColorString.error("There is no option you specified!"))
+                        exit(-1)
+                except:
+                    print(ColorString.error("There is no option you specified!"))
+                    exit(-1)
+
+        if content != None: 
+            with open(launcher_profiles_json_file_path, 'w') as f: 
+                json.dump(content, f)

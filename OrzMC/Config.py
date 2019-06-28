@@ -26,7 +26,9 @@ class Config:
                 mem_max=None,
                 debug = False,
                 force_upgrade = False,
-                backup = False):
+                backup = False,
+                optifine = False,
+                lastVersionId = None):
         self.is_client = is_client
         self.version = version
         self.username = username
@@ -39,6 +41,8 @@ class Config:
         self.debug = debug
         self.force_upgrade = force_upgrade
         self.backup = backup
+        self.optifine = optifine
+        self.lastVersionId = lastVersionId
 
         if self.isPure:
             self.game_type = Config.GAME_TYPE_PURE
