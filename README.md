@@ -300,6 +300,15 @@ exec
 - [ChatColor](https://dev.bukkit.org/projects/chatcolor-s/files): 设置消息颜色
 - [ChatColor Doc](https://dev.bukkit.org/projects/chatcolor-s)
 
+### 皮肤设置插件
+
+- [SkinsRestorerX Repo](https://github.com/SkinsRestorer/SkinsRestorerX)
+- [.skin皮肤文件生成器网站](https://riflowth.github.io/SkinFile-Generator/): 上传你所使用的皮肤文件，处理后获得SkinsRestorerX需要的.skin格式的文件，命名规则为`jokerhub_username`，然后手动放入插件的`Skins`目录下面
+
+#### 暂时还没有设置好皮肤服务器
+
+- [皮肤管理系统](https://github.com/riflowth/SkinSystem/): 待配置完成
+  
 ### 游戏地图相关插件(Paper 1.14.2上暂不可用)
 
 - [一组优秀的插件](http://enginehub.org)
