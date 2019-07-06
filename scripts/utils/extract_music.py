@@ -46,10 +46,10 @@ def extract():
                             filename = '_'.join(filename.split('/')[2::])
                             hash = objects[key].get('hash')
                             source_object_path = os.path.join(objects_dir,hash[0:2],hash)
-                            dst_object_path = os.path.join(extract_dir,filename + '.wav')
+                            dst_object_path = os.path.join(extract_dir,filename + '.mp3')
                             cmd = 'ffmpeg -i ' + source_object_path + ' ' + dst_object_path
                             os.system(cmd)
-                            print(filename + u'.wav extracted!')
+                            print(filename + u'.mp3 extracted!')
 
                         
 
