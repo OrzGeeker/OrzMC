@@ -5,6 +5,9 @@ import os
 import sys
 import platform
 import zipfile
+import concurrent.futures
+import progressbar
+from multiprocessing import cpu_count
 
 isPy3 = (sys.version_info.major >= 3)
 
@@ -52,7 +55,7 @@ def hint(msg):
     else:
         return raw_input(msg)
 
-def zip(srcPaths, dstPath):
+def zip_backup(srcPaths, dstPath):
     if len(srcPaths) <= 0:
         return
 
@@ -70,6 +73,14 @@ def zip(srcPaths, dstPath):
                             myzip.write(source, destination)
                 else:
                     myzip.write(srcPath)
+
+def concurrentTask(name, iterables, func, max_workers = 2 * cpu_count()):
+    with progressbar.ProgressBar(max_value=len(iterables), prefix=name) as bar:
+        index = 0
+        with concurrent.futures.ThreadPoolExecutor(max_workers) as executor:
+            for _ in executor.map(func, iterables):
+                index = index + 1
+                bar.update(index)
 
 class ColorString:
 

@@ -7,7 +7,7 @@ from .Forge import Forge
 from .OptiFine import OptiFine
 from .CleanUp import CleanUp
 from .PaperAPI import PaperAPI
-from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
+from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip_backup, concurrentTask
 import json
 import requests
 import os
@@ -285,27 +285,21 @@ class Game:
 
         '''Download Game Asset Objects'''
         objects = self.assets().get('objects')
-        total = len(objects)
 
-        errorMsg = []
-        with progressbar.ProgressBar(max_value=total, prefix='assets objects: ') as bar:
-            index = 0
-            for (name,object) in objects.items():
-                index = index + 1
-                outInfo = '%d/%d(%s)' % (index, total, name)
-                hash = object.get('hash')
-                url = Mojang.assets_objects_url(hash)
-                object_dir = self.config.game_version_client_assets_objects_dir(hash)
-                object_filePath = os.path.join(object_dir,os.path.basename(url))
-                if not checkFileExist(object_filePath, hash):
-                    try:
-                        self.download(url,object_dir)
-                    except:
-                        errorMsg.append(outInfo + "FAILED!")
-                bar.update(index)
-        
-        if(len(errorMsg) > 0):
-            print('\n'.join(errorMsg))
+        def downloadAssetObject(object):
+            (name, object) = object
+            hash = object.get('hash')
+            url = Mojang.assets_objects_url(hash)
+            object_dir = self.config.game_version_client_assets_objects_dir(hash)
+            object_filePath = os.path.join(object_dir,os.path.basename(url))
+            if not checkFileExist(object_filePath, hash):
+                try:
+                    self.download(url,object_dir)
+                except:
+                    print(name + "FAILED!")
+
+        concurrentTask('assets objects ', objects.items(), downloadAssetObject)
+
 # Library
 
     def donwloadLibraries(self):
@@ -316,61 +310,55 @@ class Game:
 
         ''' download libraries'''
         libs = self.game().get('libraries')
-        total = len(libs)
 
-        errorMsg = []
-        with progressbar.ProgressBar(max_value=total, prefix='libraries: ') as bar:
-            index = 0
-            for lib in libs: 
-                libName = lib.get('name')
-                downloads = lib.get('downloads')
+        def donwloadLibrarie(lib):
+            libName = lib.get('name')
+            downloads = lib.get('downloads')
 
-                rules = lib.get('rules')
-                if None != rules:
-                    for rule in rules:
-                        if None != rule:
-                            if rule.get('action') == 'disallow':
-                                if rule.get('os').get('name') == platformType():
-                                    errorMsg.append(libName + 'is disallowed')
-                                    continue
+            rules = lib.get('rules')
+            if None != rules:
+                for rule in rules:
+                    if None != rule:
+                        if rule.get('action') == 'disallow':
+                            if rule.get('os').get('name') == platformType():
+                                print(libName + 'is disallowed')
+                                return
 
-                libPath = None
-                url = None
-                nativeKey = 'natives-'+ platformType()
-                if 'natives' in lib:
-                    platform = lib.get('natives').get(platformType())
-                    if platform == None:
-                        errorMsg.append('Error: no platform jar - ' +  libName)
-                        continue
-                    else:
-                        libPath = downloads.get('classifiers').get(platform).get('path')
-                        url = downloads.get('classifiers').get(platform).get('url')
-                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
-                        if not checkFileExist(nativeFilePath,sha1):
-                            self.download(url,self.config.game_version_client_native_library_dir())
-                        
+            libPath = None
+            url = None
+            nativeKey = 'natives-'+ platformType()
+            if 'natives' in lib:
+                platform = lib.get('natives').get(platformType())
+                if platform == None:
+                    print('Error: no platform jar - ' +  libName)
+                    return
                 else:
-                    classifiers = downloads.get('classifiers')
-                    if classifiers and nativeKey in downloads.get('classifiers'):
-                        url = downloads.get('classifiers').get(nativeKey).get('url')
-                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
-                        if not checkFileExist(nativeFilePath,sha1):
-                            self.download(url,self.config.game_version_client_native_library_dir())
+                    libPath = downloads.get('classifiers').get(platform).get('path')
+                    url = downloads.get('classifiers').get(platform).get('url')
+                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                    nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
+                    if not checkFileExist(nativeFilePath,sha1):
+                        self.download(url,self.config.game_version_client_native_library_dir())
                     
-                    libPath = downloads.get('artifact').get('path')
-                    url = downloads.get('artifact').get('url')
-                    sha1 = downloads.get('artifact').get('sha1')
-                    fileDir = self.config.game_version_client_library_dir(libPath)
-                    filePath=os.path.join(fileDir,os.path.basename(url))
-                    if not checkFileExist(filePath,sha1):
-                        self.download(url,fileDir)
+            else:
+                classifiers = downloads.get('classifiers')
+                if classifiers and nativeKey in downloads.get('classifiers'):
+                    url = downloads.get('classifiers').get(nativeKey).get('url')
+                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                    nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
+                    if not checkFileExist(nativeFilePath,sha1):
+                        self.download(url,self.config.game_version_client_native_library_dir())
+                
+                libPath = downloads.get('artifact').get('path')
+                url = downloads.get('artifact').get('url')
+                sha1 = downloads.get('artifact').get('sha1')
+                fileDir = self.config.game_version_client_library_dir(libPath)
+                filePath=os.path.join(fileDir,os.path.basename(url))
+                if not checkFileExist(filePath,sha1):
+                    self.download(url,fileDir)
 
-                index = index + 1
-                bar.update(index)
-        if(len(errorMsg) > 0):
-            print('\n'.join(errorMsg))
+        concurrentTask("libraries ", libs, donwloadLibrarie)
+        
 # Client
 
     def downloadClient(self):
@@ -703,7 +691,7 @@ class Game:
 
             print(ColorString.hint('Start Executing ZIP ...'))
             CleanUp.registerTask('backupWorld_cleanUp', backupWorld_cleanUp)
-            zip(world_paths, world_backup_file)
+            zip_backup(world_paths, world_backup_file)
             CleanUp.cancelTask('backupWorld_cleanUp')
             print(ColorString.confirm("Completed! backuped world file: %s!!!" % world_backup_file ))
         else: 
