@@ -197,7 +197,7 @@ def selectLauncherProfile(config):
                     input = hint(ColorString.warn("Which one you choose %s: " % options))
                     which = int(input) if input and len(input) > 0 else selectedIndex
                     if which >= 1 and which <= count:
-                        selected_key = keys[which - 1]
+                        selected_key = list(keys)[which - 1]
                         config.lastVersionId = profiles.get(selected_key).get('lastVersionId')
                         content['selectedProfile'] = selected_key
                     else: 
