@@ -111,7 +111,6 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] automation the process of installing JDK/JRE Runtime
 - [ ] add some unit test case to guarantee quality
 - [ ] use BMCLAPI to boost client download speed
-- [ ] use Optfine to lauch client
 - [ ] refactor project for extension
 - [ ] publish wechat Emoticon
 
@@ -121,6 +120,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [x] add a homepage for this project
 - [x] support forge client and server on MacOS, Yep!!!🤪 
 - [x] backup your world map files
+- [x] use Optfine to lauch client
 
 ### Reference
 
@@ -341,8 +341,17 @@ exec
 
 ## 客户端开光影
 
-- [BSL Shaders](https://bitslablab.com)
-- [Optifine](https://www.optifine.net/home)
-- [Chromahills](http://chromahills.com)
+Optifine的jar包路径要包含在最前面，否则会有问题，解决方案参考：<https://www.bountysource.com/issues/74856476-lwjgl-crash-with-optifine>
+
+- [Optifine](https://www.optifine.net/home): 客户端开光影扩展
+
+### ShaderPack
+  
+- [BSL Shader](https://bitslablab.com): 客户端光影渲染器
+- [SUSE Shader](/home/joker/minecraft_world_backup/optifine)
+
+### resourcepacks
+
+- [Chromahills](http://chromahills.com): 客户端光影材质包
 
 😎欢迎大家一起来玩😎
