@@ -401,7 +401,8 @@ class Game:
             optifine_config = OptiFine.json_configuration(self.config)
             if optifine_config != None:
                 mainCls = optifine_config.get('mainClass')
-                classPathList.extend(OptiFine.library_optifine_jar_paths(self.config))
+                optifine_jar_paths = OptiFine.library_optifine_jar_paths(self.config)
+                classPathList = optifine_jar_paths + classPathList
 
         sep = self.config.java_class_path_list_separator()
         classPath = sep.join(classPathList)
