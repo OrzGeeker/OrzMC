@@ -307,6 +307,12 @@ exec
 - [皮肤管理系统](https://github.com/riflowth/SkinSystem/): 皮肤上传服务器, 可以让玩家自己上传皮肤到服务器上面
 
 安装SkinSystem按照脚本`scripts/skin_system/ubuntu_nginx_skin_system`，先使用`sudo`权限执行，安装必要的软件和配置`mysql`数据库。之后，把`nginx`配置文件拷到目录`/etc/nginx/conf.d/`下面，并替换`fastcgi_pass unix:/run/php/php7.2-fpm.sock;`中的路径为`php-fpm`配置文件(`/etc/php/7.2/fpm/pool.d/www.conf`)中指定`listen`指定的路径。重启nginx服务，并访问`8001`端口。
+
+如果皮肤上传界面不能使用，提示`504`错误，可以尝试重启`php-fpm`服务解决:
+
+```bash
+sudo systemctl restart php7.2-fpm.service
+```
   
 ### 游戏地图相关插件(Paper 1.14.2上暂不可用)
 
