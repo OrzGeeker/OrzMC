@@ -77,7 +77,7 @@ def zip_backup(srcPaths, dstPath):
 def concurrentTask(name, iterables, func, max_workers = 2 * cpu_count()):
     with progressbar.ProgressBar(max_value=len(iterables), prefix=name) as bar:
         index = 0
-        with concurrent.futures.ThreadPoolExecutor(max_workers) as executor:
+        with concurrent.futures.ProcessPoolExecutor(max_workers) as executor:
             for _ in executor.map(func, iterables):
                 index = index + 1
                 bar.update(index)
