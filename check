@@ -1,0 +1,4 @@
+# !/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+python tests/run_tests.py 

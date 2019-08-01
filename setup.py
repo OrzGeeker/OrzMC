@@ -32,7 +32,8 @@ setuptools.setup(
         'requests',
         'progressbar2',
         'twine',
-        'beautifulsoup4'
+        'beautifulsoup4',
+        'kivy'
     ],
     entry_points = {
         'console_scripts': [
