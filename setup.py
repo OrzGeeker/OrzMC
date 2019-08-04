@@ -34,6 +34,7 @@ setuptools.setup(
         'twine',
         'beautifulsoup4',
         'kivy',
+        'Cython',
         'PyInstaller'
     ],
     entry_points = {
