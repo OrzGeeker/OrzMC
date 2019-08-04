@@ -33,12 +33,13 @@ setuptools.setup(
         'progressbar2',
         'twine',
         'beautifulsoup4',
-        'kivy'
+        'kivy',
+        'PyInstaller'
     ],
     entry_points = {
         'console_scripts': [
             'orzmc = OrzMC:start',
-            'orzmc_app = OrzMC:run'
+            'orzmcl = OrzMCL:run'
         ]
     }
 )
