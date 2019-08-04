@@ -354,16 +354,14 @@ sudo systemctl restart php7.2-fpm.service
 
 ### 私服相关配置
 
-```
-服务器地址: jokerhub.cn
-服务器实况: <https://mcweb.jokerhub.cn>
-地图下载地址: <https://mcworld.jokerhub.cn>
-皮肤上传地址：<https://mcskin.jokerhub.cn>
-皮肤下载网站: <https://www.minecraftskins.com>
-OrzMC项目地址: <https://github.com/OrzGeeker/OrzMC>
-墙纸生成: <http://minecraft.novaskin.me/wallpapers/mobile>
-Linux类型系统远程排查工具: ssh -NfR 8010:localhost:22 joker@jokerhub.cn
-```
+- 服务器地址: jokerhub.cn
+- 服务器实况: <https://mcweb.jokerhub.cn>
+- 地图下载地址: <https://mcworld.jokerhub.cn>
+- 皮肤上传地址：<https://mcskin.jokerhub.cn>
+- 皮肤下载网站: <https://www.minecraftskins.com>
+- OrzMC项目地址: <https://github.com/OrzGeeker/OrzMC>
+- 墙纸生成: <http://minecraft.novaskin.me/wallpapers/mobile>
+- Linux类型系统远程排查工具: ssh -NfR 8010:localhost:22 joker@jokerhub.cn
 
 ## 客户端开光影
 
