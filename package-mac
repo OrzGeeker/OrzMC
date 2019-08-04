@@ -3,16 +3,20 @@
 
 brew install --build-bottle sdl2 sdl2_image sdl2_ttf sdl2_mixer
 
-cd OrzMCL
+source py3/bin/activate
+pip install -e .
 
-pyinstaller -y --clean --windowed --name OrzMCL \
+APP_NAME="OrzMCL"
+cd $APP_NAME
+
+pyinstaller -y --clean --windowed --name ${APP_NAME} \
 --exclude-module _tkinter \
 --exclude-module Tkinter \
 --exclude-module enchant \
 --exclude-module twisted \
-OrzMCL.py
+${APP_NAME}.py
 
-pyinstaller -y --clean --windowed OrzMCL.spec
+pyinstaller -y --clean --windowed ${APP_NAME}.spec
 pushd dist
-hdiutil create ./OrzMCL.dmg -srcfolder OrzMCL.app -ov
+hdiutil create ./${APP_NAME}.dmg -srcfolder ${APP_NAME}.app -ov
 popd
