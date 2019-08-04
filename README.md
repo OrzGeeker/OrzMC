@@ -319,9 +319,10 @@ sudo systemctl restart php7.2-fpm.service
 
 - [一组优秀的插件](http://enginehub.org)
 
-### 游戏内部图片墙插件
+### Web端地图插件
 
-- [PixelPrinter](https://dev.bukkit.org/projects/pixelprinter)
+- [dynmap](https://dev.bukkit.org/projects/dynmap)
+- [dynmap Doc](https://github.com/webbukkit/dynmap/wiki/Commands)
 
 
 ## 升级服务器版本时需要迁移的文件
