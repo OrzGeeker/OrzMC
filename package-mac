@@ -1,0 +1,18 @@
+# !/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+brew install --build-bottle sdl2 sdl2_image sdl2_ttf sdl2_mixer
+
+cd OrzMCL
+
+pyinstaller -y --clean --windowed --name OrzMCL \
+--exclude-module _tkinter \
+--exclude-module Tkinter \
+--exclude-module enchant \
+--exclude-module twisted \
+OrzMCL.py
+
+pyinstaller -y --clean --windowed OrzMCL.spec
+pushd dist
+hdiutil create ./OrzMCL.dmg -srcfolder OrzMCL.app -ov
+popd

@@ -1,1 +1,1 @@
-from .OrzMC import run
+from .OrzMCL import run
