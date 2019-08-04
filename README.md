@@ -115,6 +115,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [ ] use BMCLAPI to boost client download speed
 - [ ] refactor project for extension
 - [ ] publish wechat Emoticon
+- [ ] build a GUI Launcher with Kivy
 
 ### Done List
 - [x] add Paper Server deploy option
