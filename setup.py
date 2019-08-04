@@ -29,6 +29,7 @@ setuptools.setup(
     ),
     python_requires='>=2.7, <4',
     install_requires=[
+        'pylint',
         'requests',
         'progressbar2',
         'twine',
