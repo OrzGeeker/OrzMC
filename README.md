@@ -352,6 +352,19 @@ sudo systemctl restart php7.2-fpm.service
 
 自己也在阿里云上部署了一个私人`Minecraft`服务器，地址：`jokerhub.cn`，使用默认端口号：`25565`。
 
+### 私服相关配置
+
+```
+服务器地址: jokerhub.cn
+服务器实况: <https://mcweb.jokerhub.cn>
+地图下载地址: <https://mcworld.jokerhub.cn>
+皮肤上传地址：<https://mcskin.jokerhub.cn>
+皮肤下载网站: <https://www.minecraftskins.com>
+OrzMC项目地址: <https://github.com/OrzGeeker/OrzMC>
+墙纸生成: <http://minecraft.novaskin.me/wallpapers/mobile>
+Linux类型系统远程排查工具: ssh -NfR 8010:localhost:22 joker@jokerhub.cn
+```
+
 ## 客户端开光影
 
 Optifine的jar包路径要包含在最前面，否则会有问题，解决方案参考：<https://www.bountysource.com/issues/74856476-lwjgl-crash-with-optifine>
