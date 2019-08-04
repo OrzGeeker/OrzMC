@@ -1,3 +1,5 @@
+![logo](images/server_member.jpg)
+
 # OrzMC
 
 A tool for deploying minecraft client and server
@@ -316,6 +318,11 @@ sudo systemctl restart php7.2-fpm.service
 ### 游戏地图相关插件(Paper 1.14.2上暂不可用)
 
 - [一组优秀的插件](http://enginehub.org)
+
+### 游戏内部图片墙插件
+
+- [PixelPrinter](https://dev.bukkit.org/projects/pixelprinter)
+
 
 ## 升级服务器版本时需要迁移的文件
 
