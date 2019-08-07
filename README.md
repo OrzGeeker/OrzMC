@@ -1,3 +1,5 @@
+![logo](images/server_member.jpg)
+
 # OrzMC
 
 A tool for deploying minecraft client and server
@@ -286,16 +288,14 @@ exec
 
 使用`/logout` 可以登出
 
-### 权限管理插件
+### 指令扩展和权限管理插件
 
+- [Vault](https://github.com/milkbowl/Vault)
+- [Essentials](https://github.com/EssentialsX/Essentials)
 - [LuckPerms](https://luckperms.github.io)
 - [LuckPerms Doc](https://github.com/lucko/LuckPerms/wiki)
 
-### 指令扩展插件
-
-- [EssentialsPro](https://github.com/TheDoffman/EssentialsPro)
-
-由于目前tp指令被EssentialsPro覆盖，无法配合命令方法使用，主要是因为tp不能识别目标选择器: @a @e @r @s @p, 如果地图没有开启命令方块，可以使用这个插件扩展命令。使用替代方案，单独扩展指令：
+由于目前tp指令被Essentials覆盖，无法配合命令方法使用，主要是因为tp不能识别目标选择器: @a @e @r @s @p, 如果地图没有开启命令方块，可以使用这个插件扩展命令。使用替代方案，单独扩展指令：
 
 - [GetMeHome](https://dev.bukkit.org/projects/getmehome): 设置回家指令
 - [ChatColor](https://dev.bukkit.org/projects/chatcolor-s/files): 设置消息颜色
@@ -318,6 +318,12 @@ sudo systemctl restart php7.2-fpm.service
 ### 游戏地图相关插件(Paper 1.14.2上暂不可用)
 
 - [一组优秀的插件](http://enginehub.org)
+
+### Web端地图插件
+
+- [dynmap](https://dev.bukkit.org/projects/dynmap)
+- [dynmap Doc](https://github.com/webbukkit/dynmap/wiki/Commands)
+
 
 ## 升级服务器版本时需要迁移的文件
 
@@ -345,6 +351,17 @@ sudo systemctl restart php7.2-fpm.service
 ## 个人私服
 
 自己也在阿里云上部署了一个私人`Minecraft`服务器，地址：`jokerhub.cn`，使用默认端口号：`25565`。
+
+### 私服相关配置
+
+- 服务器地址: jokerhub.cn
+- 服务器实况: <https://mcweb.jokerhub.cn>
+- 地图下载地址: <https://mcworld.jokerhub.cn>
+- 皮肤上传地址：<https://mcskin.jokerhub.cn>
+- 皮肤下载网站: <https://www.minecraftskins.com>
+- OrzMC项目地址: <https://github.com/OrzGeeker/OrzMC>
+- 墙纸生成: <http://minecraft.novaskin.me/wallpapers/mobile>
+- Linux类型系统远程排查工具: ssh -NfR 8010:localhost:22 joker@jokerhub.cn
 
 ## 客户端开光影
 
