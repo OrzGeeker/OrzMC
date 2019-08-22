@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 import setuptools
+import sys
+
+isPy3 = (sys.version_info.major >= 3)
+
 
 setuptools.setup(
     name="OrzMC",
-    version="1.0.33",
+    version="1.0.34",
     description="A project for deployment of minecraft game.",
-    long_description=open('README.md').read().decode('UTF-8'),
+    long_description= open('README.md', encoding = 'UTF-8').read() if isPy3 else open('README.md').read().decode('UTF-8'),
     long_description_content_type="text/markdown",
     author="王志舟<wangzhizhou>",
     author_email="824219521@qq.com",
