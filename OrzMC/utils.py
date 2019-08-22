@@ -102,9 +102,9 @@ class ColorString:
     @classmethod
     def string(cls, str, fg = FG_WHITE, bg = BG_DEFAULT, displayMode = DEFUALT):
         if bg == ColorString.BG_DEFAULT:
-            return '\033[%s;%sm%s\033[0m' % (displayMode, fg, str)
+            return '\033[%s;%sm%s\033[0m' % (displayMode, fg, str) if platformType() != 'windows' else str
         else:
-            return '\033[%s;%s;%sm%s\033[0m' % (displayMode, fg, bg, str)
+            return '\033[%s;%s;%sm%s\033[0m' % (displayMode, fg, bg, str) if platformType() != 'windows' else str
 
     @classmethod
     def warn(cls, str):

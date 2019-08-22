@@ -31,9 +31,10 @@ def sigint_handler(signum, frame):
     exit(-1)
 
 signal.signal(signal.SIGINT, sigint_handler)
-signal.signal(signal.SIGHUP, sigint_handler)
 signal.signal(signal.SIGTERM, sigint_handler)
 
+if platformType() != 'windows':
+    signal.signal(signal.SIGHUP, sigint_handler)
 
 class Game:
 
