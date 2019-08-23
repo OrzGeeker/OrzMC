@@ -5,8 +5,21 @@ import os
 import sys
 import platform
 import zipfile
+import re
 
 isPy3 = (sys.version_info.major >= 3)
+
+def matchAndReplace(pattern, repl, string):
+
+    if platformType() == 'windows':
+        repl = repl.replace('\\', '@')
+
+    ret = re.sub(pattern, repl, string)
+
+    if platformType() == 'windows':
+        ret = ret.replace('@', '\\')
+        
+    return ret
 
 def checkFileExist(filePath, hash):
     if not os.path.exists(filePath):
