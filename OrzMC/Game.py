@@ -7,7 +7,7 @@ from .Forge import Forge
 from .OptiFine import OptiFine
 from .CleanUp import CleanUp
 from .PaperAPI import PaperAPI
-from .utils import checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
+from .utils import matchAndReplace, checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
 import json
 import requests
 import os
@@ -72,11 +72,15 @@ class Game:
         global is_sigint_up
         if is_sigint_up:
             return
-
+        
         cmd = self.gameArguments(user,resolution)
-        backgroundCmd = 'start ' + cmd if platformType == 'windows' else cmd + ' &'
+        backgroundCmd =  cmd + ' &'
+        if platformType() == 'windows':
+            backgroundCmd = ('start ' +  cmd) if not self.config.debug else cmd
+            
         os.chdir(self.config.game_version_client_dir())
         os.system(backgroundCmd)
+        
         self.formatOutputClientCmd(backgroundCmd)
 
     def formatOutputClientCmd(self, cmd):
@@ -189,7 +193,8 @@ class Game:
             total = len(libs)
             
             errorMsg = []
-            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: '):
+            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: ') as bar:
+                index = 0
                 for lib in libs: 
                     libName = lib.get('name')
                     downloads = lib.get('downloads')
@@ -200,7 +205,7 @@ class Game:
                             if None != rule:
                                 if rule.get('action') == 'disallow':
                                     if rule.get('os').get('name') == platformType():
-                                        errorMsg.append(libName + 'is disallowed')
+                                        # errorMsg.append(libName + 'is disallowed')
                                         continue
 
                     libPath = None
@@ -210,7 +215,7 @@ class Game:
                     if 'natives' in lib:
                         platform = lib.get('natives').get(platformType())
                         if platform == None:
-                            errorMsg.append('Error: no platform jar - ' +  libName)
+                            # errorMsg.append('Error: no platform jar - ' +  libName)
                             continue
                         else:
                             libPath = downloads.get('classifiers').get(platform).get('path')
@@ -237,12 +242,18 @@ class Game:
                         libPath = downloads.get('artifact').get('path')
                         url = downloads.get('artifact').get('url')
                         sha1 = downloads.get('artifact').get('sha1')
+                        if platformType() == 'windows' :
+                            libPath = libPath.replace('/','\\')
                         libFilePath = os.path.join(self.config.game_version_client_library_dir(), libPath)
                         if not checkFileExist(libFilePath,sha1):
                             errorMsg.append("Not Exist: %s" % libFilePath)
                             continue            
                         else:
                             self._javaClassPathList.append(libFilePath)
+
+                    index = index + 1
+                    bar.update(index)
+                    
             if(len(errorMsg) > 0):
                 print('\n'.join(errorMsg))
 
@@ -332,7 +343,7 @@ class Game:
                         if None != rule:
                             if rule.get('action') == 'disallow':
                                 if rule.get('os').get('name') == platformType():
-                                    errorMsg.append(libName + 'is disallowed')
+                                    # errorMsg.append(libName + 'is disallowed')
                                     continue
 
                 libPath = None
@@ -341,7 +352,7 @@ class Game:
                 if 'natives' in lib:
                     platform = lib.get('natives').get(platformType())
                     if platform == None:
-                        errorMsg.append('Error: no platform jar - ' +  libName)
+                        # errorMsg.append('Error: no platform jar - ' +  libName)
                         continue
                     else:
                         libPath = downloads.get('classifiers').get(platform).get('path')
@@ -370,6 +381,7 @@ class Game:
 
                 index = index + 1
                 bar.update(index)
+
         if(len(errorMsg) > 0):
             print('\n'.join(errorMsg))
 # Client
@@ -430,7 +442,7 @@ class Game:
 
         }
 
-        arguments = [os.popen('which java').read().strip() if platformType() != 'windows' else 'javaw ']
+        arguments = [os.popen('which java').read().strip() if platformType() != 'windows' else 'java ' if self.config.debug else  'javaw ']
 
         mem_min = self.config.mem_min
         mem_max = self.config.mem_max
@@ -455,10 +467,11 @@ class Game:
                     value_placeholder = re.search(argPattern,arg)
                     if value_placeholder:
                         argValue = configuration.get(value_placeholder.group(1))
-                        argStr = re.sub(argPattern,argValue,arg)
+                        argStr = matchAndReplace(argPattern,argValue,arg)
                         arguments.append(argStr)
                     else:
-                        arguments.append(arg)            
+                        arguments.append(arg)
+
                 elif isinstance(arg, dict):
                     isValid = False
                     rules = arg.get('rules')
@@ -467,7 +480,20 @@ class Game:
                             isValid = True
                             break
                     if isValid:
-                        arguments.extend(arg.get('value'))
+                        value = arg.get('value')
+                        if type(value) == list:
+                            for i in range(0, len(value)):
+                                s = value[i].split('=')
+                                if len(s) == 2:
+                                    arg = s[1]
+                                    if ' ' in arg:
+                                        s[1] = '\"' + arg + '\"'
+                                        value[i] = '='.join(s)
+
+                            arguments.extend(value)
+                        else:
+                            arguments.append(value)
+
 
         arguments.append(mainCls)
 
@@ -479,7 +505,7 @@ class Game:
                     value_placeholder = re.search(argPattern,arg)
                     if value_placeholder:
                         argValue = configuration.get(value_placeholder.group(1))
-                        argStr = re.sub(argPattern,argValue,arg)
+                        argStr = matchAndReplace(argPattern,argValue,arg)
                         arguments.append(argStr)
                     else:
                         arguments.append(arg)
@@ -496,10 +522,10 @@ class Game:
                                         value_placeholder = re.search(argPattern,arg)
                                         if value_placeholder:
                                             argValue = configuration.get(value_placeholder.group(1))
-                                            argStr = re.sub(argPattern,argValue,arg)
+                                            argStr = matchAndReplace(argPattern,argValue,arg)
                                             arguments.append(argStr)
                                         else:
-                                            arguments.append(arg)  
+                                            arguments.append(arg)
 
         if self.config.isForge:
             arguments.extend(self.forgeGame().get('arguments').get('game'))

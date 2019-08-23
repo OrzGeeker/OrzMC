@@ -56,5 +56,5 @@ class Mojang:
         
     @classmethod
     def assets_objects_url(cls,hash):
-        return os.path.join(Mojang.asset_base_url,hash[0:2],hash)
+        return Mojang.asset_base_url +  hash[0:2] + '/' + hash
     
