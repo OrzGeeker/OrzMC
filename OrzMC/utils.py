@@ -26,7 +26,7 @@ def checkFileExist(filePath, hash):
         return False
     ret = (computeHash(filePath) == hash)   
     if not ret:
-        print('sha1 check failed: ' + filePath)
+        # print('sha1 check failed: ' + filePath)
     return ret
 
 def computeHash(filePath):
