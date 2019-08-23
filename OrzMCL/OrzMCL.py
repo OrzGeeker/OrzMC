@@ -109,3 +109,6 @@ class OrzMCLApp(App):
 
 def run():
     OrzMCLApp().run()
+
+if __name__ == "__main__":
+    run()
