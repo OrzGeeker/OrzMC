@@ -201,13 +201,22 @@ class Game:
                     downloads = lib.get('downloads')
 
                     rules = lib.get('rules')
+                    isContinue = False
                     if None != rules:
                         for rule in rules:
                             if None != rule:
                                 if rule.get('action') == 'disallow':
                                     if rule.get('os').get('name') == platformType():
                                         # errorMsg.append(libName + 'is disallowed')
-                                        continue
+                                        isContinue
+
+                                if rule.get('action') == 'allow':
+                                    allow_os = rule.get('os')
+                                    if allow_os and allow_os.get('name') != platformType():
+                                        isContinue = True
+
+                    if isContinue:
+                        continue
 
                     libPath = None
                     url = None
@@ -339,13 +348,23 @@ class Game:
                 downloads = lib.get('downloads')
 
                 rules = lib.get('rules')
+
+                isContinue = False
                 if None != rules:
                     for rule in rules:
                         if None != rule:
                             if rule.get('action') == 'disallow':
                                 if rule.get('os').get('name') == platformType():
                                     # errorMsg.append(libName + 'is disallowed')
-                                    continue
+                                    isContinue = True
+
+                            if rule.get('action') == 'allow':
+                                allow_os = rule.get('os')
+                                if allow_os and allow_os.get('name') != platformType():
+                                    isContinue = True
+
+                if isContinue: 
+                    continue
 
                 libPath = None
                 url = None
