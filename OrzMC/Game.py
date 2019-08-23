@@ -193,7 +193,8 @@ class Game:
             total = len(libs)
             
             errorMsg = []
-            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: '):
+            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: ') as bar:
+                index = 0
                 for lib in libs: 
                     libName = lib.get('name')
                     downloads = lib.get('downloads')
@@ -214,7 +215,7 @@ class Game:
                     if 'natives' in lib:
                         platform = lib.get('natives').get(platformType())
                         if platform == None:
-                            errorMsg.append('Error: no platform jar - ' +  libName)
+                            # errorMsg.append('Error: no platform jar - ' +  libName)
                             continue
                         else:
                             libPath = downloads.get('classifiers').get(platform).get('path')
@@ -249,6 +250,10 @@ class Game:
                             continue            
                         else:
                             self._javaClassPathList.append(libFilePath)
+
+                    index = index + 1
+                    bar.update(index)
+                    
             if(len(errorMsg) > 0):
                 print('\n'.join(errorMsg))
 
@@ -347,7 +352,7 @@ class Game:
                 if 'natives' in lib:
                     platform = lib.get('natives').get(platformType())
                     if platform == None:
-                        errorMsg.append('Error: no platform jar - ' +  libName)
+                        # errorMsg.append('Error: no platform jar - ' +  libName)
                         continue
                     else:
                         libPath = downloads.get('classifiers').get(platform).get('path')
@@ -376,6 +381,7 @@ class Game:
 
                 index = index + 1
                 bar.update(index)
+
         if(len(errorMsg) > 0):
             print('\n'.join(errorMsg))
 # Client
