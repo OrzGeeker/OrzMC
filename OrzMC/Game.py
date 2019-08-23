@@ -205,7 +205,7 @@ class Game:
                             if None != rule:
                                 if rule.get('action') == 'disallow':
                                     if rule.get('os').get('name') == platformType():
-                                        errorMsg.append(libName + 'is disallowed')
+                                        # errorMsg.append(libName + 'is disallowed')
                                         continue
 
                     libPath = None
@@ -343,7 +343,7 @@ class Game:
                         if None != rule:
                             if rule.get('action') == 'disallow':
                                 if rule.get('os').get('name') == platformType():
-                                    errorMsg.append(libName + 'is disallowed')
+                                    # errorMsg.append(libName + 'is disallowed')
                                     continue
 
                 libPath = None
