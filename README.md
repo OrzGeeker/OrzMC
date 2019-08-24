@@ -325,6 +325,10 @@ sudo systemctl restart php7.2-fpm.service
 - [dynmap](https://dev.bukkit.org/projects/dynmap)
 - [dynmap Doc](https://github.com/webbukkit/dynmap/wiki/Commands)
 
+### 服务器性能调优插件
+
+- [ClearLag](https://www.curseforge.com/minecraft/bukkit-plugins/clearlagg)
+
 
 ## 升级服务器版本时需要迁移的文件
 

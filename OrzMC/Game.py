@@ -76,7 +76,8 @@ class Game:
         cmd = self.gameArguments(user,resolution)
         backgroundCmd =  cmd + ' &'
         if platformType() == 'windows':
-            backgroundCmd = ('start ' +  cmd) if not self.config.debug else cmd
+            backgroundCmd = 'start ' + cmd
+            backgroundCmd = cmd
             
         os.chdir(self.config.game_version_client_dir())
         os.system(backgroundCmd)
@@ -200,13 +201,22 @@ class Game:
                     downloads = lib.get('downloads')
 
                     rules = lib.get('rules')
+                    isContinue = False
                     if None != rules:
                         for rule in rules:
                             if None != rule:
                                 if rule.get('action') == 'disallow':
                                     if rule.get('os').get('name') == platformType():
                                         # errorMsg.append(libName + 'is disallowed')
-                                        continue
+                                        isContinue
+
+                                if rule.get('action') == 'allow':
+                                    allow_os = rule.get('os')
+                                    if allow_os and allow_os.get('name') != platformType():
+                                        isContinue = True
+
+                    if isContinue:
+                        continue
 
                     libPath = None
                     url = None
@@ -338,13 +348,23 @@ class Game:
                 downloads = lib.get('downloads')
 
                 rules = lib.get('rules')
+
+                isContinue = False
                 if None != rules:
                     for rule in rules:
                         if None != rule:
                             if rule.get('action') == 'disallow':
                                 if rule.get('os').get('name') == platformType():
                                     # errorMsg.append(libName + 'is disallowed')
-                                    continue
+                                    isContinue = True
+
+                            if rule.get('action') == 'allow':
+                                allow_os = rule.get('os')
+                                if allow_os and allow_os.get('name') != platformType():
+                                    isContinue = True
+
+                if isContinue: 
+                    continue
 
                 libPath = None
                 url = None
@@ -442,7 +462,17 @@ class Game:
 
         }
 
-        arguments = [os.popen('which java').read().strip() if platformType() != 'windows' else 'java ' if self.config.debug else  'javaw ']
+        java_path = os.popen('which java' if platformType() != 'windows' else 'where java').read().strip()
+        if ' ' in java_path:
+            java_path = '\"' + java_path + '\"'
+
+        if len(java_path) <= 0:
+            ColorString.error('You should installl JDK to run Minecraft')
+            exit(-1)
+
+        java_path = 'java'
+
+        arguments = [java_path]
 
         mem_min = self.config.mem_min
         mem_max = self.config.mem_max
