@@ -144,6 +144,7 @@ This is not a game for one player, so you should invit someone you like to make 
 - [Server List Ping协议](https://wiki.vg/Server_List_Ping)
 - [Minecraft官方Bug报告和查询](https://bugs.mojang.com/projects)
 - [Minecraft通过皮肤生成墙纸网站](http://minecraft.novaskin.me/wallpapers/mobile)
+- [Minecraft中文论坛](https://www.mcbbs.net)
 
 ### Tips 
 
