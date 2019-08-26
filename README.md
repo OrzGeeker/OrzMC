@@ -1,6 +1,6 @@
 ![logo](images/server_member.jpg)
 
-# OrzMC
+# [OrzMC](https://github.com/OrzGeeker/OrzMC)
 
 A tool for deploying minecraft client and server
 
