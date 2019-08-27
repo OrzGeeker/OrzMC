@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-#-*- coding: utf-8 -*-
+# !/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 # os.environ['KIVY_TEXT'] = 'pil'
@@ -11,6 +11,7 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
+from kivy.uix.progressbar import ProgressBar
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 
@@ -25,20 +26,30 @@ class MCInfoWidget(BoxLayout):
     def __init__(self, **kwargs):
         super(MCInfoWidget,self).__init__(**kwargs)
 
+        release_versions = []
+        try:
+            release_versions = Mojang.get_release_version_id_list(update = True)
+        except:
+            self.infoLabel.text = 'Network is Invalid!!!'
+        finally:
+            pass
+
         versionsDropDownList = DropDown()
-        release_versions = Mojang.get_release_version_id_list(update = True)
         for version in release_versions:
             item = Button(
                 text = version,
                 size_hint_y = None, 
-                height = 50
+                height = 50,
+                background_color = [1,1,0,1]
             )
             item.bind(on_release = lambda item: versionsDropDownList.select(item.text))
+            
             versionsDropDownList.add_widget(item)
 
         self.versionsButton = Button(
-            text = release_versions[0] if len(release_versions) > 0 else 'Get Versions Failed!',
-            size_hint = (0.3, 1)
+            text = release_versions[0] if len(release_versions) > 0 else 'FAILED!',
+            color = [1,1,1,1] if len(release_versions) > 0 else [1, 0, 0, 1],
+            size_hint = (0.2, 1)
         )
         self.versionsButton.bind(on_release = versionsDropDownList.open)
         versionsDropDownList.bind(on_select = lambda item, text: setattr(self.versionsButton, 'text', text))
@@ -47,37 +58,43 @@ class MCInfoWidget(BoxLayout):
         self.usernameTextInput = TextInput(
             multiline = False,
             hint_text = 'input a username',
-            size_hint = (0.7, 1)
+            size_hint = (0.6, 1),
+            halign = 'center'
         )
         self.add_widget(self.usernameTextInput)
 
-class Content(FloatLayout):
+        self.startButton = Button(
+            text = 'Start',
+            size_hint = (0.2, 1),
+        )
+        self.add_widget(self.startButton)
+
+class Content(BoxLayout):
     def __init__(self, **kwargs):
         super(Content, self).__init__(**kwargs)
         
         self.mcInfoWidget = MCInfoWidget(
-            pos_hint = {'x': 0, 'y': .8 },
             size_hint_y = None,
-            height = 90,
+            height = 70,
             spacing = 20,
-            padding = 20   
+            padding = [20, 20, 20, 0]
         )
+        self.mcInfoWidget.startButton.bind(on_release = self.startGame)
         self.add_widget(self.mcInfoWidget)
-        
-        startButton = Button(
-            text = 'Start',
-            size = (140, 60),
-            size_hint = (None, None),
-            pos_hint = {'center_x': .5, 'center_y': 0.1}
-        )
-        startButton.bind(on_release = self.startGame)
-        self.add_widget(startButton)
 
+        
         self.infoLabel = Label(
-            pos_hint = {'center_x': .5, 'center_y': .5},
-            size_hint_y = None
+            text = 'Info Label'
         )
         self.add_widget(self.infoLabel)
+
+        progressBar = ProgressBar(
+            value = 50,
+            max = 100,
+            size_hint_y = None,
+            height = 5
+        )
+        self.add_widget(progressBar)
 
     def startGame(self, instance):
         version = self.mcInfoWidget.versionsButton.text
@@ -101,11 +118,10 @@ class Content(FloatLayout):
         else:
             self.infoLabel.text = 'username or version is empty'
 
-
 class OrzMCLApp(App):
     def build(self):
-        return Content()    
-
+        self.content = Content(orientation='vertical')
+        return self.content
 
 def run():
     OrzMCLApp().run()
