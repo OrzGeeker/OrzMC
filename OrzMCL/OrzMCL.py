@@ -21,6 +21,11 @@ from OrzMC.Mojang import Mojang
 from OrzMC.Config import Config
 from OrzMC.Game import Game
 
+infoLabel = Label(text = 'Info Label')
+
+def showInfo(info = ''):
+    infoLabel.text = info
+
 
 class MCInfoWidget(BoxLayout):
     def __init__(self, **kwargs):
@@ -30,7 +35,7 @@ class MCInfoWidget(BoxLayout):
         try:
             release_versions = Mojang.get_release_version_id_list(update = True)
         except:
-            self.infoLabel.text = 'Network is Invalid!!!'
+            showInfo('Network is Invalid!!!')
         finally:
             pass
 
@@ -81,12 +86,7 @@ class Content(BoxLayout):
         )
         self.mcInfoWidget.startButton.bind(on_release = self.startGame)
         self.add_widget(self.mcInfoWidget)
-
-        
-        self.infoLabel = Label(
-            text = 'Info Label'
-        )
-        self.add_widget(self.infoLabel)
+        self.add_widget(infoLabel)
 
         progressBar = ProgressBar(
             value = 50,
@@ -114,9 +114,9 @@ class Content(BoxLayout):
                 optifine = False
             )
             Game(config).startClient()
-            self.infoLabel.text = ''
+            showInfo()
         else:
-            self.infoLabel.text = 'username or version is empty'
+            showInfo('username or version is empty')
 
 class OrzMCLApp(App):
     def build(self):
