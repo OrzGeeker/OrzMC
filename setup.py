@@ -7,7 +7,7 @@ isPy3 = (sys.version_info.major >= 3)
 
 setuptools.setup(
     name="OrzMC",
-    version="1.0.36",
+    version="1.0.37",
     description="A project for deployment of minecraft game.",
     long_description= open('README.md', encoding = 'UTF-8').read() if isPy3 else open('README.md').read().decode('UTF-8'),
     long_description_content_type="text/markdown",
@@ -37,15 +37,11 @@ setuptools.setup(
         'requests',
         'progressbar2',
         'twine',
-        'beautifulsoup4',
-        'kivy',
-        'Cython',
-        'PyInstaller'
+        'beautifulsoup4'
     ],
     entry_points = {
         'console_scripts': [
             'orzmc = OrzMC:start',
-            'orzmcl = OrzMCL:run'
         ]
     }
 )
