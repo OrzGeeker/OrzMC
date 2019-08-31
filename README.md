@@ -275,6 +275,7 @@ exec
 ### 离线模式登录插件
 
 - [LoginSecurity](https://github.com/lenis0012/LoginSecurity-2/releases)： 用来处理离线模式下的用户登录
+- [LoginSecurity Wiki](https://github.com/lenis0012/LoginSecurity-2/wiki/Commands)
 
 #### 管理员命令
 
