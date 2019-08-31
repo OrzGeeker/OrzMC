@@ -4,6 +4,12 @@ import os
 from .utils import platformType, ColorString
 import progressbar
 
+def install_jdk():
+    Oracle.install_jdk()
+
+def uninstall_jdk():
+    Oracle.execute_uninstall_jdk()
+
 class Oracle:
 
     ''' 
@@ -28,8 +34,7 @@ class Oracle:
 
     @classmethod
     def install_jdk(cls, version = VERSION_LATEST):
-        # Oracle.execute_uninstall_jdk()
-        # exit(0)
+
         if not Oracle.check_jdk_installed():
             try:
                 Oracle.download_jdk()  
