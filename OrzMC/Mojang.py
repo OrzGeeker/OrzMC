@@ -4,7 +4,7 @@ from .Config import Config
 import requests
 import json
 import os
-from .utils import makedirs
+from .utils import makedirs, ColorString
 
 class Mojang:
 
@@ -26,7 +26,7 @@ class Mojang:
             resp = json.loads(requests.get(Mojang.version_list_url).text)
             with open(localFilePath,'w') as localFile:
                 json.dump(resp,localFile)
-                print('Download Game Version Manifest JSON File from Mojang server and cached')
+                print(ColorString.confirm('Download Game Version Manifest JSON File from Mojang server and cached'))
 
 
         Mojang.versions = resp.get('versions')    

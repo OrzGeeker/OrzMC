@@ -6,10 +6,13 @@ from .Mojang import Mojang
 from .utils import hint, ColorString
 from .Config import Config
 from .Constants import *
+from .Oracle import Oracle
 
 config = None
 
 def start():
+
+    Oracle.install_jdk()
 
     global config
 
