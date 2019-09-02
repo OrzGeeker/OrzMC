@@ -368,7 +368,11 @@ sudo systemctl restart php7.2-fpm.service
 - 皮肤下载网站: <https://www.minecraftskins.com>
 - OrzMC项目地址: <https://github.com/OrzGeeker/OrzMC>
 - 墙纸生成: <http://minecraft.novaskin.me/wallpapers/mobile>
-- Linux类型系统远程排查工具: ssh -NfR 8010:localhost:22 joker@jokerhub.cn
+- Linux类型系统远程排查工具: `ssh -NfR 8010:localhost:22 joker@jokerhub.cn`
+
+### 视频介绍
+
+- [Mac登录指北](https://www.bilibili.com/video/av66156010/)
 
 ## 客户端开光影
 
@@ -386,3 +390,7 @@ Optifine的jar包路径要包含在最前面，否则会有问题，解决方案
 - [Chromahills](http://chromahills.com): 客户端光影材质包
 
 😎欢迎大家一起来玩😎
+
+## 社区
+
+- ![Minecraft Group](/images/minecraft_group.png)
