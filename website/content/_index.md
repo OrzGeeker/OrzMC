@@ -8,9 +8,10 @@ draft: true
 
 服务器地址: **jokerhub.cn**
 
-**[实时地图](https://mcweb.jokerhub.cn)** - **[资源下载](https://mcworld.jokerhub.cn)** -
-**[皮肤上传](https://mcskin.jokerhub.cn)**
+🗺**[实时地图](https://mcweb.jokerhub.cn)**
+--- 📁**[资源下载](https://mcworld.jokerhub.cn)**
+--- 🎎**[皮肤上传](https://mcskin.jokerhub.cn)**
 
 ## ForgeMC - Minecraft 1.12.2 暮色森林
 
-👉服务器地址: **mc.jokerhub.cn**
+服务器地址: **mc.jokerhub.cn**

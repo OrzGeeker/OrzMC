@@ -5,12 +5,10 @@ languageCode = ""
 # themesDir = "../.."
 theme = "OrzAnanke"
 
-# MetaDataFormat = "yaml"
+MetaDataFormat = "yaml"
 DefaultContentLanguage = "en"
-# SectionPagesMenu = "main"
-
-
-Paginate = 10
+SectionPagesMenu = "main"
+Paginate = 3
 
 # googleAnalytics = ""
 # enableRobotsTXT = false
@@ -23,17 +21,21 @@ Paginate = 10
 [params]
   favicon = "favicon.ico"
 
-  facebook = ""
-  twitter = ""
+  facebook = "https://www.facebook.com/profile.php?id=100018721351347"
+  twitter = "https://twitter.com/w_z_z_1991"
   instagram = ""
-  youtube = ""
+  youtube = "https://www.youtube.com/channel/UCjZI4uZWSEt-bYFTbP0zB3A?view_as=subscriber"
   github = "https://github.com/OrzGeeker/OrzMC"
   gitlab = ""
   linkedin = ""
   mastodon = ""
+  wechat = ""
+  qq = ""
   
-  recent_posts_number = 5
   featured_image = '/images/minecraft_night.png'
   cover_dimming_class = "bg-black-10"
 
-  mainSections = ""
+  recent_copy = "最近发布"
+  recent_posts_number = 3
+
+  read_more_copy = "阅读全文"
