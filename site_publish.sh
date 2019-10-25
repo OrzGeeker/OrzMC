@@ -25,6 +25,8 @@ git worktree add -B gh-pages ${SITE_PUB_DIR} origin/gh-pages
 echo "Removing existing files"
 rm -rf ${SITE_PUB_DIR}/*
 
+echo "minecraft.jokerhub.cn" > ${SITE_PUB_DIR}/CNAME
+
 echo "Generating site"
 hugo -s "${SITE_ROOT}" -c content -t OrzAnanke -e production
 
@@ -32,4 +34,4 @@ echo "Updating gh-pages branch"
 cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
 
 #echo "Pushing to github"
-#git push --all
+#git push --allls
