@@ -1,7 +1,6 @@
 ---
 title: "我的世界 - Minecraft"
 description: "欢迎小伙伴们一起来玩"
-draft: true
 ---
 
 ## PaperMC - Minecraft 1.14.4
