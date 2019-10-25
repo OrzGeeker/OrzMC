@@ -1,0 +1,39 @@
+title = "Joker@Minecraft 🇨🇳"
+baseURL = "https://example.org/"
+languageCode = ""
+
+# themesDir = "../.."
+theme = "OrzAnanke"
+
+# MetaDataFormat = "yaml"
+DefaultContentLanguage = "en"
+# SectionPagesMenu = "main"
+
+
+Paginate = 10
+
+# googleAnalytics = ""
+# enableRobotsTXT = false
+# 
+# [sitemap]
+#   changefreq = "monthly"
+#   priority = 0.5
+#   filename = "sitemap.xml"
+# 
+[params]
+  favicon = "favicon.ico"
+
+  facebook = ""
+  twitter = ""
+  instagram = ""
+  youtube = ""
+  github = "https://github.com/OrzGeeker/OrzMC"
+  gitlab = ""
+  linkedin = ""
+  mastodon = ""
+  
+  recent_posts_number = 5
+  featured_image = '/images/minecraft_night.png'
+  cover_dimming_class = "bg-black-10"
+
+  mainSections = ""
