@@ -33,5 +33,6 @@ hugo -s "${SITE_ROOT}" -c content -t OrzAnanke -e production
 echo "Updating gh-pages branch"
 cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
 
-#echo "Pushing to github"
-#git push --allls
+echo "Pushing to github"
+cd - 
+git push --all
