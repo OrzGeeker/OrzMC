@@ -112,3 +112,4 @@ venv.bak/
 .vscode/
 logs/
 .DS_Store
+public
