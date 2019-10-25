@@ -19,6 +19,7 @@ Paginate = 3
 #   filename = "sitemap.xml"
 # 
 [params]
+  env = 'production'
   favicon = "favicon.ico"
 
   facebook = "https://www.facebook.com/profile.php?id=100018721351347"
