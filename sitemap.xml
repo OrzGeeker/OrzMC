@@ -3,15 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://example.org/categories/</loc>
+    <loc>https://minecraft.jokerhub.cn/client/</loc>
+    <lastmod>2019-10-25T03:40:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.org/tags/</loc>
+    <loc>https://minecraft.jokerhub.cn/server/</loc>
+    <lastmod>2019-10-25T03:40:47+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.org/</loc>
+    <loc>https://minecraft.jokerhub.cn/dev/</loc>
+    <lastmod>2019-10-25T03:40:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://minecraft.jokerhub.cn/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://minecraft.jokerhub.cn/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://minecraft.jokerhub.cn/</loc>
   </url>
   
 </urlset>

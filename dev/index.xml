@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>开发 on Joker@Minecraft 🇨🇳</title>
+    <link>https://minecraft.jokerhub.cn/dev/</link>
+    <description>Recent content in 开发 on Joker@Minecraft 🇨🇳</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 25 Oct 2019 03:40:40 +0800</lastBuildDate>
+    
+	<atom:link href="https://minecraft.jokerhub.cn/dev/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>
