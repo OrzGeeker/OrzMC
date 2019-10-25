@@ -2,11 +2,11 @@
 # !/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-if [ "`git status -s`" ]
-then
-    echo "The working directory is dirty. Please commit any pending changes."
-    exit 1;
-fi
+# if [ "`git status -s`" ]
+# then
+#     echo "The working directory is dirty. Please commit any pending changes."
+#     exit 1;
+# fi
 
 SITE_ROOT="website"
 SITE_PUB_DIR="${SITE_ROOT}/public"
@@ -29,7 +29,7 @@ echo "Generating site"
 hugo -s "${SITE_ROOT}"
 
 echo "Updating gh-pages branch"
-cd public && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
+cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
 
 #echo "Pushing to github"
 #git push --all
