@@ -2,11 +2,11 @@
 # !/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# if [ "`git status -s`" ]
-# then
-#     echo "The working directory is dirty. Please commit any pending changes."
-#     exit 1;
-# fi
+if [ "`git status -s`" ]
+then
+    echo "The working directory is dirty. Please commit any pending changes."
+    exit 1;
+fi
 
 SITE_ROOT="website"
 SITE_PUB_DIR="${SITE_ROOT}/public"
