@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://minecraft.jokerhub.cn/dev/</loc>
+    <lastmod>2019-12-10T13:07:14+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://minecraft.jokerhub.cn/dev/forge/</loc>
+    <lastmod>2019-12-10T13:06:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://minecraft.jokerhub.cn/</loc>
+    <lastmod>2019-12-10T13:06:17+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://minecraft.jokerhub.cn/client/</loc>
     <lastmod>2019-10-25T03:40:52+08:00</lastmod>
   </url>
@@ -13,10 +28,6 @@
   
   <url>
     <loc>https://minecraft.jokerhub.cn/tags/</loc>
-  </url>
-  
-  <url>
-    <loc>https://minecraft.jokerhub.cn/</loc>
   </url>
   
 </urlset>
