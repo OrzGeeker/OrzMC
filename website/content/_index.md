@@ -16,7 +16,7 @@ description: "欢迎小伙伴们一起来玩"
 --- 🏞**[墙纸生成](http://minecraft.novaskin.me/wallpapers/mobile)**
 
 
-## ForgeMC - Minecraft 1.12.2 暮色森林
+## 纯净服 - Minecraft 1.15
 
 服务器地址: **mc.jokerhub.cn**
 
