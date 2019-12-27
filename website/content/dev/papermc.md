@@ -6,3 +6,4 @@ draft: true
 
 [PaperMC官网](https://papermc.io)
 
+[Bukkit插件开发](https://bukkit.gamepedia.com/Setting_Up_Your_Workspace)
