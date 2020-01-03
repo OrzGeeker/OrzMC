@@ -17,15 +17,15 @@ draft: false
 
 查看所有可执行 gradle task
 
-```
+```bash
 $ ./gradlew tasks --all
 ```
 
 ## 使用 Visual Studio Code 开发
 
-···
+```bash
 $ ./gradlew genVSCodeRuns
-···
+```
 
 ## 参考文档
 
