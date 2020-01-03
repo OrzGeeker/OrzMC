@@ -18,8 +18,7 @@
       <guid>https://minecraft.jokerhub.cn/dev/forge/</guid>
       <description> Forge仓库
 Mod开发环境建立 - 参考文章  下载安装 IntelliJ IDEA 从Forge官网下载MDK文件，可能需要翻墙 解压下载的MDK文件到一个空目录下 使用IntelliJ IDEA打开build.gradle文件，并按工程导入。导入后会自动进行各种资源的下载，下载过程需要有VPN代理，因为文件有些在国外服务器上。VPN的话注意使用全局代理。 完成后打开Gradle面板，运行 genIntellijRuns成功后，退出IntelliJ IDEA后重新打开。  查看所有可执行 gradle task
-$ ./gradlew tasks --all  使用 Visual Studio Code 开发 ··· $ ./gradlew genVSCodeRuns ···
-参考文档  Gradle  </description>
+$ ./gradlew tasks --all  使用 Visual Studio Code 开发 $ ./gradlew genVSCodeRuns  参考文档  Gradle  </description>
     </item>
     
   </channel>
