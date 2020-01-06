@@ -8,6 +8,8 @@ draft: true
 
 [Bukkit插件开发](https://bukkit.gamepedia.com/Setting_Up_Your_Workspace)
 
+[Spigot插件开发](https://www.spigotmc.org/wiki/spigot-plugin-development/)
+
 开发IDE目前还是建议使用**IntelliJ IDEA*&*: https://www.jianshu.com/p/2cbeb20409da
 
 
