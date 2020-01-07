@@ -18,6 +18,10 @@ draft: false
 
 `PaperMC`中可以依赖针对`papermc`的服务端API
 
+获取**Bukkit**、**CraftBukkit**、**Spigot**、**Spigot-API**，使用`[BuildTools.jar](https://www.spigotmc.org/wiki/buildtools/)`
+
+**开发模板: https://github.com/OrzGeeker/OrzMCDev**
+
 # Visual Studio Code + JAVA + Maven 开发环境搭建
 
 1. `JDK`安装: `brew cask install oracle-jdk`
