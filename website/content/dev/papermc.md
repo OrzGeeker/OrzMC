@@ -1,17 +1,22 @@
 ---
 title: "Papermc"
 date: 2019-12-10T13:06:35+08:00
-draft: true
+draft: false
 ---
 
-[PaperMC官网](https://papermc.io)
+1. [Spigot插件开发](https://www.spigotmc.org/wiki/spigot-plugin-development/)
 
-[Bukkit插件开发](https://bukkit.gamepedia.com/Setting_Up_Your_Workspace)
+2. [Bukkit插件开发](https://bukkit.gamepedia.com/Setting_Up_Your_Workspace)
 
-[Spigot插件开发](https://www.spigotmc.org/wiki/spigot-plugin-development/)
+3. [PaperMC官网](https://papermc.io)
 
-开发IDE目前还是建议使用**IntelliJ IDEA*&*: https://www.jianshu.com/p/2cbeb20409da
+开发IDE建议使用**[IntelliJ IDEA](https://www.jetbrains.com/idea/)**
 
+`Spigot插件开发`中有**IEAD**配置手动依赖和**Maven**项目管理两种方式
+
+`Bukkit插件开发`中有开发插件的基础知识结构介绍
+
+`PaperMC`中可以依赖针对`papermc`的服务端API
 
 # Visual Studio Code + JAVA + Maven 开发环境搭建
 
@@ -30,10 +35,6 @@ draft: true
 5. 创建Maven项目工程：`Command + Shift + P`，输入`Maven: Create Maven Project`, 选择基于`maven-archetype-quickstart`最新版本创建项目, `GroupId`一般使用域名反写，用来定义包名。`ArtifactId`为工程文件夹的名称
 
 6. 修改`pom.xml`文件，给Maven项目工程添加`API依赖`，可以是`Bukkit API`，也可以是`PaperMC API`, 或其它API
-
-7. 
-
-
 
 ## 使用`Kotlin`编码
 
