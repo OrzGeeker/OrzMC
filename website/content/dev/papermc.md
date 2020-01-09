@@ -4,6 +4,16 @@ date: 2019-12-10T13:06:35+08:00
 draft: false
 ---
 
+## 推荐使用的插件模板创建方式
+
+- 项目模板搭建方式请参看：<https://minecraftdev.org/>
+- 调试插件的方式请参看: <https://youtu.be/1B4JGzs0BCc>
+
+
+---
+
+## 服主个人Geek的方式
+
 1. [Spigot插件开发](https://www.spigotmc.org/wiki/spigot-plugin-development/)
 
 2. [Bukkit插件开发](https://bukkit.gamepedia.com/Setting_Up_Your_Workspace)
