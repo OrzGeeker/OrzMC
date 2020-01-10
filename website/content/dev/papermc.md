@@ -1,6 +1,7 @@
 ---
 title: "Papermc"
 date: 2019-12-10T13:06:35+08:00
+
 draft: false
 ---
 
@@ -30,3 +31,11 @@ draft: false
 获取**Bukkit**、**CraftBukkit**、**Spigot**、**Spigot-API**，使用[BuildTools.jar](https://www.spigotmc.org/wiki/buildtools/)
 
 **开发模板: https://github.com/OrzGeeker/OrzMCDev**
+
+
+## 名词解释
+
+- Paper-API: 一种增强版本的 `Bukkit API`
+- Paper-Server: 一种支持`Paper-API`的`Minecraft`服务端，专注于性能提升
+
+
