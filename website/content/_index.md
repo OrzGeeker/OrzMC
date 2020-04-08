@@ -15,13 +15,6 @@ description: "欢迎小伙伴们一起来玩"
 👗**[皮肤下载](https://www.minecraftskins.com)**
 --- 🏞**[墙纸生成](http://minecraft.novaskin.me/wallpapers/mobile)**
 
-
-## 纯净服 - Minecraft 1.15
-
-服务器地址: **mc.jokerhub.cn**
-
----
-
 ## Mac技术支持命令
 
 ```
