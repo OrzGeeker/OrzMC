@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>开发 on Joker@Minecraft 🇨🇳</title>
@@ -16,7 +16,7 @@
       <pubDate>Tue, 10 Dec 2019 13:06:35 +0800</pubDate>
       
       <guid>https://minecraft.jokerhub.cn/dev/papermc/</guid>
-      <description>推荐使用的插件模板创建方式  项目模板搭建方式请参看：https://minecraftdev.org/ 调试插件的方式请参看: https://youtu.be/1B4JGzs0BCc  服主个人Geek的方式  Spigot插件开发
+      <description> 推荐使用的插件模板创建方式  项目模板搭建方式请参看：https://minecraftdev.org/ 调试插件的方式请参看: https://youtu.be/1B4JGzs0BCc  服主个人Geek的方式  Spigot插件开发
  Bukkit插件开发
  PaperMC官网
   开发IDE建议使用IntelliJ IDEA
@@ -25,11 +25,7 @@ Bukkit插件开发中有开发插件的基础知识结构介绍
 PaperMC中可以依赖针对papermc的服务端API
 获取Bukkit、CraftBukkit、Spigot、Spigot-API，使用BuildTools.jar
 开发模板: https://github.com/OrzGeeker/OrzMCDev
-Visual Studio Code + JAVA + Maven 开发环境搭建  JDK安装: brew cask install oracle-jdk
- Apache-Maven安装：$ brew install maven
- 编辑器(Visual Studio Code)安装
- Visual Studio Code插件安装:
- Maven for Java Debugger for Java Java Test Runner Language Support for Java&amp;trade;  创建Maven项目工程：Command + Shift + P，输入Maven: Create Maven Project, 选择基于maven-archetype-quickstart最新版本创建项目, GroupId一般使用域名反写，用来定义包名。ArtifactId为工程文件夹的名称</description>
+名词解释  Paper-API: 一种增强版本的 Bukkit API Paper-Server: 一种支持Paper-API的Minecraft服务端，专注于性能提升  </description>
     </item>
     
     <item>
