@@ -3,7 +3,7 @@ title: "我的世界 - Minecraft"
 description: "欢迎小伙伴们一起来玩"
 ---
 
-## PaperMC - Minecraft 1.15.1
+## PaperMC - Minecraft 1.15.2
 
 服务器地址: **jokerhub.cn**
 
