@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 #-*- utf-8 -*-
 
-open http://localhost:1313 && hugo -s website server -D
+pkill -9 hugo
+hugo -s swiftui server -D --bind "0.0.0.0" &
+sleep 2s
+open http://localhost:1313
