@@ -38,4 +38,11 @@ draft: false
 - Paper-API: 一种增强版本的 `Bukkit API`
 - Paper-Server: 一种支持`Paper-API`的`Minecraft`服务端，专注于性能提升
 
+## Kotlin开发环境配置
+
+```base
+$ curl -s https://get.sdkman.io | bash
+$ source "~/.sdkman/bin/sdkman-init.sh"
+$ sdk install kotlin
+```
 
