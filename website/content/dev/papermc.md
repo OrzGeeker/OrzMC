@@ -44,5 +44,8 @@ draft: false
 $ curl -s https://get.sdkman.io | bash
 $ source "~/.sdkman/bin/sdkman-init.sh"
 $ sdk install kotlin
+$ sdk list kotlin
+$ sdk use kotlin 1.3.72
+$ 
 ```
 
