@@ -1,7 +1,6 @@
 ---
 title: "Papermc"
 date: 2019-12-10T13:06:35+08:00
-
 draft: false
 ---
 
@@ -32,6 +31,7 @@ draft: false
 
 **开发模板: https://github.com/OrzGeeker/OrzMCDev**
 
+-[PaperMC JavaDoc](https://papermc.io/javadocs)
 
 ## 名词解释
 
@@ -48,4 +48,3 @@ $ sdk list kotlin
 $ sdk use kotlin 1.3.72
 $ 
 ```
-
