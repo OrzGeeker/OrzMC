@@ -3,6 +3,10 @@ title: "我的世界 - Minecraft"
 description: "欢迎小伙伴们一起来玩"
 ---
 
+## Minecraft 纯净服 1.16.1
+
+服务器地址: `mc.jokerhub.cn`
+
 ## PaperMC - Minecraft 1.15.2
 
 服务器地址: **jokerhub.cn**
