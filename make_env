@@ -2,17 +2,13 @@
 # -*-: coding: utf-8 -*-
 
 ENV_DIR="py3"
-if [[ -d "$ENV_DIR" ]];
-then
-    echo "Deleting Exist ENV_DIR: $ENV_DIR"
-    rm -rf $ENV_DIR
-    echo "✅Completed!"
-fi
-echo "Creating New Python 3(>= 3.4) Environment"
-python3 -m venv $ENV_DIR
+
+echo "Creating New Python 3(>= 3.4) Environment: $ENV_DIR"
+python3 -m venv --clear $ENV_DIR
 if [[ $? -eq 0 ]];
 then
+    source $ENV_DIR/bin/activate && pip install --upgrade pip && pip install setuptools wheel twine
     echo "✅Completed!"
 else
-    echo "✅Failed!"
+    echo "❗️Failed!"
 fi
