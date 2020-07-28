@@ -7,6 +7,7 @@ import json
 
 class Config:
     '''Public Definitions'''
+    GAME_DEFAULT_USERNAME = "guest"
     GAME_TYPE_PURE = 'pure'
     GAME_TYPE_SPIGOT = 'spigot'
     GAME_TYPE_FORGE = 'forge'
@@ -17,33 +18,24 @@ class Config:
     GAME_ROOT_DIR = os.path.join(BASE_PATH,'minecraft')
     GAME_VERSIONS_DIR = os.path.join(GAME_ROOT_DIR,'versions')
 
-    def __init__(self,
-                is_client=True,
-                version=None,
-                username=None,
-                game_type=GAME_TYPE_PURE,
-                mem_min=None,
-                mem_max=None,
-                debug = False,
-                force_upgrade = False,
-                backup = False,
-                optifine = False,
-                lastVersionId = None):
-        self.is_client = is_client
-        self.version = version
-        self.username = username
-        self.mem_min = mem_min
-        self.mem_max = mem_max
+
+    def __init__(self,args):
+
+        # 调试信息
+        if args.debug:
+            print(args)
+
+        self.is_client = not args.server
+        self.version = args.version
+        self.username = args.username
+        self.mem_min = args.minmem
+        self.mem_max = args.maxmem
+
+        game_type = args.type
         self.isPure = (game_type == Config.GAME_TYPE_PURE)
         self.isSpigot = (game_type == Config.GAME_TYPE_SPIGOT)
         self.isForge = (game_type == Config.GAME_TYPE_FORGE)
         self.isPaper = (game_type == Config.GAME_TYPE_PAPER)
-        self.debug = debug
-        self.force_upgrade = force_upgrade
-        self.backup = backup
-        self.optifine = optifine
-        self.lastVersionId = lastVersionId
-
         if self.isPure:
             self.game_type = Config.GAME_TYPE_PURE
         elif self.isSpigot:
@@ -54,6 +46,11 @@ class Config:
             self.game_type = Config.GAME_TYPE_FORGE
         else:
             self.game_type = ''
+
+        self.debug = args.debug
+        self.force_upgrade = args.force_upgrade_world
+        self.backup = args.backup_world
+        self.optifine = args.optifine
 
     def getForgeInfo(self):
         if self.isForge:
