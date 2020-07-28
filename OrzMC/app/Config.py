@@ -1,9 +1,8 @@
 # -*- coding: utf8 -*-
 
-import os
-from .utils import makedirs, platformType
-from .Forge import Forge
-import json
+import os, json
+from OrzMC.utils.utils import makedirs, platformType
+from OrzMC.core.Forge import Forge
 
 class Config:
     '''Public Definitions'''

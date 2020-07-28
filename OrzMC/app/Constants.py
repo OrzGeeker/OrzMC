@@ -1,6 +1,5 @@
 # -*- coding: utf8 -*-
-
-from .utils import ColorString
+from OrzMC.utils.utils import ColorString
 # 选择版本
 ALL_VERSIONS_HINT = ColorString.warn('\nAll Release Versions as follow:\n')
 TAB_SPACE = ''

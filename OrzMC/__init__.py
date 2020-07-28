@@ -1,3 +1,3 @@
 # -*- coding: utf8 -*-
-from .OrzMC import start
-from .Oracle import install_jdk, uninstall_jdk
+from OrzMC.app.OrzMC import start
+from OrzMC.core.Oracle import install_jdk, uninstall_jdk
