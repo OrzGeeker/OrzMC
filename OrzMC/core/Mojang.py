@@ -1,10 +1,11 @@
 # -*- coding: utf8 -*-
 
-from .Config import Config
+from OrzMC.app.Config import Config
+from OrzMC.utils.utils import makedirs, ColorString
+
 import requests
 import json
 import os
-from .utils import makedirs, ColorString
 
 class Mojang:
 

@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
+from OrzMC.utils.utils import platformType, ColorString
 import requests
 import os
-from .utils import platformType, ColorString
 import progressbar
 
 def install_jdk():
