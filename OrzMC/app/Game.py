@@ -9,7 +9,7 @@ from ..core.Forge import Forge
 from ..core.OptiFine import OptiFine
 from ..core.PaperAPI import PaperAPI
 from ..core.Oracle import Oracle
-from ..utils.utils import hint, matchAndReplace, checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
+from ..utils.utils import hint, matchAndReplace, checkFileExist, platformType, ColorString, writeContentToFile, zip
 from ..utils.CleanUp import CleanUp
 
 import json
@@ -413,12 +413,9 @@ class Game:
         if not checkFileExist(index_json_path,index_json_sha1):
             print("Download assetIndex JSON File")
             index_json_str = requests.get(index_json_url).text
-            if isPy3:
-                with open(index_json_path,'w',encoding='utf-8') as f:
-                    f.write(index_json_str)
-            else: 
-                with open(index_json_path,'w') as f:
-                    f.write(index_json_str.encode('utf-8'))               
+            with open(index_json_path,'w',encoding='utf-8') as f:
+                f.write(index_json_str)
+             
         else:
             print("assetIndex JSON File have been downloaded")
 
@@ -615,7 +612,7 @@ class Game:
 
         if jvmArgs != None:
             for arg in jvmArgs:
-                if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
+                if isinstance(arg, str):
                     value_placeholder = re.search(argPattern,arg)
                     if value_placeholder:
                         argValue = configuration.get(value_placeholder.group(1))
@@ -653,7 +650,7 @@ class Game:
 
         if gameArgs != None:
             for arg in gameArgs:
-                if isinstance(arg, str) or not isPy3 and isinstance(arg, unicode):
+                if isinstance(arg, str):
                     value_placeholder = re.search(argPattern,arg)
                     if value_placeholder:
                         argValue = configuration.get(value_placeholder.group(1))
@@ -838,12 +835,8 @@ class Game:
 
             launcher_profiles_json_file_content = json.dumps(content)
 
-            if isPy3:
-                with open(launcher_profiles_json_file_path,'w',encoding='utf-8') as f:
-                    f.write(launcher_profiles_json_file_content)
-            else: 
-                with open(launcher_profiles_json_file_path,'w') as f:
-                    f.write(launcher_profiles_json_file_content.encode('utf-8')) 
+            with open(launcher_profiles_json_file_path,'w',encoding='utf-8') as f:
+                f.write(launcher_profiles_json_file_content)
 
     # 构建Forge服务器
     def buildForgeServer(self):

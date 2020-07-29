@@ -7,8 +7,6 @@ import platform
 import zipfile
 import re
 
-isPy3 = (sys.version_info.major >= 3)
-
 def matchAndReplace(pattern, repl, string):
 
     if platformType() == 'windows':
@@ -39,12 +37,8 @@ def computeHash(filePath):
 
 def writeContentToFile(content, filePath):
         if content != None:
-            if isPy3:
-                with open(filePath,'w',encoding='utf-8') as f:
-                    f.write(content)
-            else:
-                with open(filePath,'w') as f:
-                    f.write(content.encode('utf-8'))
+            with open(filePath,'w',encoding='utf-8') as f:
+                f.write(content)
 
 def makedirs(path):
     if not os.path.exists(path):
@@ -61,10 +55,7 @@ def platformType():
     return system[platform.system()]
 
 def hint(msg):
-    if isPy3:
-        return input(msg)
-    else:
-        return raw_input(msg)
+    return input(msg)
 
 def zip(srcPaths, dstPath):
     if len(srcPaths) <= 0:
