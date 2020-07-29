@@ -3,4 +3,5 @@
 __all__ = [
     'CleanUp',
     'utils',
+    'ColorString'
 ]

@@ -1,5 +1,7 @@
 # -*- coding: utf8 -*-
-from ..utils.utils import ColorString
+
+from ..utils.ColorString import ColorString
+
 # 选择版本
 ALL_VERSIONS_HINT = ColorString.warn('\nAll Release Versions as follow:\n')
 TAB_SPACE = ''

@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
-from ..utils.utils import platformType, ColorString
+from ..utils.utils import platformType
+from ..utils.ColorString import ColorString
 import requests
 import os
 import progressbar

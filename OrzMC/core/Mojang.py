@@ -1,7 +1,8 @@
 # -*- coding: utf8 -*-
 
 from ..app.Config import Config
-from ..utils.utils import makedirs, ColorString
+from ..utils.utils import makedirs
+from ..utils.ColorString import ColorString
 
 import requests
 import json
