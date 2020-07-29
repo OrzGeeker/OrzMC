@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
-from OrzMC.app.Config import Config
-from OrzMC.utils.utils import makedirs, ColorString
+from ..app.Config import Config
+from ..utils.utils import makedirs, ColorString
 
 import requests
 import json

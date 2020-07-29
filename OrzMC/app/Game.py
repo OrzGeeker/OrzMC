@@ -1,17 +1,16 @@
 # -*- coding: utf8 -*-
 
-from OrzMC.app import Config
-from OrzMC.app.Constants import *
+from .Config import Config
+from .Constants import *
 
-from OrzMC.core.Mojang import Mojang
-from OrzMC.core.Spigot import Spigot
-from OrzMC.core.Forge import Forge
-from OrzMC.core.OptiFine import OptiFine
-from OrzMC.core.PaperAPI import PaperAPI
-from OrzMC.core.Oracle import Oracle
-
-from OrzMC.utils.utils import hint, matchAndReplace, checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
-from OrzMC.utils.CleanUp import CleanUp
+from ..core.Mojang import Mojang
+from ..core.Spigot import Spigot
+from ..core.Forge import Forge
+from ..core.OptiFine import OptiFine
+from ..core.PaperAPI import PaperAPI
+from ..core.Oracle import Oracle
+from ..utils.utils import hint, matchAndReplace, checkFileExist, isPy3, platformType, ColorString, writeContentToFile, zip
+from ..utils.CleanUp import CleanUp
 
 import json
 import requests

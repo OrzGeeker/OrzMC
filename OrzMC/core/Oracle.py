@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from OrzMC.utils.utils import platformType, ColorString
+from ..utils.utils import platformType, ColorString
 import requests
 import os
 import progressbar
