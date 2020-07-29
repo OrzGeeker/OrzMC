@@ -9,7 +9,8 @@ from ..core.Forge import Forge
 from ..core.OptiFine import OptiFine
 from ..core.PaperAPI import PaperAPI
 from ..core.Oracle import Oracle
-from ..utils.utils import hint, matchAndReplace, checkFileExist, platformType, ColorString, writeContentToFile, zip
+from ..utils.utils import hint, matchAndReplace, checkFileExist, platformType, writeContentToFile, zip
+from ..utils.ColorString import ColorString
 from ..utils.CleanUp import CleanUp
 
 import json

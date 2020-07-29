@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from bs4 import BeautifulSoup
 import os, requests
-from ..utils.utils import ColorString
+from ..utils.ColorString import ColorString
 
 class Forge:
 
