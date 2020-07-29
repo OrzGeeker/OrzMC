@@ -320,7 +320,7 @@ class Game:
             with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: ') as bar:
                 index = 0
                 for lib in libs: 
-                    libName = lib.get('name')
+                    # libName = lib.get('name')
                     downloads = lib.get('downloads')
 
                     rules = lib.get('rules')
@@ -467,7 +467,7 @@ class Game:
         with progressbar.ProgressBar(max_value=total, prefix='libraries: ') as bar:
             index = 0
             for lib in libs: 
-                libName = lib.get('name')
+                # libName = lib.get('name')
                 downloads = lib.get('downloads')
 
                 rules = lib.get('rules')
