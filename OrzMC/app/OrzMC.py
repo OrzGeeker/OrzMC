@@ -1,8 +1,8 @@
 # -*- coding: utf8 -*-
 
 import argparse
-from OrzMC.app.Config import Config
-from OrzMC.app.Game import Game
+from .Config import Config
+from .Game import Game
 
 def parse_args():
     parser = argparse.ArgumentParser(description='A command line tool for start Minecraft client or deploy minecraft server')
