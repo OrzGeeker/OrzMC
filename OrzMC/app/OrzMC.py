@@ -4,8 +4,9 @@ import argparse
 from .Config import Config
 from .Game import Game
 
-# https://docs.python.org/3/library/argparse.html
+# argparse 使用文档：https://docs.python.org/3/library/argparse.html
 def parse_args():
+    '''命令行参数解析'''
     parser = argparse.ArgumentParser(description='A command line tool for start Minecraft client or deploy minecraft server')
 
     # Tool
@@ -38,6 +39,5 @@ def parse_args():
 
 
 def start():
-    
-    # 启动游戏
+    '''启动游戏'''
     Game(Config(parse_args())).start()
