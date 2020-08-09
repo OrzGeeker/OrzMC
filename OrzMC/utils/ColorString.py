@@ -2,27 +2,28 @@
 
 from .utils import platformType
 
-class ColorString:
+from enum import IntEnum
 
-    FG_BLACK = 30
-    FG_RED = 31
-    FG_GREEN = 32
-    FG_YELLOW = 33
-    FG_BLUE = 34
-    FG_PURPLE = 35
-    FG_CYAN = 36
-    FG_WHITE = 37
-
-    BG_BLACK = 40
-    BG_RED = 41
-    BG_GREEN = 42
-    BG_YELLOW = 43
-    BG_BLUE = 44
-    BG_PURPLE = 45
-    BG_CYAN = 46
-    BG_WHITE = 47
-    BG_DEFAULT = 0
-
+class BGColor(IntEnum):
+    BLACK = 40
+    RED = 41
+    GREEN = 42
+    YELLOW = 43
+    BLUE = 44
+    PURPLE = 45
+    CYAN = 46
+    WHITE = 47
+    DEFAULT = 0
+class FGColor(IntEnum):
+    BLACK = 30
+    RED = 31
+    GREEN = 32
+    YELLOW = 33
+    BLUE = 34
+    PURPLE = 35
+    CYAN = 36
+    WHITE = 37
+class DisplayMode(IntEnum):
     DEFUALT = 0
     HIGHLIGHT = 1
     UNDERLINE = 2
@@ -30,25 +31,27 @@ class ColorString:
     INVERSE = 4
     INVISIBLE = 5
 
+class ColorString:
+
     @classmethod
-    def string(cls, str, fg = FG_WHITE, bg = BG_DEFAULT, displayMode = DEFUALT):
-        if bg == ColorString.BG_DEFAULT:
-            return '\033[%s;%sm%s\033[0m' % (displayMode, fg, str) if platformType() != 'windows' else str
+    def string(cls, str, fg = FGColor.WHITE, bg = BGColor.DEFAULT, displayMode = DisplayMode.DEFUALT):
+        if bg == BGColor.DEFAULT:
+            return '\033[%s;%sm%s\033[0m' % (displayMode.value, fg.value, str) if platformType() != 'windows' else str
         else:
-            return '\033[%s;%s;%sm%s\033[0m' % (displayMode, fg, bg, str) if platformType() != 'windows' else str
+            return '\033[%s;%s;%sm%s\033[0m' % (displayMode.value, fg.value, bg.value, str) if platformType() != 'windows' else str
 
     @classmethod
     def warn(cls, str):
-        return ColorString.string(str, ColorString.FG_YELLOW, displayMode=ColorString.HIGHLIGHT)
+        return ColorString.string(str, FGColor.YELLOW, displayMode=DisplayMode.HIGHLIGHT)
 
     @classmethod
     def confirm(cls, str):
-        return ColorString.string(str, ColorString.FG_GREEN, displayMode=ColorString.HIGHLIGHT)
+        return ColorString.string(str, FGColor.GREEN, displayMode=DisplayMode.HIGHLIGHT)
 
     @classmethod
     def error(cls, str):
-        return ColorString.string(str, ColorString.FG_RED, displayMode=ColorString.HIGHLIGHT)
+        return ColorString.string(str, FGColor.RED, displayMode=DisplayMode.HIGHLIGHT)
 
     @classmethod
     def hint(cls, str):
-        return ColorString.string(str, ColorString.FG_RED, displayMode=ColorString.HIGHLIGHT)
+        return ColorString.string(str, FGColor.RED, displayMode=DisplayMode.HIGHLIGHT)
