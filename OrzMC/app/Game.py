@@ -78,7 +78,7 @@ class Game:
             if releaseVersion == '1.13': 
                 break
 
-        print(ColorString.string(versionInfo,ColorString.FG_GREEN,displayMode=ColorString.HIGHLIGHT))
+        ColorString.confirm(versionInfo)
 
         if len(releaseVersions) > 0:
             self.config.version = releaseVersions[0] # 默认版本号
