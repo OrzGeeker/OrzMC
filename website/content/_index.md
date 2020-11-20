@@ -9,10 +9,6 @@ description: "欢迎小伙伴们一起来玩"
 
 HMCL启动器下载: **[HMCL最新版本启动器](https://github.com/huanghongxun/HMCL/releases/latest)**
 
-BSL光影包下载: **[BSL Shader v7.1.03.1](https://mcworld.jokerhub.cn/HMCL/optifine/shaders/BSL%2Bv7.1.03.1.zip)**
-
-材质包下载: **[ChromaHills 128x 1.16v1](https://mcworld.jokerhub.cn/HMCL/optifine/texture_pack/ChromaHills-128x-1.16-v1.zip)**
-
 🗺[实时地图](https://mcweb.jokerhub.cn)
 --- 📁[资源下载](https://mcworld.jokerhub.cn)
 --- 🎎[皮肤上传](https://mcskin.jokerhub.cn)
