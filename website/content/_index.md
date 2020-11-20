@@ -7,6 +7,8 @@ description: "欢迎小伙伴们一起来玩"
 
 服务器地址: **jokerhub.cn**
 
+HMCL启动器下载: **[HMCL最新版本启动器](https://github.com/huanghongxun/HMCL/releases/latest)**
+
 🗺[实时地图](https://mcweb.jokerhub.cn)
 --- 📁[资源下载](https://mcworld.jokerhub.cn)
 --- 🎎[皮肤上传](https://mcskin.jokerhub.cn)
