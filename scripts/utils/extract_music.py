@@ -54,7 +54,7 @@ def extract():
                         
 
 
-    except getopt.GetoptError, error:
+    except getopt.GetoptError as error:
         print(error)
         exit(-1)
 
