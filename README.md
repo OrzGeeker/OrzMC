@@ -69,6 +69,6 @@
 
 ## 社区
 
-![Minecraft Group](/images/minecraft_qq.group.jpg)
+![Minecraft Group](/images/minecraft_qq_group.jpg)
 
 **😎欢迎加入我们😎**
