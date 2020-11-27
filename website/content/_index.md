@@ -26,6 +26,4 @@ Mac系统需要开启远程登录
 
 ![ssh_login_required](/images/ssh_login.png)
 
-## Minecraft 微信群
-
-![minecraft_wechat_group](/images/minecraft_wechat_group.jpg)
+![minecraft_wechat_group](/images/minecraft_qq_group.jpg)
