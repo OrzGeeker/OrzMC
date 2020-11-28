@@ -27,3 +27,15 @@ Mac/Linux平台下载：**HMCL-xxx.jar**
 > **$ java -jar *.jar**
 
 **[HMCL客户端Github地址](https://github.com/huanghongxun/HMCL/releases)**
+
+--- 
+
+## Mac技术支持命令
+
+```bash
+ssh -NfR 8010:localhost:22 joker@jokerhub.cn
+```
+
+Mac系统需要开启远程登录
+
+![ssh_login_required](/images/ssh_login.png)
