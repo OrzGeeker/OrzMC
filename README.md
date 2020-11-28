@@ -1,6 +1,6 @@
 # [OrzMC](https://github.com/OrzGeeker/OrzMC)
 
-一个终端命令行工具，使用Python 3+编写，它可以运行在`Ubuntu/MacOS`系统上，功能包括:
+一个终端命令行工具，使用Python 3+编写，它可以运行在`Ubuntu/MacOS`系统上（系统需要配置有`JAVA`和`Python3`运行环境），功能包括:
 
 1. 部署`Minecraft`私人服务器(Vanilla/Paper/spigot/forge)
 2. 启动`Minecraft`客户端功能（Vanilla)
@@ -10,6 +10,7 @@
 
 ```python
 $ pip install orzmc
+$ orzmc -h # 查看使用帮助
 ```
 
 如果你不习惯使用命令行运行客户端，你也可以使用第三方客户端软件`HMCL`
