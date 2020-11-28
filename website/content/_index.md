@@ -9,6 +9,8 @@ description: "欢迎小伙伴们一起来玩"
 
 服务器地址: **jokerhub.cn**
 
+[B站客户端接入视频演示](https://www.bilibili.com/video/BV1nK4y1f7Yh/)
+
 **[HMCL最新版本启动器](https://github.com/huanghongxun/HMCL/releases/latest)**
 
 🗺[实时地图](https://mcweb.jokerhub.cn)
