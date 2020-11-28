@@ -45,7 +45,11 @@ $ orzmc -h # 查看使用帮助
 
 ## 视频介绍
 
-- [新手指南](https://www.bilibili.com/video/av66156010/)
+1. [启动器安装与服务器登录](https://www.bilibili.com/video/BV1nK4y1f7Yh/)
+2. [客户端开启光影效果](https://www.bilibili.com/video/BV1sz4y1k7Hm/)
+
+## 相关文档
+
 - [项目Wiki文档](https://github.com/OrzGeeker/OrzMC/wiki/%E4%B8%BB%E9%A1%B5)
 
 ## QQ玩家群
