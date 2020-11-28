@@ -33,7 +33,7 @@ Paginate = 3
   wechat = ""
   qq = ""
   
-  featured_image = '/images/minecraft_night.png'
+  featured_image = '/images/minecraft_night_qq.png'
   cover_dimming_class = "bg-black-10"
 
   recent_copy = "最近发布"
