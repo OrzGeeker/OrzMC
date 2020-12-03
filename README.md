@@ -39,7 +39,7 @@ $ orzmc -h # 查看使用帮助
 - [x] 添加客户端安装`Optifine`开启光影渲染的能力
 
 
-# 私服概况
+# 私服 **[主页](https://minecraft.jokerhub.cn)**
 
 ![logo](images/server_member.jpg)
 
@@ -47,6 +47,7 @@ $ orzmc -h # 查看使用帮助
 
 1. [启动器安装与服务器登录](https://www.bilibili.com/video/BV1nK4y1f7Yh/)
 2. [客户端开启光影效果](https://www.bilibili.com/video/BV1sz4y1k7Hm/)
+3. [命令、材质包导入及更换皮肤](https://www.bilibili.com/video/BV18A411x7EH)
 
 ## 相关文档
 
