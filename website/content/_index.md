@@ -3,7 +3,7 @@ title: "我的世界 - Minecraft"
 description: "欢迎小伙伴们一起来玩"
 ---
 
-## [PaperMC](https://papermc.io) - Minecraft 1.16.4
+## [PaperMC](https://papermc.io) - Minecraft 1.16.5
 
 ---
 
