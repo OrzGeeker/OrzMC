@@ -7,7 +7,7 @@ User=joker
 WorkingDirectory=~
 Environment=TITLE='jokermc'
 Environment=STOP_SHUTDOWN='服务器即将关闭, 正在保存地图...'
-Environment=MC_VERSION='1.16.4'
+Environment=MC_VERSION='1.16.5'
 Environment=MC_MIN='1G'
 Environment=MC_MAX='2G'
 Environment=MC_SERVER_TYPE='paper'
