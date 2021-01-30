@@ -114,3 +114,4 @@ logs/
 .DS_Store
 website/public
 website/resources
+*.dmg
