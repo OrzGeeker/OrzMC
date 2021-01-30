@@ -61,7 +61,7 @@ def zip(srcPaths, dstPath):
     if len(srcPaths) <= 0:
         return
 
-    with zipfile.ZipFile(dstPath, 'w', zipfile.ZIP_DEFLATED) as myzip:
+    with zipfile.ZipFile(dstPath, 'w', zipfile.ZIP_DEFLATED, allowZip64=True) as myzip:
         for srcPath in srcPaths:
             if os.path.exists(srcPath):
                 if os.path.isdir(srcPath):
