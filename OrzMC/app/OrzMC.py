@@ -24,7 +24,7 @@ def parse_args():
     # JVM
     parser.add_argument('-m', default='512M', metavar='minmem', dest='minmem', help='Specified the JVM initial memory allocation(default: %(default)s)')
     parser.add_argument('-x', default='2G', metavar='maxmem', dest='maxmem', help='Specified the JVM max memory allocation(default:%(default)s)')
-    
+
     # Flags
     parser.add_argument('-s','--server', default=False, action='store_true', help='deploy minecraft server, if there is no this flag, this command line tool start minecraft as default')
     parser.add_argument('-f','--force_upgrade_world', default=False, action='store_true', help='when deploy spigot/paper server, the option can upgrade your map from old game version')
@@ -33,6 +33,10 @@ def parse_args():
     parser.add_argument('-D','--debug', default=False, action='store_true', help='Run Command in Debug Mode')
     parser.add_argument('-V','--verbose', default=False, action='store_true', help='Output some debug info for bugfix')
 
+    # server options
+    parser.add_argument('--api', default = 'v2', metavar = 'api', dest='api', help = 'select paper api version(v1/v2) to download server jar file, default is: v2')
+    parser.add_argument('--force_download', default=False, action = 'store_true', help= 'force download server jar file ignore existed!')
+
     args = parser.parse_args()
 
     return args
@@ -40,4 +44,5 @@ def parse_args():
 
 def start():
     '''启动游戏'''
+    # 控制台收集的参数传入Config对象进行初始化
     Game(Config(parse_args())).start()
