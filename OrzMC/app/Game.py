@@ -22,10 +22,10 @@ import uuid
 import re
 import hashlib
 import time
-import progressbar
 import io
 import shutil
 import datetime
+from tqdm import tqdm
 
 is_sigint_up = False
 def sigint_handler(signum, frame):
@@ -56,7 +56,7 @@ class Game:
             # 显示可用版本信息
             self.showVersionList()
 
-        if self.config.username == None:
+        if self.config.username == Config.GAME_DEFAULT_USERNAME:
             # 仅客户端显示
             self.showUserName()
 
@@ -67,20 +67,19 @@ class Game:
     def showVersionList(self):
 
         releaseVersions = Mojang.get_release_version_id_list(update = True)
-
         print(ALL_VERSIONS_HINT)
 
         versionInfo = LEADING_SPACE
         for index, releaseVersion in enumerate(releaseVersions): 
-            versionInfo = versionInfo + VERSION_FORMATTER.format(str(releaseVersion))
+            versionInfo += VERSION_FORMATTER.format(str(releaseVersion))
             if (index + 1) % 5 == 0:
-                versionInfo = versionInfo + '\n' + LEADING_SPACE
+                versionInfo += '\n' + LEADING_SPACE
             else:
-                versionInfo = versionInfo + TAB_SPACE
+                versionInfo += TAB_SPACE
             if releaseVersion == '1.13': 
                 break
 
-        ColorString.confirm(versionInfo)
+        print(ColorString.confirm(versionInfo))
 
         if len(releaseVersions) > 0:
             self.config.version = releaseVersions[0] # 默认版本号
@@ -98,6 +97,8 @@ class Game:
         else:
             print(CHOOSED_DEFAULT_VERSION % self.config.version)
 
+        print('\n')
+
     def showUserName(self):
 
         if not self.config.is_client:
@@ -110,6 +111,7 @@ class Game:
         else:
             print(CHOOSED_DEFAULT_USERNAME)
 
+        print('\n')
 
     def selectLauncherProfile(self):
 
@@ -163,12 +165,18 @@ class Game:
         # 用户交互
         self.userInteraction()
 
-        if self.config.is_client:
-            # 启动客户端
-            self.startClient()
-        else:
-            # 启动服务端
-            self.deployServer()
+        try:
+            if self.config.is_client:
+                # 启动客户端
+                self.startClient()
+            else:
+                # 启动服务端
+                self.deployServer()
+            
+            print(ColorString.confirm('Start Successfully!!!'))
+
+        except:
+            print(ColorString.warn('Start Failed!!!'))
 
     # 启动客户端
     def startClient(self):
@@ -206,7 +214,6 @@ class Game:
             
         os.chdir(self.config.game_version_client_dir())
         os.system(backgroundCmd)
-        
         self.formatOutputClientCmd(backgroundCmd)
 
     def formatOutputClientCmd(self, cmd):
@@ -264,7 +271,7 @@ class Game:
         jarArgs = ['--forceUpgrade', 'nogui'] if (self.config.isSpigot or self.config.isPaper) and self.config.force_upgrade else ['nogui']
         self.startServer(self.startCommand(jvm_opts= jvm_opts, serverJARFilePath = jarFilePath, jarArgs = jarArgs))
 
-    def download(self, url, dir, name = None):
+    def download(self, url, dir, name = None, prefix_desc = None):
         global is_sigint_up
         if is_sigint_up:
             return
@@ -272,8 +279,41 @@ class Game:
             filename = os.path.basename(url)
         else:
             filename = name
-        with open(os.path.join(dir,filename),'wb') as f:
-            f.write(requests.get(url).content)
+        
+        try:
+            # 临时文件中转目录
+            target_file = os.path.join(dir,filename)
+            download_temp_file = os.path.join(self.config.game_download_temp_dir(), filename)
+            
+            total_size = int(requests.head(url).headers["Content-Length"])
+            kb_chunk_size = 1024 # 单位: 1K
+            mb_chunk_size = 1024 * 1024 # 单位: 1M
+            
+            # 大于10M的通过流式下载
+            if total_size > 10 * mb_chunk_size:
+                mb_size = int(total_size / mb_chunk_size + 0.5)
+                res = requests.get(url, stream = True)
+                # 先下载到临时目录
+                with open(download_temp_file,'wb') as f:
+                    desc = ((prefix_desc + ' - ') if len(prefix_desc) > 0 else  '') + 'downloading: %s(%sMB)' % (filename, mb_size)
+                    for chunk in tqdm(iterable=res.iter_content(kb_chunk_size),total=total_size,unit='k',desc=desc):
+                        f.write(chunk)
+
+                # 下载并写入临时目录后，移动到目标位置, 如果目标位置已存在文件，先删除
+                if os.path.exists(target_file):
+                    os.remove(target_file)
+                # 移动临时文件到目标位置
+                shutil.move(download_temp_file, target_file)
+            else:
+                # 小于10M的直接下载到内存，然后转存
+                with open(target_file, 'wb') as f:
+                    f.write(requests.get(url).content)
+                kb_size = int(total_size / kb_chunk_size + 0.5)
+                desc = (prefix_desc + ' - ' if len(prefix_desc) > 0 else '') + ('%s(%sKB)' % (os.path.basename(url), kb_size))
+                print(desc)
+        except:
+            # 如果下载失败, 则提示
+            print(ColorString.error('download failed: %s' % url))
 
     def loadJSON(self, filePath):
         with open(filePath) as json_data:
@@ -318,79 +358,67 @@ class Game:
             libs = self.game().get('libraries')
             total = len(libs)
             
-            errorMsg = []
-            with progressbar.ProgressBar(max_value=total, prefix='javaClassPathList: ') as bar:
-                index = 0
-                for lib in libs: 
-                    # libName = lib.get('name')
-                    downloads = lib.get('downloads')
+            index = 0
+            for lib in libs: 
+                downloads = lib.get('downloads')
 
-                    rules = lib.get('rules')
-                    isContinue = False
-                    if None != rules:
-                        for rule in rules:
-                            if None != rule:
-                                if rule.get('action') == 'disallow':
-                                    if rule.get('os').get('name') == platformType():
-                                        # errorMsg.append(libName + 'is disallowed')
-                                        isContinue
+                rules = lib.get('rules')
+                isContinue = False
+                if None != rules:
+                    for rule in rules:
+                        if None != rule:
+                            if rule.get('action') == 'disallow':
+                                if rule.get('os').get('name') == platformType():
+                                    isContinue
 
-                                if rule.get('action') == 'allow':
-                                    allow_os = rule.get('os')
-                                    if allow_os and allow_os.get('name') != platformType():
-                                        isContinue = True
+                            if rule.get('action') == 'allow':
+                                allow_os = rule.get('os')
+                                if allow_os and allow_os.get('name') != platformType():
+                                    isContinue = True
 
-                    if isContinue:
+                if isContinue:
+                    continue
+
+                libPath = None
+                url = None
+                sha1 = None
+                nativeKey = 'natives-'+ platformType()
+                if 'natives' in lib:
+                    platform = lib.get('natives').get(platformType())
+                    if platform == None:
                         continue
-
-                    libPath = None
-                    url = None
-                    sha1 = None
-                    nativeKey = 'natives-'+ platformType()
-                    if 'natives' in lib:
-                        platform = lib.get('natives').get(platformType())
-                        if platform == None:
-                            # errorMsg.append('Error: no platform jar - ' +  libName)
+                    else:
+                        libPath = downloads.get('classifiers').get(platform).get('path')
+                        url = downloads.get('classifiers').get(platform).get('url')
+                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
+                        if not checkFileExist(nativeFilePath,sha1):
                             continue
                         else:
-                            libPath = downloads.get('classifiers').get(platform).get('path')
-                            url = downloads.get('classifiers').get(platform).get('url')
-                            sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                            nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
-                            if not checkFileExist(nativeFilePath,sha1):
-                                errorMsg.append("Not Exist: %s" % nativeFilePath)
-                                continue
-                            else:
-                                self._javaClassPathList.append(nativeFilePath)
-                    else:
-                        classifiers = downloads.get('classifiers')
-                        if classifiers and nativeKey in downloads.get('classifiers'):
-                            url = downloads.get('classifiers').get(nativeKey).get('url')
-                            sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                            nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
-                            if not checkFileExist(nativeFilePath,sha1):
-                                errorMsg.append("Not Exist: %s" % nativeFilePath)
-                                continue
-                            else:
-                                self._javaClassPathList.append(nativeFilePath)
-                                
-                        libPath = downloads.get('artifact').get('path')
-                        url = downloads.get('artifact').get('url')
-                        sha1 = downloads.get('artifact').get('sha1')
-                        if platformType() == 'windows' :
-                            libPath = libPath.replace('/','\\')
-                        libFilePath = os.path.join(self.config.game_version_client_library_dir(), libPath)
-                        if not checkFileExist(libFilePath,sha1):
-                            errorMsg.append("Not Exist: %s" % libFilePath)
-                            continue            
+                            self._javaClassPathList.append(nativeFilePath)
+                else:
+                    classifiers = downloads.get('classifiers')
+                    if classifiers and nativeKey in downloads.get('classifiers'):
+                        url = downloads.get('classifiers').get(nativeKey).get('url')
+                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
+                        if not checkFileExist(nativeFilePath,sha1):
+                            continue
                         else:
-                            self._javaClassPathList.append(libFilePath)
+                            self._javaClassPathList.append(nativeFilePath)
+                            
+                    libPath = downloads.get('artifact').get('path')
+                    url = downloads.get('artifact').get('url')
+                    sha1 = downloads.get('artifact').get('sha1')
+                    if platformType() == 'windows' :
+                        libPath = libPath.replace('/','\\')
+                    libFilePath = os.path.join(self.config.game_version_client_library_dir(), libPath)
+                    if not checkFileExist(libFilePath,sha1):
+                        continue            
+                    else:
+                        self._javaClassPathList.append(libFilePath)
 
-                    index = index + 1
-                    bar.update(index)
-                    
-            if(len(errorMsg) > 0):
-                print('\n'.join(errorMsg))
+                index = index + 1
 
             if self.config.isForge:
                 forge_class_path = map(lambda lib:  os.path.join(self.config.game_version_client_library_dir(),lib.get('downloads').get('artifact').get('path')) ,self.forgeGame().get('libraries')) 
@@ -431,25 +459,17 @@ class Game:
         objects = self.assets().get('objects')
         total = len(objects)
 
-        errorMsg = []
-        with progressbar.ProgressBar(max_value=total, prefix='assets objects: ') as bar:
-            index = 0
-            for (name,object) in objects.items():
-                index = index + 1
-                outInfo = '%d/%d(%s)' % (index, total, name)
-                hash = object.get('hash')
-                url = Mojang.assets_objects_url(hash)
-                object_dir = self.config.game_version_client_assets_objects_dir(hash)
-                object_filePath = os.path.join(object_dir,os.path.basename(url))
-                if not checkFileExist(object_filePath, hash):
-                    try:
-                        self.download(url,object_dir)
-                    except:
-                        errorMsg.append(outInfo + "FAILED!")
-                bar.update(index)
+        index = 0
+        for (name,object) in objects.items():
+            index = index + 1
+            hash = object.get('hash')
+            url = Mojang.assets_objects_url(hash)
+            object_dir = self.config.game_version_client_assets_objects_dir(hash)
+            object_filePath = os.path.join(object_dir,os.path.basename(url))
+            if not checkFileExist(object_filePath, hash):
+                prefix_desc = 'assets objects %d/%d(%.2f%%)' % (index, total, 100.0 * index / total)
+                self.download(url,object_dir, prefix_desc=prefix_desc)
         
-        if(len(errorMsg) > 0):
-            print('\n'.join(errorMsg))
 # Library
 
     def donwloadLibraries(self):
@@ -462,70 +482,61 @@ class Game:
         libs = self.game().get('libraries')
         total = len(libs)
 
-        errorMsg = []
-        with progressbar.ProgressBar(max_value=total, prefix='libraries: ') as bar:
-            index = 0
-            for lib in libs: 
-                # libName = lib.get('name')
-                downloads = lib.get('downloads')
+        index = 0
+        for lib in libs: 
+            index = index + 1
+            prefix_desc = 'libraries %d/%d' % (index, total)
+            downloads = lib.get('downloads')
+            rules = lib.get('rules')
 
-                rules = lib.get('rules')
+            isContinue = False
+            if None != rules:
+                for rule in rules:
+                    if None != rule:
+                        if rule.get('action') == 'disallow':
+                            if rule.get('os').get('name') == platformType():
+                                isContinue = True
 
-                isContinue = False
-                if None != rules:
-                    for rule in rules:
-                        if None != rule:
-                            if rule.get('action') == 'disallow':
-                                if rule.get('os').get('name') == platformType():
-                                    # errorMsg.append(libName + 'is disallowed')
-                                    isContinue = True
+                        if rule.get('action') == 'allow':
+                            allow_os = rule.get('os')
+                            if allow_os and allow_os.get('name') != platformType():
+                                isContinue = True
 
-                            if rule.get('action') == 'allow':
-                                allow_os = rule.get('os')
-                                if allow_os and allow_os.get('name') != platformType():
-                                    isContinue = True
+            if isContinue: 
+                continue
 
-                if isContinue: 
+            libPath = None
+            url = None
+            nativeKey = 'natives-'+ platformType()
+            if 'natives' in lib:
+                platform = lib.get('natives').get(platformType())
+                if platform == None:
                     continue
-
-                libPath = None
-                url = None
-                nativeKey = 'natives-'+ platformType()
-                if 'natives' in lib:
-                    platform = lib.get('natives').get(platformType())
-                    if platform == None:
-                        # errorMsg.append('Error: no platform jar - ' +  libName)
-                        continue
-                    else:
-                        libPath = downloads.get('classifiers').get(platform).get('path')
-                        url = downloads.get('classifiers').get(platform).get('url')
-                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
-                        if not checkFileExist(nativeFilePath,sha1):
-                            self.download(url,self.config.game_version_client_native_library_dir())
-                        
                 else:
-                    classifiers = downloads.get('classifiers')
-                    if classifiers and nativeKey in downloads.get('classifiers'):
-                        url = downloads.get('classifiers').get(nativeKey).get('url')
-                        sha1 = downloads.get('classifiers').get(platform).get('sha1')
-                        nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
-                        if not checkFileExist(nativeFilePath,sha1):
-                            self.download(url,self.config.game_version_client_native_library_dir())
+                    libPath = downloads.get('classifiers').get(platform).get('path')
+                    url = downloads.get('classifiers').get(platform).get('url')
+                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                    nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
+                    if not checkFileExist(nativeFilePath,sha1):
+                        self.download(url,self.config.game_version_client_native_library_dir(), prefix_desc=prefix_desc)
                     
-                    libPath = downloads.get('artifact').get('path')
-                    url = downloads.get('artifact').get('url')
-                    sha1 = downloads.get('artifact').get('sha1')
-                    fileDir = self.config.game_version_client_library_dir(libPath)
-                    filePath=os.path.join(fileDir,os.path.basename(url))
-                    if not checkFileExist(filePath,sha1):
-                        self.download(url,fileDir)
+            else:
+                classifiers = downloads.get('classifiers')
+                if classifiers and nativeKey in downloads.get('classifiers'):
+                    url = downloads.get('classifiers').get(nativeKey).get('url')
+                    sha1 = downloads.get('classifiers').get(platform).get('sha1')
+                    nativeFilePath = os.path.join(self.config.game_version_client_native_library_dir(),os.path.basename(url))
+                    if not checkFileExist(nativeFilePath,sha1):
+                        self.download(url,self.config.game_version_client_native_library_dir(), prefix_desc=prefix_desc)
+                
+                libPath = downloads.get('artifact').get('path')
+                url = downloads.get('artifact').get('url')
+                sha1 = downloads.get('artifact').get('sha1')
+                fileDir = self.config.game_version_client_library_dir(libPath)
+                filePath=os.path.join(fileDir,os.path.basename(url))
+                if not checkFileExist(filePath,sha1):
+                    self.download(url,fileDir, prefix_desc=prefix_desc)
 
-                index = index + 1
-                bar.update(index)
-
-        if(len(errorMsg) > 0):
-            print('\n'.join(errorMsg))
 # Client
 
     def downloadClient(self):
@@ -539,11 +550,14 @@ class Game:
         sha1 = client.get('sha1')
         clientJARFilePath = self.config.game_version_client_jar_file_path()
         if not checkFileExist(clientJARFilePath, sha1):
-            print('Downloading the client jar file ...')
-            self.download(clientUrl,os.path.dirname(clientJARFilePath), self.config.game_version_client_jar_filename())
-            print("Client Download Completed!")
+            self.download(
+                clientUrl,
+                os.path.dirname(clientJARFilePath), 
+                self.config.game_version_client_jar_filename(), 
+                prefix_desc='client jar file'
+            )
         else:
-            print("Client Jar File have been downloaded")
+            print("client jar file existed!")
 
     def gameArguments(self, user, resolution):
 
@@ -702,11 +716,14 @@ class Game:
         '''Download Server Jar File'''
         (serverJARFilePath, serverUrl, sha1) = self.serverJARFilePath()
         if not checkFileExist(serverJARFilePath, sha1):
-            print('Downloading the server jar file ...')
-            self.download(serverUrl,self.config.game_version_server_dir(), self.config.game_version_server_jar_filename())
-            print("Server Download Completed!")
+            self.download(
+                serverUrl,
+                self.config.game_version_server_dir(), 
+                self.config.game_version_server_jar_filename(), 
+                prefix_desc='server jar file'
+            )
         else:
-            print("Server Jar File have been downloaded")
+            print("server jar file existed!")
 
 
     def startCommand(self, jvm_opts = '', serverJARFilePath = '', jarArgs = ['nogui']):
@@ -769,9 +786,11 @@ class Game:
 
         version = self.config.version
         spigot = Spigot(version)
-        print(ColorString.warn('Start download the spigot build tool jar file...'))
-        self.download(spigot.build_tool_jar, self.config.game_version_server_build_dir())
-        print(ColorString.confirm('Build tool jar download completed!!!'))
+        self.download(
+            spigot.build_tool_jar, 
+            self.config.game_version_server_build_dir(), 
+            prefix_desc='spigot build tool jar file'
+        )
         buildToolJarName = os.path.basename(spigot.build_tool_jar)
         buildToolJarPath = os.path.join(self.config.game_version_server_build_dir(), buildToolJarName)
         versionCmd = ' --rev ' + version if len(version) > 0 else 'lastest'
@@ -789,9 +808,11 @@ class Game:
     
     def extractForgeClient(self):
         '''构建Forge客户端'''
-        print(ColorString.warn('Start download the forge installer jar file...'))
-        self.download(self.config.forgeInfo.forge_installer_url, self.config.game_version_client_dir())
-        print(ColorString.confirm('Forge installer jar download completed!!!'))
+        self.download(
+            self.config.forgeInfo.forge_installer_url, 
+            self.config.game_version_client_dir(), 
+            prefix_desc='forge installer jar file'
+        )
 
         installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
         extractForgeClientCmd = 'java -jar ' + installerJarFilePath
@@ -845,9 +866,11 @@ class Game:
     def buildForgeServer(self):
         '''构建Forge服务器'''
 
-        print(ColorString.warn('Start download the forge installer jar file...'))
-        self.download(self.config.forgeInfo.forge_installer_url, self.config.game_version_server_dir())
-        print(ColorString.confirm('Forge installer jar download completed!!!'))
+        self.download(
+            self.config.forgeInfo.forge_installer_url, 
+            self.config.game_version_server_dir(), 
+            prefix_desc='forge installer jar file'
+        )
 
         installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
         installServerCmd = 'java -jar ' + installerJarFilePath + ' --installServer'
@@ -900,7 +923,9 @@ class Game:
             )
 
         if url and len(url) > 0:
-            print(ColorString.hint("Downloading Paper Server Jar File!!!"))
-            print(url)
-            self.download(url, self.config.game_version_server_dir(), self.config.game_version_server_jar_filename())
-            print(ColorString.confirm("Paper Server Jar File Downloaded!!"))
+            self.download(
+                url, 
+                self.config.game_version_server_dir(), 
+                self.config.game_version_server_jar_filename(), 
+                prefix_desc='paper server file'
+            )

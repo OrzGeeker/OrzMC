@@ -54,4 +54,4 @@ class ColorString:
 
     @classmethod
     def hint(cls, str):
-        return ColorString.string(str, FGColor.RED, displayMode=DisplayMode.HIGHLIGHT)
+        return ColorString.string(str, FGColor.YELLOW, displayMode=DisplayMode.HIGHLIGHT)

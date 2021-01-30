@@ -31,7 +31,6 @@ setuptools.setup(
     install_requires=[
         'pylint',
         'requests',
-        'progressbar2',
         'twine',
         'beautifulsoup4'
     ],

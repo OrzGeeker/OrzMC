@@ -209,3 +209,8 @@ class Config:
         backup_dir = os.path.join(Config.BASE_PATH, 'minecraft_world_backup')
         makedirs(backup_dir)
         return backup_dir
+
+    def game_download_temp_dir(self):
+        download_temp_dir = os.path.join(Config.GAME_ROOT_DIR, 'download_tmp_dir')
+        makedirs(download_temp_dir)
+        return download_temp_dir
