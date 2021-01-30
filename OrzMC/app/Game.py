@@ -52,11 +52,13 @@ class Game:
 
     def userInteraction(self):
         
-        # 显示可用版本信息
-        self.showVersionList()
+        if self.config.version == None:
+            # 显示可用版本信息
+            self.showVersionList()
 
-        # 仅客户端显示
-        self.showUserName()
+        if self.config.username == None:
+            # 仅客户端显示
+            self.showUserName()
 
         # 客户端启动方案
         self.selectLauncherProfile()
@@ -233,16 +235,16 @@ class Game:
             (serverJARFilePath, _, _) = self.serverJARFilePath()
             jarFilePath = serverJARFilePath
         elif self.config.isSpigot:
-            if not os.path.exists(self.config.game_version_server_jar_file_path()):
+            if self.config.force_download or not os.path.exists(self.config.game_version_server_jar_file_path()):
                 self.buildSpigotServer()
             jarFilePath = self.config.game_version_server_jar_file_path()
         elif self.config.isPaper:
-            if not os.path.exists(self.config.game_version_server_jar_file_path()):
+            if self.config.force_download or not os.path.exists(self.config.game_version_server_jar_file_path()):
                 self.downloadPaperServerJarFile()
             jarFilePath = self.config.game_version_server_jar_file_path()
         elif self.config.isForge:
             self.config.getForgeInfo()
-            if not os.path.exists(self.config.game_version_server_jar_file_path()):
+            if self.config.force_download or not os.path.exists(self.config.game_version_server_jar_file_path()):
                 self.buildForgeServer()
             jarFilePath = self.config.game_version_server_jar_file_path()
             if not os.path.exists(jarFilePath):
@@ -885,13 +887,20 @@ class Game:
 
 
     def downloadPaperServerJarFile(self):
-        url = PaperAPI.downloadURL(
-                api_version = 'v1',
+        url = None
+        if self.config.api == 'v1':
+            url = PaperAPI.downloadURLV1(
                 project_name = 'paper',
                 project_version = self.config.version,
                 build_id = 'latest'
             )
+        elif self.config.api == 'v2':
+            url = PaperAPI.downloadURLV2(
+                version = self.config.version
+            )
+
         if url and len(url) > 0:
             print(ColorString.hint("Downloading Paper Server Jar File!!!"))
+            print(url)
             self.download(url, self.config.game_version_server_dir(), self.config.game_version_server_jar_filename())
             print(ColorString.confirm("Paper Server Jar File Downloaded!!"))

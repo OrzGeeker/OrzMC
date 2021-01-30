@@ -50,6 +50,8 @@ class Config:
         self.force_upgrade = args.force_upgrade_world
         self.backup = args.backup_world
         self.optifine = args.optifine
+        self.api = args.api
+        self.force_download = args.force_download
 
     def getForgeInfo(self):
         if self.isForge:
