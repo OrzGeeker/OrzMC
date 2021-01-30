@@ -296,7 +296,7 @@ class Game:
                 # 先下载到临时目录
                 with open(download_temp_file,'wb') as f:
                     desc = ((prefix_desc + ' - ') if len(prefix_desc) > 0 else  '') + 'downloading: %s(%sMB)' % (filename, mb_size)
-                    for chunk in tqdm(iterable=res.iter_content(kb_chunk_size),total=total_size,unit='k',desc=desc):
+                    for chunk in tqdm(iterable=res.iter_content(mb_chunk_size),total=mb_size,unit='MB',desc=desc):
                         f.write(chunk)
 
                 # 下载并写入临时目录后，移动到目标位置, 如果目标位置已存在文件，先删除
