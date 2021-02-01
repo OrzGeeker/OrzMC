@@ -19,19 +19,19 @@ draft: false
 
 3. [PaperMC官网](https://papermc.io)
 
-开发IDE建议使用**[IntelliJ IDEA](https://www.jetbrains.com/idea/)**
+开发IDE建议使用 **[IntelliJ IDEA](https://www.jetbrains.com/idea/)** - **[下载IDEA](https://www.jetbrains.com/idea/download/)**
 
-`Spigot插件开发`中有**IEAD**配置手动依赖和**Maven**项目管理两种方式
+- `Spigot插件开发`中有**IEAD**配置手动依赖和**Maven**项目管理两种方式
 
-`Bukkit插件开发`中有开发插件的基础知识结构介绍
+- `Bukkit插件开发`中有开发插件的基础知识结构介绍
 
-`PaperMC`中可以依赖针对`papermc`的服务端API
+- `PaperMC`中可以依赖针对`papermc`的服务端API
 
 获取**Bukkit**、**CraftBukkit**、**Spigot**、**Spigot-API**，使用[BuildTools.jar](https://www.spigotmc.org/wiki/buildtools/)
 
 **开发模板: https://github.com/OrzGeeker/OrzMCDev**
 
--[PaperMC JavaDoc](https://papermc.io/javadocs)
+- [PaperMC JavaDoc](https://papermc.io/javadocs)
 
 ## 名词解释
 
