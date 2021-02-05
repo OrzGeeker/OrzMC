@@ -48,9 +48,14 @@ function config_ubuntu {
     sudo apt-get install -y \
         git                 \
         python3             \
-	python3-pip         \
+	    python3-pip         \
         hugo
 
+    pipenv --version > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        pip3 install pipenv
+    fi
+    
     config_python_env
 }
 
