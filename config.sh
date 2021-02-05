@@ -14,3 +14,8 @@ pipenv --version > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     brew install pipenv
 fi
+
+git --version > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    brew install git
+fi
