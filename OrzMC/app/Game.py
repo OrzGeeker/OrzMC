@@ -62,19 +62,19 @@ class Game:
         self.userInteraction()
 
         try:
-            if self.config.is_client:
-                # 启动客户端
-                self._game = Client(self.config)
-                # self.startClient()
-            else:
-                # 启动服务端
-                self._game = Server(self.config)
-                # self.deployServer()
-            
+            self._game = Client(self.config) if self.config.is_client else Server(self.config)
+
             #启动游戏
             self._game.start()
-            
+
             print(ColorString.confirm('Start Successfully!!!'))
+
+            # if self.config.is_client:
+            #     # 启动客户端
+            #     # self.startClient()
+            # else:
+            #     # 启动服务端
+            #     # self.deployServer()
 
         except:
             print(ColorString.warn('Start Failed!!!'))
