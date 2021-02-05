@@ -4,6 +4,7 @@ from .Config import Config
 from .Downloader import Downloader
 from ..utils.ColorString import ColorString
 from ..utils.CleanUp import CleanUp
+from ..utils.utils import *
 
 import os
 import io
@@ -199,7 +200,8 @@ class Server:
             CleanUp.registerTask('backupWorld_cleanUp', backupWorld_cleanUp)
             zip(world_paths, world_backup_file)
             CleanUp.cancelTask('backupWorld_cleanUp')
-            print(ColorString.confirm("Completed! backuped world file: %s!!!" % world_backup_file ))
+            file_size = os.path.getsize(world_backup_file) / 1024.0 / 1024.0 / 1024.0
+            print(ColorString.confirm("Completed! backuped world file(%.2fG): %s!!!" % (file_size, world_backup_file)))
         else: 
             print(ColorString.error('There is no world directory!!!'))
 

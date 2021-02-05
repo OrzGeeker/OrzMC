@@ -61,21 +61,23 @@ def hint(msg):
 def zip(srcPaths, dstPath):
     if len(srcPaths) <= 0:
         return
-
-    with zipfile.ZipFile(dstPath, 'w', zipfile.ZIP_DEFLATED, allowZip64=True) as myzip:
-        for srcPath in srcPaths:
-            if os.path.exists(srcPath):
-                if os.path.isdir(srcPath):
-                    for dirpath, _, filenames in os.walk(srcPath):
-                        dir_path = srcPath.replace(os.path.basename(srcPath), '')
-                        fpath = dirpath.replace(dir_path, '')
-                        fpath = fpath and fpath + os.sep or ''
-                        for filename in filenames:
-                            source = os.path.join(dirpath,filename)
-                            destination = fpath + filename
-                            myzip.write(source, destination)
-                else:
-                    myzip.write(srcPath)
+    try:
+        with zipfile.ZipFile(dstPath, 'w', zipfile.ZIP_DEFLATED, allowZip64=True) as myzip:
+            for srcPath in srcPaths:
+                if os.path.exists(srcPath):
+                    if os.path.isdir(srcPath):
+                        for dirpath, _, filenames in os.walk(srcPath):
+                            dir_path = srcPath.replace(os.path.basename(srcPath), '')
+                            fpath = dirpath.replace(dir_path, '')
+                            fpath = fpath and fpath + os.sep or ''
+                            for filename in filenames:
+                                source = os.path.join(dirpath,filename)
+                                destination = fpath + filename
+                                myzip.write(source, destination)
+                    else:
+                        myzip.write(srcPath)
+    except Exception as e:
+        print(e)
 
 
 def loadJSON(filePath):
