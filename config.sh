@@ -19,3 +19,11 @@ git --version > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     brew install git
 fi
+
+pipenv --three  install     \
+                install     \
+                setuptools  \
+                wheel       \
+                twine       \
+                -e .        \
+                && pipenv shell
