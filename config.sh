@@ -12,12 +12,20 @@ fi
 
 pipenv --version > /dev/null 2>&1
 if [ $? -ne 0 ]; then
+    # https://github.com/pypa/pipenv
     brew install pipenv
 fi
 
 git --version > /dev/null 2>&1
 if [ $? -ne 0 ]; then
+    # https://git-scm.com/
     brew install git
+fi
+
+hugo version > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    # https://gohugo.io/
+    brew install hugo
 fi
 
 pipenv --three  install     \
