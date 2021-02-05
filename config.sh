@@ -8,11 +8,12 @@ function config_python_env {
                     setuptools  \
                     wheel       \
                     twine       \
-                    -e .        \
-                    && pipenv shell
+                    -e .
 }
 
 function config_darwin {
+
+    export HOMEBREW_NO_AUTO_UPDATE=true
 
     brew --version > /dev/null 2>&1
     if [ $? -ne 0 ]; then
