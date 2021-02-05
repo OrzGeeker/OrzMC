@@ -29,6 +29,7 @@ class Config:
         self.username = args.username
         self.mem_min = args.minmem
         self.mem_max = args.maxmem
+        self.is_extract_music = args.extract_music
 
         game_type = args.type
         self.isPure = (game_type == Config.GAME_TYPE_PURE)
