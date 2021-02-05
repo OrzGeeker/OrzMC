@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #-*- utf-8 -*-
-
-set -x
+# set -x
 
 function config_python_env {
     pipenv --three  install     \
@@ -41,6 +40,12 @@ function config_darwin {
         brew install hugo
     fi
 
+    ffmpeg --version > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        # https://ffmpeg.org
+        brew install ffmpeg
+    fi
+
     config_python_env
 }
 
@@ -49,7 +54,8 @@ function config_ubuntu {
         git                 \
         python3             \
 	    python3-pip         \
-        hugo
+        hugo                \
+        ffmpeg
 
     pipenv --version > /dev/null 2>&1
     if [ $? -ne 0 ]; then
