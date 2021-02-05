@@ -29,7 +29,7 @@ if [ $? -ne 0 ]; then
 
             # 替换homebrew-bottles访问地址
             HOMEBREW_BOTTLE='export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles'
-            BASHRC="~/.bashrc"
+            BASHRC=~/.bashrc
             cat $BASHRC | grep "$HOMEBREW_BOTTLE" > /dev/null 2>&1
             if [ $? -ne 0 ]; then
                 echo ""$HOMEBREW_BOTTLE"" >> $BASHRC
