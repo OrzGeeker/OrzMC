@@ -6,6 +6,7 @@ import sys
 import platform
 import zipfile
 import re
+import json
 
 def matchAndReplace(pattern, repl, string):
 
@@ -75,3 +76,14 @@ def zip(srcPaths, dstPath):
                             myzip.write(source, destination)
                 else:
                     myzip.write(srcPath)
+
+
+def loadJSON(filePath):
+    with open(filePath) as json_data:
+        jsonObj = json.load(json_data)
+        return jsonObj
+
+from .CleanUp import CleanUp
+def is_sigint_up():
+    return CleanUp.is_sigint_up
+

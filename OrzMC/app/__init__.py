@@ -6,5 +6,7 @@ __all__ = [
     'Client',
     'Server',
     'Config',
+    'Console'
     'Constants',
+    'Downloader',
 ]

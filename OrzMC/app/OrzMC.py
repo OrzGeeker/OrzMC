@@ -48,4 +48,6 @@ def parse_args():
 def start():
     '''启动游戏'''
     # 控制台收集的参数传入Config对象进行初始化
-    Game(Config(parse_args())).start()
+    args = parse_args()
+    config = Config(args)
+    Game(config).start()
