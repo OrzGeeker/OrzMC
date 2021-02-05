@@ -9,17 +9,6 @@ if [ $? -ne 0 ]; then
         'Linux')
             # ubuntu 安装homebrew
             sudo apt-get install linuxbrew-wrapper
-            # 替换brew.git
-            cd "$(brew --repo)"
-            git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-
-            # 替换homebrew-core.git
-            cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-            git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-
-            # 替换homebrew-bottles访问地址
-            export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles
-            echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bashrc
         ;;
         'Darwin')
             # https://brew.sh
