@@ -1,6 +1,9 @@
 # -*- coding: utf8 -*-
 
 from .Config import Config
+from .Client import Client
+from .Server import Server
+
 from .Constants import *
 
 from ..core.Mojang import Mojang
@@ -44,11 +47,37 @@ if platformType() != 'windows':
 class Game:
 
     def __init__(self, config = None):
+        self.config = config
         self._game=None
         self._forgeGame = None
         self._assets=None
         self._javaClassPathList = None
-        self.config = config
+        
+    def start(self):
+
+        # 检查是否安装JDK
+        Oracle.install_jdk()
+
+        # 用户交互
+        self.userInteraction()
+
+        try:
+            if self.config.is_client:
+                # 启动客户端
+                self._game = Client(self.config)
+                # self.startClient()
+            else:
+                # 启动服务端
+                self._game = Server(self.config)
+                # self.deployServer()
+            
+            #启动游戏
+            self._game.start()
+            
+            print(ColorString.confirm('Start Successfully!!!'))
+
+        except:
+            print(ColorString.warn('Start Failed!!!'))
 
     def userInteraction(self):
         
@@ -63,7 +92,6 @@ class Game:
         # 客户端启动方案
         self.selectLauncherProfile()
 
-        
     def showVersionList(self):
 
         releaseVersions = Mojang.get_release_version_id_list(update = True)
@@ -156,27 +184,6 @@ class Game:
             if content != None: 
                 with open(launcher_profiles_json_file_path, 'w') as f: 
                     json.dump(content, f)
-
-    def start(self):
-
-        # 检查是否安装JDK
-        Oracle.install_jdk()
-
-        # 用户交互
-        self.userInteraction()
-
-        try:
-            if self.config.is_client:
-                # 启动客户端
-                self.startClient()
-            else:
-                # 启动服务端
-                self.deployServer()
-            
-            print(ColorString.confirm('Start Successfully!!!'))
-
-        except:
-            print(ColorString.warn('Start Failed!!!'))
 
     # 启动客户端
     def startClient(self):
@@ -886,7 +893,6 @@ class Game:
             boot_cmd = 'java -jar ' + pure_server_jar
             os.system(boot_cmd)
 
-    
     def backupWorld(self):
         world_paths = self.config.game_version_server_world_dirs()
         if world_paths:            
@@ -907,7 +913,6 @@ class Game:
             print(ColorString.confirm("Completed! backuped world file: %s!!!" % world_backup_file ))
         else: 
             print(ColorString.error('There is no world directory!!!'))
-
 
     def downloadPaperServerJarFile(self):
         url = None

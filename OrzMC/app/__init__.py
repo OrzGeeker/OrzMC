@@ -3,6 +3,8 @@
 __all__ = [
     'OrzMC',
     'Game',
+    'Client',
+    'Server',
     'Config',
     'Constants',
 ]

@@ -37,6 +37,9 @@ def parse_args():
     parser.add_argument('--api', default = 'v2', metavar = 'api', dest='api', help = 'select paper api version(v1/v2) to download server jar file, default is: v2')
     parser.add_argument('--force_download', default=False, action = 'store_true', help= 'force download server jar file ignore existed!')
 
+    # extract bgm music
+    parser.add_argument('-e', '--extract_music', default=False, action='store_true', help='extract specific version client music')
+
     args = parser.parse_args()
 
     return args
