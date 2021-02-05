@@ -198,8 +198,6 @@ class Server:
             print(ColorString.hint('Start Executing ZIP ...'))
             CleanUp.registerTask('backupWorld_cleanUp', backupWorld_cleanUp)
             zip(world_paths, world_backup_file)
-            print(world_paths)
-            print(world_backup_file)
             CleanUp.cancelTask('backupWorld_cleanUp')
             print(ColorString.confirm("Completed! backuped world file: %s!!!" % world_backup_file ))
         else: 
