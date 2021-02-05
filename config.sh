@@ -23,6 +23,7 @@ if [ $? -ne 0 ]; then
             if [ -d "$HOMEBREW_CORE_DIR" ]; then
                 cd $HOMEBREW_CORE_DIR
                 git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+                cd -
             fi
 
             # 替换homebrew-bottles访问地址
@@ -31,6 +32,7 @@ if [ $? -ne 0 ]; then
             cat $BASHRC | grep "$HOMEBREW_BOTTLE" > /dev/null 2>&1
             if [ $? -ne 0 ]; then
                 echo ""$HOMEBREW_BOTTLE"" >> $BASHRC
+                source $BASHRC
             fi
         ;;
         'Darwin')
