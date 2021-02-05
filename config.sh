@@ -12,8 +12,17 @@ if [ $? -ne 0 ]; then
             # sudo apt-get remove linuxbrew-wrapper -y
 
             # 替换brew.git
+            BASHRC=~/.bashrc
             HOMEBREW_REPO_DIR="$(brew --repo)"
             if [ -d "$HOMEBREW_REPO_DIR" ]; then
+                # add ENV PATH
+                HOMEBREW_BIN="export PATH=\$PATH:$(brew --repo)/../bin"
+                cat $BASHRC | grep "$HOMEBREW_BIN" > /dev/null 2>&1
+                if [ $? -ne 0 ]; then
+                    echo ""$HOMEBREW_BIN"" >> $BASHRC
+                    source $BASHRC
+                fi
+
                 cd $HOMEBREW_REPO_DIR
                 git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
                 cd -
@@ -29,7 +38,6 @@ if [ $? -ne 0 ]; then
 
             # 替换homebrew-bottles访问地址
             HOMEBREW_BOTTLE='export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles'
-            BASHRC=~/.bashrc
             cat $BASHRC | grep "$HOMEBREW_BOTTLE" > /dev/null 2>&1
             if [ $? -ne 0 ]; then
                 echo ""$HOMEBREW_BOTTLE"" >> $BASHRC
