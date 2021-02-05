@@ -8,8 +8,9 @@ if [ $? -ne 0 ]; then
     case $(uname) in
         'Linux')
             # ubuntu 
-            sudo apt-get install linuxbrew-wrapper
-
+            sudo apt-get install linuxbrew-wrapper -y
+            # sudo apt-get remove linuxbrew-wrapper -y
+            
             # 替换brew.git
             HOMEBREW_REPO_DIR="$(brew --repo)"
             if [ -d "$HOMEBREW_REPO_DIR" ]; then
