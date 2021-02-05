@@ -1,9 +1,207 @@
+# -*- coding: utf8 -*-
+
+from .Config import Config
+from .Downloader import Downloader
+from ..utils.ColorString import ColorString
+from ..utils.CleanUp import CleanUp
+
+import os
+import io
+import time
 
 class Server:
-    def __init__(self, config = None):
-        pass
+    def __init__(self, config):
+        self.config = config
+        self.downloader = Downloader(self.config)
         
+    '''start minecraft server'''
     def start(self):
-        pass
+        
+        if self.config.is_client:
+            return
 
+        if self.config.backup:
+            self.backupWorld()
+            return
+        
+        if self.config.isPure:
+            self.downloader.downloadGameJSON()
+            self.downloader.downloadServer()
+            (serverJARFilePath, _, _) = self.serverJARFilePath()
+            jarFilePath = serverJARFilePath
+        elif self.config.isSpigot:
+            if self.config.force_download or not os.path.exists(self.config.game_version_server_jar_file_path()):
+                self.buildSpigotServer()
+            jarFilePath = self.config.game_version_server_jar_file_path()
+        elif self.config.isPaper:
+            if self.config.force_download or not os.path.exists(self.config.game_version_server_jar_file_path()):
+                self.downloader.downloadPaperServerJarFile()
+            jarFilePath = self.config.game_version_server_jar_file_path()
+        elif self.config.isForge:
+            self.config.getForgeInfo()
+            if self.config.force_download or not os.path.exists(self.config.game_version_server_jar_file_path()):
+                self.buildForgeServer()
+            jarFilePath = self.config.game_version_server_jar_file_path()
+            if not os.path.exists(jarFilePath):
+                jarFilePath = jarFilePath.replace(self.config.forgeInfo.fullVersion, self.config.forgeInfo.fullVersion + '-universal')
+        else:
+            print(ColorString.warn('Your choosed server is not exist!!!\nCurrently, there are three type server: pure/spigot/forge'))
+            return
+
+        jvm_opts = ' '.join([
+            '-server',
+            '-Xms' + self.config.mem_min,
+            '-Xmx' + self.config.mem_max
+        ])
+        jarArgs = ['--forceUpgrade', 'nogui'] if (self.config.isSpigot or self.config.isPaper) and self.config.force_upgrade else ['nogui']
+        self.startServer(self.startCommand(jvm_opts= jvm_opts, serverJARFilePath = jarFilePath, jarArgs = jarArgs))
+        print(ColorString.confirm('Start Server Successfully!!!'))
     
+    '''服务端运行需要的JAR文件所在路径'''
+    def serverJARFilePath(self):
+            server = self.config.game_version_json_obj().get('downloads').get('server')
+            serverUrl = server.get('url')
+            sha1 = server.get('sha1')
+            serverJARFilePath = self.config.game_version_server_jar_file_path()
+            return (serverJARFilePath, serverUrl, sha1)
+    
+    '''Download Server Jar File'''
+    def downloadServer(self):    
+        (serverJARFilePath, serverUrl, sha1) = self.serverJARFilePath()
+        if not checkFileExist(serverJARFilePath, sha1):
+            self.downloader.download(
+                serverUrl,
+                self.config.game_version_server_dir(), 
+                self.config.game_version_server_jar_filename(), 
+                prefix_desc='server jar file'
+            )
+        else:
+            print("server jar file existed!")
+
+    '''construct server start command'''
+    def startCommand(self, jvm_opts = '', serverJARFilePath = '', jarArgs = ['nogui']):
+        argList = [
+            'java',
+            jvm_opts,
+            '-jar',
+            serverJARFilePath
+        ]
+        argList.extend(jarArgs)
+        cmd = ' '.join(argList)
+        return cmd
+
+    def checkEULA(self):
+        return os.path.exists(self.config.game_version_server_eula_file_path())
+
+    '''启动minecraft服务器'''
+    def startServer(self, cmd):
+
+        os.chdir(self.config.game_version_server_dir())
+
+        # 如果没有eula.txt文件，则启动服务器生成
+        if not self.checkEULA():
+            if self.config.isForge:
+                self.generateForgeServerEULA()
+            else:
+                os.system(cmd)
+
+        # 同意eula
+        with io.open(self.config.game_version_server_eula_file_path(), 'r', encoding = 'utf-8') as f:
+            eula = f.read()
+            checkEULA = eula.replace('false', 'true')
+        with io.open(self.config.game_version_server_eula_file_path(), 'w', encoding = 'utf-8') as f:
+            f.write(checkEULA)
+        
+        # 启动服务
+        
+        if self.config.debug:
+            print(cmd)
+
+        os.system(cmd)
+
+        # 设置服务器属性为离线模式
+        with io.open(self.config.game_version_server_properties_file_path(), 'r', encoding = 'utf-8') as f:
+            properties = f.read()
+            if 'online-mode=false' in properties:
+                offline_properties = None
+            else:
+                offline_properties = properties.replace('online-mode=true', 'online-mode=false')
+
+        if offline_properties != None:
+            with io.open(self.config.game_version_server_properties_file_path(), 'w', encoding = 'utf-8') as f:
+                f.write(offline_properties)
+                print(ColorString.confirm('Setting the server to offline mode, next launch this setting take effect!!!'))
+
+    # 构建SpigotServer
+    def buildSpigotServer(self):
+        '''构建SpigotServer'''
+
+        version = self.config.version
+        spigot = Spigot(version)
+        self.download(
+            spigot.build_tool_jar, 
+            self.config.game_version_server_build_dir(), 
+            prefix_desc='spigot build tool jar file'
+        )
+        buildToolJarName = os.path.basename(spigot.build_tool_jar)
+        buildToolJarPath = os.path.join(self.config.game_version_server_build_dir(), buildToolJarName)
+        versionCmd = ' --rev ' + version if len(version) > 0 else 'lastest'
+        linuxCmd = 'git config --global --unset core.autocrlf; java -jar ' + buildToolJarPath + versionCmd
+        macCmd = 'export MAVEN_OPTS="-Xmx2G"; java -Xmx2G -jar ' + buildToolJarPath + versionCmd
+        windowCmd = 'java -jar ' + buildToolJarPath + versionCmd
+        cmd = macCmd if platformType() == 'osx' else linuxCmd if platformType() == 'linux' else windowCmd
+        print(ColorString.warn('Start build the server jar file with build tool...'))
+        os.chdir(self.config.game_version_server_build_dir())
+        os.system(cmd)
+        print(ColorString.confirm('Completed! And the spigot built server file generated!'))
+        shutil.move(self.config.game_version_server_jar_file_path(isInBuildDir=True), self.config.game_version_server_jar_file_path())
+        os.chdir(self.config.game_version_server_dir())
+        shutil.rmtree(self.config.game_version_server_build_dir())
+    
+    # 构建Forge服务器
+    def buildForgeServer(self):
+        '''构建Forge服务器'''
+
+        self.download(
+            self.config.forgeInfo.forge_installer_url, 
+            self.config.game_version_server_dir(), 
+            prefix_desc='forge installer jar file'
+        )
+
+        installerJarFilePath = os.path.basename(self.config.forgeInfo.forge_installer_url)
+        installServerCmd = 'java -jar ' + installerJarFilePath + ' --installServer'
+        print(ColorString.warn('Start install the forge server jar file ...'))
+        os.chdir(self.config.game_version_server_dir())
+        os.system(installServerCmd)
+        print(ColorString.confirm('Completed! And the forge server file generated!'))
+
+
+    def generateForgeServerEULA(self):
+        if self.config.isForge and not self.checkEULA(): 
+            pure_server_jar = os.path.join(self.config.game_version_server_dir(), '.'.join(['minecraft_server',self.config.version,'jar']))
+            boot_cmd = 'java -jar ' + pure_server_jar
+            os.system(boot_cmd)
+
+    def backupWorld(self):
+        world_paths = self.config.game_version_server_world_dirs()
+        if world_paths:            
+            backup_path = self.config.game_version_server_world_backup_dir()
+            now = time.localtime()
+            fileName = '_'.join([time.strftime('%Y-%m-%dT%H:%M:%S', now), self.config.game_type, self.config.version]) + '.zip'
+            world_backup_file = os.path.join(backup_path, fileName)
+
+            def backupWorld_cleanUp():
+                if os.path.isfile(world_backup_file) and os.path.exists(world_backup_file):
+                    os.remove(world_backup_file)
+                    print(ColorString.warn("Removed Invalid World Backup File: %s" % world_backup_file))
+
+            print(ColorString.hint('Start Executing ZIP ...'))
+            CleanUp.registerTask('backupWorld_cleanUp', backupWorld_cleanUp)
+            zip(world_paths, world_backup_file)
+            print(world_paths)
+            print(world_backup_file)
+            CleanUp.cancelTask('backupWorld_cleanUp')
+            print(ColorString.confirm("Completed! backuped world file: %s!!!" % world_backup_file ))
+        else: 
+            print(ColorString.error('There is no world directory!!!'))
+

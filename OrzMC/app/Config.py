@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 import os, json
-from ..utils.utils import makedirs, platformType
+from ..utils.utils import *
 from ..core.Forge import Forge
 
 class Config:
@@ -140,6 +140,14 @@ class Config:
     
     def game_version_launcher_profiles_json_path(self):
         return os.path.join(self.game_version_client_dir(), 'launcher_profiles.json')
+
+    def game_version_json_obj(self):
+        return loadJSON(self.game_version_forge_json_file_path() if self.isForge else self.game_version_json_file_path())
+
+    def game_version_json_assets_obj(self):
+        index_json_url = self.game_version_json_obj().get('assetIndex').get('url')
+        index_json_path = os.path.join(self.game_version_client_assets_indexs_dir(), os.path.basename(index_json_url))
+        return loadJSON(index_json_path)
 
     ### Server
     def game_version_server_dir(self):

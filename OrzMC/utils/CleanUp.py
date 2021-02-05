@@ -1,5 +1,8 @@
 # -*- coding: utf8 -*-
+
 class CleanUp:
+
+    is_sigint_up = False
     cleanTasks = {}
 
     @classmethod
@@ -20,8 +23,18 @@ class CleanUp:
             if key in CleanUp.cleanTasks.keys():
                 CleanUp.cleanTasks[key]() 
         
+    @classmethod
+    def sigint_handler(cls, signum, frame):
+        is_sigint_up = True
+        print(ColorString.warn("\nForce Exit!"))
+        CleanUp.executeCleanTask()
+        exit(-1)
 
 
-
-
-
+import signal
+from .utils import platformType
+from .ColorString import ColorString
+signal.signal(signal.SIGINT, CleanUp.sigint_handler)
+signal.signal(signal.SIGTERM, CleanUp.sigint_handler)
+if platformType() != 'windows':
+    signal.signal(signal.SIGHUP, CleanUp.sigint_handler)
