@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 #-*- utf-8 -*-
 
+set -x
+
 function config_python_env {
     pipenv --three  install     \
                     install     \
@@ -45,7 +47,7 @@ function config_darwin {
 function config_ubuntu {
     sudo apt-get install -y \
         git                 \
-        pipenv              \
+        python3             \
         hugo
 
     config_python_env
