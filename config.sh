@@ -48,6 +48,7 @@ function config_ubuntu {
     sudo apt-get install -y \
         git                 \
         python3             \
+	python3-pip         \
         hugo
 
     config_python_env
