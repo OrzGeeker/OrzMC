@@ -3,6 +3,7 @@ from .Config import Config
 from .Downloader import Downloader
 from ..utils.utils import *
 from ..utils.ColorString import ColorString
+from ..core.OptiFine import OptiFine
 import os
 import uuid
 import datetime
