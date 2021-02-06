@@ -7,6 +7,7 @@ from ..core.OptiFine import OptiFine
 import os
 import uuid
 import datetime
+import shutil
 
 class Client:
 

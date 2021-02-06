@@ -25,7 +25,7 @@ class CleanUp:
         
     @classmethod
     def sigint_handler(cls, signum, frame):
-        is_sigint_up = True
+        CleanUp.is_sigint_up = True
         print(ColorString.warn("\nForce Exit!"))
         CleanUp.executeCleanTask()
         exit(-1)
