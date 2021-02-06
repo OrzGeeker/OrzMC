@@ -30,6 +30,7 @@ class Config:
         self.mem_min = args.minmem
         self.mem_max = args.maxmem
         self.is_extract_music = args.extract_music
+        self.symlink = args.symlink
 
         game_type = args.type
         self.isPure = (game_type == Config.GAME_TYPE_PURE)
@@ -213,11 +214,22 @@ class Config:
             return world_dirs
         else:
             return None
-    
+
+    def game_version_server_icon_file_path(self):
+        return os.path.join(self.game_version_server_dir(), 'server-icon.png')
+
+    def game_version_server_plugin_dir(self):
+        return os.path.join(self.game_version_server_dir(),'plugins') if self.isPaper else None
+
     def game_version_server_world_backup_dir(self):
         backup_dir = os.path.join(Config.BASE_PATH, 'minecraft_world_backup')
         makedirs(backup_dir)
         return backup_dir
+    
+    def game_version_server_symlink_source_dir(self):
+        symlink_destination_dir = os.path.join(self.game_version_server_world_backup_dir(), 'mcserver')
+        makedirs(symlink_destination_dir)
+        return symlink_destination_dir
 
     def game_version_client_mp3_dir(self):
         mp3_dir = os.path.join(self.game_version_server_world_backup_dir(),'client_music', self.version)

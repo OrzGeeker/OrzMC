@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 
+from os.path import isfile
 from .Config import Config
 from .Downloader import Downloader
 from ..utils.ColorString import ColorString
@@ -116,7 +117,7 @@ class Server:
         with io.open(self.config.game_version_server_eula_file_path(), 'w', encoding = 'utf-8') as f:
             f.write(checkEULA)
         
-        # 启动服务
+        # 启动服务器
         
         if self.config.debug:
             print(cmd)
@@ -135,6 +136,10 @@ class Server:
             with io.open(self.config.game_version_server_properties_file_path(), 'w', encoding = 'utf-8') as f:
                 f.write(offline_properties)
                 print(ColorString.confirm('Setting the server to offline mode, next launch this setting take effect!!!'))
+
+        # 为服务器核心数据文件创建符号链接
+        self.symlink_server_core_files_if_need()
+
 
     # 构建SpigotServer
     def buildSpigotServer(self):
@@ -208,3 +213,46 @@ class Server:
         else: 
             print(ColorString.error('There is no world directory!!!'))
 
+    def symlink_server_core_files_if_need(self):
+        '''为服务器核心文件创建符号链接到共享目录，方便版本升级'''
+        if self.config.symlink:
+            # 软链接需要涉及的文件和目录
+            destinations = [
+                self.config.game_version_server_eula_file_path(),
+                self.config.game_version_server_properties_file_path(),
+                self.config.game_version_server_icon_file_path(),
+                self.config.game_version_server_plugin_dir(),
+            ]
+            world_paths = self.config.game_version_server_world_dirs()
+            if world_paths and len(world_paths) > 0:
+                destinations.extend(self.config.game_version_server_world_dirs())
+
+            # 遍历创建软链接
+            for destination in destinations:
+                # 软链接需要链接的源文件或源目录
+                source = os.path.join(self.config.game_version_server_symlink_source_dir(),os.path.basename(destination))
+                # 如果软链接生成的目录下有同名的文件和目录，则取个备份用的名称
+                destination_backup = destination+'.before_symlink'
+
+                if not os.path.exists(source):
+                    if os.path.exists(destination):
+                        shutil.move(destination, source)
+                    else:
+                        # 之前有备份过的同名文件和目录，则恢复同名的文件和目录
+                        if os.path.exists(destination_backup):
+                            shutil.move(destination_backup, destination)
+                        continue
+
+                # 如果已经创建了软链接，则跳过不再创建
+                if os.path.islink(destination):
+                    target = os.readlink(destination)
+                    if os.path.normcase(target) == os.path.normcase(source):
+                        continue
+                
+                # 如果软链接生成的目录下有同名文件或目录，则先进行备份
+                if os.path.exists(destination):
+                    shutil.move(destination, destination_backup)
+                
+                # 生成软链接
+                os.symlink(source, destination, target_is_directory=os.path.isdir(source))
+                print("%s -> %s" % (source, destination))
