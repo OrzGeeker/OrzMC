@@ -219,6 +219,11 @@ class Config:
         makedirs(backup_dir)
         return backup_dir
 
+    def game_version_client_mp3_dir(self):
+        mp3_dir = os.path.join(self.game_version_server_world_backup_dir(),'client_music', self.version)
+        makedirs(mp3_dir)
+        return mp3_dir
+        
     def game_download_temp_dir(self):
         download_temp_dir = os.path.join(Config.GAME_ROOT_DIR, 'download_tmp_dir')
         makedirs(download_temp_dir)

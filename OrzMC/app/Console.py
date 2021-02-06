@@ -18,7 +18,7 @@ class Console:
             # 如果没有提示版本参数，则展示可选版本号供用户选择
             self.showVersionList()
 
-        if self.config.username == Config.GAME_DEFAULT_USERNAME:
+        if self.config.username == Config.GAME_DEFAULT_USERNAME and not self.config.is_extract_music:
             # 如果用户名为默认值时，提示用户选择一个自己的用户名进行游戏
             self.showUserName()
 

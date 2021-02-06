@@ -67,18 +67,19 @@ class Downloader:
                 f.write(index_json_str)
         else:
             print("assetIndex JSON File have been downloaded")
-
+    
+    '''Download Game Asset Objects'''
     def downloadAssetObjects(self):
 
-        if is_sigint_up():
-            return
-
-        '''Download Game Asset Objects'''
         objects = self.config.game_version_json_assets_obj().get('objects')
         total = len(objects)
 
         index = 0
         for (name,object) in objects.items():
+
+            if is_sigint_up():
+                return
+
             index = index + 1
             hash = object.get('hash')
             url = Mojang.assets_objects_url(hash)
@@ -87,18 +88,32 @@ class Downloader:
             if not checkFileExist(object_filePath, hash):
                 prefix_desc = 'assets objects %d/%d(%.2f%%)' % (index, total, 100.0 * index / total)
                 self.download(url,object_dir, prefix_desc=prefix_desc)
+            
+            # 收集ogg音乐文件
+            if self.config.is_extract_music:
+                path, type = os.path.splitext(name)
+                filename = path.replace(os.sep, '_') + '.mp3'
+                if type == '.ogg':
+                    target_file_path = os.path.join(self.config.game_version_client_mp3_dir(),filename)
+                    convertOggToMap3(object_filePath, target_file_path)
+
+        if self.config.is_extract_music:
+            music_dir = os.path.dirname(self.config.game_version_client_mp3_dir())
+            print(ColorString.confirm('music has been extracted to dir: %s' % music_dir))
+            exit(0)
 
     ''' download libraries'''
     def donwloadLibraries(self):
-
-        if is_sigint_up():
-            return
 
         libs = self.config.game_version_json_obj().get('libraries')
         total = len(libs)
 
         index = 0
         for lib in libs: 
+
+            if is_sigint_up():
+                return
+
             index = index + 1
             prefix_desc = 'libraries %d/%d' % (index, total)
             downloads = lib.get('downloads')

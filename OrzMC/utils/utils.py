@@ -89,3 +89,6 @@ from .CleanUp import CleanUp
 def is_sigint_up():
     return CleanUp.is_sigint_up
 
+def convertOggToMap3(source_file_path, target_file_path):
+    cmd = 'ffmpeg -i ' + source_file_path + ' ' + target_file_path + ' -y'
+    os.system(cmd)  
