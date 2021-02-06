@@ -4,6 +4,7 @@ from ..core.Mojang import Mojang
 from .Constants import *
 from ..utils.utils import hint
 
+import os
 import json
 
 class Console:

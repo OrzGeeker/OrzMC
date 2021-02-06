@@ -26,7 +26,7 @@ def parse_args():
     parser.add_argument('-x', default='2G', metavar='maxmem', dest='maxmem', help='Specified the JVM max memory allocation(default:%(default)s)')
 
     # Flags
-    parser.add_argument('-s','--server', default=False, action='store_true', help='deploy minecraft server, if there is no this flag, this command line tool start minecraft as default')
+    parser.add_argument('-s','--server', default=False, action='store_true', help='deploy minecraft server, if there is no this flag, this command line tool start minecraft as client')
     parser.add_argument('-f','--force_upgrade_world', default=False, action='store_true', help='when deploy spigot/paper server, the option can upgrade your map from old game version')
     parser.add_argument('-b','--backup_world', default=False, action='store_true', help='backup your minecraft world into ~/minecraft_world_backup directory as zip file!')
     parser.add_argument('-o','--optifine', default=False, action='store_true', help='if you have installed optifine for client, you can add this option to launch client with optifine be activated')
