@@ -2,6 +2,7 @@
 from .Config import Config
 from .Downloader import Downloader
 from ..utils.utils import *
+from ..utils.ColorString import ColorString
 import os
 import uuid
 import datetime
