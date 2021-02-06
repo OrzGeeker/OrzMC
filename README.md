@@ -63,5 +63,5 @@ $ orzmc -h # 查看使用帮助
 如果你有兴趣和我一起开发这个Python项目，拉项目到本地, 并配置开发环境，运行下面命令即可！🤒
 
 ```bash
-$ git clone https://github.com/OrzGeeker/OrzMC.git && cd OrzMC && ./config.sh
+$ git clone https://github.com/OrzGeeker/OrzMC.git && cd OrzMC && ./config_orzmc_dev
 ```
