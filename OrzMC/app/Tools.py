@@ -47,10 +47,8 @@ def rsync_server_core_data():
         match = re.match(pattern, dest)
         if match:
             ftp_server_base_dir_name = os.path.basename(Config.game_ftp_server_base_dir())
-            server_core_data_dir_name = os.path.basename(Config.game_ftp_server_core_data_backup_dir())
-            dest += ':~/%s/%s' % (ftp_server_base_dir_name,server_core_data_dir_name)
-
-        print(dest)
+            sync_file_dir_name = os.path.basename(source)
+            dest += ':~/%s/%s' % (ftp_server_base_dir_name,sync_file_dir_name)
 
         rsync_cmd = 'rsync -zarv %s %s ' % (source, dest)
         rsync_cmd += "--exclude 'plugins/dynmap/*'"
