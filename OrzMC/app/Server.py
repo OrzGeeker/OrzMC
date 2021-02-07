@@ -14,6 +14,30 @@ import io
 import time
 import shutil 
 
+def rsync_server_core_data(target = None, test = True):
+    '''服务器迁移时用来迁移服务器核心数据'''
+    if not target:
+        print(ColorString.warn('You should add a dest dir or dest host'))
+        return
+
+    ftp_server_base_dir = Config.game_ftp_server_base_dir()
+    print('rsync called! %s' % ftp_server_base_dir)
+    source_dir=Config.game_ftp_server_core_data_backup_dir()
+    dst_dir="ubuntu@mc.jokerhub.cn:~/$(basename ${MC_DIR})/$(basename ${SOURCE_DIR}))"
+    rsync_cmd = 'rsync -zarv %s %s ' % (source_dir, dst_dir)
+    rsync_cmd += "--exclude 'plugins/dynmap/*'"
+    if test:
+        rsync_cmd += ' -n'
+
+    print(rsync_cmd)
+    os.system(rsync_cmd)
+
+    # rsync -zarv \
+    #     $SOURCE_DIR \
+    #     ubuntu@mc.jokerhub.cn:~/ \·
+    #     --exclude 'plugins/dynmap/*' \
+    #     -n
+
 class Server:
     def __init__(self, config):
         self.config = config

@@ -7,7 +7,7 @@ from ..core.Forge import Forge
 class Config:
     '''Public Definitions'''
     GAME_DEFAULT_USERNAME = "guest"
-    GAME_TYPE_PURE = 'pure'
+    GAME_TYPE_PURE = 'vanilla'
     GAME_TYPE_SPIGOT = 'spigot'
     GAME_TYPE_FORGE = 'forge'
     GAME_TYPE_PAPER = 'paper'
@@ -222,17 +222,17 @@ class Config:
         return os.path.join(self.game_version_server_dir(),'plugins') if self.isPaper else None
 
     def game_version_server_world_backup_dir(self):
-        backup_dir = os.path.join(Config.BASE_PATH, 'minecraft_world_backup')
-        makedirs(backup_dir)
-        return backup_dir
+        game_world_backup_dir = os.path.join(Config.game_ftp_server_base_dir(), 'game_backup')
+        makedirs(game_world_backup_dir)
+        return game_world_backup_dir
     
     def game_version_server_symlink_source_dir(self):
-        symlink_destination_dir = os.path.join(self.game_version_server_world_backup_dir(), 'mcserver')
+        symlink_destination_dir = Config.game_ftp_server_core_data_backup_dir()
         makedirs(symlink_destination_dir)
         return symlink_destination_dir
 
     def game_version_client_mp3_dir(self):
-        mp3_dir = os.path.join(self.game_version_server_world_backup_dir(),'client_music', self.version)
+        mp3_dir = os.path.join(Config.game_ftp_server_base_dir(),'client_music', self.version)
         makedirs(mp3_dir)
         return mp3_dir
         
@@ -240,3 +240,14 @@ class Config:
         download_temp_dir = os.path.join(Config.GAME_ROOT_DIR, 'download_tmp_dir')
         makedirs(download_temp_dir)
         return download_temp_dir
+
+    @classmethod
+    def game_ftp_server_base_dir(cls):
+        ftp_base_dir = os.path.join(Config.BASE_PATH, 'minecraft_world_backup')
+        makedirs(ftp_base_dir)
+        return ftp_base_dir
+    @classmethod
+    def game_ftp_server_core_data_backup_dir(cls):
+        server_core_data_backup_dir = os.path.join(Config.game_ftp_server_base_dir(),'mcserver')
+        makedirs(server_core_data_backup_dir)
+        return server_core_data_backup_dir
