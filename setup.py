@@ -37,8 +37,9 @@ setuptools.setup(
     entry_points = {
         'console_scripts': [
             'orzmc = OrzMC:start',
-            'orzmc_jdk = OrzMC:install_jdk',
-            'orzmc_jdk_remove = OrzMC:uninstall_jdk'
+            'orzmc-rsync = OrzMC:rsync_server_core_data',
+            'orzmc-jdk = OrzMC:install_jdk',
+            'orzmc-jdk-remove = OrzMC:uninstall_jdk'
         ]
     }
 )
