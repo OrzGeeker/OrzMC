@@ -23,15 +23,18 @@ def rsync_server_core_data():
     parser.add_argument('-d', metavar='destination', dest='destination', help='Specified the destination dir to sync')
     parser.add_argument('-y', '--yes', default=False, action='store_true', help='ask yes when require user select')
     args = parser.parse_args()
+    
+    source = args.source
+    destination = args.destination
 
     ftp_server_base_dir_name = os.path.basename(Config.game_ftp_server_base_dir())
     server_core_data_dir_name = os.path.basename(Config.game_ftp_server_core_data_backup_dir())
 
     server_core_data_dir_path = os.path.join(os.path.expanduser('~'),"%s/%s" % (ftp_server_base_dir_name, server_core_data_dir_name))
-    if not args.source and os.path.exists(server_core_data_dir_path):
-        args.source = server_core_data_dir_path
+    if not source and os.path.exists(server_core_data_dir_path):
+        source = server_core_data_dir_path
         if os.path.isdir(server_core_data_dir_path):
-            args.source += '/*' 
+            source += '/*' 
 
     def check_args(source, destination):
         if not destination or not source:
@@ -47,7 +50,7 @@ def rsync_server_core_data():
         match = re.match(pattern, dest)
         if match:
             ftp_server_base_dir_name = os.path.basename(Config.game_ftp_server_base_dir())
-            sync_file_dir_name = os.path.basename(source)
+            sync_file_dir_name = os.path.basename(args.source)
             dest += ':~/%s/%s' % (ftp_server_base_dir_name,sync_file_dir_name)
 
         rsync_cmd = 'rsync -zarv %s %s ' % (source, dest)
@@ -61,15 +64,15 @@ def rsync_server_core_data():
             print('\ncommand: %s' % ColorString.confirm(rsync_cmd))
             print(ColorString.hint("Run in Fake Mode!"))
 
-    check_args(source = args.source, destination = args.destination)
-    execute_sync(source = args.source, destination = args.destination, test = True)
+    check_args(source = source, destination = destination)
+    execute_sync(source = source, destination = destination, test = True)
 
     confirm = ['Y','y','Yes','yes']
     cancel = ['N','n','No','no']
     while True:
         a = hint(ColorString.confirm('\nAre you confirm want to execute this operation? [%s] ' % ('/'.join(confirm) + '|' + '/'.join(cancel))))
         if a in confirm:
-            execute_sync(source=args.source, destination = args.destination, test = False)
+            execute_sync(source=source, destination = destination, test = False)
             break
         elif a in cancel:
             break
