@@ -50,7 +50,11 @@ def rsync_server_core_data():
         match = re.match(pattern, dest)
         if match:
             ftp_server_base_dir_name = os.path.basename(Config.game_ftp_server_base_dir())
-            sync_file_dir_name = os.path.basename(source if os.path.exists(source) else os.path.join(os.path.split(source)[0:-1]))  
+            
+            sync_file_dir_name = os.path.basename(source)
+            if not os.path.exists(source):
+                segments = list(os.path.split(source))[0:-1]
+                sync_file_dir_name = os.path.join(*segments))
             dest += ':~/%s/%s' % (ftp_server_base_dir_name,sync_file_dir_name)
 
         rsync_cmd = 'rsync -zarv %s %s ' % (source, dest)
