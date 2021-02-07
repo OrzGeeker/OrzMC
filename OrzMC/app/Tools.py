@@ -41,7 +41,7 @@ def rsync_server_core_data():
             print(ColorString.warn('You should provide both source and destination argument for this command, destination can be a (local dir/file) remote host (example: ubuntu@mc.jokerhub.cn)'))
             exit(-1)
 
-    def execute_sync(source, destination, test = True):
+    def execute_sync(args, source, destination, test = True):
         check_args(source, destination)
 
         pattern = re.compile(r'\w+@\w+')
@@ -65,14 +65,14 @@ def rsync_server_core_data():
             print(ColorString.hint("Run in Fake Mode!"))
 
     check_args(source = source, destination = destination)
-    execute_sync(source = source, destination = destination, test = True)
+    execute_sync(args = args, source = source, destination = destination, test = True)
 
     confirm = ['Y','y','Yes','yes']
     cancel = ['N','n','No','no']
     while True:
         a = hint(ColorString.confirm('\nAre you confirm want to execute this operation? [%s] ' % ('/'.join(confirm) + '|' + '/'.join(cancel))))
         if a in confirm:
-            execute_sync(source=source, destination = destination, test = False)
+            execute_sync(args = args, source=source, destination = destination, test = False)
             break
         elif a in cancel:
             break
