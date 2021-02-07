@@ -9,4 +9,5 @@ __all__ = [
     'Console'
     'Constants',
     'Downloader',
+    'Tools',
 ]

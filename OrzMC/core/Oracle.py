@@ -5,12 +5,6 @@ import requests
 import os
 from tqdm import tqdm
 
-def install_jdk():
-    Oracle.install_jdk()
-
-def uninstall_jdk():
-    Oracle.execute_uninstall_jdk()
-
 class Oracle:
 
     ''' 
