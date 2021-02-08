@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 
 from ..utils.ColorString import ColorString
+from .Version import *
 
 # 选择版本
 ALL_VERSIONS_HINT = ColorString.warn('\nAll Release Versions as follow:\n')
@@ -17,3 +18,6 @@ CHOOSED_DEFAULT_VERSION = ColorString.confirm('You choose the default version(%s
 CHOOSE_USERNAME_HINT = ColorString.warn('Please choose a username %s ') % ColorString.error('(default: %s):')
 CHOOSED_USERNAME = ColorString.confirm('You username in game is: %s')
 CHOOSED_DEFAULT_USERNAME = ColorString.warn('Use the default username!!!')
+
+# 工具版本号
+ORZMC_VERSION_NUMBER_STR = ColorString.warn('OrzMC version: %s' % ORZMC_VERSION_NUMBER)

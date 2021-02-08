@@ -1,11 +1,13 @@
 # !/usr/bin/python
 # -*- coding: utf-8 -*-
 import re
+import os
 import codecs
 
 MAX = 1000
 def update_version():
     updated_content = None
+    new_version = None
     with codecs.open('setup.py', 'r', encoding='utf-8') as cfg:
         content = cfg.read()
         version_pattern = r'version\s*=\s*\"(\d+\.\d+\.\d+)\"'
@@ -50,6 +52,9 @@ def update_version():
     if None != updated_content:
         with codecs.open('setup.py', 'w', encoding='utf-8') as cfg:
             cfg.write(updated_content)
+
+        with codecs.open(os.path.join('OrzMC','app', 'Version.py'), 'w', encoding='utf-8') as version:
+            version.write('ORZMC_VERSION_NUMBER=%s' % new_version)
 
 if __name__ == '__main__':
     update_version()

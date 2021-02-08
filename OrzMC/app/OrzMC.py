@@ -3,6 +3,13 @@
 import argparse
 from .Config import Config
 from .Game import Game
+from .Constants import ORZMC_VERSION_NUMBER_STR
+
+def printVersion(args):
+    '''打印工具版本号'''
+    if args.version:
+        print(ORZMC_VERSION_NUMBER_STR)
+        exit(0)
 
 # argparse 使用文档：https://docs.python.org/3/library/argparse.html
 def parse_args():
@@ -41,6 +48,9 @@ def parse_args():
     # extract bgm music
     parser.add_argument('-e', '--extract_music', default=False, action='store_true', help='extract specific version client music')
 
+    # version number
+    parser.add_argument('--version', default=False, action='store_true', help='display the version number of this tool.')
+
     args = parser.parse_args()
 
     return args
@@ -50,5 +60,6 @@ def start():
     '''启动游戏'''
     # 控制台收集的参数传入Config对象进行初始化
     args = parse_args()
+    printVersion(args)
     config = Config(args)
     Game(config).start()

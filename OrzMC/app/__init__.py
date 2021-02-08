@@ -10,4 +10,5 @@ __all__ = [
     'Constants',
     'Downloader',
     'Tools',
+    'Version',
 ]
