@@ -3,13 +3,16 @@
 import argparse
 from .Config import Config
 from .Game import Game
-from .Constants import ORZMC_VERSION_NUMBER_STR
+from .Constants import ORZMC_VERSION_NUMBER_STR, BMCLAPI_DESC
 
-def printVersion(args):
+def print_info(args):
     '''打印工具版本号'''
-    if args.version:
+    if args.version_number:
         print(ORZMC_VERSION_NUMBER_STR)
         exit(0)
+    
+    if args.bmclapi:
+        print(BMCLAPI_DESC)
 
 # argparse 使用文档：https://docs.python.org/3/library/argparse.html
 def parse_args():
@@ -41,15 +44,18 @@ def parse_args():
     parser.add_argument('-V','--verbose', default=False, action='store_true', help='Output some debug info for bugfix')
 
     # server options
-    parser.add_argument('--api', default = 'v2', metavar = 'api', dest='api', help = 'select paper api version(v1/v2) to download server jar file, default is: v2')
-    parser.add_argument('--force_download', default=False, action = 'store_true', help= 'force download server jar file ignore existed!')
-    parser.add_argument('-l', '--symlink', default=False, action='store_true',help='create symlink files for current version server core file, and make server version upgrade easy.')
+    parser.add_argument('-a','--api', default = 'v2', metavar = 'api', dest='api', help = 'select paper api version(v1/v2) to download server jar file, default is: v2')
+    parser.add_argument('-F','--force_download', default=False, action = 'store_true', help= 'force download server jar file ignore existed!')
+    parser.add_argument('-l','--symlink', default=False, action='store_true',help='create symlink files for current version server core file, and make server version upgrade easy.')
 
     # extract bgm music
-    parser.add_argument('-e', '--extract_music', default=False, action='store_true', help='extract specific version client music')
+    parser.add_argument('-e','--extract_music', default=False, action='store_true', help='extract specific version client music')
 
     # version number
-    parser.add_argument('--version', default=False, action='store_true', help='display the version number of this tool.')
+    parser.add_argument('--version', dest='version_number', default=False, action='store_true', help='display the version number of this tool.')
+
+    # BMCLAPI
+    parser.add_argument('-B','--bmclapi', dest='bmclapi', default=False, action='store_true', help='use BMCLAPI download the client assets and library files')
 
     args = parser.parse_args()
 
@@ -60,6 +66,6 @@ def start():
     '''启动游戏'''
     # 控制台收集的参数传入Config对象进行初始化
     args = parse_args()
-    printVersion(args)
+    print_info(args)
     config = Config(args)
     Game(config).start()
