@@ -1,7 +1,13 @@
 # !/usr/bin/env bash
 # -*-: coding: utf-8 -*-
 
-git push origin master
-rm -rf ./dist/*
-python setup.py release
-twine upload ./dist/*
+python update_version.py
+if [[ $? -eq 0 ]];
+then
+    git add setup.py
+    git commit -m 'update version number'
+    git push origin master
+    rm -rf ./dist/*
+    python setup.py release
+    twine upload ./dist/*
+fi
