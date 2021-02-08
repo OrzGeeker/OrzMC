@@ -4,7 +4,7 @@
 python update_version.py
 if [[ $? -eq 0 ]];
 then
-    git add setup.py
+    git add setup.py OrzMC/app/Version.py
     git commit -m 'update version number'
     git push origin master
     rm -rf ./dist/*

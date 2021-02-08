@@ -54,7 +54,7 @@ def update_version():
             cfg.write(updated_content)
 
         with codecs.open(os.path.join('OrzMC','app', 'Version.py'), 'w', encoding='utf-8') as version:
-            version.write('ORZMC_VERSION_NUMBER=%s' % new_version)
+            version.write('ORZMC_VERSION_NUMBER="%s"' % new_version)
 
 if __name__ == '__main__':
     update_version()
