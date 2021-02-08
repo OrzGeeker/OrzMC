@@ -21,3 +21,6 @@ CHOOSED_DEFAULT_USERNAME = ColorString.warn('Use the default username!!!')
 
 # 工具版本号
 ORZMC_VERSION_NUMBER_STR = ColorString.warn('OrzMC version: %s' % ORZMC_VERSION_NUMBER)
+
+# BMCLAPI下载版权提示
+BMCLAPI_DESC = ColorString.hint('\nCurrent file download service using ') + ColorString.confirm('BMCLAPI\n')

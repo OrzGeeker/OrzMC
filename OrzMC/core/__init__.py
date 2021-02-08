@@ -7,4 +7,5 @@ __all__ = [
     'Oracle',
     'PaperAPI',
     'Spigot',
+    'BMCLAPI',
 ]

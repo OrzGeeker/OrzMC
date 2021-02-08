@@ -6,6 +6,7 @@ from ..core.Mojang import Mojang
 from ..core.Spigot import Spigot
 from ..core.Forge import Forge
 from ..core.OptiFine import OptiFine
+from ..core.BMCLAPI import BMCLAPI
 
 from tqdm import tqdm
 import requests
@@ -193,8 +194,11 @@ class Downloader:
     '''通用下载方法'''
     def download(self, url, dir, name = None, prefix_desc = None):
 
+        url = self.redirectUrl(url=url)
+
         if is_sigint_up():
             return
+
         if name == None:
             filename = os.path.basename(url)
         else:
@@ -237,3 +241,13 @@ class Downloader:
             print(ColorString.error('download failed: %s' % url))
             exit(-1)
 
+    def redirectUrl(self,url):
+        if self.config.is_client and self.config.bmclapi:
+            domain = getUrlDomain(url)
+            if domain:
+                redirected_url = changeUrlDomain(url, BMCLAPI.mojang_bmclapi_domain_map[domain])
+                if self.cnfig.debug:
+                    print(redirected_url)
+                return redirected_url
+
+        return url

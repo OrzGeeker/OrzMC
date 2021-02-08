@@ -7,6 +7,7 @@ import platform
 import zipfile
 import re
 import json
+from urllib.parse import urlparse, urlunparse
 
 def matchAndReplace(pattern, repl, string):
 
@@ -92,3 +93,15 @@ def is_sigint_up():
 def convertOggToMap3(source_file_path, target_file_path):
     cmd = 'ffmpeg -i ' + source_file_path + ' ' + target_file_path + ' -y'
     os.system(cmd)  
+
+def changeUrlDomain(url,content):
+
+    parse_result = urlparse(url)
+    if parse_result:
+        new_url = urlunparse(parse_result._replace(netloc = content))
+        return new_url
+
+    return url
+
+def getUrlDomain(url):
+    return urlparse(url).netloc

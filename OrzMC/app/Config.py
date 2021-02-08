@@ -31,6 +31,7 @@ class Config:
         self.mem_max = args.maxmem
         self.is_extract_music = args.extract_music
         self.symlink = args.symlink
+        self.bmclapi = args.bmclapi
 
         game_type = args.type
         self.isPure = (game_type == Config.GAME_TYPE_PURE)
