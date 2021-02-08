@@ -246,7 +246,7 @@ class Downloader:
             domain = getUrlDomain(url)
             if domain:
                 redirected_url = changeUrlDomain(url, BMCLAPI.mojang_bmclapi_domain_map[domain])
-                if self.cnfig.debug:
+                if self.config.debug:
                     print(redirected_url)
                 return redirected_url
 
