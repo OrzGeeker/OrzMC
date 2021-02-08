@@ -2,11 +2,11 @@
 
 import hashlib
 import os
-import sys
 import platform
 import zipfile
 import re
 import json
+import time
 from urllib.parse import urlparse, urlunparse
 
 def matchAndReplace(pattern, repl, string):
@@ -105,3 +105,6 @@ def changeUrlDomain(url,content):
 
 def getUrlDomain(url):
     return urlparse(url).netloc
+
+def sleep(seconds):
+    time.sleep(seconds)

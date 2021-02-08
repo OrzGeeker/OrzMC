@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from json import decoder
 from ..utils.utils import *
 from ..utils.ColorString import ColorString
 from ..core.PaperAPI import PaperAPI
@@ -194,7 +195,13 @@ class Downloader:
 
 
     '''通用下载方法'''
+    retry_count = 0
+    MAX_RETRY_COUNT = 3
     def download(self, url, dir, name = None, prefix_desc = None):
+        original_url = url
+        original_dir = dir
+        original_name = name
+        oritinal_prefix_desc = prefix_desc
 
         url = self.redirectUrl(url=url)
 
@@ -237,11 +244,24 @@ class Downloader:
                 kb_size = int(total_size / kb_chunk_size + 0.5)
                 desc = (prefix_desc + ' - ' if len(prefix_desc) > 0 else '') + ('%s(%sKB)' % (os.path.basename(url), kb_size))
                 print(desc)
+
+            # 下载成功，重置重试次数
+            if Downloader.retry_count > 0:
+                Downloader.retry_count = 0
+
         except Exception as e:
             # 如果下载失败, 则提示
             print(e)
             print(ColorString.error('download failed: %s' % url))
-            exit(-1)
+
+            sleep(1)
+            Downloader.retry_count += 1
+            if Downloader.retry_count <= Downloader.MAX_RETRY_COUNT:
+                print(ColorString.warn('[%s]retry download: %s' % (Downloader.retry_count, original_url)))
+                self.download(original_url, original_dir, original_name, oritinal_prefix_desc)
+            else:
+                print(ColorString.error('retry %s times and failed! jump to donwload next url' % Downloader.MAX_RETRY_COUNT))
+                Downloader.MAX_RETRY_COUNT = 0
 
     def redirectUrl(self,url):
 
