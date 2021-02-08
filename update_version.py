@@ -12,12 +12,12 @@ def update_version():
         content = cfg.read()
         version_pattern = r'version\s*=\s*\"(\d+\.\d+\.\d+)\"'
         ret = re.search(version_pattern, content)
-        if None != ret:
+        if ret:
             old_version = ret.group(1)
             new_version = old_version.split('.')
             count = len(new_version)
 
-            isValidVer = True and count > 0
+            isValidVer = True
             for num in new_version:
                 if int(num) >= MAX:
                     isValidVer = False
@@ -42,14 +42,14 @@ def update_version():
             while index >= 0:
                 addition = int(new_version[index]) + advance + ( 1 if index == increase_index else 0)
                 number = addition % MAX
-                advance = addition / MAX
+                advance = int(addition / MAX)
                 new_version[index] = str(number)
                 index = index - 1
             
             new_version = '.'.join(new_version)
             updated_content = content.replace(content[ret.start(1):ret.end(1)], new_version)
     
-    if None != updated_content:
+    if new_version and updated_content:
         with codecs.open('setup.py', 'w', encoding='utf-8') as cfg:
             cfg.write(updated_content)
 
