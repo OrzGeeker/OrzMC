@@ -14,6 +14,8 @@ import shutil
 
 class Downloader:
 
+    domain_set = set()
+
     def __init__(self, config):
         self.config = config
 
@@ -242,12 +244,16 @@ class Downloader:
             exit(-1)
 
     def redirectUrl(self,url):
-        if self.config.is_client and self.config.bmclapi:
-            domain = getUrlDomain(url)
-            if domain:
-                redirected_url = changeUrlDomain(url, BMCLAPI.mojang_bmclapi_domain_map[domain])
-                if self.config.debug:
-                    print(redirected_url)
-                return redirected_url
+
+        domain = getUrlDomain(url)
+        if domain not in Downloader.domain_set:
+            print(domain)
+            Downloader.domain_set.add(domain)
+
+        if domain and self.config.is_client and self.config.bmclapi:
+            redirected_url = changeUrlDomain(url, BMCLAPI.mojang_bmclapi_domain_map[domain])
+            if self.config.debug:
+                print(redirected_url)
+            return redirected_url
 
         return url

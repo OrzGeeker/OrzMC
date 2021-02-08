@@ -8,6 +8,7 @@ from .Server import Server
 from ..utils.utils import *
 from ..utils.ColorString import ColorString
 from ..core.Oracle import Oracle
+from .Downloader import Downloader
 
 class Game:
 
@@ -27,6 +28,9 @@ class Game:
         try:
             #启动游戏
             self.game.start()
+
+            # 打印出mojang所有域名
+            print(Downloader.domain_set)
 
         except Exception as e:
             print(e)
