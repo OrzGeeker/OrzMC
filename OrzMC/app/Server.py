@@ -19,9 +19,8 @@ class Server:
         self.config = config
         self.downloader = Downloader(self.config)
         
-    '''start minecraft server'''
     def start(self):
-        
+        '''start minecraft server'''    
         if self.config.is_client:
             return
 
@@ -62,16 +61,16 @@ class Server:
         self.startServer(self.startCommand(jvm_opts= jvm_opts, serverJARFilePath = jarFilePath, jarArgs = jarArgs))
         print(ColorString.confirm('Start Server Successfully!!!'))
     
-    '''服务端运行需要的JAR文件所在路径'''
     def serverJARFilePath(self):
-            server = self.config.game_version_json_obj().get('downloads').get('server')
-            serverUrl = server.get('url')
-            sha1 = server.get('sha1')
-            serverJARFilePath = self.config.game_version_server_jar_file_path()
-            return (serverJARFilePath, serverUrl, sha1)
+        '''服务端运行需要的JAR文件所在路径'''
+        server = self.config.game_version_json_obj().get('downloads').get('server')
+        serverUrl = server.get('url')
+        sha1 = server.get('sha1')
+        serverJARFilePath = self.config.game_version_server_jar_file_path()
+        return (serverJARFilePath, serverUrl, sha1)
     
-    '''Download Server Jar File'''
     def downloadServer(self):    
+        '''Download Server Jar File'''
         (serverJARFilePath, serverUrl, sha1) = self.serverJARFilePath()
         if not checkFileExist(serverJARFilePath, sha1):
             self.downloader.download(
@@ -83,8 +82,8 @@ class Server:
         else:
             print("server jar file existed!")
 
-    '''construct server start command'''
     def startCommand(self, jvm_opts = '', serverJARFilePath = '', jarArgs = ['nogui']):
+        '''construct server start command'''
         argList = [
             'java',
             jvm_opts,
@@ -98,8 +97,8 @@ class Server:
     def checkEULA(self):
         return os.path.exists(self.config.game_version_server_eula_file_path())
 
-    '''启动minecraft服务器'''
     def startServer(self, cmd):
+        '''启动minecraft服务器'''
 
         os.chdir(self.config.game_version_server_dir())
 
