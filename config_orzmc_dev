@@ -47,6 +47,11 @@ function config_darwin {
         brew install ffmpeg
     fi
 
+    screen --version > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        brew install screen
+    fi
+
     config_python_env
 }
 
@@ -56,6 +61,7 @@ function config_ubuntu {
         python3             \
 	    python3-pip         \
         hugo                \
+        screen              \
         ffmpeg
 
     pipenv --version > /dev/null 2>&1
