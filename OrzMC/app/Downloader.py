@@ -20,8 +20,8 @@ class Downloader:
     def __init__(self, config):
         self.config = config
 
-    '''Download Game Json Configure File'''
     def downloadGameJSON(self):
+        '''Download Game Json Configure File'''
 
         if is_sigint_up():
             return
@@ -36,10 +36,10 @@ class Downloader:
             print("Game Json Configure File have been downloaded!")
 
     def downloadClient(self):
+        '''Download Client Jar File'''
         if is_sigint_up():
             return  
 
-        '''Download Client Jar File'''
         client = self.config.game_version_json_obj().get('downloads').get('client')
         clientUrl = client.get('url')
         sha1 = client.get('sha1')
@@ -54,9 +54,9 @@ class Downloader:
         else:
             print("client jar file existed!")
 
-    '''Download Game Asset Index JSON file'''
+    
     def downloadAssetIndex(self):
-
+        '''Download Game Asset Index JSON file'''
         if is_sigint_up():
             return
 
@@ -72,9 +72,8 @@ class Downloader:
         else:
             print("assetIndex JSON File have been downloaded")
     
-    '''Download Game Asset Objects'''
     def downloadAssetObjects(self):
-
+        '''Download Game Asset Objects'''
         objects = self.config.game_version_json_assets_obj().get('objects')
         total = len(objects)
 
@@ -106,9 +105,8 @@ class Downloader:
             print(ColorString.confirm('music has been extracted to dir: %s' % music_dir))
             exit(0)
 
-    ''' download libraries'''
     def donwloadLibraries(self):
-
+        ''' download libraries'''
         libs = self.config.game_version_json_obj().get('libraries')
         total = len(libs)
 
@@ -171,8 +169,8 @@ class Downloader:
                 if not checkFileExist(filePath,sha1):
                     self.download(url,fileDir, prefix_desc=prefix_desc)
 
-    '''下载Paper服务端JAR文件'''
     def downloadPaperServerJarFile(self):
+        '''下载Paper服务端JAR文件'''
         url = None
         if self.config.api == 'v1':
             url = PaperAPI.downloadURLV1(
@@ -194,10 +192,10 @@ class Downloader:
             )
 
 
-    '''通用下载方法'''
     retry_count = 0
     MAX_RETRY_COUNT = 3
     def download(self, url, dir, name = None, prefix_desc = None):
+        '''通用下载方法'''
         original_url = url
         original_dir = dir
         original_name = name
