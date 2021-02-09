@@ -8,13 +8,13 @@ import os
 import json
 
 class Console:
-    '''初始化控制台实例'''
+    
     def __init__(self, config):
+        '''初始化控制台实例'''
         self.config = config
         
-    '''控制台展示用户交互界面'''
     def userInteraction(self):
-        
+        '''控制台展示用户交互界面'''
         if self.config.version == None:
             # 如果没有提示版本参数，则展示可选版本号供用户选择
             self.showVersionList()
@@ -26,8 +26,8 @@ class Console:
         # 客户端启动方式
         self.selectLauncherProfile()
 
-    '''控制台交互显示可选客户端版本号'''
     def showVersionList(self):
+        '''控制台交互显示可选客户端版本号'''
         
         # 显示所有版本提示
         print(ALL_VERSIONS_HINT)
@@ -64,8 +64,8 @@ class Console:
 
         print('\n')
     
-    '''控制台交互输入玩家用户名'''
     def showUserName(self):
+        '''控制台交互输入玩家用户名'''
         
         # 只针对客户端有效
         if not self.config.is_client:
