@@ -54,7 +54,17 @@ WantedBy=multi-user.target
                 cfg.write(systemctl_daemon_conf)
                 print(ColorString.confirm('minecraft.service has been writen in location: %s' % systemctl_conf_file_path))
 
-            # cmd = 'sudo systemctl '
+            systemctl_system_dir = '/etc/systemd/system'
+            minecraft_systemctl_conf_filename = os.path.basename(systemctl_conf_file_path)
+            if os.path.exists(systemctl_system_dir) and os.path.isdir(systemctl_system_dir):
+                minecraft_service_file_path = os.path.join(systemctl_system_dir, minecraft_systemctl_conf_filename)
+                cmd = 'sudo ln -snf {source} {dest} && sudo systemctl reload-daemon && sudo systemctl enable {service} && sudo systemctl restart {service}}'.format(
+                    source = systemctl_conf_file_path,
+                    dest = minecraft_service_file_path,
+                    service = minecraft_systemctl_conf_filename
+                )
+                print(cmd)
+                print(ColorString.confirm('started service: %s' % minecraft_systemctl_conf_filename))
         except Exception as e:
             print(e)
             print(ColorString.error('minecraft daemon configuration for systemctl failed!'))
