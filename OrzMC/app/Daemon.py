@@ -51,8 +51,9 @@ WantedBy=multi-user.target
             systemctl_conf_file_path = Config.game_version_server_systemctl_conf_file_path()
             with open(systemctl_conf_file_path,'w',encoding='utf-8') as cfg:
                 cfg.write(systemctl_daemon_conf)
+                print(ColorString.confirm('minecraft.service has been writen in location: %s' % systemctl_conf_file_path))
 
-            cmd = 'sudo systemctl '
+            # cmd = 'sudo systemctl '
         except Exception as e:
             print(e)
             print(ColorString.error('minecraft daemon configuration for systemctl failed!'))
