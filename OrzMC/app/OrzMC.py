@@ -58,7 +58,7 @@ def parse_args():
     parser.add_argument('-B','--bmclapi', dest='bmclapi', default=False, action='store_true', help='use BMCLAPI download the client assets and library files')
 
     # Nginx + systemctl
-    parser.add_argument('-n','--nginx', dest='nginx', default=False, action='store_true', help='config nginx')
+    parser.add_argument('-n','--nginx', dest='nginx', default=False, action='store_true', help='config nginx for minecraft server related web pages: map/skin/ftp')
 
     args = parser.parse_args()
 
