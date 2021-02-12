@@ -63,8 +63,9 @@ WantedBy=multi-user.target
                     dest = minecraft_service_file_path,
                     service = minecraft_systemctl_conf_filename
                 )
-                print(cmd)
-                print(ColorString.confirm('started service: %s' % minecraft_systemctl_conf_filename))
+                ret = os.system(cmd)
+                if ret == 0:
+                    print(ColorString.confirm('started service: %s' % minecraft_systemctl_conf_filename))
         except Exception as e:
             print(e)
             print(ColorString.error('minecraft daemon configuration for systemctl failed!'))
