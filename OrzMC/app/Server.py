@@ -4,6 +4,7 @@ from os.path import isfile
 from .Config import Config
 from .Downloader import Downloader
 from .Nginx import Nginx
+from .Daemon import Daemon
 from ..utils.ColorString import ColorString
 from ..utils.CleanUp import CleanUp
 from ..utils.utils import *
@@ -28,6 +29,10 @@ class Server:
         # 配置Nginx服务
         if self.config.nginx:
             Nginx.setup()
+            return
+
+        if self.config.deamon:
+            Daemon.setup(self.config)
             return
 
         if self.config.backup:

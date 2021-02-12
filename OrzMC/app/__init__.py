@@ -12,4 +12,5 @@ __all__ = [
     'Tools',
     'Version',
     'Nginx',
+    'Daemon',
 ]

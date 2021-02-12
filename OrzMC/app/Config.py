@@ -33,6 +33,7 @@ class Config:
         self.symlink = args.symlink
         self.bmclapi = args.bmclapi
         self.nginx = args.nginx
+        self.deamon = args.deamon
 
         game_type = args.type
         self.isPure = (game_type == Config.GAME_TYPE_PURE)
@@ -265,3 +266,8 @@ class Config:
     def game_version_server_nginx_file_path(cls):
         nginx_conf_file_path = os.path.join(Config.game_config_dir(),'nginx_minecraft.conf')
         return nginx_conf_file_path
+
+    @classmethod
+    def game_version_server_systemctl_conf_file_path(cls):
+        systemctl_conf_file_path = os.path.join(Config.game_config_dir(),'minecraft.service')
+        return systemctl_conf_file_path
