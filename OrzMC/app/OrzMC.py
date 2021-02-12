@@ -57,10 +57,12 @@ def parse_args():
     # BMCLAPI
     parser.add_argument('-B','--bmclapi', dest='bmclapi', default=False, action='store_true', help='use BMCLAPI download the client assets and library files')
 
+    # Nginx + systemctl
+    parser.add_argument('-n','--nginx', dest='nginx', default=False, action='store_true', help='config nginx')
+
     args = parser.parse_args()
 
     return args
-
 
 def start():
     '''启动游戏'''

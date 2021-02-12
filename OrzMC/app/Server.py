@@ -3,6 +3,7 @@
 from os.path import isfile
 from .Config import Config
 from .Downloader import Downloader
+from .Nginx import Nginx
 from ..utils.ColorString import ColorString
 from ..utils.CleanUp import CleanUp
 from ..utils.utils import *
@@ -22,6 +23,11 @@ class Server:
     def start(self):
         '''start minecraft server'''    
         if self.config.is_client:
+            return
+
+        # 配置Nginx服务
+        if self.config.nginx:
+            Nginx.setup()
             return
 
         if self.config.backup:
