@@ -32,6 +32,7 @@ class Config:
         self.is_extract_music = args.extract_music
         self.symlink = args.symlink
         self.bmclapi = args.bmclapi
+        self.nginx = args.nginx
 
         game_type = args.type
         self.isPure = (game_type == Config.GAME_TYPE_PURE)
@@ -247,8 +248,20 @@ class Config:
         ftp_base_dir = os.path.join(Config.BASE_PATH, 'minecraft_world_backup')
         makedirs(ftp_base_dir)
         return ftp_base_dir
+        
     @classmethod
     def game_ftp_server_core_data_backup_dir(cls):
         server_core_data_backup_dir = os.path.join(Config.game_ftp_server_base_dir(),'mcserver')
         makedirs(server_core_data_backup_dir)
         return server_core_data_backup_dir
+
+    @classmethod
+    def game_config_dir(cls):
+        game_config_dir = os.path.join(Config.GAME_ROOT_DIR, 'configurations')
+        makedirs(game_config_dir)
+        return game_config_dir
+
+    @classmethod
+    def game_version_server_nginx_file_path(cls):
+        nginx_conf_file_path = os.path.join(Config.game_config_dir(),'nginx_minecraft.conf')
+        return nginx_conf_file_path
