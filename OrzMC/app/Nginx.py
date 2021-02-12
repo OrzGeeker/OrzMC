@@ -39,7 +39,8 @@ class Nginx:
                         print(ColorString.confirm('minecraft nginx config successfully!'))
                     else:
                         print(ColorString.error('minecraft nginx config failed!'))
-                
+                # 配置HTTPS
+                Nginx.setupSSL()
         except Exception as e:
             print(e)
             print(ColorString.error('Config Nginx for Minecraft Failed!!!'))
@@ -48,8 +49,18 @@ class Nginx:
     @classmethod
     def setupSSL(cls):
         '''配置nginx服务支持https'''
-        cmd = 'eval "$(curl -sL https://raw.githubusercontent.com/wangzhizhou/Linux_scripts/master/https/certbot_nginx_ubuntu18.04.sh)"'
-        os.system(cmd)
+
+        cmd = 'sudo apt-get update &&'\
+        'sudo apt-get install -y software-properties-common &&'\
+        'sudo add-apt-repository -y universe &&'\
+        'sudo add-apt-repository -y ppa:certbot/certbot &&'\
+        'sudo apt-get update &&'\
+        'sudo apt-get install -y certbot python3-certbot-nginx &&'\
+        'sudo certbot --nginx'
+        if os.system(cmd) == 0:
+            print(ColorString.confirm('Config HTTPS successfully!'))
+        else:
+            print(ColorString.error("Config HTTPS failed!"))
 
     
     @classmethod
