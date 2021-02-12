@@ -26,7 +26,7 @@ class Nginx:
                 if ret == 0:
                     print(ColorString.confirm('Create symbol link file: %s' % minecraft_nginx_conf_file))
 
-                nginx_process_number = os.popen('ps -ef | grep nginx | grep -v grep | wc -l').read().strip()
+                nginx_process_number = int(os.popen('ps -ef | grep nginx | grep -v grep | wc -l').read().strip())
                 cmd = None
                 if nginx_process_number > 0:
                     cmd = 'sudo nginx -s reload'
