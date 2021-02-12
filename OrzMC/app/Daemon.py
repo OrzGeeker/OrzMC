@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 import os
+from .Config import Config
 from ..utils.ColorString import ColorString
 
 class Daemon:
