@@ -51,11 +51,11 @@ class Nginx:
         '''配置nginx服务支持https'''
 
         cmd = 'sudo apt-get update &&'\
-        'sudo apt-get install -y software-properties-common ||'\
-        'sudo add-apt-repository -y universe ||'\
-        'sudo add-apt-repository -y ppa:certbot/certbot ||'\
-        'sudo apt-get update ||'\
-        'sudo apt-get install -y certbot python3-certbot-nginx ||'\
+        'sudo apt-get install -y software-properties-common &&'\
+        'sudo add-apt-repository -y universe &&'\
+        'sudo add-apt-repository -y ppa:certbot/certbot &&'\
+        'sudo apt-get update &&'\
+        'sudo apt-get install -y certbot python3-certbot-nginx &&'\
         'sudo certbot --nginx'
         if os.system(cmd) == 0:
             print(ColorString.confirm('Config HTTPS successfully!'))
