@@ -26,17 +26,22 @@ class Server:
         if self.config.is_client:
             return
 
+        is_return = False
+
         # 配置Nginx服务
         if self.config.nginx:
             Nginx.setup()
-            return
+            is_return = True
 
         if self.config.deamon:
             Daemon.setup(self.config)
-            return
+            is_return = True
 
         if self.config.backup:
             self.backupWorld()
+            is_return = True
+
+        if is_return:
             return
         
         if self.config.isPure:
