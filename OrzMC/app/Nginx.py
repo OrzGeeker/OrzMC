@@ -21,10 +21,25 @@ class Nginx:
             nginx_conf_dir = '/etc/nginx/conf.d'
             if os.path.exists(nginx_conf_dir) and os.path.isdir(nginx_conf_dir):
                 minecraft_nginx_conf_file = os.path.join(nginx_conf_dir, os.path.basename(nginx_config_file))
-                cmd = 'sudo ln -snf %s %s && sudo nginx -s stop && sudo nginx -s reload && sudo nginx ' % (nginx_config_file, minecraft_nginx_conf_file)
+                cmd = 'sudo ln -snf %s %s' % (nginx_config_file, minecraft_nginx_conf_file)
                 ret = os.system(cmd)
                 if ret == 0:
                     print(ColorString.confirm('Create symbol link file: %s' % minecraft_nginx_conf_file))
+
+                nginx_process_number = os.popen('ps -ef | grep nginx | grep -v grep | wc -l')
+                cmd = None
+                if nginx_process_number > 0:
+                    cmd = 'sudo nginx -s reload'
+                else:
+                    cmd = 'sudo nginx'
+
+                if cmd:
+                    ret = os.system(cmd)
+                    if ret == 0:
+                        print(ColorString.confirm('minecraft nginx config successfully!'))
+                    else:
+                        print(ColorString.error('minecraft nginx config failed!'))
+                
         except Exception as e:
             print(e)
             print(ColorString.error('Config Nginx for Minecraft Failed!!!'))
