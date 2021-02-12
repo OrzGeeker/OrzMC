@@ -15,7 +15,9 @@ class Nginx:
                     Nginx.web_live_map_conf(), 
                     Nginx.web_skin_system_conf(),
                 ]))
-            print(ColorString.confirm('Nginx conf file location: %s' % nginx_config_file))
+                print(ColorString.confirm('Nginx conf file location: %s' % nginx_config_file))
+            
+            # 创建nginx配置文件软链接
             nginx_conf_dir = '/etc/nginx/conf.d'
             if os.path.exists(nginx_conf_dir) and os.path.isdir(nginx_conf_dir):
                 minecraft_nginx_conf_file = os.path.join(nginx_conf_dir, os.path.basename(nginx_config_file))
