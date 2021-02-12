@@ -58,7 +58,7 @@ WantedBy=multi-user.target
             minecraft_systemctl_conf_filename = os.path.basename(systemctl_conf_file_path)
             if os.path.exists(systemctl_system_dir) and os.path.isdir(systemctl_system_dir):
                 minecraft_service_file_path = os.path.join(systemctl_system_dir, minecraft_systemctl_conf_filename)
-                cmd = 'sudo ln -snf {source} {dest} && sudo systemctl reload-daemon && sudo systemctl enable {service} && sudo systemctl restart {service}'.format(
+                cmd = 'sudo ln -snf {source} {dest} && sudo systemctl daemon-reload && sudo systemctl enable {service} && sudo systemctl restart {service}'.format(
                     source = systemctl_conf_file_path,
                     dest = minecraft_service_file_path,
                     service = minecraft_systemctl_conf_filename
