@@ -13,7 +13,7 @@ description: "欢迎小伙伴们一起来玩"
 
 🗺[实时地图](https://map.jokerhub.cn)
 --- 📁[资源下载](https://download.jokerhub.cn)
---- 🎎[皮肤上传](https://mcskin.jokerhub.cn)
+--- 🎎[皮肤上传](https://skin.jokerhub.cn)
 
 👗[皮肤下载](https://www.minecraftskins.com)
 --- 🏞[墙纸生成](http://minecraft.novaskin.me/wallpapers/mobile)
