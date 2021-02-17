@@ -38,13 +38,10 @@ class SkinSystem:
             f"GRANT ALL PRIVILEGES ON skinsrestorer . * TO 'skinsystem'@'localhost';"
             try:
                 sql_cmd_echo = subprocess.Popen(["echo", f"{sql}"], stdout=subprocess.PIPE)
-                ret = sql_cmd_echo.wait()
-                if ret == 0:
-                    sql_create_db = subprocess.Popen('mysql', stdin=sql_cmd_echo.stdin, stdout=subprocess.STDOUT)
-                    ret = sql_create_db.wait()
-                    if ret == 0:
-                        print(ColorString.confirm(f"MySQL user skinsystem:{password} was created"))
-                        print(ColorString.confirm("Have a nice day, remember to save your credentials!")) 
+                sql_create_db = subprocess.Popen(['sudo', 'mysql'], stdin=sql_cmd_echo.stdout, stdout=subprocess.PIPE)
+                sql_create_db.communicate()
+                print(ColorString.confirm(f"MySQL user skinsystem:{password} was created"))
+                print(ColorString.confirm("Have a nice day, remember to save your credentials!")) 
             except Exception as e:
                 print(e)
             
