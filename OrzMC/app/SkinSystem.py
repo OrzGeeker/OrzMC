@@ -31,11 +31,14 @@ class SkinSystem:
         f'sudo rm -rf .git && sudo rm -rf .gitignore && sudo rm -rf *.md && cd .. && '\
         f'sudo chmod 775 -R {skin_system_web_absolute_dir} && sudo chown -R www-data:www-data {skin_system_web_absolute_dir}'
         if os.system(cmd) == 0:
+            mysql_user = 'skinsystem'
+            mysql_database = 'skinsrestorer'
             password = os.popen('head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13').read().strip()
-            print(ColorString.hint('Creating MySQL user skinsystem:%s' % password))
-            sql = f"CREATE USER 'skinsystem'@'localhost' IDENTIFIED BY '{password}';"\
-            f"CREATE DATABASE skinsrestorer;"\
-            f"GRANT ALL PRIVILEGES ON skinsrestorer . * TO 'skinsystem'@'localhost';"
+            print(ColorString.hint(f'Creating MySQL user {mysql_user}:%s' % password))
+            sql = f"DELETE FROM mysql.user WHERE user = {mysql_user};"\
+            f"CREATE USER '{mysql_user}'@'localhost' IDENTIFIED BY '{password}';"\
+            f"CREATE DATABASE {mysql_database};"\
+            f"GRANT ALL PRIVILEGES ON {mysql_database} . * TO '{mysql_user}'@'localhost';"
             try:
                 sql_cmd_echo = subprocess.Popen(["echo", f"{sql}"], stdout=subprocess.PIPE)
                 sql_create_db = subprocess.Popen(['sudo', 'mysql'], stdin=sql_cmd_echo.stdout, stdout=subprocess.PIPE)
