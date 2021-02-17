@@ -23,7 +23,7 @@ class SkinSystem:
         web_site_dir = '/var/www'
         skin_system_web_absolute_dir = os.path.join(web_site_dir, skin_system_dir)
         if os.path.exists(skin_system_web_absolute_dir):
-            shutil.rmtree(skin_system_web_absolute_dir)
+            cmd = f'sudo rm -rf {skin_system_web_absolute_dir}'
         cmd = f'sudo apt-get update || sudo apt-get install {bins} -y && '\
         f'cd {web_site_dir} && sudo git clone {skin_system_repo_url} && cd {skin_system_dir} && '\
         f'sudo git checkout `git tag | sort -V | grep -v "\-rc" | tail -1` && '\
