@@ -35,13 +35,15 @@ class SkinSystem:
             sql = f"CREATE USER 'skinsystem'@'localhost' IDENTIFIED BY '{password}';"\
             f"CREATE DATABASE skinsrestorer;"\
             f"GRANT ALL PRIVILEGES ON skinsrestorer . * TO 'skinsystem'@'localhost';"
-
-            sql_cmd_echo = subprocess.Popen(f'echo {sql}', stdout=subprocess.PIPE)
-            ret = sql_cmd_echo.wait()
-            if ret == 0:
-                sql_create_db = subprocess.Popen('mysql', stdin=sql_cmd_echo.stdin, stdout=subprocess.STDOUT)
-                ret = sql_create_db.wait()
+            try:
+                sql_cmd_echo = subprocess.Popen(f'echo {sql}', stdout=subprocess.PIPE)
+                ret = sql_cmd_echo.wait()
                 if ret == 0:
-                    print(ColorString.confirm(f"MySQL user skinsystem:{password} was created"))
-                    print(ColorString.confirm("Have a nice day, remember to save your credentials!")) 
+                    sql_create_db = subprocess.Popen('mysql', stdin=sql_cmd_echo.stdin, stdout=subprocess.STDOUT)
+                    ret = sql_create_db.wait()
+                    if ret == 0:
+                        print(ColorString.confirm(f"MySQL user skinsystem:{password} was created"))
+                        print(ColorString.confirm("Have a nice day, remember to save your credentials!")) 
+            except Exception as e:
+                print(e)
             
