@@ -37,7 +37,7 @@ class SkinSystem:
             f"CREATE DATABASE skinsrestorer;"\
             f"GRANT ALL PRIVILEGES ON skinsrestorer . * TO 'skinsystem'@'localhost';"
             try:
-                sql_cmd_echo = subprocess.Popen(f"echo '{sql}'", stdout=subprocess.PIPE)
+                sql_cmd_echo = subprocess.Popen(["echo", f"{sql}"], stdout=subprocess.PIPE)
                 ret = sql_cmd_echo.wait()
                 if ret == 0:
                     sql_create_db = subprocess.Popen('mysql', stdin=sql_cmd_echo.stdin, stdout=subprocess.STDOUT)
