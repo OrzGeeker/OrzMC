@@ -37,7 +37,7 @@ class SkinSystem:
             print(ColorString.hint(f'Creating MySQL user {mysql_user}:%s' % password))
             sql = f"DELETE FROM mysql.user WHERE user = '{mysql_user}';"\
             f"DROP USER IF EXISTS '{mysql_user}'@'localhost';"\
-            f"FLUSH PRIVILEDGES;"\
+            f"FLUSH PRIVILEGES;"\
             f"CREATE USER '{mysql_user}'@'localhost' IDENTIFIED BY '{password}';"\
             f"CREATE DATABASE {mysql_database};"\
             f"GRANT ALL PRIVILEGES ON {mysql_database} . * TO '{mysql_user}'@'localhost';"
