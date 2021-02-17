@@ -1,6 +1,8 @@
 # -*- coding: utf8 -*-
 from ..utils.ColorString import ColorString
 import os
+import subprocess
+import shutil
 
 class SkinSystem:
     @classmethod
@@ -20,6 +22,8 @@ class SkinSystem:
         skin_system_dir = os.path.basename(skin_system_repo_url)
         web_site_dir = '/var/www'
         skin_system_web_absolute_dir = os.path.join(web_site_dir, skin_system_dir)
+        if os.path.exists(skin_system_web_absolute_dir):
+            shutil.rmtree(skin_system_web_absolute_dir)
         cmd = f'sudo apt-get update || sudo apt-get install {bins} -y && '\
         f'cd {web_site_dir} && sudo git clone {skin_system_repo_url} && cd {skin_system_dir} && '\
         f'sudo git checkout `git tag | sort -V | grep -v "\-rc" | tail -1` && '\
@@ -31,8 +35,13 @@ class SkinSystem:
             sql = f"CREATE USER 'skinsystem'@'localhost' IDENTIFIED BY '{password}';"\
             f"CREATE DATABASE skinsrestorer;"\
             f"GRANT ALL PRIVILEGES ON skinsrestorer . * TO 'skinsystem'@'localhost';"
-            cmd = f'echo {sql} | mysql'
-            if os.system(cmd) == 0:
-                print(ColorString.confirm(f"MySQL user skinsystem:{password} was created"))
-                print(ColorString.confirm("Have a nice day, remember to save your credentials!")) 
+
+            sql_cmd_echo = subprocess.Popen(f'echo {sql}', stdout=subprocess.PIPE)
+            ret = sql_cmd_echo.wait()
+            if ret == 0:
+                sql_create_db = subprocess.Popen('mysql', stdin=sql_cmd_echo.stdin, stdout=subprocess.STDOUT)
+                ret = sql_create_db.wait()
+                if ret == 0:
+                    print(ColorString.confirm(f"MySQL user skinsystem:{password} was created"))
+                    print(ColorString.confirm("Have a nice day, remember to save your credentials!")) 
             
