@@ -38,7 +38,7 @@ class SkinSystem:
             sql = f"DELETE FROM mysql.user WHERE user = '{mysql_user}';"\
             f"DROP USER IF EXISTS '{mysql_user}'@'localhost';"\
             f"FLUSH PRIVILEGES;"\
-            f"CREATE USER '{mysql_user}'@'localhost' IDENTIFIED BY '{password}';"\
+            f"CREATE USER '{mysql_user}'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}';"\
             f"CREATE DATABASE IF NOT EXISTS {mysql_database};"\
             f"GRANT ALL PRIVILEGES ON {mysql_database} . * TO '{mysql_user}'@'localhost';"
             try:
