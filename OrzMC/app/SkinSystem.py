@@ -36,7 +36,7 @@ class SkinSystem:
             password = os.popen('head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13').read().strip()
             print(ColorString.hint(f'Creating MySQL user {mysql_user}:%s' % password))
             sql = f"DELETE FROM mysql.user WHERE user = '{mysql_user}';"\
-            f"DROP USER '{mysql_user}'@'localhost';"\
+            f"DROP USER IF EXISTS '{mysql_user}'@'localhost';"\
             f"FLUSH PRIVILEDGES;"\
             f"CREATE USER '{mysql_user}'@'localhost' IDENTIFIED BY '{password}';"\
             f"CREATE DATABASE {mysql_database};"\
@@ -46,7 +46,7 @@ class SkinSystem:
                 sql_create_db = subprocess.Popen(['sudo', 'mysql'], stdin=sql_cmd_echo.stdout, stdout=subprocess.PIPE)
                 sql_create_db.communicate()
                 print(ColorString.confirm(f"MySQL user skinsystem:{password} was created"))
-                print(ColorString.confirm("Have a nice day, remember to save your credentials!")) 
+                print(ColorString.confirm("Have a nice day, remember to save your credensudotials!")) 
             except Exception as e:
                 print(e)
             
