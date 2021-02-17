@@ -5,6 +5,7 @@ from .Config import Config
 from .Downloader import Downloader
 from .Nginx import Nginx
 from .Daemon import Daemon
+from .SkinSystem import SkinSystem
 from ..utils.ColorString import ColorString
 from ..utils.CleanUp import CleanUp
 from ..utils.utils import *
@@ -32,13 +33,17 @@ class Server:
         if self.config.nginx:
             Nginx.setup()
             is_return = True
-
+        # 配置Minecraft长驻服务
         if self.config.deamon:
             Daemon.setup(self.config)
             is_return = True
-
+        # 备份服务器地图文件
         if self.config.backup:
             self.backupWorld()
+            is_return = True
+        # 配置服务器皮肤系统
+        if self.config.skin_system:
+            SkinSystem.setup()
             is_return = True
 
         if is_return:
