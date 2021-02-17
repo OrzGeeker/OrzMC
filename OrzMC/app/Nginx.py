@@ -93,7 +93,7 @@ server {{
         port=80
         file_server_root_dir = '/var/www/SkinSystem'
         server_domain = 'skin.jokerhub.cn'
-        php_fpm_bin_path = os.popen('whereis php-fpm | cut -d ' ' -f 2').read().strip()
+        php_fpm_bin_path = os.popen("whereis php-fpm | cut -d ' ' -f 2").read().strip()
         if not os.path.exists(php_fpm_bin_path):
             print(ColorString.error('You have not install php environment!!!'))
             return None
