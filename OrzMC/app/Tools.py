@@ -56,7 +56,8 @@ def rsync_server_core_data():
                 segments = list(os.path.split(source))[0:-1]
                 sync_file_dir_name = os.path.basename(os.path.join(*segments))
                 dest += ':~/%s/%s' % (ftp_server_base_dir_name,sync_file_dir_name)
-            dest += ':~/%s/' % (ftp_server_base_dir_name)
+            else:
+                dest += ':~/%s/' % (ftp_server_base_dir_name)
 
         rsync_cmd = 'rsync -zarvh %s %s ' % (source, dest)
         rsync_cmd += "--exclude 'plugins/dynmap/*'"
