@@ -35,7 +35,7 @@ class SkinSystem:
             mysql_database = 'skinsrestorer'
             password = os.popen('head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13').read().strip()
             print(ColorString.hint(f'Creating MySQL user {mysql_user}:%s' % password))
-            sql = f"DELETE FROM mysql.user WHERE user = {mysql_user};"\
+            sql = f"DELETE FROM mysql.user WHERE user = '{mysql_user}';"\
             f"CREATE USER '{mysql_user}'@'localhost' IDENTIFIED BY '{password}';"\
             f"CREATE DATABASE {mysql_database};"\
             f"GRANT ALL PRIVILEGES ON {mysql_database} . * TO '{mysql_user}'@'localhost';"
