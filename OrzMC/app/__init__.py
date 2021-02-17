@@ -13,4 +13,5 @@ __all__ = [
     'Version',
     'Nginx',
     'Daemon',
+    'SkinSystem',
 ]

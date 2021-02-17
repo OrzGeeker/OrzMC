@@ -61,9 +61,10 @@ def parse_args():
     parser.add_argument('-n','--nginx', dest='nginx', default=False, action='store_true', help='config nginx for minecraft server related web pages: map/skin/ftp')
     # minecraft daemon with systemctl
     parser.add_argument('-d','--daemon', dest='deamon', default=False, action='store_true', help='config daemon for minecraft server with systemctl manage')
+    # setup minecraft server skin system
+    parser.add_argument('-S','--skin_system', dest='skin_system', default=False, action='store_true', help='setup skin system for minecraft paper server')
 
     args = parser.parse_args()
-
     return args
 
 def start():
