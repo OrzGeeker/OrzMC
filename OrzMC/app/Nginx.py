@@ -10,11 +10,11 @@ class Nginx:
         nginx_config_file = Config.game_version_server_nginx_file_path()
         try:
             with open(nginx_config_file, 'w', encoding='utf-8') as cfg:
-                cfg.write('\n'.join([
+                cfg.write('\n'.join(filter(lambda x: x != None,[
                     Nginx.web_file_server_conf(), 
                     Nginx.web_live_map_conf(), 
                     Nginx.web_skin_system_conf(),
-                ]))
+                ])))
                 print(ColorString.confirm('Nginx conf file location: %s' % nginx_config_file))
             
             # 创建nginx配置文件软链接
@@ -93,7 +93,12 @@ server {{
         port=80
         file_server_root_dir = '/var/www/SkinSystem'
         server_domain = 'skin.jokerhub.cn'
-        fastcgi_pass = 'unix:/run/php/php7.2-fpm.sock'
+        php_fpm_bin_path = os.popen('whereis php-fpm | cut -d ' ' -f 2').read().strip()
+        if not os.path.exists(php_fpm_bin_path):
+            print(ColorString.error('You have not install php environment!!!'))
+            return None
+        php_fpm_version = os.path.basename(php_fpm_bin_path).replace('php-fpm','')
+        fastcgi_pass = f'unix:/run/php/php{php_fpm_version}-fpm.sock'
         return f"""
 # Minecraft SkinSystem
 server {{
