@@ -39,7 +39,7 @@ class SkinSystem:
             f"DROP USER IF EXISTS '{mysql_user}'@'localhost';"\
             f"FLUSH PRIVILEGES;"\
             f"CREATE USER '{mysql_user}'@'localhost' IDENTIFIED BY '{password}';"\
-            f"CREATE DATABASE {mysql_database};"\
+            f"CREATE DATABASE IF NOT EXISTS {mysql_database};"\
             f"GRANT ALL PRIVILEGES ON {mysql_database} . * TO '{mysql_user}'@'localhost';"
             try:
                 sql_cmd_echo = subprocess.Popen(["echo", f"{sql}"], stdout=subprocess.PIPE)
