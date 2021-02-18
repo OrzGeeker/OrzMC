@@ -258,6 +258,12 @@ class Config:
         return server_core_data_backup_dir
 
     @classmethod
+    def game_ftp_server_core_data_plugin_dir(cls):
+        plugins_dir = os.path.join(Config.game_ftp_server_core_data_backup_dir(), 'plugins')
+        makedirs(plugins_dir)
+        return plugins_dir
+
+    @classmethod
     def game_config_dir(cls):
         game_config_dir = os.path.join(Config.GAME_ROOT_DIR, 'configurations')
         makedirs(game_config_dir)
