@@ -70,12 +70,14 @@ class SkinSystem:
                 if sr_config_file_path:
                     with open (sr_config_file_path, 'r', encoding = 'utf-8') as cfg:
                         sr_config = yaml.full_load(sr_config_file_path)
+                        print(sr_config_file_path)
                         sr_config['MySQL']['Enabled'] = enable_mysql
                         sr_config['MySQL']['Host'] = mysql_host
                         sr_config['MySQL']['Port'] = mysql_port
                         sr_config['MySQL']['Database'] = mysql_database
                         sr_config['MySQL']['Username'] = mysql_user
                         sr_config['MySQL']['Password'] = password
+                        print(sr_config_file_path)
                     with open(sr_config_file_path, 'w', encoding = 'utf-8') as cfg:
                         yaml.dump(sr_config, cfg)
                     print(ColorString.confirm('Skin Restorer config.yml write successfully!'))
