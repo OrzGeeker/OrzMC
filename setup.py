@@ -4,7 +4,7 @@ import sys
 
 setuptools.setup(
     name="OrzMC",
-    version="1.0.93",
+    version="1.0.94",
     description="A project for deployment of minecraft game.",
     long_description=open('README.md', encoding = 'UTF-8').read(),
     long_description_content_type="text/markdown",
