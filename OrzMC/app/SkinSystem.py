@@ -10,7 +10,7 @@ class SkinSystem:
     @classmethod
     def skin_restorer_plugin_config_file_path(cls):
         sr_plugin_config_file_path = os.path.join(Config.game_ftp_server_core_data_plugin_dir(),'SkinsRestorer','config.yml')
-        if os.path.exist(sr_plugin_config_file_path) and os.path.isfile(sr_plugin_config_file_path):
+        if os.path.exists(sr_plugin_config_file_path) and os.path.isfile(sr_plugin_config_file_path):
             return sr_plugin_config_file_path
         else:
             return None
