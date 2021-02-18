@@ -3,7 +3,7 @@ from ..utils.ColorString import ColorString
 import os
 import subprocess
 import shutil
-import .Config import Config
+from .Config import Config
 import yaml
 
 class SkinSystem:
