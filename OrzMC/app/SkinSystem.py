@@ -28,7 +28,7 @@ class SkinSystem:
         ]
         print(ColorString.hint("installing skinsystem (%s)" % ColorString.warn(','.join(tools))))
         bins = ' '.join(tools)
-        skin_system_repo_url = 'https://github.com/riflowth/SkinSystem'
+        skin_system_repo_url = 'https://github.com/OrzGeeker/SkinSystem.git'
         skin_system_dir = os.path.basename(skin_system_repo_url)
         web_site_dir = '/var/www'
         skin_system_web_absolute_dir = os.path.join(web_site_dir, skin_system_dir)
