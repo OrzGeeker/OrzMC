@@ -25,7 +25,6 @@ setuptools.setup(
     ),
     python_requires='>=3, <4',
     install_requires=[
-        'pylint',
         'requests',
         'twine',
         'beautifulsoup4'
