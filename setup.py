@@ -27,7 +27,8 @@ setuptools.setup(
     install_requires=[
         'requests',
         'twine',
-        'beautifulsoup4'
+        'beautifulsoup4',
+        'pyyaml'
     ],
     entry_points = {
         'console_scripts': [
