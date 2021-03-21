@@ -29,3 +29,10 @@ description: "欢迎小伙伴们一起来玩"
 [![命令、材质包导入及更换皮肤](images/video_cover/mc_3.jpg)](https://www.bilibili.com/video/BV18A411x7EH)
 
 ---
+
+
+## 基岩版 - Minecraft
+
+服务器地址: **jokerhub.cn**
+
+服务器端口: **19132**
