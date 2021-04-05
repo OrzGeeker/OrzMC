@@ -1,5 +1,5 @@
 ---
-title: "Papermc"
+title: "PaperMC"
 date: 2019-12-10T13:06:35+08:00
 draft: false
 ---
