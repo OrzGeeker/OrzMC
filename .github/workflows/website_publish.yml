@@ -1,0 +1,15 @@
+name: Publish Website
+
+on:
+  push
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and publish website
+      run: |
+        ./website_publish
