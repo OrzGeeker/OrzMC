@@ -21,4 +21,6 @@ jobs:
         
     - name: Build and publish website
       run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
         ./website_publish
