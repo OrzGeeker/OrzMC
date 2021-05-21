@@ -1,7 +1,9 @@
 name: Publish Website
 
 on:
-  push
+  push:
+    branches:
+      - master
 
 jobs:
   publish:
