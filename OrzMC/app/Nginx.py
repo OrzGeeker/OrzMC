@@ -135,3 +135,18 @@ server {{
     }}
 }}
 """
+
+    @classmethod
+    def web_live_blue_map_conf(cls):
+        '''配置minecraft 3D高清地图'''
+        port=80
+        server_domain = 'world.jokerhub.cn'
+        return f"""
+server {{
+    listen {port};
+    server_name {server_domain};
+    location / {{
+        proxy_pass      http://localhost:8100;
+    }}
+}}
+"""
