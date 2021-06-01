@@ -21,7 +21,6 @@ Mac/Linux电脑还可以使用命令行工具进行游戏, 是使用Python写的
 
 👗[皮肤下载](https://www.minecraftskins.com)
 --- 🏞[墙纸生成](http://minecraft.novaskin.me/wallpapers/mobile)
-
 --- 🌍[3D高清地图](https://world.jokerhub.cn)
 
 ## 服务器视频介绍(点击封面观看)
