@@ -28,7 +28,8 @@ setuptools.setup(
         'requests',
         'twine',
         'beautifulsoup4',
-        'pyyaml'
+        'pyyaml',
+        'rich'
     ],
     entry_points = {
         'console_scripts': [
