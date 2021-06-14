@@ -5,16 +5,6 @@ description: "欢迎小伙伴们一起来玩"
 
 ## [PaperMC](https://papermc.io) - Minecraft 1.16.5
 
----
-
-JAVA服务器地址: **jokerhub.cn** 端口号: **25565**
-
-基岩版客户端请连接: **jokerhub.cn** 端口号: **19132**
-
-Windows/Mac/Linux 电脑请下客户端**HMCL**，使用**JDK 8**版本java环境: **[HMCL最新版本启动器](https://github.com/huanghongxun/HMCL/releases/latest)**
-
-Mac/Linux电脑还可以使用命令行工具进行游戏, 是使用Python写的命令行Minecraft启动器: **[OrzMC](https://pypi.org/project/OrzMC/)**
-
 <!--🗺[实时地图](https://map.jokerhub.cn) -->
 🌍[3D高清地图](https://world.jokerhub.cn)
 --- 📁[资源下载](https://download.jokerhub.cn)
@@ -22,6 +12,18 @@ Mac/Linux电脑还可以使用命令行工具进行游戏, 是使用Python写的
 
 👗[皮肤下载](https://www.minecraftskins.com)
 --- 🏞[墙纸生成](http://minecraft.novaskin.me/wallpapers/mobile)
+
+PC端客户端请连接：**jokerhub.cn** 端口号：**25565**
+
+手机基岩客户端请连接：**jokerhub.cn** 端口号：**19132**
+
+---
+
+Windows/Mac/Linux 可使用客户端[**HMCL**启动器](https://github.com/huanghongxun/HMCL/releases/latest)，启动器需要**JDK8**版本java环境。
+
+Mac/Linux系统下还可以使用命令行工具[**OrzMC**](https://pypi.org/project/OrzMC/)进行游戏。Python 3.6+以上安装方式：**pip install OrzMC**
+
+---
 
 ## 服务器视频介绍(点击封面观看)
 
