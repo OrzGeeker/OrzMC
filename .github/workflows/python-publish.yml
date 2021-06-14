@@ -8,9 +8,9 @@ on:
     types: [created]
   
   # for test on branch when push
-  push:
-    branchs:
-      - master
+  # push:
+  #   branchs:
+  #     - master
 
 jobs:
   deploy:
