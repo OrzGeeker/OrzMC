@@ -15,14 +15,13 @@ Windows/Mac/Linux 电脑请下客户端**HMCL**，使用**JDK 8**版本java环�
 
 Mac/Linux电脑还可以使用命令行工具进行游戏, 是使用Python写的命令行Minecraft启动器: **[OrzMC](https://pypi.org/project/OrzMC/)**
 
-🗺[实时地图](https://map.jokerhub.cn)
+<!--🗺[实时地图](https://map.jokerhub.cn) -->
+🌍[3D高清地图](https://world.jokerhub.cn)
 --- 📁[资源下载](https://download.jokerhub.cn)
 --- 🎎[皮肤上传](https://skin.jokerhub.cn)
 
 👗[皮肤下载](https://www.minecraftskins.com)
 --- 🏞[墙纸生成](http://minecraft.novaskin.me/wallpapers/mobile)
-
----
 
 ## 服务器视频介绍(点击封面观看)
 
