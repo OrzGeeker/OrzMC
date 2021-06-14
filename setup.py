@@ -29,6 +29,7 @@ setuptools.setup(
         'twine',
         'beautifulsoup4',
         'pyyaml',
+        'tqdm',
         'rich'
     ],
     entry_points = {

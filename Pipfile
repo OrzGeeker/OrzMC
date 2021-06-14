@@ -10,6 +10,7 @@ wheel = "*"
 twine = "*"
 orzmc = {editable = true, path = "."}
 rich = "*"
+tqdm = "*"
 
 [dev-packages]
 
