@@ -1,4 +1,3 @@
-from rich import prompt
 from rich import console
 from rich.console import Console
 from rich.traceback import install
@@ -6,14 +5,36 @@ from rich.console import Console
 from rich.theme import Theme
 from rich.prompt import Prompt
 from rich.table import Table
+from rich.panel import Panel
+from rich.color import Color
+from rich import pretty, print, inspect
+from rich.text import Text
 
 class RichText:
 
     @classmethod
     def dev_test(cls):
         # RichText.table()
+        print(['hello', True])
+        print(Panel.fit('[bold yellow]Hi, I am joker[/]', border_style='red'))
+        color = Color.parse('red')
+        inspect(color)
+        RichText.console.print([1,2,3])
+        RichText.console.print('[blue underline]Look like a link[/]')
+        RichText.console.print(locals())
+        RichText.console.print('foo', style = 'underline link https://www.baidu.com')
+        RichText.console.log('Hello world', log_locals=True)
+        RichText.console.out('Locals', locals())
+        RichText.console.rule('[bold red]Chapter 2', align='center')
+        # with RichText.console.status("Workings....", spinner='runner'):
+        #     i = 0
+        #     while i < 100000000:
+        #         i = i + 1
+
+        # RichText.console.input('What is [i]your[/] [bold red]name[/]? :smiley: ')
+        # RichText.console.save_html('/Users/joker/Desktop/console.html')
+        # RichText.console.print(Panel(Text('Hello', justify='right')))
         # exit(0)
-        pass
 
     theme = Theme({
         'info': 'green bold',
@@ -26,6 +47,7 @@ class RichText:
     @classmethod
     def better_debug(cls):
         install()
+        pretty.install()
 
     @classmethod
     def warn(cls, text):
