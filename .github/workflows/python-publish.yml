@@ -6,6 +6,11 @@ name: Upload Python Package
 on:
   release:
     types: [created]
+  
+  # for test on branch when push
+  push:
+    branchs:
+      - master
 
 jobs:
   deploy:
@@ -27,5 +32,4 @@ jobs:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
+        ./orzmc_publish
