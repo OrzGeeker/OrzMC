@@ -4,6 +4,7 @@ import argparse
 from .Config import Config
 from .Game import Game
 from .Constants import ORZMC_VERSION_NUMBER_STR, BMCLAPI_DESC
+from ..utils.RichText import RichText
 
 def print_info(args):
     '''打印工具版本号'''
@@ -69,6 +70,10 @@ def parse_args():
 
 def start():
     '''启动游戏'''
+    # 富文本显示调试信息
+    RichText.better_debug()
+    RichText.dev_test()
+
     # 控制台收集的参数传入Config对象进行初始化
     args = parse_args()
     print_info(args)

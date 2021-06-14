@@ -3,5 +3,6 @@
 __all__ = [
     'CleanUp',
     'utils',
-    'ColorString'
+    'ColorString',
+    'RichText'
 ]
