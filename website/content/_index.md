@@ -30,14 +30,3 @@ Mac/Linux电脑还可以使用命令行工具进行游戏, 是使用Python写的
 [![客户端开启光影效果](images/video_cover/mc_2.jpg)](https://www.bilibili.com/video/BV1sz4y1k7Hm/)
 
 [![命令、材质包导入及更换皮肤](images/video_cover/mc_3.jpg)](https://www.bilibili.com/video/BV18A411x7EH)
-
-**如何使用基岩版连接服务器待完成**
-
----
-
-
-## 基岩版 - Minecraft
-
-服务器地址: **jokerhub.cn**
-
-服务器端口: **19132**
