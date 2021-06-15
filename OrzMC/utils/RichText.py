@@ -34,7 +34,7 @@ class RichText:
         # RichText.console.input('What is [i]your[/] [bold red]name[/]? :smiley: ')
         # RichText.console.save_html('/Users/joker/Desktop/console.html')
         # RichText.console.print(Panel(Text('Hello', justify='right')))
-        # exit(0)
+        exit(0)
 
     theme = Theme({
         'info': 'green bold',
