@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #-*- coding: utf8 -*-
 
+# unittest documentation: https://docs.python.org/3/library/unittest.html#module-unittest
+
 from unittest import TestCase, main
 class TestStringMethods(TestCase):
 
