@@ -21,7 +21,6 @@ Paginate = 3
 [params]
   env = 'production'
   favicon = "favicon.ico"
-
   facebook = "https://www.facebook.com/profile.php?id=100018721351347"
   twitter = "https://twitter.com/w_z_z_1991"
   instagram = ""
