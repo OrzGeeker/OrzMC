@@ -2,6 +2,7 @@
 title: "我的世界 - Minecraft"
 description: "欢迎小伙伴们一起来玩"
 ---
+> Minecraft 1.17 需要 Java 16及以上版本，才可以运行，小伙伴们可以提前升级一下，请点击：[**Java升级**](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
 
 ## [PaperMC](https://papermc.io) - Minecraft 1.16.5
 
@@ -19,7 +20,7 @@ PC端客户端请连接：**jokerhub.cn** 端口号：**25565**
 
 ---
 
-Windows/Mac/Linux 可使用客户端[**HMCL**启动器](https://github.com/huanghongxun/HMCL/releases/latest)，启动器需要**JDK8**版本java环境。
+Windows/Mac/Linux 可使用客户端[**HMCL**启动器](https://ci.huangyuhui.net/job/HMCL/)
 
 Mac/Linux系统下还可以使用命令行工具[**OrzMC**](https://pypi.org/project/OrzMC/)进行游戏。Python 3.6+以上安装方式：**pip install OrzMC**
 
