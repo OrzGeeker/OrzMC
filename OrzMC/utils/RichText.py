@@ -9,6 +9,8 @@ from rich.panel import Panel
 from rich.color import Color
 from rich import pretty, print, inspect
 from rich.text import Text
+from rich.progress import track
+# rich documentation: https://rich.readthedocs.io/en/latest/
 
 class RichText:
 
