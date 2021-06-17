@@ -24,6 +24,8 @@ Windows/Mac/Linux 可使用客户端[**HMCL**启动器](https://ci.huangyuhui.ne
 
 Mac/Linux系统下还可以使用命令行工具[**OrzMC**](https://pypi.org/project/OrzMC/)进行游戏。Python 3.6+以上安装方式：**pip install OrzMC**
 
+iOS/Android可以下载国际版Minecraft进行连机，服务器使用了插件[**GeyserMC**](https://geysermc.org)，打通了Java版和基础版的边界
+
 ---
 
 ## 服务器视频介绍(点击封面观看)
