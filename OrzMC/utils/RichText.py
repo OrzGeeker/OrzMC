@@ -17,17 +17,17 @@ class RichText:
     @classmethod
     def dev_test(cls):
         # RichText.table()
-        print(['hello', True])
-        print(Panel.fit('[bold yellow]Hi, I am joker[/]', border_style='red'))
-        color = Color.parse('red')
-        inspect(color)
-        RichText.console.print([1,2,3])
-        RichText.console.print('[blue underline]Look like a link[/]')
-        RichText.console.print(locals())
-        RichText.console.print('foo', style = 'underline link https://www.baidu.com')
-        RichText.console.log('Hello world', log_locals=True)
-        RichText.console.out('Locals', locals())
-        RichText.console.rule('[bold red]Chapter 2', align='center')
+        # print(['hello', True])
+        # print(Panel.fit('[bold yellow]Hi, I am joker[/]', border_style='red'))
+        # color = Color.parse('red')
+        # inspect(color)
+        # RichText.console.print([1,2,3])
+        # RichText.console.print('[blue underline]Look like a link[/]')
+        # RichText.console.print(locals())
+        # RichText.console.print('foo', style = 'underline link https://www.baidu.com')
+        # RichText.console.log('Hello world', log_locals=True)
+        # RichText.console.out('Locals', locals())
+        # RichText.console.rule('[bold red]Chapter 2', align='center')
         # with RichText.console.status("Workings....", spinner='runner'):
         #     i = 0
         #     while i < 100000000:
@@ -36,7 +36,8 @@ class RichText:
         # RichText.console.input('What is [i]your[/] [bold red]name[/]? :smiley: ')
         # RichText.console.save_html('/Users/joker/Desktop/console.html')
         # RichText.console.print(Panel(Text('Hello', justify='right')))
-        exit(0)
+        # exit(0)
+        pass
 
     theme = Theme({
         'info': 'green bold',
