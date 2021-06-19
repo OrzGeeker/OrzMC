@@ -17,11 +17,11 @@ Windows/Mac系统安装目录下面的**JDK 8**
 
 Linux系统使用包管理器安装对应版本的**OpenJDK 8**
 
-> **$ sudo apt-get install -y openjdk-8-jdk**
+> **sudo apt-get install -y openjdk-8-jdk**
 
 --- 
 
-**[HMCL启动器](https://ci.huangyuhui.net/job/HMCL/)** / **[OrzMC](https://github.com/OrzGeeker/OrzMC)**
+**[HMCL启动器](https://download.jokerhub.cn/HMCL/)** / **[OrzMC](https://github.com/OrzGeeker/OrzMC)**
 
 ## 安装通用免费客户端 - HMCL
 
@@ -31,9 +31,9 @@ Mac/Linux平台下载：**HMCL-xxx.jar**
 
 运行jar文件可以使用命令行，也可以双击打开
 
-> **$ java -jar *.jar**
+> **java -jar \*.jar**
 
-**[HMCL客户端Github地址](https://github.com/huanghongxun/HMCL/releases)**
+**[HMCL客户端CI地址](https://ci.huangyuhui.net/job/HMCL/)**
 
 --- 
 
