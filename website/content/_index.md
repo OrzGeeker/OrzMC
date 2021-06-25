@@ -4,7 +4,7 @@ description: "欢迎小伙伴们一起来玩"
 ---
 > Minecraft 1.17 需要 Java 16及以上版本，才可以运行，小伙伴们可以提前升级一下，请点击：[**Java升级**](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
 
-## [PaperMC](https://papermc.io) - Minecraft 1.16.5
+## [PaperMC](https://papermc.io) - Minecraft 1.17
 
 <!--🗺[实时地图](https://map.jokerhub.cn) -->
 🌍[3D高清地图](https://world.jokerhub.cn)
