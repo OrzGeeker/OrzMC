@@ -1,50 +1,37 @@
 ---
-title: "PaperMC"
+title: "PaperMC插件开发"
 date: 2019-12-10T13:06:35+08:00
 draft: false
 ---
 
-## 推荐使用的插件模板创建方式
+# 开发环境部署
 
-- 项目模板搭建方式请参看：<https://minecraftdev.org/>
-- 调试插件的方式请参看: <https://youtu.be/1B4JGzs0BCc>
+1. 安装[Java Development Kit](https://www.oracle.com/java/technologies/javase-downloads.html), Java开发工具箱
+    - Minecraft 1.17版以下的插件，安装JDK8就可以
+    - Minecraft 1.17版及以上的插件开发，需要安装JDK16
 
----
+2. 安装IDE集成开发环境: [IntelliJ IDEA 下载安装](https://www.jetbrains.com/idea/download)
 
-## 服主个人Geek的方式
+
+3. 安装IDEA对应Minecraft插件开发的Plugin
+![](./images/papermc_plugin_dev_IDEA_plugin_install.png)
+
+4. 创建PaperMC插件开发模板工程
+
+5. 部署本地Minecraft测试服务器
+
+6. 把生成的插件jar包拷贝到测试服务器的插件目录下
+
+7. 启动本地Minecraft客户端验证插件是否生效
+
+8. 进行插件开发周期，进行功能迭代
+
+# 相关资源
 
 1. [Spigot插件开发](https://www.spigotmc.org/wiki/spigot-plugin-development/)
 
 2. [Bukkit插件开发](https://bukkit.gamepedia.com/Setting_Up_Your_Workspace)
 
-3. [PaperMC官网](https://papermc.io)
+3. [PaperMC JavaDoc](https://papermc.io/javadocs)
 
-开发IDE建议使用 **[IntelliJ IDEA](https://www.jetbrains.com/idea/)** - **[下载IDEA](https://www.jetbrains.com/idea/download/)**
-
-- `Spigot插件开发`中有**IEAD**配置手动依赖和**Maven**项目管理两种方式
-
-- `Bukkit插件开发`中有开发插件的基础知识结构介绍
-
-- `PaperMC`中可以依赖针对`papermc`的服务端API
-
-获取**Bukkit**、**CraftBukkit**、**Spigot**、**Spigot-API**，使用[BuildTools.jar](https://www.spigotmc.org/wiki/buildtools/)
-
-**开发模板: https://github.com/OrzGeeker/OrzMCDev**
-
-- [PaperMC JavaDoc](https://papermc.io/javadocs)
-
-## 名词解释
-
-- Paper-API: 一种增强版本的 `Bukkit API`
-- Paper-Server: 一种支持`Paper-API`的`Minecraft`服务端，专注于性能提升
-
-## Kotlin开发环境配置
-
-```base
-$ curl -s https://get.sdkman.io | bash
-$ source "~/.sdkman/bin/sdkman-init.sh"
-$ sdk install kotlin
-$ sdk list kotlin
-$ sdk use kotlin 1.3.72
-$ 
-```
+4. [Spigot 插件开发教程(油管视频自备梯子)](https://youtu.be/tnJZMaoMPhE)
