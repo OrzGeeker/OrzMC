@@ -4,18 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>PaperMC | Joker@Minecraft 🇨🇳</title>
+    <title>PaperMC插件开发 | Joker@Minecraft 🇨🇳</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="推荐使用的插件模板创建方式  项目模板搭建方式请参看：https://minecraftdev.org/ 调试插件的方式请参看: https://youtu.be/1B4JGzs0BCc   服主个人Geek的方式   Spigot插件开发
+    <meta name="description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
   Bukkit插件开发
-  PaperMC官网
-  开发IDE建议使用 IntelliJ IDEA - 下载IDEA
-  Spigot插件开发中有IEAD配置手动依赖和Maven项目管理两种方式
-  Bukkit插件开发中有开发插件的基础知识结构介绍
-  PaperMC中可以依赖针对papermc的服务端API
-  获取Bukkit、CraftBukkit、Spigot、Spigot-API，使用BuildTools.jar
-开发模板: https://github.com/OrzGeeker/OrzMCDev
- PaperMC JavaDoc  名词解释  Paper-API: 一种增强版本的 Bukkit API Paper-Server: 一种支持Paper-API的Minecraft服务端，专注于性能提升  Kotlin开发环境配置 $ curl -s https://get.sdkman.io | bash $ source &quot;~/.sdkman/bin/sdkman-init.sh&quot; $ sdk install kotlin $ sdk list kotlin $ sdk use kotlin 1.">
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  ">
     <meta name="generator" content="Hugo 0.80.0" />
     
     
@@ -41,51 +43,57 @@
 
     
     
-    <meta property="og:title" content="PaperMC" />
-<meta property="og:description" content="推荐使用的插件模板创建方式  项目模板搭建方式请参看：https://minecraftdev.org/ 调试插件的方式请参看: https://youtu.be/1B4JGzs0BCc   服主个人Geek的方式   Spigot插件开发
+    <meta property="og:title" content="PaperMC插件开发" />
+<meta property="og:description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
   Bukkit插件开发
-  PaperMC官网
-  开发IDE建议使用 IntelliJ IDEA - 下载IDEA
-  Spigot插件开发中有IEAD配置手动依赖和Maven项目管理两种方式
-  Bukkit插件开发中有开发插件的基础知识结构介绍
-  PaperMC中可以依赖针对papermc的服务端API
-  获取Bukkit、CraftBukkit、Spigot、Spigot-API，使用BuildTools.jar
-开发模板: https://github.com/OrzGeeker/OrzMCDev
- PaperMC JavaDoc  名词解释  Paper-API: 一种增强版本的 Bukkit API Paper-Server: 一种支持Paper-API的Minecraft服务端，专注于性能提升  Kotlin开发环境配置 $ curl -s https://get.sdkman.io | bash $ source &quot;~/.sdkman/bin/sdkman-init.sh&quot; $ sdk install kotlin $ sdk list kotlin $ sdk use kotlin 1." />
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://minecraft.jokerhub.cn/dev/papermc/" />
 <meta property="article:published_time" content="2019-12-10T13:06:35+08:00" />
 <meta property="article:modified_time" content="2019-12-10T13:06:35+08:00" />
-<meta itemprop="name" content="PaperMC">
-<meta itemprop="description" content="推荐使用的插件模板创建方式  项目模板搭建方式请参看：https://minecraftdev.org/ 调试插件的方式请参看: https://youtu.be/1B4JGzs0BCc   服主个人Geek的方式   Spigot插件开发
+<meta itemprop="name" content="PaperMC插件开发">
+<meta itemprop="description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
   Bukkit插件开发
-  PaperMC官网
-  开发IDE建议使用 IntelliJ IDEA - 下载IDEA
-  Spigot插件开发中有IEAD配置手动依赖和Maven项目管理两种方式
-  Bukkit插件开发中有开发插件的基础知识结构介绍
-  PaperMC中可以依赖针对papermc的服务端API
-  获取Bukkit、CraftBukkit、Spigot、Spigot-API，使用BuildTools.jar
-开发模板: https://github.com/OrzGeeker/OrzMCDev
- PaperMC JavaDoc  名词解释  Paper-API: 一种增强版本的 Bukkit API Paper-Server: 一种支持Paper-API的Minecraft服务端，专注于性能提升  Kotlin开发环境配置 $ curl -s https://get.sdkman.io | bash $ source &quot;~/.sdkman/bin/sdkman-init.sh&quot; $ sdk install kotlin $ sdk list kotlin $ sdk use kotlin 1.">
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  ">
 <meta itemprop="datePublished" content="2019-12-10T13:06:35+08:00" />
 <meta itemprop="dateModified" content="2019-12-10T13:06:35+08:00" />
-<meta itemprop="wordCount" content="52">
+<meta itemprop="wordCount" content="26">
 
 
 
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="PaperMC"/>
-<meta name="twitter:description" content="推荐使用的插件模板创建方式  项目模板搭建方式请参看：https://minecraftdev.org/ 调试插件的方式请参看: https://youtu.be/1B4JGzs0BCc   服主个人Geek的方式   Spigot插件开发
+<meta name="twitter:title" content="PaperMC插件开发"/>
+<meta name="twitter:description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
   Bukkit插件开发
-  PaperMC官网
-  开发IDE建议使用 IntelliJ IDEA - 下载IDEA
-  Spigot插件开发中有IEAD配置手动依赖和Maven项目管理两种方式
-  Bukkit插件开发中有开发插件的基础知识结构介绍
-  PaperMC中可以依赖针对papermc的服务端API
-  获取Bukkit、CraftBukkit、Spigot、Spigot-API，使用BuildTools.jar
-开发模板: https://github.com/OrzGeeker/OrzMCDev
- PaperMC JavaDoc  名词解释  Paper-API: 一种增强版本的 Bukkit API Paper-Server: 一种支持Paper-API的Minecraft服务端，专注于性能提升  Kotlin开发环境配置 $ curl -s https://get.sdkman.io | bash $ source &quot;~/.sdkman/bin/sdkman-init.sh&quot; $ sdk install kotlin $ sdk list kotlin $ sdk use kotlin 1."/>
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  "/>
 
       
     
@@ -120,8 +128,8 @@
         </li>
         
         <li class="list f5 f4-ns fw4 dib pr3">
-          <a class="hover-white no-underline white-90" href="/dev/" title="开发 page">
-            开发
+          <a class="hover-white no-underline white-90" href="/dev/" title="插件开发 page">
+            插件开发
           </a>
         </li>
         
@@ -192,7 +200,7 @@
     <header class="mt4 w-100">
       <aside class="instapaper_ignoref b helvetica tracked">
           
-        开发
+        插件开发
       </aside>
       
 
@@ -209,13 +217,13 @@
 
     
     
-    <a href="https://twitter.com/share?url=https://minecraft.jokerhub.cn/dev/papermc/&amp;text=PaperMC" class="twitter no-underline" aria-label="share on Twitter">
+    <a href="https://twitter.com/share?url=https://minecraft.jokerhub.cn/dev/papermc/&amp;text=PaperMC%e6%8f%92%e4%bb%b6%e5%bc%80%e5%8f%91" class="twitter no-underline" aria-label="share on Twitter">
       <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
 
     </a>
 
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://minecraft.jokerhub.cn/dev/papermc/&amp;title=PaperMC" class="linkedin no-underline" aria-label="share on LinkedIn">
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://minecraft.jokerhub.cn/dev/papermc/&amp;title=PaperMC%e6%8f%92%e4%bb%b6%e5%bc%80%e5%8f%91" class="linkedin no-underline" aria-label="share on LinkedIn">
       <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
 </svg>
@@ -224,7 +232,7 @@
   </div>
 
 
-      <h1 class="f1 athelas mt3 mb1">PaperMC</h1>
+      <h1 class="f1 athelas mt3 mb1">PaperMC插件开发</h1>
       
       
       <time class="f6 mv4 dib tracked" datetime="2019-12-10T13:06:35+08:00">December 10, 2019</time>
@@ -232,13 +240,39 @@
       
       
     </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="推荐使用的插件模板创建方式">推荐使用的插件模板创建方式</h2>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h1 id="开发环境部署">开发环境部署</h1>
+<ol>
+<li>
+<p>安装<a href="https://www.oracle.com/java/technologies/javase-downloads.html">Java Development Kit</a>, Java开发工具箱</p>
 <ul>
-<li>项目模板搭建方式请参看：<a href="https://minecraftdev.org/">https://minecraftdev.org/</a></li>
-<li>调试插件的方式请参看: <a href="https://youtu.be/1B4JGzs0BCc">https://youtu.be/1B4JGzs0BCc</a></li>
+<li>Minecraft 1.17版以下的插件，安装JDK8就可以</li>
+<li>Minecraft 1.17版及以上的插件开发，需要安装JDK16</li>
 </ul>
-<hr>
-<h2 id="服主个人geek的方式">服主个人Geek的方式</h2>
+</li>
+<li>
+<p>安装IDE集成开发环境: <a href="https://www.jetbrains.com/idea/download">IntelliJ IDEA 下载安装</a></p>
+</li>
+<li>
+<p>安装IDEA对应Minecraft插件开发的Plugin
+<img src="./images/papermc_plugin_dev_IDEA_plugin_install.png" alt=""></p>
+</li>
+<li>
+<p>创建PaperMC插件开发模板工程</p>
+</li>
+<li>
+<p>部署本地Minecraft测试服务器</p>
+</li>
+<li>
+<p>把生成的插件jar包拷贝到测试服务器的插件目录下</p>
+</li>
+<li>
+<p>启动本地Minecraft客户端验证插件是否生效</p>
+</li>
+<li>
+<p>进行插件开发周期，进行功能迭代</p>
+</li>
+</ol>
+<h1 id="相关资源">相关资源</h1>
 <ol>
 <li>
 <p><a href="https://www.spigotmc.org/wiki/spigot-plugin-development/">Spigot插件开发</a></p>
@@ -247,39 +281,13 @@
 <p><a href="https://bukkit.gamepedia.com/Setting_Up_Your_Workspace">Bukkit插件开发</a></p>
 </li>
 <li>
-<p><a href="https://papermc.io">PaperMC官网</a></p>
+<p><a href="https://papermc.io/javadocs">PaperMC JavaDoc</a></p>
+</li>
+<li>
+<p><a href="https://youtu.be/tnJZMaoMPhE">Spigot 插件开发教程(油管视频自备梯子)</a></p>
 </li>
 </ol>
-<p>开发IDE建议使用 <strong><a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a></strong> - <strong><a href="https://www.jetbrains.com/idea/download/">下载IDEA</a></strong></p>
-<ul>
-<li>
-<p><code>Spigot插件开发</code>中有<strong>IEAD</strong>配置手动依赖和<strong>Maven</strong>项目管理两种方式</p>
-</li>
-<li>
-<p><code>Bukkit插件开发</code>中有开发插件的基础知识结构介绍</p>
-</li>
-<li>
-<p><code>PaperMC</code>中可以依赖针对<code>papermc</code>的服务端API</p>
-</li>
-</ul>
-<p>获取<strong>Bukkit</strong>、<strong>CraftBukkit</strong>、<strong>Spigot</strong>、<strong>Spigot-API</strong>，使用<a href="https://www.spigotmc.org/wiki/buildtools/">BuildTools.jar</a></p>
-<p><strong>开发模板: <a href="https://github.com/OrzGeeker/OrzMCDev">https://github.com/OrzGeeker/OrzMCDev</a></strong></p>
-<ul>
-<li><a href="https://papermc.io/javadocs">PaperMC JavaDoc</a></li>
-</ul>
-<h2 id="名词解释">名词解释</h2>
-<ul>
-<li>Paper-API: 一种增强版本的 <code>Bukkit API</code></li>
-<li>Paper-Server: 一种支持<code>Paper-API</code>的<code>Minecraft</code>服务端，专注于性能提升</li>
-</ul>
-<h2 id="kotlin开发环境配置">Kotlin开发环境配置</h2>
-<pre><code class="language-base" data-lang="base">$ curl -s https://get.sdkman.io | bash
-$ source &quot;~/.sdkman/bin/sdkman-init.sh&quot;
-$ sdk install kotlin
-$ sdk list kotlin
-$ sdk use kotlin 1.3.72
-$ 
-</code></pre><ul class="pa0">
+<ul class="pa0">
   
 </ul>
 <div class="mt6 instapaper_ignoref">
