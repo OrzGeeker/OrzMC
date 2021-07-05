@@ -6,7 +6,8 @@
 2. 启动`Minecraft`客户端功能（Vanilla)
 3. 支持的`1.13`以上正式版
 
-本工具已上传到`Python`包管理网站`PyPi`，可以使用`pip`进行搜索和安装。
+本工具已上传到`Python`包管理网站`PyPi`，可以使用`pip`进行搜索和安装。目前Python的官方源挂了，详情可了解: https://status.python.org。
+目前正在搭建python私有源
 
 ```python
 $ pip install orzmc
