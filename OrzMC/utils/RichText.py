@@ -69,9 +69,15 @@ class RichText:
         return Prompt.ask(text, choices=choices, default=default)
 
     @classmethod
-    def table(cls, title = None):
-        t = Table(title = title)
-        t.add_column('hello')
-        t.add_row('1')
+    def table(cls, title, table_data, caption = None):
+        t = Table(
+            title = title,
+            title_style = 'green bold',
+            caption = caption,
+            caption_style = 'gray',
+            highlight = True,
+            show_lines = True,
+            show_header = False)
+        for row in table_data:
+            t.add_row(*row)
         RichText.console.print(t)
-        pass
