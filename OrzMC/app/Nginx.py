@@ -165,4 +165,5 @@ server {{
     location / {{
         proxy_pass      http://localhost:8200;
     }}
-}}        
+}}  
+"""      
