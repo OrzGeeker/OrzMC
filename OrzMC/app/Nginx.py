@@ -13,6 +13,8 @@ class Nginx:
                 cfg.write('\n'.join(filter(lambda x: x != None,[
                     Nginx.web_file_server_conf(), 
                     Nginx.web_live_map_conf(), 
+                    Nginx.web_live_blue_map_conf(),
+                    Nginx.web_opq_qq_bot_conf(),
                     Nginx.web_skin_system_conf(),
                 ])))
                 print(ColorString.confirm('Nginx conf file location: %s' % nginx_config_file))
@@ -150,3 +152,17 @@ server {{
     }}
 }}
 """
+
+    @classmethod
+    def web_opq_qq_bot_conf(cls):
+        '''配置QQ群管理机器人'''
+        port=80
+        server_domain = 'qqbot.jokerhub.cn'
+        return f"""
+server {{
+    listen {port};
+    server_name {server_domain};
+    location / {{
+        proxy_pass      http://localhost:8200;
+    }}
+}}        
