@@ -27,6 +27,7 @@ Windows/Mac/Linux 可使用客户端**HMCL**启动器:
 
 iOS/Android可以下载国际版Minecraft进行连机，服务器使用了插件[**GeyserMC**](https://geysermc.org)，打通了Java版和基岩版的边界，实现移动客户端接入Java服务器
 
+---
 
 Mac/Linux系统下还可以使用命令行工具[**OrzMC**](https://pypi.org/project/OrzMC/)进行游戏。
 
