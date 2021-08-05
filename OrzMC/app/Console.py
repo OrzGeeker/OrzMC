@@ -3,6 +3,7 @@ from .Config import Config
 from ..core.Mojang import Mojang
 from .Constants import *
 from ..utils.utils import hint
+from ..utils.RichText import RichText
 
 import os
 import json
@@ -29,21 +30,13 @@ class Console:
     def showVersionList(self):
         '''控制台交互显示可选客户端版本号'''
         
-        # 显示所有版本提示
-        print(ALL_VERSIONS_HINT)
         releaseVersions = Mojang.get_release_version_id_list(update = True)
-
-        versionInfo = LEADING_SPACE
-        for index, releaseVersion in enumerate(releaseVersions): 
-            versionInfo += VERSION_FORMATTER.format(str(releaseVersion))
-            if (index + 1) % 5 == 0:
-                versionInfo += '\n' + LEADING_SPACE
-            else:
-                versionInfo += TAB_SPACE
-            if releaseVersion == '1.13': 
-                break
-
-        print(ColorString.confirm(versionInfo))
+        releaseVersions = releaseVersions[0:releaseVersions.index('1.13')+1]
+        column = 6
+        table_versions = [releaseVersions[i:i+column] for i in range(0, len(releaseVersions), column)]
+        RichText.table(
+            title = '目前支持的游戏版本', 
+            table_data = table_versions)
 
         if len(releaseVersions) > 0:
             self.config.version = releaseVersions[0] # 默认版本号
