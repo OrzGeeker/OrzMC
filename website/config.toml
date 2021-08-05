@@ -8,7 +8,7 @@ theme = "OrzAnanke"
 MetaDataFormat = "yaml"
 DefaultContentLanguage = "en"
 SectionPagesMenu = "main"
-Paginate = 3
+Paginate = 1
 
 # googleAnalytics = ""
 # enableRobotsTXT = false
