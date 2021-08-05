@@ -3,6 +3,7 @@
 from ..app.Config import Config
 from ..utils.utils import makedirs
 from ..utils.ColorString import ColorString
+from ..utils.RichText import RichText
 
 import requests
 import json
@@ -23,13 +24,10 @@ class Mojang:
         if (not update) and os.path.exists(localFilePath):
             with open(localFilePath,'r') as localFile:
                 resp = json.load(localFile)
-                print('Use Local File For Game Version Manifest JSON File')
         else:
             resp = json.loads(requests.get(Mojang.version_list_url).text)
             with open(localFilePath,'w') as localFile:
                 json.dump(resp,localFile)
-                print(ColorString.confirm('Download Game Version Manifest JSON File from Mojang server and cached'))
-
 
         Mojang.versions = resp.get('versions')    
         return Mojang.versions
