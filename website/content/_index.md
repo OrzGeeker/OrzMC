@@ -1,5 +1,5 @@
 ---
-title: "我的世界 - Minecraft"
+title: "我的世界"
 ---
 
 **Minecraft 1.17 需要 Java 16及以上版本，才可以运行，小伙伴们可以提前升级一下，请点击：[**Java升级**](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)**
