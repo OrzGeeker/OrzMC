@@ -14,7 +14,7 @@ draft: false
 
 
 3. 安装IDEA对应Minecraft插件开发的Plugin
-![](./images/papermc_plugin_dev_IDEA_plugin_install.png)
+![](/images/papermc_plugin_dev_IDEA_plugin_install.png)
 
 4. 创建PaperMC插件开发模板工程
 
