@@ -19,10 +19,15 @@ draft: false
 ### 设置帐号密码
 
 - 刚登录服务器后，使用 **/register** 命令注册自己用户名对应的登录密码，以防止其它人使用你的帐号，盗用你的物品
+- 注册密码之后，下次登录服务器使用 **/login \<password>** 命令
+    - **/help LoginSecurity**: 查看 LoginSecurity 插件提供的所有可用指令
 
 ### 设置快速回家
 
 - 使用 **/sethome** 命令，可以设置一个家位置，如果你出门冒险很远的距离后，不想再长途跋涉回到根据地，可以使用 **/home** 命令快速回到之前设置的家位置
+    - **/listhomes**: 查看所有的家列表
+    - **/delhome <home_name>**: 删除设置的家
+    - **/help getmehome**: 查看 GetMeHome 插件提供的所有可用指令
 
 ### 死亡后物品快速找回
 
