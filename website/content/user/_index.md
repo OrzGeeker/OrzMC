@@ -2,11 +2,7 @@
 title: "玩家手册"
 date: 2021-08-09T23:52:48+08:00
 tags: [user]
-featured_image: ""
-description: ""
 omit_header_text: true
-toc: true
-show_reading_time: true
 draft: false
 ---
 
