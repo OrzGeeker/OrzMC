@@ -7,6 +7,7 @@ from .Nginx import Nginx
 from .Daemon import Daemon
 from .SkinSystem import SkinSystem
 from ..utils.ColorString import ColorString
+from ..utils.RichText import RichText
 from ..utils.CleanUp import CleanUp
 from ..utils.utils import *
 
@@ -16,6 +17,7 @@ import os
 import io
 import time
 import shutil 
+import yaml
 
 class Server:
     def __init__(self, config):
@@ -136,7 +138,15 @@ class Server:
             checkEULA = eula.replace('false', 'true')
         with io.open(self.config.game_version_server_eula_file_path(), 'w', encoding = 'utf-8') as f:
             f.write(checkEULA)
-        
+
+        # 修改commands.yaml中关于命令方块指令使用Mojang，不会被Essentials插件覆盖命令
+        with io.open(self.config.game_version_server_bukkit_command_yaml_file_path(), 'r', encoding = 'utf-8') as f:
+            commands_cfg = yaml.full_load(f)
+            commands_cfg['command-block-overrides'] = ['*']
+        with io.open(self.config.game_version_server_bukkit_command_yaml_file_path(), 'w', encoding = 'utf-8') as f:
+            yaml.dump(commands_cfg,f)
+            RichText.info('commands.yaml has been changed!')
+
         # 启动服务器
         
         if self.config.debug:
