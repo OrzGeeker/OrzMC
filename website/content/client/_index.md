@@ -12,10 +12,9 @@ date: 2019-10-25T03:40:52+08:00
 ## 启动器
 
 1. **[HMCL主页](https://hmcl.huangyuhui.net)**
-2. **[Fabric主页](https://fabricmc.net)**
-3. **[OrzMC](https://github.com/OrzGeeker/OrzMC)**：命令行启动器(自研)
+2. **[OrzMC](https://github.com/OrzGeeker/OrzMC)**：命令行启动器(自研)
 
----
+<br>
 
 **详情在的安装方式可以参考下面具体文章👇👇👇**
 
