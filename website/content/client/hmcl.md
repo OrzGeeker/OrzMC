@@ -1,13 +1,7 @@
 ---
 title: "HMCL客户端"
 date: 2021-08-14T20:52:26+08:00
-tags: []
-featured_image: ""
-description: ""
-omit_header_text: true
-toc: true
-show_reading_time: true
-draft: true
+tags: [HMCL]
 ---
 
 Windows/Mac/Linux 可使用客户端 **HMCL** 启动器: 
