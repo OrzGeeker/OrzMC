@@ -2,29 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://minecraft.jokerhub.cn/tags/orzmc/</loc>
-    <lastmod>2021-08-14T20:52:35+08:00</lastmod>
-  </url><url>
     <loc>https://minecraft.jokerhub.cn/client/orzmc/</loc>
-    <lastmod>2021-08-14T20:52:35+08:00</lastmod>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/tags/</loc>
     <lastmod>2021-08-14T20:52:35+08:00</lastmod>
   </url><url>
     <loc>https://minecraft.jokerhub.cn/</loc>
     <lastmod>2021-08-14T20:52:35+08:00</lastmod>
   </url><url>
-    <loc>https://minecraft.jokerhub.cn/tags/fabric/</loc>
-    <lastmod>2021-08-14T20:52:31+08:00</lastmod>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/client/fabric/</loc>
-    <lastmod>2021-08-14T20:52:31+08:00</lastmod>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/tags/hmcl/</loc>
-    <lastmod>2021-08-14T20:52:26+08:00</lastmod>
-  </url><url>
     <loc>https://minecraft.jokerhub.cn/client/hmcl/</loc>
     <lastmod>2021-08-14T20:52:26+08:00</lastmod>
+  </url><url>
+    <loc>https://minecraft.jokerhub.cn/tags/</loc>
+    <lastmod>2021-08-09T23:52:48+08:00</lastmod>
   </url><url>
     <loc>https://minecraft.jokerhub.cn/tags/user/</loc>
     <lastmod>2021-08-09T23:52:48+08:00</lastmod>
