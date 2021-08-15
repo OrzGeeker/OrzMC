@@ -34,4 +34,4 @@ draft: false
 
 3. [PaperMC JavaDoc](https://papermc.io/javadocs)
 
-4. [Spigot 插件开发教程(油管视频自备梯子)](https://youtu.be/tnJZMaoMPhE)
+4. [Spigot 插件开发教程(油管视频自备梯子)](https://youtube.com/playlist?list=PLfu_Bpi_zcDNEKmR82hnbv9UxQ16nUBF7)
