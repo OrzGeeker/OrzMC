@@ -8,4 +8,5 @@ __all__ = [
     'PaperAPI',
     'Spigot',
     'BMCLAPI',
+    'Fabric',
 ]

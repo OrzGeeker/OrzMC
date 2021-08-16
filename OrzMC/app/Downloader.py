@@ -7,6 +7,7 @@ from ..core.Mojang import Mojang
 from ..core.Spigot import Spigot
 from ..core.Forge import Forge
 from ..core.OptiFine import OptiFine
+from ..core.Fabric import Fabric
 from ..core.BMCLAPI import BMCLAPI
 
 from tqdm import tqdm
@@ -166,6 +167,8 @@ class Downloader:
                 filePath=os.path.join(fileDir,os.path.basename(url))
                 if not checkFileExist(filePath,sha1):
                     self.download(url,fileDir, prefix_desc=prefix_desc)
+        
+        self.downloadFabricLibraries()
 
     def downloadPaperServerJarFile(self):
         '''下载Paper服务端JAR文件'''
@@ -269,3 +272,14 @@ class Downloader:
             return redirected_url
 
         return url
+
+    def downloadFabricLibraries(self):
+        if self.config.isPure and self.config.fabric:
+            for (url, file_path) in Fabric.downloadLibrariesMap(self.config).items():
+                dir_path = os.path.dirname(file_path)
+                if not os.path.exists(dir_path):
+                    self.download(
+                        url,
+                        dir_path,
+                        prefix_desc = 'Fabric:'
+                    )
