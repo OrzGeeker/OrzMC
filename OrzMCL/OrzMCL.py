@@ -94,7 +94,8 @@ class Content(FloatLayout):
                 debug = False,
                 force_upgrade = False,
                 backup = False,
-                optifine = False
+                optifine = False,
+                fabric = False,
             )
             Game(config).startClient()
             self.infoLabel.text = ''

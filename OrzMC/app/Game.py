@@ -25,10 +25,13 @@ class Game:
         # 控制台用户交互展示
         self.console.userInteraction()
 
-        try:
-            #启动游戏
-            self.game.start()
-            
-        except Exception as e:
-            print(e)
-            print(ColorString.warn('Start Failed!!!'))
+        if self.config.debug:
+            self.game.start() 
+        else:
+            try:
+                #启动游戏
+                self.game.start()
+                
+            except Exception as e:
+                print(e)
+                print(ColorString.warn('Start Failed!!!'))
