@@ -4,9 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>玩家手册 | Joker@Minecraft 🇨🇳</title>
+    <title>服务器地图大小限制 | Joker@Minecraft 🇨🇳</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
+max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
+((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
+个方块，也就是 14062485000004 个区块。
+按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
+所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小">
     <meta name="generator" content="Hugo 0.85.0" />
     
     
@@ -28,20 +33,35 @@
 
     
     
-      <link href="/user/index.xml" rel="alternate" type="application/rss+xml" title="Joker@Minecraft 🇨🇳" />
-      <link href="/user/index.xml" rel="feed" type="application/rss+xml" title="Joker@Minecraft 🇨🇳" />
-      
-    
-    
-    <meta property="og:title" content="玩家手册" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://minecraft.jokerhub.cn/user/" />
+    <meta property="og:title" content="服务器地图大小限制" />
+<meta property="og:description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
+max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
+((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
+个方块，也就是 14062485000004 个区块。
+按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
+所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://minecraft.jokerhub.cn/user/worldsize/" /><meta property="article:section" content="user" />
+<meta property="article:published_time" content="2021-08-23T20:30:09+08:00" />
+<meta property="article:modified_time" content="2021-08-23T20:30:09+08:00" />
 
-<meta itemprop="name" content="玩家手册">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="玩家手册"/>
-<meta name="twitter:description" content=""/>
+<meta itemprop="name" content="服务器地图大小限制">
+<meta itemprop="description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
+max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
+((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
+个方块，也就是 14062485000004 个区块。
+按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
+所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小"><meta itemprop="datePublished" content="2021-08-23T20:30:09+08:00" />
+<meta itemprop="dateModified" content="2021-08-23T20:30:09+08:00" />
+<meta itemprop="wordCount" content="32">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="服务器地图大小限制"/>
+<meta name="twitter:description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
+max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
+((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
+个方块，也就是 14062485000004 个区块。
+按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
+所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小"/>
 
       
     
@@ -51,11 +71,11 @@
   <body class="ma0 avenir bg-near-white">
 
     
+   
+  
 
-  
-  
-  <header class="cover bg-top" style="background-image: url('https://minecraft.jokerhub.cn/images/minecraft_night_qq.png');">
-    <div class="bg-black-10">
+  <header>
+    <div class="bg-black">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l justify-between items-center center">
     <a href="/" class="f3 fw4 hover-white no-underline white-90 dib">
@@ -142,69 +162,84 @@
     </div>
   </div>
 </nav>
-      <div class="tc-l pv4 pv6-l ph3 ph4-ns">
-        <h1 class="f2 fw4 f-subheadline-l white-90 mbr lh-title">
-          玩家手册
-        </h1>
-        
-      </div>
     </div>
   </header>
 
 
+
     <main class="pb7" role="main">
       
-  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
-    <section class="cf ph2 pv3 f4 tj-l center measure-wide lh-copy"><h1 id="新手进服">新手进服</h1>
-<h2 id="玩家须知">玩家须知</h2>
-<p>服务器中一些热爱创造的小伙伴在这里花费了大量心力建造出了各种漂亮的建筑，希望刚加入的朋友不要随意对其进行破坏，尊重他人的劳动成果。如果是完全小白，进服后如果感觉没有玩伴或者不太熟悉环境，可以加入玩家QQ群:<strong><a href="https://jq.qq.com/?_wv=1027&amp;k=DUEQuLE6">1056934080</a></strong>，群里有很多资深的朋友可以带你一起游玩。</p>
-<h3 id="设置帐号密码">设置帐号密码</h3>
-<ul>
-<li>刚登录服务器后，使用 <strong>/register</strong> 命令注册自己用户名对应的登录密码，以防止其它人使用你的帐号，盗用你的物品</li>
-<li>注册密码之后，下次登录服务器使用 <strong>/login &lt;password&gt;</strong> 命令
-<ul>
-<li><strong>/help LoginSecurity</strong>: 查看 LoginSecurity 插件提供的所有可用指令</li>
-</ul>
-</li>
-</ul>
-<h3 id="设置快速回家">设置快速回家</h3>
-<ul>
-<li>使用 <strong>/sethome</strong> 命令，可以设置一个家位置，如果你出门冒险很远的距离后，不想再长途跋涉回到根据地，可以使用 <strong>/home</strong> 命令快速回到之前设置的家位置
-<ul>
-<li><strong>/listhomes</strong>: 查看所有的家列表</li>
-<li><strong>/delhome &lt;home_name&gt;</strong>: 删除设置的家</li>
-<li><strong>/help getmehome</strong>: 查看 GetMeHome 插件提供的所有可用指令</li>
-</ul>
-</li>
-</ul>
-<h3 id="死亡后物品快速找回">死亡后物品快速找回</h3>
-<ul>
-<li>出门探险一段时间获得了不少的物品，但是有可能不小心被苦力怕炸飞，或是被小白洞穿身体，你复活时想要尽快的拿回丢失的物品，可以使用 <strong>/back</strong> 命令，快速回到死亡地点，并找到收纳自己掉落物品的箱子。这个掉落物品收纳箱五分钟内有效，所以你需要在五分钟内回到死亡地点，如果超时，掉落的物品将会消失。</li>
-</ul>
-</section>
-    <section class="flex-ns flex-wrap justify-center mt0">
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        玩家手册
+      </aside>
       
-        <div class="w-90 center mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">User</span>
-    <h1 class="f3 near-black">
-      <a href="/user/worldsize/" class="link black dim">
-        服务器地图大小限制
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
-max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
-((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
-个方块，也就是 14062485000004 个区块。
-按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
-所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小
-    </div>
+
+
+
+
+  <div id="sharing" class="mt3">
+
+    
+    <a href="https://www.facebook.com/sharer.php?u=https://minecraft.jokerhub.cn/user/worldsize/" class="facebook no-underline" aria-label="share on Facebook">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765,50.32h6.744V33.998h4.499l0.596-5.624h-5.095  l0.007-2.816c0-1.466,0.14-2.253,2.244-2.253h2.812V17.68h-4.5c-5.405,0-7.307,2.729-7.307,7.317v3.377h-3.369v5.625h3.369V50.32z   M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+
+    </a>
+
+    
+    
+    <a href="https://twitter.com/share?url=https://minecraft.jokerhub.cn/user/worldsize/&amp;text=%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%9c%b0%e5%9b%be%e5%a4%a7%e5%b0%8f%e9%99%90%e5%88%b6" class="twitter no-underline" aria-label="share on Twitter">
+      <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+    </a>
+
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://minecraft.jokerhub.cn/user/worldsize/&amp;title=%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%9c%b0%e5%9b%be%e5%a4%a7%e5%b0%8f%e9%99%90%e5%88%b6" class="linkedin no-underline" aria-label="share on LinkedIn">
+      <svg  height="32px"  style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/>
+</svg>
+
+    </a>
   </div>
-</div>
-</div>
+
+
+      <h1 class="f1 athelas mt3 mb1">服务器地图大小限制</h1>
       
-    </section></article>
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-08-23T20:30:09+08:00">August 23, 2021</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="如何计算服务器地图占用磁盘的大小">如何计算服务器地图占用磁盘的大小</h2>
+<p>默认情况下，minecraft 服务器配置文件<code>server.properties</code>中指定：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">max-world-size<span style="color:#f92672">=</span><span style="color:#ae81ff">29999984</span> <span style="color:#75715e"># 单位为方块，表示地图的最大半径</span>
+max-build-height<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span>    <span style="color:#75715e"># 单位为方块，表示地图的最大高度</span>
+</code></pre></div><p>Minecraft地图是正方形的，是按 <strong>区块(block)</strong> 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：<strong>65536</strong> 个方块。按照默认设置，地图总共会有：</p>
+<p>((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144</p>
+<p>个方块，也就是 14062485000004 个区块。</p>
+<p>按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB</p>
+<p>所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
 
     </main>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
