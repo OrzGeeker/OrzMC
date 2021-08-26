@@ -16,6 +16,7 @@ class Nginx:
                     Nginx.web_live_blue_map_conf(),
                     Nginx.web_opq_qq_bot_conf(),
                     Nginx.web_skin_system_conf(),
+                    Nginx.web_mc_client(),
                 ])))
                 print(ColorString.confirm('Nginx conf file location: %s' % nginx_config_file))
             
@@ -166,4 +167,19 @@ server {{
         proxy_pass      http://localhost:8200;
     }}
 }}  
-"""      
+"""  
+
+    @classmethod
+    def web_mc_client(cls):
+        '''web端客户端'''
+        port=80
+        server_domain = 'webmc.jokerhub.cn'
+        return f"""
+server {{
+    listen {port};
+    server_name {server_domain};
+    location / {{
+        proxy_pass      http://localhost:8300;
+    }}
+}}  
+"""    
