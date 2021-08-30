@@ -16,8 +16,9 @@ iOS/Android 可以下载国际版 Minecraft 进行连机，服务器使用了插
 - 手机基岩客户端请连接：
     **jokerhub.cn** &nbsp; 端口号：**19132**
 
-- 网页版客户端，请点击(目前支持登录1.16.5，1.17.1正在适配中):
-    <https://webmc.jokerhub.cn>
+- 网页版客户端(目前支持登录1.16.5，1.17.1正在适配中)，在电脑上使用浏览器，**[点击登录网页版客户端](https://webmc.jokerhub.cn)**
+
+
 
 <!--🗺[实时地图](https://map.jokerhub.cn) -->
 **🌍[3D高清地图](https://world.jokerhub.cn)**
