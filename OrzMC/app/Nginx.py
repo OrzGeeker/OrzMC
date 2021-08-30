@@ -174,12 +174,27 @@ server {{
         '''web端客户端'''
         port=80
         server_domain = 'webmc.jokerhub.cn'
+        proxy_domain = 'proxy.jokerhub.cn'
         return f"""
 server {{
     listen {port};
     server_name {server_domain};
     location / {{
         proxy_pass      http://localhost:8300;
+    }}
+}}  
+upstream mineproxy {{
+    server localhost:8300;
+}}
+server {{
+    listen {port};
+    server_name {proxy_domain};
+    location / {{
+        proxy_pass      http://mineproxy;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection upgrade;
+        proxy_set_header Host $host;
     }}
 }}  
 """    
