@@ -140,12 +140,14 @@ class Server:
             f.write(checkEULA)
 
         # 修改commands.yaml中关于命令方块指令使用Mojang，不会被Essentials插件覆盖命令
-        with io.open(self.config.game_version_server_bukkit_command_yaml_file_path(), 'r', encoding = 'utf-8') as f:
-            commands_cfg = yaml.full_load(f)
-            commands_cfg['command-block-overrides'] = ['*']
-        with io.open(self.config.game_version_server_bukkit_command_yaml_file_path(), 'w', encoding = 'utf-8') as f:
-            yaml.dump(commands_cfg,f)
-            RichText.info('commands.yaml has been changed!')
+        bukkit_command_yaml_file_path = self.config.game_version_server_bukkit_command_yaml_file_path()
+        if os.path.exists(bukkit_command_yaml_file_path):
+            with io.open(bukkit_command_yaml_file_path, 'r', encoding = 'utf-8') as f:
+                commands_cfg = yaml.full_load(f)
+                commands_cfg['command-block-overrides'] = ['*']
+            with io.open(bukkit_command_yaml_file_path, 'w', encoding = 'utf-8') as f:
+                yaml.dump(commands_cfg,f)
+                RichText.info('commands.yaml has been changed!')
 
         # 启动服务器
         
