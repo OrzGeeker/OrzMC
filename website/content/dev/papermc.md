@@ -14,7 +14,7 @@ draft: false
 
 
 3. 安装IDEA对应Minecraft插件开发的Plugin
-![](./images/papermc_plugin_dev_IDEA_plugin_install.png)
+![](/images/papermc_plugin_dev_IDEA_plugin_install.png)
 
 4. 创建PaperMC插件开发模板工程
 
@@ -34,4 +34,4 @@ draft: false
 
 3. [PaperMC JavaDoc](https://papermc.io/javadocs)
 
-4. [Spigot 插件开发教程(油管视频自备梯子)](https://youtu.be/tnJZMaoMPhE)
+4. [Spigot 插件开发教程(油管视频自备梯子)](https://youtube.com/playlist?list=PLfu_Bpi_zcDNEKmR82hnbv9UxQ16nUBF7)

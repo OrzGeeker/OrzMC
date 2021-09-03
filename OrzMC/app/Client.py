@@ -4,6 +4,8 @@ from .Downloader import Downloader
 from ..utils.utils import *
 from ..utils.ColorString import ColorString
 from ..core.OptiFine import OptiFine
+from ..core.Fabric import Fabric
+
 import os
 import uuid
 import datetime
@@ -147,12 +149,19 @@ class Client:
         mainCls =  self.config.game_version_json_obj().get('mainClass')
         classPathList = self.javaClassPathList()
 
-        if self.config.isPure and self.config.optifine:
-            optifine_config = OptiFine.json_configuration(self.config)
-            if optifine_config != None:
-                mainCls = optifine_config.get('mainClass')
-                optifine_jar_paths = OptiFine.library_optifine_jar_paths(self.config)
-                classPathList = optifine_jar_paths + classPathList
+        if self.config.isPure:
+            if self.config.optifine:
+                optifine_config = OptiFine.json_configuration(self.config)
+                if optifine_config != None:
+                    mainCls = optifine_config.get('mainClass')
+                    optifine_jar_paths = OptiFine.library_optifine_jar_paths(self.config)
+                    classPathList = optifine_jar_paths + classPathList
+            elif self.config.fabric:
+                fabric_config = Fabric.json_configuration(self.config)
+                if fabric_config != None:
+                    mainCls = fabric_config.get('mainClass')
+                    fabric_jar_paths = Fabric.library_fabric_jar_paths(self.config)
+                    classPathList = fabric_jar_paths + classPathList
 
         sep = self.config.java_class_path_list_separator()
         classPath = sep.join(classPathList)
@@ -199,6 +208,10 @@ class Client:
             '-Xmx%s' % mem_max,
             '-Djava.net.preferIPv4Stack=true'
         ]
+
+        if self.config.isPure and self.config.fabric:
+            jvm_opts.extend(Fabric.jvmOpts(self.config))
+
         arguments.extend(jvm_opts)
 
         game_arguments = self.config.game_version_json_obj().get('arguments')
@@ -277,10 +290,16 @@ class Client:
         if self.config.isForge:
             arguments.extend(self.config.game_version_json_obj().get('arguments').get('game'))
         
-        if self.config.isPure and self.config.optifine:
-            optifine_config = OptiFine.json_configuration(self.config)
-            if optifine_config != None:
-                arguments.extend(optifine_config.get('arguments').get('game'))
+        if self.config.isPure: 
+            if self.config.optifine:
+                optifine_config = OptiFine.json_configuration(self.config)
+                if optifine_config != None:
+                    arguments.extend(optifine_config.get('arguments').get('game'))
+            elif self.config.fabric:
+                fabric_config = Fabric.json_configuration(self.config)
+                if fabric_config != None:
+                    arguments.extend(fabric_config.get('arguments').get('game'))
+                    
         arguments = ' '.join(arguments)
         return arguments
 

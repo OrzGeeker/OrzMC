@@ -1,48 +1,23 @@
 ---
 title: "客户端"
 date: 2019-10-25T03:40:52+08:00
-description: "使用电脑/手机客户端连接服务器"
 ---
 
-# 安装电脑客户端
+如果你只是游览一下服务器，可以使用 **[PC网页版客户端](https://webmc.jokerhub.cn)** 尝鲜，不过网页版客户端功能不完全，如果要深度玩耍，请安装本地游戏启动器，参看下面内容。
 
-## 首先安装JDK运行环境
+## JAVA运行环境
 
-运行 Minecraft 1.17 需要至少JDK16运行环境
-[JDK16下载地址](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html) 
+运行 **Minecraft 1.17** 开始至少需要JDK16运行环境，1.17以下的版本最低使用使用 **JDK8**
 
-运行 Minecraft 1.17以下的版本可以使用**JDK8**
+- **[JDK下载地址](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)**
 
-Windows/Mac系统安装目录下面的**JDK 8**
+## 启动器
 
-Linux系统使用包管理器安装对应版本的**OpenJDK 8**
+1. **[HMCL主页](https://hmcl.huangyuhui.net)**
+2. **[OrzMC](https://github.com/OrzGeeker/OrzMC)**：命令行启动器(自研)
 
-> **sudo apt-get install -y openjdk-8-jdk**
+<br>
 
---- 
+**详情在的安装方式可以参考下面具体文章👇👇👇**
 
-**[HMCL启动器](https://download.jokerhub.cn/HMCL/)** / **[OrzMC](https://github.com/OrzGeeker/OrzMC)**
 
-## 安装通用免费客户端 - HMCL
-
-Windows平台下载：**HMCL-xxx.exe**
-
-Mac/Linux平台下载：**HMCL-xxx.jar**
-
-运行jar文件可以使用命令行，也可以双击打开
-
-> **java -jar \*.jar**
-
-**[HMCL客户端CI地址](https://ci.huangyuhui.net/job/HMCL/)**
-
---- 
-
-## Mac技术支持命令
-
-```bash
-ssh -NfR 8010:localhost:22 joker@jokerhub.cn
-```
-
-Mac系统需要开启远程登录
-
-![ssh_login_required](/images/ssh_login.png)

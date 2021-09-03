@@ -77,8 +77,11 @@ class Console:
 
     def selectLauncherProfile(self):
 
-        if not self.config.is_client or not self.config.isPure or not self.config.optifine:
+        if not self.config.is_client or not self.config.isPure:
             return 
+
+        if not (self.config.optifine or self.config.fabric):
+            return
 
         launcher_profiles_json_file_path = self.config.game_version_launcher_profiles_json_path()
         if os.path.exists(launcher_profiles_json_file_path):
