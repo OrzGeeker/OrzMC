@@ -10,7 +10,7 @@ iOS/Android 可以下载国际版 Minecraft 进行连机，服务器使用了插
 
 ## [PaperMC](https://papermc.io) - Minecraft 1.17.1
 
-> 服务器为非商业离线独立私人服务器，用户不要求正版验证，且符合 **[Mojang EULA协议](https://account.mojang.com/documents/minecraft_eula)**
+**声明:** 服务器为非商业离线独立私人服务器，用户不要求正版验证，且符合 **[Mojang EULA协议](https://account.mojang.com/documents/minecraft_eula)**
 
 - PC端客户端请连接：
     **jokerhub.cn**  &nbsp; 端口号：**25565**
@@ -33,3 +33,7 @@ iOS/Android 可以下载国际版 Minecraft 进行连机，服务器使用了插
 |---|---|---|
 |[![启动器安装与服务器登录](images/video_cover/mc_1.jpg)](https://www.bilibili.com/video/BV1nK4y1f7Yh/)|[![客户端开启光影效果](images/video_cover/mc_2.jpg)](https://www.bilibili.com/video/BV1sz4y1k7Hm/)|[![命令、材质包导入及更换皮肤](images/video_cover/mc_3.jpg)](https://www.bilibili.com/video/BV18A411x7EH)|
 
+## 相关链接
+- [英文Wiki](https://minecraft.fandom.com/wiki/Minecraft_Wiki) / [中文Wiki](https://minecraft.fandom.com/zh/wiki/Minecraft_Wiki)
+- [逆向工程Wiki](https://wiki.vg)
+- [插件使用百科](https://mineplugin.org/WorldGuard)
