@@ -6,7 +6,7 @@ languageCode = ""
 theme = "OrzAnanke"
 
 MetaDataFormat = "yaml"
-DefaultContentLanguage = "en"
+DefaultContentLanguage = "zh"
 SectionPagesMenu = "main"
 Paginate = 3
 
