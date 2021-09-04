@@ -2,6 +2,8 @@
 import os
 import json
 
+# https://www.optifine.net/downloads
+
 class OptiFine:
 
     _configuration = None

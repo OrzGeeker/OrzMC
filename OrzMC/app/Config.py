@@ -56,6 +56,7 @@ class Config:
         self.force_upgrade = args.force_upgrade_world
         self.backup = args.backup_world
         self.optifine = args.optifine
+        self.fabric = args.fabric
         self.api = args.api
         self.force_download = args.force_download
 
@@ -178,6 +179,9 @@ class Config:
 
     def game_version_server_eula_file_path(self):
         return os.path.join(self.game_version_server_dir(), 'eula.txt')
+
+    def game_version_server_bukkit_command_yaml_file_path(self):
+        return os.path.join(self.game_version_server_dir(), 'commands.yml')
 
     def game_version_server_properties_file_path(self):
         return os.path.join(self.game_version_server_dir(), 'server.properties')
