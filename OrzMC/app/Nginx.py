@@ -13,7 +13,10 @@ class Nginx:
                 cfg.write('\n'.join(filter(lambda x: x != None,[
                     Nginx.web_file_server_conf(), 
                     Nginx.web_live_map_conf(), 
+                    Nginx.web_live_blue_map_conf(),
+                    Nginx.web_opq_qq_bot_conf(),
                     Nginx.web_skin_system_conf(),
+                    Nginx.web_mc_client(),
                 ])))
                 print(ColorString.confirm('Nginx conf file location: %s' % nginx_config_file))
             
@@ -150,3 +153,48 @@ server {{
     }}
 }}
 """
+
+    @classmethod
+    def web_opq_qq_bot_conf(cls):
+        '''配置QQ群管理机器人'''
+        port=80
+        server_domain = 'qqbot.jokerhub.cn'
+        return f"""
+server {{
+    listen {port};
+    server_name {server_domain};
+    location / {{
+        proxy_pass      http://localhost:8200;
+    }}
+}}  
+"""  
+
+    @classmethod
+    def web_mc_client(cls):
+        '''web端客户端'''
+        port=80
+        server_domain = 'webmc.jokerhub.cn'
+        proxy_domain = 'proxy.jokerhub.cn'
+        return f"""
+server {{
+    listen {port};
+    server_name {server_domain};
+    location / {{
+        proxy_pass      http://localhost:8300;
+    }}
+}}  
+upstream mineproxy {{
+    server localhost:8300;
+}}
+server {{
+    listen {port};
+    server_name {proxy_domain};
+    location / {{
+        proxy_pass      http://mineproxy;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection upgrade;
+        proxy_set_header Host $host;
+    }}
+}}  
+"""    
