@@ -53,7 +53,7 @@ class Server:
         
         if self.config.isPure:
             self.downloader.downloadGameJSON()
-            self.downloader.downloadServer()
+            self.downloadServer()
             (serverJARFilePath, _, _) = self.serverJARFilePath()
             jarFilePath = serverJARFilePath
         elif self.config.isSpigot:
@@ -179,7 +179,7 @@ class Server:
 
         version = self.config.version
         spigot = Spigot(version)
-        self.download(
+        self.downloader.download(
             spigot.build_tool_jar, 
             self.config.game_version_server_build_dir(), 
             prefix_desc='spigot build tool jar file'
