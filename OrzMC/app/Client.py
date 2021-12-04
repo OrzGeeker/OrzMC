@@ -227,8 +227,9 @@ class Client:
                     value_placeholder = re.search(argPattern,arg)
                     if value_placeholder:
                         argValue = configuration.get(value_placeholder.group(1))
-                        argStr = matchAndReplace(argPattern,argValue,arg)
-                        arguments.append(argStr)
+                        if argValue != None:
+                            argStr = matchAndReplace(argPattern,argValue,arg)
+                            arguments.append(argStr)
                     else:
                         arguments.append(arg)
 
@@ -265,8 +266,9 @@ class Client:
                     value_placeholder = re.search(argPattern,arg)
                     if value_placeholder:
                         argValue = configuration.get(value_placeholder.group(1))
-                        argStr = matchAndReplace(argPattern,argValue,arg)
-                        arguments.append(argStr)
+                        if argValue != None:
+                            argStr = matchAndReplace(argPattern,argValue,arg)
+                            arguments.append(argStr)
                     else:
                         arguments.append(arg)
                 elif isinstance(arg, dict):
@@ -282,8 +284,9 @@ class Client:
                                         value_placeholder = re.search(argPattern,arg)
                                         if value_placeholder:
                                             argValue = configuration.get(value_placeholder.group(1))
-                                            argStr = matchAndReplace(argPattern,argValue,arg)
-                                            arguments.append(argStr)
+                                            if argValue != None:
+                                                argStr = matchAndReplace(argPattern,argValue,arg)
+                                                arguments.append(argStr)
                                         else:
                                             arguments.append(arg)
 
