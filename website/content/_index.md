@@ -2,7 +2,7 @@
 title: "我的世界"
 ---
 
-**Minecraft 1.17 需要 Java 17及以上版本，才可以运行，升级JAVA请点击：[**Java升级**](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)**
+**Minecraft 1.17 需要 Java 17及以上版本，才可以运行，升级JAVA请点击：[**Java升级**](https://www.oracle.com/java/technologies/downloads/)**
 
 加入玩家群(QQ群号: **[1056934080](https://jq.qq.com/?_wv=1027&k=DUEQuLE6)**): 也可以直接扫码网站背景图上的二维码进群，进群可以和其它小伙伴一起讨论交流，QQ群提供玩家自动上下线通知，可以在群里发消息: **/list** 主动查询在线玩家。
 
