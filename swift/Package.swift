@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "OrzMC",
+    platforms: [
+        .macOS(.v12)
+    ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
@@ -18,5 +21,8 @@ let package = Package(
         .testTarget(
             name: "OrzMCTests",
             dependencies: ["OrzMC"]),
+    ],
+    swiftLanguageVersions: [
+        .version("5.5")
     ]
 )
