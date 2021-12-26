@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import JokerKits
 
-public struct GameInfo: Codable, MojangJsonRepresentable {
+public struct GameInfo: Codable, JsonRepresentable {
     let arguments: Argument
     public let assetIndex: AssetIndex
     let assets: String
@@ -22,4 +23,8 @@ public struct GameInfo: Codable, MojangJsonRepresentable {
     let releaseTime: String
     let time: String
     let type: String
+    
+    public func downloadClient() async throws {
+        try await self.downloads.client.url.download()
+    }
 }

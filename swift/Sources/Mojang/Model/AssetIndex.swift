@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import JokerKits
 
 public struct AssetIndex: Codable {
     let id: String
@@ -16,16 +17,16 @@ public struct AssetIndex: Codable {
     
     public var assetInfo: AssetInfo? {
         get async throws {
-            guard let data = try await data(with: self.url)
+            guard let data = try await self.url.getData
             else {
                 return nil
             }
-            return try Mojang.jsonDecoder.decode(AssetInfo.self, from: data)
+            return try JokerKits.JSON.decoder.decode(AssetInfo.self, from: data)
         }
     }
 }
 
-public struct AssetInfo: Codable, MojangJsonRepresentable {
+public struct AssetInfo: Codable, JsonRepresentable {
     let objects: [String: Info]
     struct Info: Codable {
         let hash: String

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import JokerKits
 
 public struct Version: Codable {
     
@@ -17,11 +18,11 @@ public struct Version: Codable {
     
     public var gameInfo: GameInfo? {
         get async throws {
-            guard let data = try await data(with: self.url)
+            guard let data = try await self.url?.getData
             else {
                 return nil
             }
-            return try Mojang.jsonDecoder.decode(GameInfo.self, from: data)
+            return try JokerKits.JSON.decoder.decode(GameInfo.self, from: data)
         }
     }
 }
