@@ -29,7 +29,6 @@ let package = Package(
         .executableTarget(
             name: "OrzMC",
             dependencies: [
-                "SwiftCLI",
                 "Mojang"
             ]),
         .testTarget(
