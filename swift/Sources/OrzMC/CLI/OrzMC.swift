@@ -6,15 +6,11 @@
 //
 
 import Foundation
+import ConsoleKit
 import Mojang
 
 @main
 struct OrzMC {
     static func main() async throws {
-        print("Hello, world!")
-        
-        if let gameInfo = try await Mojang.manifest?.versions.first?.gameInfo {
-            try await gameInfo.downloadClient()
-        }
     }
 }
