@@ -18,13 +18,4 @@ public extension URL {
             return data
         }
     }
-    
-    func download() async throws {
-        let (location, response) = try await URLSession.shared.download(from: self)
-        guard (response as? HTTPURLResponse)?.statusCode == 200
-        else {
-            throw URLError.init(.resourceUnavailable)
-        }
-        print(location)
-    }
 }

@@ -27,9 +27,17 @@ public struct AssetIndex: Codable {
 }
 
 public struct AssetInfo: Codable, JsonRepresentable {
-    let objects: [String: Info]
-    struct Info: Codable {
+    public let objects: [String: AssetObjInfo]
+    public struct AssetObjInfo: Codable {
         let hash: String
         let size: Int64
+        
+        public func path() -> String {
+            let startIndex = hash.startIndex
+            let endIndex = hash.index(startIndex, offsetBy: 1)
+            let path = String(hash[startIndex...endIndex])
+            let filename = hash
+            return NSString.path(withComponents: [path, filename])
+        }
     }
 }

@@ -10,8 +10,8 @@ import JokerKits
 
 public struct Version: Codable {
     
-    let id: String
-    let type: String
+    public let id: String
+    public let type: String
     let url: URL?
     let time: String
     let releaseTime: String

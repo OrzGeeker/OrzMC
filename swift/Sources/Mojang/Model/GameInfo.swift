@@ -13,7 +13,7 @@ public struct GameInfo: Codable, JsonRepresentable {
     public let assetIndex: AssetIndex
     let assets: String
     let complianceLevel: Int
-    let downloads: Download
+    public let downloads: Download
     let id: String
     let javaVersion: JavaVersion
     let libraries: [JavaLibrary]
@@ -23,8 +23,4 @@ public struct GameInfo: Codable, JsonRepresentable {
     let releaseTime: String
     let time: String
     let type: String
-    
-    public func downloadClient() async throws {
-        try await self.downloads.client.url.download()
-    }
 }

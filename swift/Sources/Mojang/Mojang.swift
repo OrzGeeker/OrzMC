@@ -20,4 +20,8 @@ public struct Mojang {
             return try JokerKits.JSON.decoder.decode(Manifest.self, from: data)
         }
     }
+    
+    public static func assetObjURL(_ path: String) -> URL {
+        return URL(string: "https://resources.download.minecraft.net")!.appendingPathComponent(path)
+    }
 }
