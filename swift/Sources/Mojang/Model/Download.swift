@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Download: Codable {
-    let client: Asset
+public struct Download: Codable {
+    public let client: Asset
     let clientMappings: Asset
-    let server: Asset
+    public let server: Asset
     let serverMappings: Asset
     
-    struct Asset: Codable {
-        let sha1: String
-        let size: Int64
-        let url: URL
+    public struct Asset: Codable {
+        public let url: URL
+        public let sha1: String
+        public let size: Int64
     }
 }
