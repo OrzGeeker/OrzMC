@@ -11,6 +11,9 @@ import Mojang
 @main
 struct OrzMC {
     static func main() async throws {
-        try await Launcher().start()        
+//        try await Launcher().start()
+        if let json = try await Mojang.manifest?.versions.first?.gameInfo?.jsonRepresentation() {
+            print(json)
+        }
     }
 }
