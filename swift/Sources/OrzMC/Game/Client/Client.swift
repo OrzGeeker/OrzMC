@@ -8,5 +8,5 @@
 import Foundation
 
 protocol Client {
-    func start() async throws;
+    func start() async throws
 }
