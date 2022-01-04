@@ -21,7 +21,7 @@ extension Launcher {
         try await self.download(
             client.url,
             progressHint: "下载客户端文件: \(client.url.lastPathComponent)",
-            targetDir: startInfo.gameDir,
+            targetDir: GameDir.clientVersionDir(version: startInfo.version.id),
             hash: client.sha1)
     }
     
@@ -63,13 +63,71 @@ extension Launcher {
         
         for lib in libraries {
             count += 1
-            let artifact = lib.downloads.artifact
+            
+            // 获取需要下载的库
+            var artifact = lib.downloads.artifact
+            var targetDir = GameDir.libraryObj(version: startInfo.version.id, path: artifact.path)
+            var libName = lib.name
+            
+            let currentOSName = Platform.current().platformName()
+            if let natives = lib.natives, let nativeClassifier = natives[currentOSName], let nativeArtifact = lib.downloads.classifiers?[nativeClassifier] {
+                artifact = nativeArtifact
+                targetDir = GameDir.clientVersionNativeDir(version: startInfo.version.id, path: nativeClassifier)
+                libName = [lib.name, nativeClassifier].joined(separator: ":")
+            }
+            
+            // 判断当前平台是否需要下载
+            var allowDownload = true
+            if let rules = lib.rules {
+                var allowOSSet = Set<String>()
+                rules.forEach { rule in
+                    if rule.action == "allow" {
+                        if let osname = rule.os?.name {
+                            allowOSSet.insert(osname)
+                        }
+                        else {
+                            allowOSSet.insert(currentOSName)
+                        }
+                    }
+                    else if rule.action == "disallow", let osName = rule.os?.name {
+                        allowOSSet.remove(osName)
+                    }
+                }
+                allowDownload = allowOSSet.contains(currentOSName)
+            }
+            
+            if lib.rules == nil, let natives = lib.natives, !natives.keys.contains(currentOSName) {
+                allowDownload = false
+            }
+            
+            guard allowDownload
+            else {
+                let info = "下载库文件(\(count)/\(total))：\(lib.name)".consoleText() + " [Not Need]".consoleText(.info)
+                console.output(info)
+                continue
+            }
+            
             try await self.download(
                 artifact.url,
-                progressHint: "下载库文件(\(count)/\(total)：\(lib.name)",
-                targetDir: GameDir.libraryObj(version: startInfo.version.id, path: artifact.path),
+                progressHint: "下载库文件(\(count)/\(total))：\(libName)",
+                targetDir: targetDir,
                 hash: artifact.sha1
             )
+        }
+    }
+}
+
+extension Platform {
+    func platformName() -> String {
+        switch self {
+        case .linux:
+            return "linux"
+        case .windows:
+            return "windows"
+        case .macosx:
+            return "osx"
+        default:
+            return "unsupported"
         }
     }
 }

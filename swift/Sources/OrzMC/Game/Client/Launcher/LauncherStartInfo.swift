@@ -10,5 +10,4 @@ import Mojang
 struct LauncherStartInfo {
     var version: Version
     var username: String
-    var gameDir: GameDir
 }
