@@ -12,24 +12,17 @@ public struct JavaLibrary: Codable {
     public let name: String
     public let rules: [Rule]?
     public let natives: [String: String]?
+    public let extract: Extract?
     
     public struct Download: Codable {
         public let artifact: Artifact
-        public let classifiers: Classifiers?
+        public let classifiers: [String: Artifact]?
         
         public struct Artifact: Codable {
             public let path: String
             public let sha1: String
             public let url: URL
             let size: Int64
-        }
-        
-        public struct Classifiers: Codable {
-            public let javadoc: Artifact?
-            public let nativesLinux: Artifact?
-            public let nativesMacos: Artifact?
-            public let nativesWindows: Artifact?
-            public let sources: Artifact?
         }
     }
     
@@ -40,5 +33,9 @@ public struct JavaLibrary: Codable {
         public struct OS: Codable {
             let name: String
         }
+    }
+    
+    public struct Extract: Codable {
+        let exclude: [String]
     }
 }
