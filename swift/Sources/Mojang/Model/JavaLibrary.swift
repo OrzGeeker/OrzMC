@@ -25,11 +25,11 @@ public struct JavaLibrary: Codable {
         }
         
         public struct Classifiers: Codable {
-            public let javadoc: Artifact
-            public let nativesLinux: Artifact
-            public let nativesMacos: Artifact
-            public let nativesWindows: Artifact
-            public let sources: Artifact
+            public let javadoc: Artifact?
+            public let nativesLinux: Artifact?
+            public let nativesMacos: Artifact?
+            public let nativesWindows: Artifact?
+            public let sources: Artifact?
         }
     }
     
