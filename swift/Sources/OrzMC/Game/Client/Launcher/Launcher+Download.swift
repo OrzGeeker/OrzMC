@@ -14,11 +14,15 @@ extension Launcher {
     
     /// 下载游戏客户端jar文件
     func downloadClient() async throws {
-        guard let startInfo = self.startInfo, let clientURL = try await startInfo.version.gameInfo?.downloads.client.url
+        guard let startInfo = self.startInfo, let client = try await startInfo.version.gameInfo?.downloads.client
         else {
             return
         }
-        try await self.download(clientURL, progressHint: "下载客户端文件: \(clientURL.lastPathComponent)", targetDir: startInfo.gameDir)
+        try await self.download(
+            client.url,
+            progressHint: "下载客户端文件: \(client.url.lastPathComponent)",
+            targetDir: startInfo.gameDir,
+            hash: client.sha1)
     }
     
     /// 下载游戏客户端资源文件
@@ -41,7 +45,8 @@ extension Launcher {
             try await self.download(
                 assetObjURL,
                 progressHint: "下载资源文件(\(count)/\(total))：\(filename)",
-                targetDir: GameDir.assetsObj(version: startInfo.version.id, path: info.path())
+                targetDir: GameDir.assetsObj(version: startInfo.version.id, path: info.path()),
+                hash: info.hash
             )
         }
     }
@@ -60,28 +65,48 @@ extension Launcher {
     ///   - url: 文件URL
     ///   - progressHint: 下载进度提示文字
     ///   - targetDir: 下载后放入的目录
-    private func download(_ url: URL, progressHint: String?, targetDir: GameDir) async throws {
-        
-        let showProgress = progressHint != nil
-        
+    private func download(_ url: URL, progressHint: String?, targetDir: GameDir, hash: String) async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            
             var progressBar: ActivityIndicator<ProgressBar>? = nil
+            let showProgress = progressHint != nil
             if showProgress {
                 progressBar = console.progressBar(title: progressHint!)
-                progressBar?.start()
             }
             
+            let toFilePath = targetDir.filePath(url.lastPathComponent)
+            do {
+                if FileManager.default.fileExists(atPath: toFilePath) {
+                    let sha1 = try URL(fileURLWithPath: toFilePath).fileSHA1Value
+                    if sha1 == hash {
+                        progressBar?.start()
+                        progressBar?.succeed()
+                        continuation.resume()
+                        return
+                    }
+                }
+            } catch let error {
+                self.console.output(error.localizedDescription.consoleText(.error), newLine: true)
+                continuation.resume(throwing: error)
+            }
+            
+            progressBar?.start()
             Downloader().download(url) { [progressBar] progress, filePath in
                 
-                if showProgress {
-                    progressBar?.activity.currentProgress = progress
-                }
+                progressBar?.activity.currentProgress = progress
                 
-                if let fromFilePath = filePath?.path {
+                if let fileURL = filePath {
                     progressBar?.succeed()
+                    
                     do {
-                        let toFilePath = targetDir.filePath(url.lastPathComponent)
+                        // Check SHA1 Value
+                        let sha1 = try fileURL.fileSHA1Value
+                        guard sha1 == hash
+                        else {
+                            throw URLError(.badServerResponse)
+                        }
+                        
+                        // 移动文件
+                        let fromFilePath = fileURL.path
                         try FileManager.moveFile(fromFilePath: fromFilePath, toFilePath: toFilePath, overwrite: true)
                         continuation.resume()
                     } catch let error {

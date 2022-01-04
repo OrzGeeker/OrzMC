@@ -29,7 +29,7 @@ public struct AssetIndex: Codable {
 public struct AssetInfo: Codable, JsonRepresentable {
     public let objects: [String: AssetObjInfo]
     public struct AssetObjInfo: Codable {
-        let hash: String
+        public let hash: String
         let size: Int64
         
         public func path() -> String {
