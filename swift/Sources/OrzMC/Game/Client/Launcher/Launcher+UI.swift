@@ -8,15 +8,9 @@
 import Mojang
 import ConsoleKit
 
-struct ClientStartInfo {
-    var version: Version
-    var username: String
-    var gameDir: GameDir
-}
-
 extension Launcher {
 
-    func userInput() async throws -> ClientStartInfo? {
+    func userInput() async throws -> LauncherStartInfo? {
         
         guard let versions = try await Mojang.manifest?.versions
         else {
@@ -31,7 +25,7 @@ extension Launcher {
         console.output("输入一个用户名：", style: .warning, newLine: false)
         let username = console.input()
         
-        return ClientStartInfo(
+        return LauncherStartInfo(
             version: version,
             username: username,
             gameDir: GameDir.clientDir(version: version.id))

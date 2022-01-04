@@ -16,7 +16,7 @@ public struct GameInfo: Codable, JsonRepresentable {
     public let downloads: Download
     let id: String
     let javaVersion: JavaVersion
-    let libraries: [JavaLibrary]
+    public let libraries: [JavaLibrary]
     let logging: Logging
     let mainClass: String
     let minimumLauncherVersion: Int

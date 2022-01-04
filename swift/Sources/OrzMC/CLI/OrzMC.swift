@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Mojang
 
 @main
 struct OrzMC {
     static func main() async throws {
-        try await Launcher().start()
+        try await Launcher().start()        
     }
 }

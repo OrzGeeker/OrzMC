@@ -32,7 +32,7 @@ extension Launcher {
             return
         }
         
-        var count = 0;
+        var count = 0
         let total = objects.count
         
         for filename in objects.keys {
@@ -51,10 +51,26 @@ extension Launcher {
         }
     }
     
-    
     /// 下载游戏客户端jar库文件
     func downloadLibraries() async throws {
+        guard let startInfo = self.startInfo, let libraries = try await startInfo.version.gameInfo?.libraries
+        else{
+            return
+        }
         
+        var count = 0
+        let total = libraries.count
+        
+        for lib in libraries {
+            count += 1
+            let artifact = lib.downloads.artifact
+            try await self.download(
+                artifact.url,
+                progressHint: "下载库文件(\(count)/\(total)：\(lib.name)",
+                targetDir: GameDir.libraryObj(version: startInfo.version.id, path: artifact.path),
+                hash: artifact.sha1
+            )
+        }
     }
 }
 
@@ -74,6 +90,8 @@ extension Launcher {
             }
             
             let toFilePath = targetDir.filePath(url.lastPathComponent)
+            
+            // 已经下载过的，且校验完整的文件，不重复下载
             do {
                 if FileManager.default.fileExists(atPath: toFilePath) {
                     let sha1 = try URL(fileURLWithPath: toFilePath).fileSHA1Value

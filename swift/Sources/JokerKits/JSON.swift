@@ -11,7 +11,7 @@ public struct JSON {
     public static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return decoder;
+        return decoder
     }()
 
     public static let encoder: JSONEncoder = {
