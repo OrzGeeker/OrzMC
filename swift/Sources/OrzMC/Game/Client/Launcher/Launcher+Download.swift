@@ -12,8 +12,15 @@ import ConsoleKit
 
 extension Launcher {
     
+    /// 下载启动器启动需要的文件
+    public func download() async throws {
+        try await downloadClient()
+        try await downloadAssets()
+        try await downloadLibraries()
+    }
+    
     /// 下载游戏客户端jar文件
-    func downloadClient() async throws {
+    private func downloadClient() async throws {
         guard let startInfo = self.startInfo, let client = try await startInfo.version.gameInfo?.downloads.client
         else {
             return
@@ -26,7 +33,7 @@ extension Launcher {
     }
     
     /// 下载游戏客户端资源文件
-    func downloadAssets() async throws {
+    private func downloadAssets() async throws {
         guard let startInfo = self.startInfo, let objects = try await startInfo.version.gameInfo?.assetIndex.assetInfo?.objects
         else {
             return
@@ -52,7 +59,7 @@ extension Launcher {
     }
     
     /// 下载游戏客户端jar库文件
-    func downloadLibraries() async throws {
+    private func downloadLibraries() async throws {
         guard let startInfo = self.startInfo, let libraries = try await startInfo.version.gameInfo?.libraries
         else{
             return
@@ -72,7 +79,7 @@ extension Launcher {
             let currentOSName = Platform.current().platformName()
             if let natives = lib.natives, let nativeClassifier = natives[currentOSName], let nativeArtifact = lib.downloads.classifiers?[nativeClassifier] {
                 artifact = nativeArtifact
-                targetDir = GameDir.clientVersionNativeDir(version: startInfo.version.id, path: nativeClassifier)
+                targetDir = GameDir.clientVersionNativeDir(version: startInfo.version.id)
                 libName = [lib.name, nativeClassifier].joined(separator: ":")
             }
             
@@ -113,21 +120,6 @@ extension Launcher {
                 targetDir: targetDir,
                 hash: artifact.sha1
             )
-        }
-    }
-}
-
-extension Platform {
-    func platformName() -> String {
-        switch self {
-        case .linux:
-            return "linux"
-        case .windows:
-            return "windows"
-        case .macosx:
-            return "osx"
-        default:
-            return "unsupported"
         }
     }
 }
