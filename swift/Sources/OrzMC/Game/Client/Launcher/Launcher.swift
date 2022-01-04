@@ -26,12 +26,7 @@ final class Launcher: Client {
         
         // 下载启动器启动所需要的文件、资源及依赖
         try await self.download()
-    }
-    
-    /// 下载启动器启动需要的文件
-    public func download() async throws {
-        try await downloadClient()
-        try await downloadAssets()
-        try await downloadLibraries()
+        
+        //
     }
 }

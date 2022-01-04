@@ -6,6 +6,22 @@
 //
 
 import Foundation
+import JokerKits
+
+extension Platform {
+    func platformName() -> String {
+        switch self {
+        case .linux:
+            return "linux"
+        case .windows:
+            return "windows"
+        case .macosx:
+            return "osx"
+        default:
+            return "unsupported"
+        }
+    }
+}
 
 enum GameDir {
     
@@ -21,7 +37,7 @@ enum GameDir {
     case libraries(version: String, type: String = defaultClientType)
     case libraryObj(version: String, type: String = defaultClientType, path: String)
     case clientVersionDir(version: String, type: String = defaultClientType)
-    case clientVersionNativeDir(version: String, type: String = defaultClientType, path: String)
+    case clientVersionNativeDir(version: String, type: String = defaultClientType)
 
     private var pathComponents: [String] {
         switch self {
@@ -45,8 +61,9 @@ enum GameDir {
             return GameDir.libraries(version: version, type: type).pathComponents + [path]
         case .clientVersionDir(let version, let type):
             return GameDir.clientDir(version: version, type: type).pathComponents + ["versions", version]
-        case .clientVersionNativeDir(let version, let type, let path):
-            return GameDir.clientVersionDir(version: version, type: type).pathComponents + [path]
+        case .clientVersionNativeDir(let version, let type):
+            let nativesPlatform = "natives-\(Platform.current().platformName())"
+            return GameDir.clientVersionDir(version: version, type: type).pathComponents + [nativesPlatform]
         }
     }
     
