@@ -20,6 +20,8 @@ enum GameDir {
     case assetsObj(version: String, type: String = defaultClientType, path: String)
     case libraries(version: String, type: String = defaultClientType)
     case libraryObj(version: String, type: String = defaultClientType, path: String)
+    case clientVersionDir(version: String, type: String = defaultClientType)
+    case clientVersionNativeDir(version: String, type: String = defaultClientType, path: String)
 
     private var pathComponents: [String] {
         switch self {
@@ -41,6 +43,10 @@ enum GameDir {
             return GameDir.clientDir(version: version, type: type).pathComponents + ["libraries"]
         case .libraryObj(let version, let type, let path):
             return GameDir.libraries(version: version, type: type).pathComponents + [path]
+        case .clientVersionDir(let version, let type):
+            return GameDir.clientDir(version: version, type: type).pathComponents + ["versions", version]
+        case .clientVersionNativeDir(let version, let type, let path):
+            return GameDir.clientVersionDir(version: version, type: type).pathComponents + [path]
         }
     }
     

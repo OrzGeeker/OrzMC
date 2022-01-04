@@ -27,7 +27,7 @@ extension Launcher {
         
         return LauncherStartInfo(
             version: version,
-            username: username,
-            gameDir: GameDir.clientDir(version: version.id))
+            username: username
+        )
     }
 }

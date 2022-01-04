@@ -8,6 +8,8 @@
 import ConsoleKit
 
 /// Minecraft 客户端启动器
+///
+/// [写启动器参考文章](https://wiki.vg/Game_files)
 final class Launcher: Client {
     
     /// 对应shell控制台实例

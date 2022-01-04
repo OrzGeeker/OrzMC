@@ -27,11 +27,11 @@ public struct JavaLibrary: Codable {
     }
     
     public struct Rule: Codable {
-        let action: String
-        let os: OS?
+        public let action: String
+        public let os: OS?
         
         public struct OS: Codable {
-            let name: String
+            public let name: String
         }
     }
     
