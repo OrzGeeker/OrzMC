@@ -38,11 +38,22 @@ extension Launcher {
     
     /// 下载游戏客户端资源文件
     private func downloadAssets() async throws {
-        guard let startInfo = self.startInfo, let objects = try await startInfo.version.gameInfo?.assetIndex.assetInfo?.objects
+        guard let startInfo = self.startInfo, let assetIndex = try await startInfo.version.gameInfo?.assetIndex, let objects = try await assetIndex.assetInfo?.objects
         else {
             return
         }
         
+        // 下载资源索引文件json
+        let indexFileName = assetIndex.url.lastPathComponent
+        try await self.download(
+            assetIndex.url,
+            progressHint: "下载资源索引文件: \(indexFileName)",
+            targetDir: .assetsIdx(version: startInfo.version.id),
+            hash: assetIndex.sha1,
+            filename: indexFileName
+        )
+        
+        // 下载资源对象文件
         var count = 0
         let total = objects.count
         
@@ -52,11 +63,11 @@ extension Launcher {
             else {
                 continue
             }
-            let assetObjURL = Mojang.assetObjURL(info.path())
+            let assetObjURL = Mojang.assetObjURL(info.filePath())
             try await self.download(
                 assetObjURL,
                 progressHint: "下载资源文件(\(count)/\(total))：\(filename)",
-                targetDir: GameDir.assetsObj(version: startInfo.version.id, path: info.path()),
+                targetDir: GameDir.assetsObj(version: startInfo.version.id, path: info.dirPath()),
                 hash: info.hash
             )
         }
