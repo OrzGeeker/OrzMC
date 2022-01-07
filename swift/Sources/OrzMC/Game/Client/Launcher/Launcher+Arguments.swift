@@ -96,10 +96,17 @@ extension Launcher {
             }
         }
         
+        
         let javaPath = Shell.run(
             path: "/usr/bin/env",
             args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         
-        print(Shell.run(path: javaPath, args: args))
+        try Shell.run(path: javaPath, args: args) { process in
+            guard process.terminationStatus == 0
+            else {
+                print(process.terminationReason)
+                return
+            }
+        }
     }
 }

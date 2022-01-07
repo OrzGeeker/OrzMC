@@ -10,10 +10,10 @@ import JokerKits
 
 public struct AssetIndex: MojangCodable {
     public let id: String
-    let sha1: String
+    public let sha1: String
+    public let url: URL
     let size: Int64
     let totalSize: Int64
-    let url: URL
     
     public var assetInfo: AssetInfo? {
         get async throws {
@@ -32,12 +32,17 @@ public struct AssetInfo: MojangCodable {
         public let hash: String
         let size: Int64
         
-        public func path() -> String {
+        public func filePath() -> String {
+            let filename = hash
+            let dirPath = self.dirPath()
+            return NSString.path(withComponents: [dirPath, filename])
+        }
+        
+        public func dirPath() -> String {
             let startIndex = hash.startIndex
             let endIndex = hash.index(startIndex, offsetBy: 1)
             let path = String(hash[startIndex...endIndex])
-            let filename = hash
-            return NSString.path(withComponents: [path, filename])
+            return NSString.path(withComponents: [path])
         }
     }
 }
