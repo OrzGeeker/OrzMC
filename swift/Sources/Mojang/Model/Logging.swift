@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Logging: Codable {
+struct Logging: MojangCodable {
     let client: Client
     
-    struct Client: Codable {
+    struct Client: MojangCodable {
         let argument: String
         let file: File
         let type: String
         
-        struct File: Codable {
+        struct File: MojangCodable {
             let id: String
             let sha1: String
             let size: Int64

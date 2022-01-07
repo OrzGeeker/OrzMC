@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Argument: Codable {
-    let game: [GameOption]
-    let jvm: [JVMOption]
+public struct Argument: MojangCodable {
+    public let game: [GameOption]
+    public let jvm: [JVMOption]
     
-    enum GameOption: Codable {
+    public enum GameOption: MojangCodable {
         case object(GameOptionObj)
         case string(String)
         
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             
             if let string = try? container.decode(String.self) {
@@ -29,7 +29,7 @@ struct Argument: Codable {
             }
         }
         
-        func encode(to encoder: Encoder) throws {
+        public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
             case .string(let value):
@@ -40,26 +40,26 @@ struct Argument: Codable {
         }
     }
     
-    struct GameOptionObj: Codable {
+    public struct GameOptionObj: MojangCodable {
         let rules: [Rule]
         let value: OptionValue
         
-        struct Rule: Codable {
+        struct Rule: MojangCodable {
             let action: String
             let features: Feature
             
-            struct Feature: Codable {
+            struct Feature: MojangCodable {
                 let isDemoUser: Bool?
                 let hasCustomResolution: Bool?
             }
         }
     }
     
-    enum JVMOption: Codable {
+    public enum JVMOption: MojangCodable {
         case object(JVMOptionObj)
         case string(String)
         
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             if let string = try? container.decode(String.self) {
                 self = .string(string)
@@ -72,7 +72,7 @@ struct Argument: Codable {
             }
         }
         
-        func encode(to encoder: Encoder) throws {
+        public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
 
             switch self {
@@ -84,14 +84,14 @@ struct Argument: Codable {
         }
     }
     
-    struct JVMOptionObj: Codable {
-        let rules: [Rule]
-        let value: OptionValue
+    public struct JVMOptionObj: MojangCodable {
+        public let rules: [Rule]
+        public let value: OptionValue
         
-        struct Rule: Codable {
+        public struct Rule: MojangCodable {
             let action: String
             let os: OS
-            struct OS: Codable {
+            struct OS: MojangCodable {
                 let name: String?
                 let arch: String?
                 let version: String?
@@ -99,11 +99,11 @@ struct Argument: Codable {
         }
     }
     
-    enum OptionValue: Codable {
+    public enum OptionValue: MojangCodable {
         case array([String])
         case string(String)
         
-        init(from decoder: Decoder) throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             
             if let string = try? container.decode(String.self) {
@@ -117,7 +117,7 @@ struct Argument: Codable {
             }
         }
         
-        func encode(to encoder: Encoder) throws {
+        public func encode(to encoder: Encoder) throws {
             
             var container = encoder.singleValueContainer()
             

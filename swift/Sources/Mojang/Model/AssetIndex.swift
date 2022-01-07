@@ -8,8 +8,8 @@
 import Foundation
 import JokerKits
 
-public struct AssetIndex: Codable {
-    let id: String
+public struct AssetIndex: MojangCodable {
+    public let id: String
     let sha1: String
     let size: Int64
     let totalSize: Int64
@@ -26,9 +26,9 @@ public struct AssetIndex: Codable {
     }
 }
 
-public struct AssetInfo: Codable, JsonRepresentable {
+public struct AssetInfo: MojangCodable {
     public let objects: [String: AssetObjInfo]
-    public struct AssetObjInfo: Codable {
+    public struct AssetObjInfo: MojangCodable {
         public let hash: String
         let size: Int64
         

@@ -7,18 +7,18 @@
 
 import Foundation
 
-public struct JavaLibrary: Codable {
+public struct JavaLibrary: MojangCodable {
     public let downloads: Download
     public let name: String
     public let rules: [Rule]?
     public let natives: [String: String]?
     public let extract: Extract?
     
-    public struct Download: Codable {
+    public struct Download: MojangCodable {
         public let artifact: Artifact
         public let classifiers: [String: Artifact]?
         
-        public struct Artifact: Codable {
+        public struct Artifact: MojangCodable {
             public let path: String
             public let sha1: String
             public let url: URL
@@ -26,16 +26,16 @@ public struct JavaLibrary: Codable {
         }
     }
     
-    public struct Rule: Codable {
+    public struct Rule: MojangCodable {
         public let action: String
         public let os: OS?
         
-        public struct OS: Codable {
+        public struct OS: MojangCodable {
             public let name: String
         }
     }
     
-    public struct Extract: Codable {
+    public struct Extract: MojangCodable {
         let exclude: [String]
     }
 }

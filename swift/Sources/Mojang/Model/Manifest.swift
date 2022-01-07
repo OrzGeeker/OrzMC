@@ -7,12 +7,12 @@
 
 import Foundation
 
-public struct Manifest: Codable {
+public struct Manifest: MojangCodable {
     
     public let latest: Latest
     public let versions: [Version]
     
-    public struct Latest: Codable {
+    public struct Latest: MojangCodable {
         let release: String
         let snapshot: String
     }
