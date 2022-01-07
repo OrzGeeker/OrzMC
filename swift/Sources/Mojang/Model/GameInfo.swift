@@ -8,8 +8,8 @@
 import Foundation
 import JokerKits
 
-public struct GameInfo: Codable, JsonRepresentable {
-    let arguments: Argument
+public struct GameInfo: MojangCodable {
+    public let arguments: Argument
     public let assetIndex: AssetIndex
     let assets: String
     let complianceLevel: Int
@@ -18,9 +18,9 @@ public struct GameInfo: Codable, JsonRepresentable {
     let javaVersion: JavaVersion
     public let libraries: [JavaLibrary]
     let logging: Logging
-    let mainClass: String
+    public let mainClass: String
     let minimumLauncherVersion: Int
     let releaseTime: String
     let time: String
-    let type: String
+    public let type: String
 }

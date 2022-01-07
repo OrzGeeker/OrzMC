@@ -25,11 +25,15 @@ extension Launcher {
         else {
             return
         }
+        
+        let filename = [startInfo.version.id, client.url.pathExtension].joined(separator: ".")
         try await self.download(
             client.url,
-            progressHint: "下载客户端文件: \(client.url.lastPathComponent)",
+            progressHint: "下载客户端文件: \(filename)",
             targetDir: GameDir.clientVersionDir(version: startInfo.version.id),
-            hash: client.sha1)
+            hash: client.sha1,
+            filename: filename
+        )
     }
     
     /// 下载游戏客户端资源文件
@@ -73,7 +77,8 @@ extension Launcher {
             
             // 获取需要下载的库
             var artifact = lib.downloads.artifact
-            var targetDir = GameDir.libraryObj(version: startInfo.version.id, path: artifact.path)
+            let dirPath = NSString(string: artifact.path).deletingLastPathComponent
+            var targetDir = GameDir.libraryObj(version: startInfo.version.id, path: dirPath)
             var libName = lib.name
             
             let currentOSName = Platform.current().platformName()
@@ -131,7 +136,7 @@ extension Launcher {
     ///   - url: 文件URL
     ///   - progressHint: 下载进度提示文字
     ///   - targetDir: 下载后放入的目录
-    private func download(_ url: URL, progressHint: String?, targetDir: GameDir, hash: String) async throws {
+    private func download(_ url: URL, progressHint: String?, targetDir: GameDir, hash: String, filename: String? = nil) async throws {
         return try await withCheckedThrowingContinuation { continuation in
             var progressBar: ActivityIndicator<ProgressBar>? = nil
             let showProgress = progressHint != nil
@@ -139,7 +144,7 @@ extension Launcher {
                 progressBar = console.progressBar(title: progressHint!)
             }
             
-            let toFilePath = targetDir.filePath(url.lastPathComponent)
+            let toFilePath = targetDir.filePath(filename ?? url.lastPathComponent)
             
             // 已经下载过的，且校验完整的文件，不重复下载
             do {

@@ -8,6 +8,8 @@
 import Foundation
 import JokerKits
 
+typealias MojangCodable = Codable & JsonRepresentable
+
 public struct Mojang {
     /// 获取版本信息
     public static var manifest: Manifest? {
