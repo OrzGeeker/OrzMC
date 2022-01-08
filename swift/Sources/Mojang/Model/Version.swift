@@ -12,7 +12,7 @@ public struct Version: MojangCodable {
     
     public let id: String
     public let type: String
-    let url: URL?
+    public let url: URL?
     let time: String
     let releaseTime: String
     

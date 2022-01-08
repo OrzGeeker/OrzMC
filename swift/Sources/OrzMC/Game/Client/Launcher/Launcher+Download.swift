@@ -10,6 +10,7 @@ import JokerKits
 import Foundation
 import ConsoleKit
 
+
 extension Launcher {
     
     /// 下载启动器启动需要的文件
@@ -26,6 +27,14 @@ extension Launcher {
             return
         }
         
+        // 下载版本信息JSON文件
+        if let url = startInfo.version.url, let data = try await url.getData {
+            let filePath = GameDir.clientVersionDir(version: startInfo.version.id).filePath(url.lastPathComponent)
+            let fileURL = URL(fileURLWithPath: filePath)
+            try data.write(to: fileURL)
+        }
+        
+        // 下载版本Jar文件
         let filename = [startInfo.version.id, client.url.pathExtension].joined(separator: ".")
         try await self.download(
             client.url,

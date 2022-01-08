@@ -65,7 +65,7 @@ enum GameDir {
         case .clientVersionDir(let version, let type):
             return GameDir.clientDir(version: version, type: type).pathComponents + ["versions", version]
         case .clientVersionNativeDir(let version, let type):
-            let nativesPlatform = "natives-\(Platform.current().platformName())"
+            let nativesPlatform = "\(version)-natives"
             return GameDir.clientVersionDir(version: version, type: type).pathComponents + [nativesPlatform]
         }
     }
