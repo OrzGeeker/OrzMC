@@ -11,7 +11,7 @@ import ConsoleKit
 ///
 /// [写启动器参考文章](https://wiki.vg/Game_files)
 ///
-/// [启动器Wiki](https://minecraft.fandom.com/zh/wiki/教程/编写启动器?amp%3Bvariant=zh)
+/// [启动器Wiki](https://minecraft.fandom.com/zh/wiki/教程/编写启动器)
 final class Launcher: Client {
     
     /// 对应shell控制台实例
