@@ -89,12 +89,12 @@ public struct Argument: MojangCodable {
         public let value: OptionValue
         
         public struct Rule: MojangCodable {
-            let action: String
-            let os: OS
-            struct OS: MojangCodable {
-                let name: String?
-                let arch: String?
-                let version: String?
+            public let action: String
+            public let os: OS
+            public struct OS: MojangCodable {
+                public let name: String?
+                public let arch: String?
+                public let version: String?
             }
         }
     }

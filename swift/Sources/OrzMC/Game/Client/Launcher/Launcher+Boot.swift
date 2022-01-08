@@ -48,13 +48,22 @@ extension Launcher {
             "-Xms512M",
             "-Xmx2G",
             "-Djava.net.preferIPv4Stack=true",
-            "-XstartOnFirstThread",
         ]
         
         // 处理jvm相关参数
         let jvmArgsArray = gameInfo.arguments.jvm.compactMap { (arg) -> String? in
             switch arg {
-            case .object(_):
+            case .object(let obj):
+                for rule in obj.rules {
+                    if rule.os.name == Platform.current().platformName(), rule.action == "allow" {
+                        switch obj.value {
+                        case .array(let values):
+                            return values.joined(separator: " ")
+                        case .string(let value):
+                            return value
+                        }
+                    }
+                }
                 return nil
             case .string(let value):
                 return value
@@ -108,5 +117,9 @@ extension Launcher {
                 return
             }
         }
+        
+//        for arg in args {
+//            print(arg)
+//        }
     }
 }
