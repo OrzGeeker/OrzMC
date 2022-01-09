@@ -115,3 +115,5 @@ logs/
 website/public
 website/resources
 *.dmg
+swift/.build/
+swift/.swiftpm/
