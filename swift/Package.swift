@@ -20,7 +20,7 @@ let package = Package(
         .target(
             name: "JokerKits",
             dependencies: [
-                .product(name: "Crypto", package: "swift-crypto"),
+                .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux])),
             ]
         ),
         .target(
@@ -43,7 +43,5 @@ let package = Package(
             name: "OrzMCTests",
             dependencies: ["OrzMC"]),
     ],
-    swiftLanguageVersions: [
-        .version("5.5")
-    ]
+    swiftLanguageVersions: [.v5]
 )

@@ -6,7 +6,12 @@
 //
 
 import Foundation
+
+#if os(Linux)
 import Crypto
+#else
+import CommonCrypto
+#endif
 
 public extension URL {
     var getData: Data? {
@@ -25,10 +30,20 @@ public extension URL {
             else {
                 throw URLError(.badURL)
             }
-            
             let data = try Data(contentsOf: self)
+#if os(Linux)
+            
             let digest = Insecure.SHA1.hash(data: data)
             let hexBytes = digest.map { String(format: "%02hhx", $0) }
+            
+#else
+            var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+            data.withUnsafeBytes {
+                _ = CC_SHA1($0.baseAddress, CC_LONG(data.count), &digest)
+            }
+            let hexBytes = digest.map { String(format: "%02hhx", $0) }
+#endif
+            
             return hexBytes.joined()
         }
     }
