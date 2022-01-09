@@ -35,8 +35,8 @@ extension Launcher {
             "game_directory": "\(GameDir.client(version: startInfo.version.id).dirPath)",
             "assets_root": "\(GameDir.assets(version: startInfo.version.id).dirPath)",
             "assets_index_name": "\(try await startInfo.version.gameInfo?.assetIndex.id ?? "")",
-            "auth_uuid": "\(UUID.init())",
-            "auth_access_token": "\(UUID.init())",
+            "auth_uuid": UUID().uuidString,
+            "auth_access_token": "\(startInfo.accessToken ?? UUID().uuidString)",
             "clientid": "\(startInfo.version.id)",
             "auth_xuid": "\(startInfo.username)",
             "user_type": "mojang",
@@ -117,5 +117,6 @@ extension Launcher {
                 return
             }
         }
+        console.output("客户端正在启动请稍等...", style: .success)
     }
 }
