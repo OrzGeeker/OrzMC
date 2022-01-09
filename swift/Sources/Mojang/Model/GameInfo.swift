@@ -17,7 +17,7 @@ public struct GameInfo: MojangCodable {
     let id: String
     let javaVersion: JavaVersion
     public let libraries: [JavaLibrary]
-    let logging: Logging
+    public let logging: Logging
     public let mainClass: String
     let minimumLauncherVersion: Int
     let releaseTime: String

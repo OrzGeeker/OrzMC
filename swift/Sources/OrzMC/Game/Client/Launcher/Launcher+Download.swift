@@ -18,6 +18,7 @@ extension Launcher {
         try await downloadClient()
         try await downloadAssets()
         try await downloadLibraries()
+        try await downloadLogConfigFile()
     }
     
     /// 下载游戏客户端jar文件
@@ -36,16 +37,16 @@ extension Launcher {
         
         // 下载版本Jar文件
         let filename = [startInfo.version.id, client.url.pathExtension].joined(separator: ".")
-        let prgressHint = "下载客户端文件: \(filename)"
+        let progressHint = "下载客户端文件: \(filename)"
         
         if !startInfo.debug {
             console.pushEphemeral()
-            console.output("下载客户端文件完成", style: .success)
+            console.output(progressHint, style: .info)
         }
         
         try await self.download(
             client.url,
-            progressHint: startInfo.debug ? prgressHint : nil,
+            progressHint: startInfo.debug ? progressHint : nil,
             targetDir: GameDir.clientVersion(version: startInfo.version.id),
             hash: client.sha1,
             filename: filename
@@ -53,6 +54,7 @@ extension Launcher {
         
         if !startInfo.debug {
             console.popEphemeral()
+            console.output("下载客户端文件完成", style: .success)
         }
     }
     
@@ -69,7 +71,7 @@ extension Launcher {
         
         if !startInfo.debug {
             console.pushEphemeral()
-            console.output("下载资源索引文件完成", style: .success)
+            console.output(progressHint, style: .info)
         }
         
         try await self.download(
@@ -82,6 +84,7 @@ extension Launcher {
         
         if !startInfo.debug {
             console.popEphemeral()
+            console.output("下载资源索引文件完成", style: .success)
         }
         
         // 下载资源对象文件
@@ -198,6 +201,32 @@ extension Launcher {
         }
         if !startInfo.debug {
             console.output("下载库文件完成", style: .success)
+        }
+    }
+    
+    private func downloadLogConfigFile() async throws {
+        guard let startInfo = self.startInfo, let clientFile = try await startInfo.version.gameInfo?.logging.client.file
+        else {
+            return
+        }
+    
+        let progressHint = "下载日志配置文件：\(clientFile.id)"
+        
+        if !startInfo.debug {
+            console.pushEphemeral()
+            console.output(progressHint, style: .info)
+        }
+        
+        try await self.download(
+            clientFile.url,
+            progressHint: startInfo.debug ? progressHint : nil,
+            targetDir: .clientLogConfig(version: startInfo.version.id),
+            hash: clientFile.sha1
+        )
+        
+        if !startInfo.debug {
+            console.popEphemeral()
+            console.output("下载日志配置文件完成", style: .success)
         }
     }
 }
