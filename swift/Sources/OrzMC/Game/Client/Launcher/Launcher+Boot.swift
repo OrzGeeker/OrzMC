@@ -45,14 +45,14 @@ extension Launcher {
             "path": GameDir.clientLogConfig(version: startInfo.version.id).filePath(gameInfo.logging.client.file.id)
         ]
         
-        var javaArgsArray = [
+        let javaArgsArray = [
             "-Xms512M",
             "-Xmx2G",
             "-Djava.net.preferIPv4Stack=true"
         ]
         
         if startInfo.debug {
-            javaArgsArray.append(gameInfo.logging.client.argument)
+//            javaArgsArray.append(gameInfo.logging.client.argument)
         }
         
         // 处理jvm相关参数
