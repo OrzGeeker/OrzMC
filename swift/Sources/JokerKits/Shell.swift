@@ -15,18 +15,18 @@ public struct Shell {
     ///   - path: 命令二进制路径
     ///   - args: 命令参数数组
     /// - Returns: 执行结果字符串
-    public static func run(path: String, args: [String]) -> String {
+    public static func run(path: String, args: [String]) throws -> String {
         
         let task = Process()
-        
-        task.launchPath = path
+
+        task.executableURL = URL(fileURLWithPath: path)
         task.arguments = args
         
         let pipe = Pipe()
         task.standardOutput = pipe
         task.standardError = pipe
         
-        task.launch()
+        try task.run()
         task.waitUntilExit()
         
         return String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)!
