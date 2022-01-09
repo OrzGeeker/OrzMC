@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if os(Linux)
+import FoundationNetworking
+#endif
+
 public typealias DownloadProgress = (_ progress: Double, _ filePath: URL?) -> Void
 
 public class Downloader: NSObject {

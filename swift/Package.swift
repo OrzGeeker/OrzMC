@@ -43,5 +43,7 @@ let package = Package(
             name: "OrzMCTests",
             dependencies: ["OrzMC"]),
     ],
-    swiftLanguageVersions: [.v5]
+    swiftLanguageVersions: [
+        .version("5.5")
+    ]
 )
