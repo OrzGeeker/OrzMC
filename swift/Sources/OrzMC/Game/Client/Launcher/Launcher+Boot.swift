@@ -121,7 +121,7 @@ extension Launcher {
             }
         }
         
-        let javaPath = Shell.run(
+        let javaPath = try Shell.run(
             path: "/usr/bin/env",
             args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         
