@@ -32,15 +32,15 @@ public struct Shell {
         return String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8)!
     }
     
-    
+    @discardableResult
     /// 异步执行Shell命令
     /// - Parameters:
     ///   - path: 命令二进制文件路径
     ///   - args: 命令参数数组
     ///   - terminationHandler: 执行结果回调
-    public static func run(path: String, args: [String], terminationHandler:((Process) -> Void)? = nil) throws {
+    public static func run(path: String, args: [String], terminationHandler:((Process) -> Void)? = nil) throws -> Process {
         let fileURL = URL(fileURLWithPath: path)
-        try Process.run(fileURL, arguments: args, terminationHandler: terminationHandler)
+        return try Process.run(fileURL, arguments: args, terminationHandler: terminationHandler)
     }
 }
     

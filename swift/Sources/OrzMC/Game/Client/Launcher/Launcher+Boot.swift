@@ -20,7 +20,7 @@ extension Launcher {
         
         let jarExt = "jar"
         let cpSep = Platform.current() == .windows ? ";" : ":"
-    
+        
         let classPath = Array([
             GameDir.libraries(version: startInfo.version.id).dirPath,
             GameDir.clientVersion(version: startInfo.version.id).dirPath
@@ -117,9 +117,5 @@ extension Launcher {
                 return
             }
         }
-        
-//        for arg in args {
-//            print(arg)
-//        }
     }
 }
