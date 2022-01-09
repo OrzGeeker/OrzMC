@@ -29,7 +29,7 @@ extension Launcher {
         
         // 下载版本信息JSON文件
         if let url = startInfo.version.url, let data = try await url.getData {
-            let filePath = GameDir.clientVersionDir(version: startInfo.version.id).filePath(url.lastPathComponent)
+            let filePath = GameDir.clientVersion(version: startInfo.version.id).filePath(url.lastPathComponent)
             let fileURL = URL(fileURLWithPath: filePath)
             try data.write(to: fileURL)
         }
@@ -39,7 +39,7 @@ extension Launcher {
         try await self.download(
             client.url,
             progressHint: "下载客户端文件: \(filename)",
-            targetDir: GameDir.clientVersionDir(version: startInfo.version.id),
+            targetDir: GameDir.clientVersion(version: startInfo.version.id),
             hash: client.sha1,
             filename: filename
         )
@@ -104,7 +104,7 @@ extension Launcher {
             let currentOSName = Platform.current().platformName()
             if let natives = lib.natives, let nativeClassifier = natives[currentOSName], let nativeArtifact = lib.downloads.classifiers?[nativeClassifier] {
                 artifact = nativeArtifact
-                targetDir = GameDir.clientVersionNativeDir(version: startInfo.version.id)
+                targetDir = GameDir.clientVersionNative(version: startInfo.version.id)
                 libName = [lib.name, nativeClassifier].joined(separator: ":")
             }
             
