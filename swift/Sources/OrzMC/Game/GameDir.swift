@@ -31,14 +31,14 @@ enum GameDir {
     case minecraft
     case manifest
     case gameVersion(version: String)
-    case clientDir(version: String, type: String = defaultClientType)
+    case client(version: String, type: String = defaultClientType)
     case assets(version: String, type: String = defaultClientType)
     case assetsIdx(version: String, type: String = defaultClientType)
     case assetsObj(version: String, type: String = defaultClientType, path: String)
     case libraries(version: String, type: String = defaultClientType)
     case libraryObj(version: String, type: String = defaultClientType, path: String)
-    case clientVersionDir(version: String, type: String = defaultClientType)
-    case clientVersionNativeDir(version: String, type: String = defaultClientType)
+    case clientVersion(version: String, type: String = defaultClientType)
+    case clientVersionNative(version: String, type: String = defaultClientType)
 
     private var pathComponents: [String] {
         switch self {
@@ -50,23 +50,23 @@ enum GameDir {
             return GameDir.minecraft.pathComponents + ["manifest"]
         case .gameVersion(let version):
             return GameDir.manifest.pathComponents + [version]
-        case .clientDir(let version, let type):
+        case .client(let version, let type):
             return GameDir.gameVersion(version: version).pathComponents + ["client", type]
         case .assets(let version, let type):
-            return GameDir.clientDir(version: version, type: type).pathComponents + ["assets"]
+            return GameDir.client(version: version, type: type).pathComponents + ["assets"]
         case .assetsIdx(let version, let type):
             return GameDir.assets(version: version, type: type).pathComponents + ["indexes"]
         case .assetsObj(let version, let type, let path):
             return GameDir.assets(version: version, type: type).pathComponents + ["objects", path]
         case .libraries(let version, let type):
-            return GameDir.clientDir(version: version, type: type).pathComponents + ["libraries"]
+            return GameDir.client(version: version, type: type).pathComponents + ["libraries"]
         case .libraryObj(let version, let type, let path):
             return GameDir.libraries(version: version, type: type).pathComponents + [path]
-        case .clientVersionDir(let version, let type):
-            return GameDir.clientDir(version: version, type: type).pathComponents + ["versions", version]
-        case .clientVersionNativeDir(let version, let type):
+        case .clientVersion(let version, let type):
+            return GameDir.client(version: version, type: type).pathComponents + ["versions", version]
+        case .clientVersionNative(let version, let type):
             let nativesPlatform = "\(version)-natives"
-            return GameDir.clientVersionDir(version: version, type: type).pathComponents + [nativesPlatform]
+            return GameDir.clientVersion(version: version, type: type).pathComponents + [nativesPlatform]
         }
     }
     

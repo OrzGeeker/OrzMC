@@ -23,16 +23,16 @@ extension Launcher {
     
         let classPath = Array([
             GameDir.libraries(version: startInfo.version.id).dirPath,
-            GameDir.clientVersionDir(version: startInfo.version.id).dirPath
+            GameDir.clientVersion(version: startInfo.version.id).dirPath
         ].compactMap { FileManager.allFiles(in: $0, ext: jarExt) }.joined())
         
         let envs = [
-            "natives_directory": "\(GameDir.clientVersionNativeDir(version: startInfo.version.id).dirPath)",
+            "natives_directory": "\(GameDir.clientVersionNative(version: startInfo.version.id).dirPath)",
             "launcher_name": "OrzMC",
             "launcher_version": "\(startInfo.version.id)",
             "auth_player_name": "\(startInfo.username)",
             "version_name": "\(startInfo.version.id)",
-            "game_directory": "\(GameDir.clientDir(version: startInfo.version.id).dirPath)",
+            "game_directory": "\(GameDir.client(version: startInfo.version.id).dirPath)",
             "assets_root": "\(GameDir.assets(version: startInfo.version.id).dirPath)",
             "assets_index_name": "\(try await startInfo.version.gameInfo?.assetIndex.id ?? "")",
             "auth_uuid": "\(UUID.init())",
