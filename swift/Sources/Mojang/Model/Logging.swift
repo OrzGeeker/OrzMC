@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct Logging: MojangCodable {
-    let client: Client
+public struct Logging: MojangCodable {
+    public let client: Client
     
-    struct Client: MojangCodable {
-        let argument: String
-        let file: File
-        let type: String
+    public struct Client: MojangCodable {
+        public let argument: String
+        public let file: File
+        public let type: String
         
-        struct File: MojangCodable {
-            let id: String
-            let sha1: String
+        public struct File: MojangCodable {
+            public let id: String
+            public let sha1: String
+            public let url: URL
             let size: Int64
-            let url: URL
         }
     }
 }

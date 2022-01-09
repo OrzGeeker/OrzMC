@@ -27,28 +27,33 @@ extension Launcher {
         ].compactMap { FileManager.allFiles(in: $0, ext: jarExt) }.joined())
         
         let envs = [
-            "natives_directory": "\(GameDir.clientVersionNative(version: startInfo.version.id).dirPath)",
+            "natives_directory": GameDir.clientVersionNative(version: startInfo.version.id).dirPath,
             "launcher_name": "OrzMC",
-            "launcher_version": "\(startInfo.version.id)",
-            "auth_player_name": "\(startInfo.username)",
-            "version_name": "\(startInfo.version.id)",
-            "game_directory": "\(GameDir.client(version: startInfo.version.id).dirPath)",
-            "assets_root": "\(GameDir.assets(version: startInfo.version.id).dirPath)",
-            "assets_index_name": "\(try await startInfo.version.gameInfo?.assetIndex.id ?? "")",
+            "launcher_version": startInfo.version.id,
+            "auth_player_name": startInfo.username,
+            "version_name": startInfo.version.id,
+            "game_directory": GameDir.client(version: startInfo.version.id).dirPath,
+            "assets_root": GameDir.assets(version: startInfo.version.id).dirPath,
+            "assets_index_name": try await startInfo.version.gameInfo?.assetIndex.id ?? "",
             "auth_uuid": UUID().uuidString,
-            "auth_access_token": "\(startInfo.accessToken ?? UUID().uuidString)",
-            "clientid": "\(startInfo.version.id)",
-            "auth_xuid": "\(startInfo.username)",
+            "auth_access_token": startInfo.accessToken ?? UUID().uuidString,
+            "clientid": startInfo.version.id,
+            "auth_xuid": startInfo.username,
             "user_type": "mojang",
-            "version_type": "\(startInfo.version.type)",
-            "classpath": "\(classPath.joined(separator: cpSep))" ,
+            "version_type": startInfo.version.type,
+            "classpath": classPath.joined(separator: cpSep),
+            "path": GameDir.clientLogConfig(version: startInfo.version.id).filePath(gameInfo.logging.client.file.id)
         ]
         
-        let javaArgsArray = [
+        var javaArgsArray = [
             "-Xms512M",
             "-Xmx2G",
-            "-Djava.net.preferIPv4Stack=true",
+            "-Djava.net.preferIPv4Stack=true"
         ]
+        
+        if startInfo.debug {
+            javaArgsArray.append(gameInfo.logging.client.argument)
+        }
         
         // 处理jvm相关参数
         let jvmArgsArray = gameInfo.arguments.jvm.compactMap { (arg) -> String? in
@@ -84,7 +89,12 @@ extension Launcher {
         var args = [String]()
         
         let regex = try NSRegularExpression(pattern: "\\$\\{(\\w+)\\}", options: .caseInsensitive)
-        Array([javaArgsArray, jvmArgsArray, [gameInfo.mainClass], gameArgsArray].joined()).forEach { arg in
+        Array([
+            javaArgsArray,
+            jvmArgsArray,
+            [gameInfo.mainClass],
+            gameArgsArray
+        ].joined()).forEach { arg in
             
             let matches = regex.matches(in: arg, range: NSRange(location: 0, length: arg.count))
             var argValue = arg
@@ -105,6 +115,11 @@ extension Launcher {
             }
         }
         
+        if startInfo.debug {
+            for arg in args {
+                print(arg)
+            }
+        }
         
         let javaPath = Shell.run(
             path: "/usr/bin/env",
