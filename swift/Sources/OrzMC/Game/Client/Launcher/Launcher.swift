@@ -26,6 +26,9 @@ final class Launcher: Client {
         // 向用户获取启动器相关的参数信息
         self.startInfo = try await userInput()
         
+        // 正版验证
+        try await self.authenticate()
+        
         // 下载启动器启动所需要的文件、资源及依赖
         try await self.download()
         

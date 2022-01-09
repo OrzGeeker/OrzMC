@@ -36,13 +36,24 @@ extension Launcher {
         
         // 下载版本Jar文件
         let filename = [startInfo.version.id, client.url.pathExtension].joined(separator: ".")
+        let prgressHint = "下载客户端文件: \(filename)"
+        
+        if !startInfo.debug {
+            console.pushEphemeral()
+            console.output("下载客户端文件完成", style: .success)
+        }
+        
         try await self.download(
             client.url,
-            progressHint: "下载客户端文件: \(filename)",
+            progressHint: startInfo.debug ? prgressHint : nil,
             targetDir: GameDir.clientVersion(version: startInfo.version.id),
             hash: client.sha1,
             filename: filename
         )
+        
+        if !startInfo.debug {
+            console.popEphemeral()
+        }
     }
     
     /// 下载游戏客户端资源文件
@@ -54,13 +65,24 @@ extension Launcher {
         
         // 下载资源索引文件json
         let indexFileName = assetIndex.url.lastPathComponent
+        let progressHint = "下载资源索引文件: \(indexFileName)"
+        
+        if !startInfo.debug {
+            console.pushEphemeral()
+            console.output("下载资源索引文件完成", style: .success)
+        }
+        
         try await self.download(
             assetIndex.url,
-            progressHint: "下载资源索引文件: \(indexFileName)",
+            progressHint: startInfo.debug ? progressHint : nil,
             targetDir: .assetsIdx(version: startInfo.version.id),
             hash: assetIndex.sha1,
             filename: indexFileName
         )
+        
+        if !startInfo.debug {
+            console.popEphemeral()
+        }
         
         // 下载资源对象文件
         var count = 0
@@ -72,13 +94,28 @@ extension Launcher {
             else {
                 continue
             }
+            let progressHint = "下载资源文件(\(count)/\(total))：\(filename)"
             let assetObjURL = Mojang.assetObjURL(info.filePath())
+            
+            if !startInfo.debug {
+                console.pushEphemeral()
+                console.output(progressHint, style: .info)
+            }
+            
             try await self.download(
                 assetObjURL,
-                progressHint: "下载资源文件(\(count)/\(total))：\(filename)",
+                progressHint: startInfo.debug ? progressHint : nil,
                 targetDir: GameDir.assetsObj(version: startInfo.version.id, path: info.dirPath()),
                 hash: info.hash
             )
+            
+            if !startInfo.debug {
+                console.popEphemeral()
+            }
+        }
+        
+        if !startInfo.debug {
+            console.output("下载资源文件完成", style: .success)
         }
     }
     
@@ -134,17 +171,33 @@ extension Launcher {
             
             guard allowDownload
             else {
-                let info = "下载库文件(\(count)/\(total))：\(lib.name)".consoleText() + " [Not Need]".consoleText(.info)
-                console.output(info)
+                if startInfo.debug {
+                    let info = "下载库文件(\(count)/\(total))：\(lib.name)".consoleText() + " [Not Need]".consoleText(.info)
+                    console.output(info)
+                }
                 continue
+            }
+            
+            let progressHint = "下载库文件(\(count)/\(total))：\(libName)"
+            
+            if !startInfo.debug {
+                console.pushEphemeral()
+                console.output(progressHint, style: .info)
             }
             
             try await self.download(
                 artifact.url,
-                progressHint: "下载库文件(\(count)/\(total))：\(libName)",
+                progressHint: startInfo.debug ? progressHint : nil,
                 targetDir: targetDir,
                 hash: artifact.sha1
             )
+            
+            if !startInfo.debug {
+                console.popEphemeral()
+            }
+        }
+        if !startInfo.debug {
+            console.output("下载库文件完成", style: .success)
         }
     }
 }
