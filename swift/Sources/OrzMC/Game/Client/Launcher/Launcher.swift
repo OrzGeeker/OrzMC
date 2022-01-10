@@ -6,6 +6,7 @@
 //
 
 import ConsoleKit
+import Mojang
 
 /// Minecraft 客户端启动器
 ///
@@ -35,4 +36,19 @@ final class Launcher: Client {
         // 分析参数并启动客户端
         try await self.launch()
     }
+}
+
+
+struct LauncherStartInfo {
+    var version: Version
+    var username: String
+    
+    // 正版授权
+    var accountName: String?
+    var accountPassword: String?
+    var accessToken: String?
+    var clientToken: String?
+    
+    // UI相关
+    var debug: Bool = false
 }
