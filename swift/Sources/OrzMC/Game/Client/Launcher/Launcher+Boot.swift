@@ -26,13 +26,15 @@ extension Launcher {
             GameDir.clientVersion(version: startInfo.version.id).dirPath
         ].compactMap { FileManager.allFiles(in: $0, ext: jarExt) }.joined())
         
+        
+        let gameDir = GameDir.client(version: startInfo.version.id).dirPath
         let envs = [
             "natives_directory": GameDir.clientVersionNative(version: startInfo.version.id).dirPath,
             "launcher_name": "OrzMC",
             "launcher_version": startInfo.version.id,
             "auth_player_name": startInfo.username,
             "version_name": startInfo.version.id,
-            "game_directory": GameDir.client(version: startInfo.version.id).dirPath,
+            "game_directory": gameDir,
             "assets_root": GameDir.assets(version: startInfo.version.id).dirPath,
             "assets_index_name": try await startInfo.version.gameInfo?.assetIndex.id ?? "",
             "auth_uuid": UUID().uuidString,
@@ -45,14 +47,14 @@ extension Launcher {
             "path": GameDir.clientLogConfig(version: startInfo.version.id).filePath(gameInfo.logging.client.file.id)
         ]
         
-        let javaArgsArray = [
+        var javaArgsArray = [
             "-Xms512M",
             "-Xmx2G",
             "-Djava.net.preferIPv4Stack=true"
         ]
         
         if startInfo.debug {
-//            javaArgsArray.append(gameInfo.logging.client.argument)
+            javaArgsArray.append(gameInfo.logging.client.argument)
         }
         
         // 处理jvm相关参数
@@ -125,7 +127,7 @@ extension Launcher {
             path: "/usr/bin/env",
             args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         
-        try Shell.run(path: javaPath, args: args) { process in
+        try Shell.run(path: javaPath, args: args, workDirectory: gameDir) { process in
             guard process.terminationStatus == 0
             else {
                 print(process.terminationReason)
