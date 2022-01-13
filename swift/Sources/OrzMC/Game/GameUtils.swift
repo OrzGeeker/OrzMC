@@ -2,21 +2,30 @@
 //  File.swift
 //  
 //
-//  Created by joker on 2022/1/8.
+//  Created by wangzhizhou on 2022/1/13.
 //
 
 import Foundation
 import ConsoleKit
 import JokerKits
 
-extension Launcher {
-    
+struct GameUtils {
     /// 下载文件
     /// - Parameters:
     ///   - url: 文件URL
     ///   - progressHint: 下载进度提示文字
     ///   - targetDir: 下载后放入的目录
-    func download(_ url: URL, progressHint: String?, targetDir: GameDir, hash: String, filename: String? = nil) async throws {
+    ///   - hash: 文件的SHA1哈希值
+    ///   - filename: 下载后的转存文件名
+    ///   - console: 控制台实例
+    static func download(
+        _ url: URL,
+        progressHint: String?,
+        targetDir: GameDir,
+        hash: String,
+        filename: String? = nil,
+        console: Console = Platform.console
+    ) async throws {
         return try await withCheckedThrowingContinuation { continuation in
             var progressBar: ActivityIndicator<ProgressBar>? = nil
             let showProgress = progressHint != nil
@@ -38,7 +47,7 @@ extension Launcher {
                     }
                 }
             } catch let error {
-                self.console.output(error.localizedDescription.consoleText(.error), newLine: true)
+                console.output(error.localizedDescription.consoleText(.error), newLine: true)
                 continuation.resume(throwing: error)
             }
             
@@ -63,7 +72,7 @@ extension Launcher {
                         try FileManager.moveFile(fromFilePath: fromFilePath, toFilePath: toFilePath, overwrite: true)
                         continuation.resume()
                     } catch let error {
-                        self.console.output(error.localizedDescription.consoleText(.error), newLine: true)
+                        console.output(error.localizedDescription.consoleText(.error), newLine: true)
                         continuation.resume(throwing: error)
                     }
                 }

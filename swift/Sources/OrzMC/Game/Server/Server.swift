@@ -8,6 +8,5 @@
 import Foundation
 
 protocol Server {
-    func start()
-    func stop()
+    func start() async throws
 }
