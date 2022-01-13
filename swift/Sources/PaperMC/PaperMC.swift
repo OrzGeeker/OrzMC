@@ -10,8 +10,17 @@ import JokerKits
 
 /// ![PaperMC](https://papermc.io/)
 public struct PaperMC {
+    
+    public static var api = API()
+    
     /// ![PaperMC API v2](https://papermc.io/api/docs/swagger-ui/index.html?configUrl=/api/openapi/swagger-config)
     public struct API {
+        
+        public lazy var jsonDecoder: JSONDecoder = {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return decoder
+        }()
         
         var pathComponents = [String]()
         
@@ -74,13 +83,17 @@ public struct PaperMC {
         
         public var getData: Data? {
             get async throws {
-                let url = String(NSString.path(withComponents: self.pathComponents))
-                guard let data = try await URL(string: url)?.getData
+                guard let data = try await self.url?.getData
                 else {
                     return nil
                 }
                 return data
             }
+        }
+        
+        public var url: URL? {
+            let url = String(NSString.path(withComponents: self.pathComponents))
+            return URL(string: url)
         }
     }
 }

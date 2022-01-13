@@ -11,8 +11,9 @@ import PaperMC
 struct OrzMC {
     static func main() async throws {
 //        try await Launcher().start()
-        try await VanillaServer(deployInfo: .init(version: "1.18.1")).start()
-        print("Hello, world!")
+//        try await VanillaServer(deployInfo: .init(version: "1.18.1")).start()
+        try await PaperServer(deployInfo: .init(version: "1.18.1")).start()
+//        print("Hello, world!")
     }
 }
 
