@@ -3,14 +3,10 @@ import XCTest
 
 final class PaperMCTests: XCTestCase {
     
-    let jsonDecoder = JSONDecoder()
-    
-    override func setUp() {
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-    }
-    
+    let jsonDecoder = PaperMC.api.jsonDecoder
+        
     func testProjects() async throws {
-        let data = try await PaperMC.API().projects().getData
+        let data = try await PaperMC.api.projects().getData
         XCTAssertNotNil(data)
         if let data = data {
             XCTAssertNoThrow(try jsonDecoder.decode(Projects.self, from: data))
@@ -18,7 +14,7 @@ final class PaperMCTests: XCTestCase {
     }
     
     func testPaper() async throws {
-        let paperAPI = PaperMC.API().projects("paper")
+        let paperAPI = PaperMC.api.projects("paper")
         let data = try await paperAPI.getData
         XCTAssertNotNil(data)
         if let data = data {

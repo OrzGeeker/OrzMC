@@ -10,12 +10,17 @@ import ConsoleKit
 import JokerKits
 
 struct GameUtils {
+    enum HashType {
+        case sha1
+        case sha256
+    }
     /// 下载文件
     /// - Parameters:
     ///   - url: 文件URL
     ///   - progressHint: 下载进度提示文字
     ///   - targetDir: 下载后放入的目录
-    ///   - hash: 文件的SHA1哈希值
+    ///   - hash: 文件的哈希值
+    ///   - hashType: 计算哈希值的方法
     ///   - filename: 下载后的转存文件名
     ///   - console: 控制台实例
     static func download(
@@ -23,6 +28,7 @@ struct GameUtils {
         progressHint: String?,
         targetDir: GameDir,
         hash: String,
+        hashType: HashType = .sha1,
         filename: String? = nil,
         console: Console = Platform.console
     ) async throws {
@@ -38,8 +44,15 @@ struct GameUtils {
             // 已经下载过的，且校验完整的文件，不重复下载
             do {
                 if FileManager.default.fileExists(atPath: toFilePath) {
-                    let sha1 = try URL(fileURLWithPath: toFilePath).fileSHA1Value
-                    if sha1 == hash {
+                    var hashValue = try URL(fileURLWithPath: toFilePath).fileSHA1Value
+                    switch hashType {
+                    case .sha1:
+                        hashValue = try URL(fileURLWithPath: toFilePath).fileSHA1Value
+                    case .sha256:
+                        hashValue = try URL(fileURLWithPath: toFilePath).fileSHA256Value
+                    }
+                    
+                    if hashValue == hash {
                         progressBar?.start()
                         progressBar?.succeed()
                         continuation.resume()
@@ -60,9 +73,16 @@ struct GameUtils {
                     progressBar?.succeed()
                     
                     do {
-                        // Check SHA1 Value
-                        let sha1 = try fileURL.fileSHA1Value
-                        guard sha1 == hash
+                        // Check Hash Value
+                        var hashValue = try fileURL.fileSHA1Value
+                        switch hashType {
+                        case .sha1:
+                            hashValue = try fileURL.fileSHA1Value
+                        case .sha256:
+                            hashValue = try fileURL.fileSHA256Value
+                        }
+
+                        guard hashValue == hash
                         else {
                             throw URLError(.badServerResponse)
                         }
