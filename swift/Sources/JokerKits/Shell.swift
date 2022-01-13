@@ -64,7 +64,7 @@ public struct Shell {
             let process = Process()
             process.executableURL = fileURL
             process.arguments = args
-
+            
             if let workDirectory = workDirectory {
                 process.currentDirectoryURL = URL(fileURLWithPath: workDirectory)
             }
