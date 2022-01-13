@@ -7,13 +7,9 @@
 
 import Foundation
 
-struct Paper: Server {
+struct PaperServer: Server {
     
     func start() {
-        
-    }
-    
-    func stop() {
         
     }
 }

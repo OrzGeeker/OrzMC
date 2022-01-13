@@ -132,6 +132,6 @@ extension Launcher {
                 return
             }
         }
-        console.output("客户端正在启动请稍等...", style: .success)
+        Platform.console.output("客户端正在启动请稍等...", style: .success)
     }
 }

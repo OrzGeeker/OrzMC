@@ -4,8 +4,8 @@
 //
 //  Created by joker on 2022/1/9.
 //
-
 import Foundation
+import JokerKits
 import Mojang
 
 
@@ -35,6 +35,6 @@ extension Launcher {
         let authResp = try JSONDecoder().decode(Mojang.AuthAPI.AuthRespone.self, from: data)
         self.startInfo?.clientToken = authResp.clientToken
         self.startInfo?.accessToken = authResp.accessToken
-        console.output("验证账号密码为正版用户", style: .success)
+        Platform.console.output("验证账号密码为正版用户", style: .success)
     }
 }

@@ -5,7 +5,7 @@
 //  Created by joker on 2022/1/3.
 //
 
-import ConsoleKit
+import JokerKits
 import Mojang
 
 /// Minecraft 客户端启动器
@@ -14,9 +14,6 @@ import Mojang
 ///
 /// [启动器Wiki](https://minecraft.fandom.com/zh/wiki/教程/编写启动器)
 final class Launcher: Client {
-    
-    /// 对应shell控制台实例
-    let console = Terminal()
     
     /// 客户端启动器启动参数相关
     var startInfo: LauncherStartInfo?
