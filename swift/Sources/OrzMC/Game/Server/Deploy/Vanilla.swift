@@ -44,12 +44,15 @@ struct VanillaServer: Server {
             progressHint: progressHint,
             targetDir: targetDir,
             hash: serverInfo.sha1)
-        
+        try await launchServer(filePath, workDirectory: targetDir)
+    }
+    
+    func launchServer(_ filePath: String, workDirectory: GameDir) async throws {
         let javaPath = try Shell.run(
             path: "/usr/bin/env",
             args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         
-         var args = [
+        var args = [
             "-Xms512M",
             "-Xmx2G",
             "-jar",
@@ -65,14 +68,29 @@ struct VanillaServer: Server {
                 print(arg)
             }
         }
-
-        try Shell.run(path: javaPath, args: args) { process in
-            guard process.terminationStatus == 0
-            else {
-                print(process.terminationReason)
-                return
+        
+        let eulaFilePath = workDirectory.filePath("eula.txt")
+        if let eulaFileContent = try? String(contentsOfFile: eulaFilePath) {
+            Platform.console.pushEphemeral()
+            Platform.console.warning("首次启动，未同意EULA协议")
+            try eulaFileContent.replacingOccurrences(of: "eula=false", with: "eula=true")
+                .write(toFile: eulaFilePath, atomically: false, encoding: .utf8)
+            Platform.console.popEphemeral()
+            Platform.console.success("已同意EULA协议")
+            
+            Platform.console.info("服务端正在运行中...")
+            try Shell.run(path: javaPath, args: args, workDirectory: workDirectory.dirPath) { process in
+                guard process.terminationStatus == 0
+                else {
+                    print(process.terminationReason)
+                    return
+                }g s
+                Platform.console.info("服务端已停止")
             }
         }
-        Platform.console.output("服务端正在启动请稍等...", style: .success)
+        else {
+            try await Shell.run(path: javaPath, args: args, workDirectory: workDirectory.dirPath)
+            try await launchServer(filePath, workDirectory: workDirectory)
+        }
     }
 }
