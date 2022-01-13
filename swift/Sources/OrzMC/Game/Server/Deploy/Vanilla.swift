@@ -84,7 +84,7 @@ struct VanillaServer: Server {
                 else {
                     print(process.terminationReason)
                     return
-                }g s
+                }
                 Platform.console.info("服务端已停止")
             }
         }
