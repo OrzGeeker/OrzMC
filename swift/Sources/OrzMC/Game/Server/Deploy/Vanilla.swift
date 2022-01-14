@@ -63,6 +63,10 @@ struct VanillaServer: Server {
             args.append("--nogui")
         }
         
+        if serverInfo.forceUpgrade {
+            args.append("--forceUpgrade")
+        }
+        
         if serverInfo.debug {
             for arg in args {
                 print(arg)

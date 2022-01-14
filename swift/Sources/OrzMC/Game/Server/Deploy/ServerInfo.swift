@@ -11,6 +11,7 @@ struct ServerInfo {
     let version: String
     let gui: Bool
     let debug: Bool
+    let forceUpgrade: Bool
     
     // JVM启动内存占用参数
     var minMem: String

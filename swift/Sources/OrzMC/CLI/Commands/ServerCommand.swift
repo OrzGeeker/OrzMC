@@ -18,6 +18,9 @@ struct ServerCommand: Command {
         @Flag(name: "gui", short: "g", help: "服务器以GUI方式启动")
         var gui: Bool
         
+        @Flag(name: "force_upgrade", short: "f", help: "强制升级地图")
+        var forceUpgrade: Bool
+        
         @Option(name: "type", short: "t", help: "服务器类型")
         var type: String?
         
@@ -41,11 +44,13 @@ struct ServerCommand: Command {
             let debug = signature.debug
             let minMem = signature.minMem ?? "512M"
             let maxMem = signature.maxMem ?? "2G"
+            let forceUpgrade = signature.forceUpgrade
             
             let serverInfo = ServerInfo(
                 version:version.id,
                 gui: gui,
                 debug: debug,
+                forceUpgrade: forceUpgrade,
                 minMem: minMem,
                 maxMem: maxMem
             )
