@@ -4,8 +4,8 @@
 //
 //  Created by joker on 2022/1/9.
 //
-
 import Foundation
+import JokerKits
 import Mojang
 
 
@@ -13,11 +13,8 @@ extension Launcher {
     
     /// 授权验证
     func authenticate() async throws {
-        guard let startInfo = self.startInfo else {
-            return
-        }
         
-        guard let accountName = startInfo.accountName, let accountPassword = startInfo.accountPassword
+        guard let accountName = clientInfo.accountName, let accountPassword = self.clientInfo.accountPassword
         else {
             return
         }
@@ -33,8 +30,8 @@ extension Launcher {
         }
         
         let authResp = try JSONDecoder().decode(Mojang.AuthAPI.AuthRespone.self, from: data)
-        self.startInfo?.clientToken = authResp.clientToken
-        self.startInfo?.accessToken = authResp.accessToken
-        console.output("验证账号密码为正版用户", style: .success)
+        self.clientInfo.clientToken = authResp.clientToken
+        self.clientInfo.accessToken = authResp.accessToken
+        Platform.console.output("验证账号密码为正版用户", style: .success)
     }
 }

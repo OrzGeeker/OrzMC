@@ -5,9 +5,6 @@
 //  Created by joker on 2022/1/3.
 //
 
-import Foundation
-
 protocol Server {
-    func start()
-    func stop()
+    func start() async throws
 }
