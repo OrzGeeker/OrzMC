@@ -23,25 +23,37 @@ let package = Package(
                 .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux])),
             ]
         ),
+        
         .target(
             name: "Mojang",
-            dependencies: ["JokerKits"]),
-        
+            dependencies: ["JokerKits"]
+        ),
         .testTarget(
             name: "MojangTests",
-            dependencies: ["Mojang"]),
-        
-        .target(name: "PaperMC"),
+            dependencies: ["Mojang"]
+        ),
         
         .executableTarget(
             name: "OrzMC",
             dependencies: [
                 "Mojang",
-                .product(name: "ConsoleKit", package: "console-kit")
-            ]),
+                .product(name: "ConsoleKit", package: "console-kit"),
+                "PaperMC"
+            ]
+        ),
         .testTarget(
             name: "OrzMCTests",
-            dependencies: ["OrzMC"]),
+            dependencies: ["OrzMC"]
+        ),
+        
+        .target(
+            name: "PaperMC",
+            dependencies: ["JokerKits"]
+        ),
+        .testTarget(
+            name: "PaperMCTests",
+            dependencies: ["PaperMC"]
+        )
     ],
     swiftLanguageVersions: [.v5]
 )

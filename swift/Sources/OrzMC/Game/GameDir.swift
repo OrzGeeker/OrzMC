@@ -7,6 +7,7 @@
 
 import Foundation
 import JokerKits
+import ConsoleKit
 
 extension Platform {
     func platformName() -> String {
@@ -21,12 +22,23 @@ extension Platform {
             return "unsupported"
         }
     }
+    
+    static let console = Terminal()
+}
+
+enum GameType: String {
+    case vanilla
+    case paper
+}
+
+enum GameError: Error {
+    case noGameVersions
 }
 
 enum GameDir {
     
-    private static let defaultClientType = "vanilla"
-    
+    private static let defaultClientType = GameType.vanilla.rawValue
+
     case home
     case minecraft
     case manifest
@@ -40,7 +52,8 @@ enum GameDir {
     case clientVersion(version: String, type: String = defaultClientType)
     case clientVersionNative(version: String, type: String = defaultClientType)
     case clientLogConfig(version: String, type: String = defaultClientType)
-
+    case server(version: String, type: String = defaultClientType)
+    
     private var pathComponents: [String] {
         switch self {
         case .home:
@@ -70,6 +83,8 @@ enum GameDir {
         case .clientVersionNative(let version, let type):
             let nativesPlatform = "\(version)-natives"
             return GameDir.clientVersion(version: version, type: type).pathComponents + [nativesPlatform]
+        case .server(let version, let type):
+            return GameDir.gameVersion(version: version).pathComponents + ["server", type]
         }
     }
     

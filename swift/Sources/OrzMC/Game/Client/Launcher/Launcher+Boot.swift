@@ -13,7 +13,7 @@ extension Launcher {
     /// 启动客户端
     func launch() async throws {
         
-        guard let startInfo = self.startInfo, let gameInfo = try await startInfo.version.gameInfo
+        guard let gameInfo = try await self.clientInfo.version.gameInfo
         else {
             return
         }
@@ -22,37 +22,39 @@ extension Launcher {
         let cpSep = Platform.current() == .windows ? ";" : ":"
         
         let classPath = Array([
-            GameDir.libraries(version: startInfo.version.id).dirPath,
-            GameDir.clientVersion(version: startInfo.version.id).dirPath
+            GameDir.libraries(version: clientInfo.version.id).dirPath,
+            GameDir.clientVersion(version: clientInfo.version.id).dirPath
         ].compactMap { FileManager.allFiles(in: $0, ext: jarExt) }.joined())
         
+        
+        let gameDir = GameDir.client(version: clientInfo.version.id).dirPath
         let envs = [
-            "natives_directory": GameDir.clientVersionNative(version: startInfo.version.id).dirPath,
+            "natives_directory": GameDir.clientVersionNative(version: clientInfo.version.id).dirPath,
             "launcher_name": "OrzMC",
-            "launcher_version": startInfo.version.id,
-            "auth_player_name": startInfo.username,
-            "version_name": startInfo.version.id,
-            "game_directory": GameDir.client(version: startInfo.version.id).dirPath,
-            "assets_root": GameDir.assets(version: startInfo.version.id).dirPath,
-            "assets_index_name": try await startInfo.version.gameInfo?.assetIndex.id ?? "",
+            "launcher_version": clientInfo.version.id,
+            "auth_player_name": clientInfo.username,
+            "version_name": clientInfo.version.id,
+            "game_directory": gameDir,
+            "assets_root": GameDir.assets(version: clientInfo.version.id).dirPath,
+            "assets_index_name": try await clientInfo.version.gameInfo?.assetIndex.id ?? "",
             "auth_uuid": UUID().uuidString,
-            "auth_access_token": startInfo.accessToken ?? UUID().uuidString,
-            "clientid": startInfo.version.id,
-            "auth_xuid": startInfo.username,
+            "auth_access_token": clientInfo.accessToken ?? UUID().uuidString,
+            "clientid": clientInfo.version.id,
+            "auth_xuid": clientInfo.username,
             "user_type": "mojang",
-            "version_type": startInfo.version.type,
+            "version_type": clientInfo.version.type,
             "classpath": classPath.joined(separator: cpSep),
-            "path": GameDir.clientLogConfig(version: startInfo.version.id).filePath(gameInfo.logging.client.file.id)
+            "path": GameDir.clientLogConfig(version: clientInfo.version.id).filePath(gameInfo.logging.client.file.id)
         ]
         
-        let javaArgsArray = [
-            "-Xms512M",
-            "-Xmx2G",
+        var javaArgsArray = [
+            "-Xms" + clientInfo.minMem,
+            "-Xmx" + clientInfo.maxMem,
             "-Djava.net.preferIPv4Stack=true"
         ]
         
-        if startInfo.debug {
-//            javaArgsArray.append(gameInfo.logging.client.argument)
+        if clientInfo.debug {
+            javaArgsArray.append(gameInfo.logging.client.argument)
         }
         
         // 处理jvm相关参数
@@ -115,7 +117,7 @@ extension Launcher {
             }
         }
         
-        if startInfo.debug {
+        if clientInfo.debug {
             for arg in args {
                 print(arg)
             }
@@ -125,13 +127,13 @@ extension Launcher {
             path: "/usr/bin/env",
             args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         
-        try Shell.run(path: javaPath, args: args) { process in
+        try Shell.run(path: javaPath, args: args, workDirectory: gameDir) { process in
             guard process.terminationStatus == 0
             else {
                 print(process.terminationReason)
                 return
             }
         }
-        console.output("客户端正在启动请稍等...", style: .success)
+        Platform.console.output("客户端正在启动请稍等...", style: .success)
     }
 }
