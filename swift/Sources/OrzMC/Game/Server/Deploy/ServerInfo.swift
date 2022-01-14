@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DeployInfo {
+struct ServerInfo {
     let version: String
     let gui: Bool = false
     let debug: Bool = false

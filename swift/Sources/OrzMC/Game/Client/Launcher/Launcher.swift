@@ -16,7 +16,7 @@ import Mojang
 final class Launcher: Client {
     
     /// 客户端启动器启动参数相关
-    var startInfo: LauncherStartInfo?
+    var startInfo: ClientInfo?
     
     /// 客户端启动
     func start() async throws {
@@ -36,7 +36,7 @@ final class Launcher: Client {
 }
 
 
-struct LauncherStartInfo {
+struct ClientInfo {
     var version: Version
     var username: String
     

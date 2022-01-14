@@ -20,7 +20,7 @@ enum PaperServerError: Error {
 
 struct PaperServer: Server {
     
-    let deployInfo: DeployInfo
+    let deployInfo: ServerInfo
         
     func start() async throws {
         
