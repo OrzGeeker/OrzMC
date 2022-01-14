@@ -2,16 +2,15 @@
 //  File.swift
 //  
 //
-//  Created by joker on 2022/1/3.
+//  Created by wangzhizhou on 2022/1/14.
 //
 
 import Mojang
-import ConsoleKit
 import JokerKits
+import ConsoleKit
 
-extension Launcher {
-
-    func userInput() async throws -> ClientInfo? {
+extension OrzMC {
+    static func userInput() async throws -> ClientInfo? {
         
         guard let versions = try await Mojang.manifest?.versions
         else {

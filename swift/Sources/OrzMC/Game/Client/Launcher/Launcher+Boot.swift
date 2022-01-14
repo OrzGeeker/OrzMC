@@ -13,7 +13,7 @@ extension Launcher {
     /// 启动客户端
     func launch() async throws {
         
-        guard let startInfo = self.startInfo, let gameInfo = try await startInfo.version.gameInfo
+        guard let gameInfo = try await self.clientInfo.version.gameInfo
         else {
             return
         }
@@ -22,29 +22,29 @@ extension Launcher {
         let cpSep = Platform.current() == .windows ? ";" : ":"
         
         let classPath = Array([
-            GameDir.libraries(version: startInfo.version.id).dirPath,
-            GameDir.clientVersion(version: startInfo.version.id).dirPath
+            GameDir.libraries(version: clientInfo.version.id).dirPath,
+            GameDir.clientVersion(version: clientInfo.version.id).dirPath
         ].compactMap { FileManager.allFiles(in: $0, ext: jarExt) }.joined())
         
         
-        let gameDir = GameDir.client(version: startInfo.version.id).dirPath
+        let gameDir = GameDir.client(version: clientInfo.version.id).dirPath
         let envs = [
-            "natives_directory": GameDir.clientVersionNative(version: startInfo.version.id).dirPath,
+            "natives_directory": GameDir.clientVersionNative(version: clientInfo.version.id).dirPath,
             "launcher_name": "OrzMC",
-            "launcher_version": startInfo.version.id,
-            "auth_player_name": startInfo.username,
-            "version_name": startInfo.version.id,
+            "launcher_version": clientInfo.version.id,
+            "auth_player_name": clientInfo.username,
+            "version_name": clientInfo.version.id,
             "game_directory": gameDir,
-            "assets_root": GameDir.assets(version: startInfo.version.id).dirPath,
-            "assets_index_name": try await startInfo.version.gameInfo?.assetIndex.id ?? "",
+            "assets_root": GameDir.assets(version: clientInfo.version.id).dirPath,
+            "assets_index_name": try await clientInfo.version.gameInfo?.assetIndex.id ?? "",
             "auth_uuid": UUID().uuidString,
-            "auth_access_token": startInfo.accessToken ?? UUID().uuidString,
-            "clientid": startInfo.version.id,
-            "auth_xuid": startInfo.username,
+            "auth_access_token": clientInfo.accessToken ?? UUID().uuidString,
+            "clientid": clientInfo.version.id,
+            "auth_xuid": clientInfo.username,
             "user_type": "mojang",
-            "version_type": startInfo.version.type,
+            "version_type": clientInfo.version.type,
             "classpath": classPath.joined(separator: cpSep),
-            "path": GameDir.clientLogConfig(version: startInfo.version.id).filePath(gameInfo.logging.client.file.id)
+            "path": GameDir.clientLogConfig(version: clientInfo.version.id).filePath(gameInfo.logging.client.file.id)
         ]
         
         var javaArgsArray = [
@@ -53,7 +53,7 @@ extension Launcher {
             "-Djava.net.preferIPv4Stack=true"
         ]
         
-        if startInfo.debug {
+        if clientInfo.debug {
             javaArgsArray.append(gameInfo.logging.client.argument)
         }
         
@@ -117,7 +117,7 @@ extension Launcher {
             }
         }
         
-        if startInfo.debug {
+        if clientInfo.debug {
             for arg in args {
                 print(arg)
             }

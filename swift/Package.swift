@@ -23,6 +23,7 @@ let package = Package(
                 .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux])),
             ]
         ),
+        
         .target(
             name: "Mojang",
             dependencies: ["JokerKits"]
@@ -31,6 +32,7 @@ let package = Package(
             name: "MojangTests",
             dependencies: ["Mojang"]
         ),
+        
         .executableTarget(
             name: "OrzMC",
             dependencies: [
@@ -43,6 +45,7 @@ let package = Package(
             name: "OrzMCTests",
             dependencies: ["OrzMC"]
         ),
+        
         .target(
             name: "PaperMC",
             dependencies: ["JokerKits"]
