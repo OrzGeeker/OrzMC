@@ -39,11 +39,15 @@ class Launcher: Client {
 struct ClientInfo {
     var version: Version
     var username: String
-    var debug: Bool = false
+    var debug: Bool
     
     // 正版授权
     var accountName: String?
     var accountPassword: String?
     var accessToken: String?
     var clientToken: String?
+    
+    // JVM启动内存占用参数
+    var minMem: String
+    var maxMem: String
 }

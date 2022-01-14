@@ -9,6 +9,10 @@ import Foundation
 
 struct ServerInfo {
     let version: String
-    let gui: Bool = false
-    let debug: Bool = false
+    let gui: Bool
+    let debug: Bool
+    
+    // JVM启动内存占用参数
+    var minMem: String
+    var maxMem: String
 }
