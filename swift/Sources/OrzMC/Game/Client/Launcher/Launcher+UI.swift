@@ -11,7 +11,7 @@ import JokerKits
 
 extension Launcher {
 
-    func userInput() async throws -> LauncherStartInfo? {
+    func userInput() async throws -> ClientInfo? {
         
         guard let versions = try await Mojang.manifest?.versions
         else {
@@ -49,7 +49,7 @@ extension Launcher {
             }
         }
         
-        return LauncherStartInfo(
+        return ClientInfo(
             version: version,
             username: username,
             accountName: accountName,

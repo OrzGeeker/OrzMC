@@ -26,7 +26,7 @@ enum VanillaServerError: Error {
 /// 官方服务端文件下载速度太慢, 容易超时
 struct VanillaServer: Server {
     
-    let deployInfo: DeployInfo
+    let deployInfo: ServerInfo
     
     func start() async throws {
         
