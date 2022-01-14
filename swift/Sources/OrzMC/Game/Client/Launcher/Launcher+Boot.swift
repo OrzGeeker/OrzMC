@@ -48,8 +48,8 @@ extension Launcher {
         ]
         
         var javaArgsArray = [
-            "-Xms512M",
-            "-Xmx2G",
+            "-Xms" + clientInfo.minMem,
+            "-Xmx" + clientInfo.maxMem,
             "-Djava.net.preferIPv4Stack=true"
         ]
         

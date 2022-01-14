@@ -26,24 +26,24 @@ enum VanillaServerError: Error {
 /// 官方服务端文件下载速度太慢, 容易超时
 struct VanillaServer: Server {
     
-    let deployInfo: ServerInfo
+    let serverInfo: ServerInfo
     
     func start() async throws {
         
-        guard let serverInfo = try await Mojang.manifest?.versions.filter({ $0.id == deployInfo.version }).first?.gameInfo?.downloads.server
+        guard let serverVersion = try await Mojang.manifest?.versions.filter({ $0.id == serverInfo.version }).first?.gameInfo?.downloads.server
         else {
             throw VanillaServerError.getServerInfoFailed
         }
         
-        let fileName = serverInfo.url.lastPathComponent
-        let targetDir = GameDir.server(version: deployInfo.version, type: GameType.vanilla.rawValue)
+        let fileName = serverVersion.url.lastPathComponent
+        let targetDir = GameDir.server(version: serverInfo.version, type: GameType.vanilla.rawValue)
         let filePath = targetDir.filePath(fileName)
         let progressHint = "下载服务端文件：\(fileName)"
         try await GameUtils.download(
-            serverInfo.url,
+            serverVersion.url,
             progressHint: progressHint,
             targetDir: targetDir,
-            hash: serverInfo.sha1)
+            hash: serverVersion.sha1)
         try await launchServer(filePath, workDirectory: targetDir)
     }
     
@@ -53,17 +53,17 @@ struct VanillaServer: Server {
             args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         
         var args = [
-            "-Xms512M",
-            "-Xmx2G",
+            "-Xms" + serverInfo.minMem,
+            "-Xmx" + serverInfo.maxMem,
             "-jar",
             filePath
         ]
         
-        if !deployInfo.gui {
+        if !serverInfo.gui {
             args.append("--nogui")
         }
         
-        if deployInfo.debug {
+        if serverInfo.debug {
             for arg in args {
                 print(arg)
             }

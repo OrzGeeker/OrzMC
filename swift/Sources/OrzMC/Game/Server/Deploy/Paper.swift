@@ -20,11 +20,11 @@ enum PaperServerError: Error {
 
 struct PaperServer: Server {
     
-    let deployInfo: ServerInfo
+    let serverInfo: ServerInfo
         
     func start() async throws {
         
-        let versionAPI = PaperMC.api.projects("paper").versions(deployInfo.version)
+        let versionAPI = PaperMC.api.projects("paper").versions(serverInfo.version)
         guard let versionData = try await versionAPI.getData
         else {
             throw PaperServerError.versionRespFailed
@@ -57,7 +57,7 @@ struct PaperServer: Server {
         }
         
         let filename = downloadURL.lastPathComponent
-        let targetDir = GameDir.server(version: deployInfo.version, type: GameType.paper.rawValue)
+        let targetDir = GameDir.server(version: serverInfo.version, type: GameType.paper.rawValue)
         let filePath = targetDir.filePath(filename)
         let progressHint = "下载服务端文件：\(filename)"
         
@@ -78,17 +78,17 @@ struct PaperServer: Server {
             args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         
         var args = [
-            "-Xms512M",
-            "-Xmx2G",
+            "-Xms" + serverInfo.minMem,
+            "-Xmx" + serverInfo.maxMem,
             "-jar",
             filePath
         ]
         
-        if !deployInfo.gui {
+        if !serverInfo.gui {
             args.append("--nogui")
         }
         
-        if deployInfo.debug {
+        if serverInfo.debug {
             for arg in args {
                 print(arg)
             }

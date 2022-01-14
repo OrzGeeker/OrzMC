@@ -31,6 +31,10 @@ enum GameType: String {
     case paper
 }
 
+enum GameError: Error {
+    case noGameVersions
+}
+
 enum GameDir {
     
     private static let defaultClientType = GameType.vanilla.rawValue
