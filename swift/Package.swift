@@ -23,6 +23,10 @@ let package = Package(
                 .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux])),
             ]
         ),
+        .testTarget(
+            name: "JokerKitsTests",
+            dependencies: ["JokerKits"]
+        ),
         
         .target(
             name: "Mojang",
