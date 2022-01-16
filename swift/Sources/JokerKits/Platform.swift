@@ -25,12 +25,3 @@ public enum Platform {
 #endif
     }
 }
-
-
-public enum Arch {
-    
-    
-    
-}
-
-

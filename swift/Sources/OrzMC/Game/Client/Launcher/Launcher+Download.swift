@@ -30,7 +30,9 @@ extension Launcher {
         
         // 下载版本信息JSON文件
         if let url = clientInfo.version.url, let data = try await url.getData {
-            let filePath = GameDir.clientVersion(version: clientInfo.version.id).filePath(url.lastPathComponent)
+            let dir = GameDir.clientVersion(version: clientInfo.version.id)
+            try dir.dirPath.makeDirIfNeed()
+            let filePath = dir.filePath(url.lastPathComponent)
             let fileURL = URL(fileURLWithPath: filePath)
             try data.write(to: fileURL)
         }

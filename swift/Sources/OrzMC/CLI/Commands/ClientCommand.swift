@@ -10,9 +10,7 @@ import Dispatch
 import JokerKits
 
 struct ClientCommand: Command {
-    
-    let stopGroup = DispatchGroup()
-    
+
     struct Signature: CommandSignature {
         @Flag(name: "debug", short: "d", help: "调试模式")
         var debug: Bool
@@ -22,7 +20,7 @@ struct ClientCommand: Command {
         
         @Option(name: "username", short: "u", help: "登录用户名")
         var username: String?
-    
+        
         @Option(name: "ms", short: "s", help: "客户端运行使用的最小内存，默认为：512M")
         var minMem: String?
         
@@ -33,9 +31,7 @@ struct ClientCommand: Command {
     var help: String = "客户端相关命令"
     
     func run(using context: CommandContext, signature: Signature) throws {
-        self.stopGroup.enter()
-        Task {
-            
+        try DispatchGroup().syncExecAndWait({
             let version = try await OrzMC.chooseGameVersion(signature.version)
             
             let username = signature.username ?? OrzMC.userInput(hint: "输入一个用户名：", completedHint: "游戏用户名：")
@@ -63,11 +59,10 @@ struct ClientCommand: Command {
                 minMem: minMem,
                 maxMem: maxMem
             )
-
-            try await Launcher(clientInfo: clientInfo).start()
             
-            self.stopGroup.leave()
-        }
-        self.stopGroup.wait()
+            try await Launcher(clientInfo: clientInfo).start()
+        }, errorClosure: { error in
+            Platform.console.error(error.localizedDescription)
+        })
     }
 }

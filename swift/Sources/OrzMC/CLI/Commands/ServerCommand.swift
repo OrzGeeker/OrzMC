@@ -7,9 +7,9 @@
 
 import ConsoleKit
 import Dispatch
+import JokerKits
 
 struct ServerCommand: Command {
-    private let stopGroup = DispatchGroup()
     
     struct Signature: CommandSignature {
         @Flag(name: "debug", short: "d", help: "调试模式")
@@ -37,8 +37,7 @@ struct ServerCommand: Command {
     var help: String = "服务端相关"
     
     func run(using context: CommandContext, signature: Signature) throws {
-        self.stopGroup.enter()
-        Task {
+        try DispatchGroup().syncExecAndWait {
             let version = try await OrzMC.chooseGameVersion(signature.version)
             let gui = signature.gui
             let debug = signature.debug
@@ -64,8 +63,8 @@ struct ServerCommand: Command {
             case .vanilla:
                 try await VanillaServer(serverInfo: serverInfo).start()
             }
-            stopGroup.leave()
+        } errorClosure: { error in
+            Platform.console.error(error.localizedDescription)
         }
-        self.stopGroup.wait()
     }
 }
