@@ -54,15 +54,20 @@ struct ServerCommand: Command {
                 maxMem: maxMem
             )
             
-            let type = GameType(rawValue: signature.type ?? GameType.paper.rawValue)
-            switch type {
-            case .none:
-                fallthrough
-            case .paper:
-                try await PaperServer(serverInfo: serverInfo).start()
-            case .vanilla:
-                try await VanillaServer(serverInfo: serverInfo).start()
+            if let type = GameType(rawValue: signature.type ?? GameType.paper.rawValue) {
+                Platform.console.success("服务器类型: \(type)")
+                switch type {
+                case .paper:
+                    try await PaperServer(serverInfo: serverInfo).start()
+                case .vanilla:
+                    try await VanillaServer(serverInfo: serverInfo).start()
+                }
             }
+            else{
+                Platform.console.success("服务器类型: \(GameType.paper)")
+                try await PaperServer(serverInfo: serverInfo).start()
+            }
+            
         } errorClosure: { error in
             Platform.console.error(error.localizedDescription)
         }
