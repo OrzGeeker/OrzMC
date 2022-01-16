@@ -113,7 +113,7 @@ struct PaperServer: Server {
             let propertiesFilePath = workDirectory.filePath("server.properties")
             if let propertiesFileConent = try? String(contentsOfFile: propertiesFilePath) {
                 Platform.console.pushEphemeral()
-                try propertiesFileConent.replacingOccurrences(of: "", with: "")
+                try propertiesFileConent.replacingOccurrences(of: "online-mode=true", with: "online-mode=false")
                     .write(toFile: propertiesFilePath, atomically: false, encoding: .utf8)
                 Platform.console.popEphemeral()
                 Platform.console.success("服务器运行为离线模式")
