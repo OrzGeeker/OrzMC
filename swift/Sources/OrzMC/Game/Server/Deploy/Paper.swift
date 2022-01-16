@@ -116,6 +116,17 @@ struct PaperServer: Server {
                 }
                 Platform.console.info("服务端已停止")
             }
+            
+            let propertiesFilePath = workDirectory.filePath("server.properties")
+            if let propertiesFileConent = try? String(contentsOfFile: propertiesFilePath) {
+                Platform.console.pushEphemeral()
+                try propertiesFileConent.replacingOccurrences(of: "", with: "")
+                    .write(toFile: propertiesFilePath, atomically: false, encoding: .utf8)
+                Platform.console.popEphemeral()
+                Platform.console.success("服务器运行为离线模式")
+            }
+            
+            
         }
         else {
             try await Shell.run(path: javaPath, args: args, workDirectory: workDirectory.dirPath)
