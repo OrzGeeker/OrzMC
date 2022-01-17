@@ -39,14 +39,18 @@ public struct JavaInstaller {
         return try Shell.run(path: "/usr/bin/env", args: ["java", "--version"])
     }
     
-    static public func uninstall() throws {
+    static public func installedJavaVersions() throws -> [String]? {
+        var ret: [String]? = nil
+        
         switch Platform.os() {
         case .macosx:
-            if let jdks = try FileManager.allSubDir(in: "/Library/Java/JavaVirtualMachines") {
-                print(jdks)
+            let javaDir = "/Library/Java/JavaVirtualMachines"
+            if let jdks = try FileManager.allSubDir(in: javaDir) {
+                ret = jdks.map { NSString.path(withComponents: [javaDir, $0]) }
             }
         default:
             break
         }
+        return ret;
     }
 }
