@@ -85,7 +85,9 @@ final class JokerKitsTests: XCTestCase {
             "test"
         ])
         
-        try FileManager.default.removeItem(atPath: testDirPath)
+        if testDirPath.isDirPath() {
+            try FileManager.default.removeItem(atPath: testDirPath)
+        }
         
         let path = NSString.path(withComponents: [
             tempDir,
@@ -104,6 +106,11 @@ final class JokerKitsTests: XCTestCase {
         try FileManager.moveFile(fromFilePath: path, toFilePath: targetPath, overwrite: true)
         XCTAssert(targetPath.isDirPath())
         
+        if let dirs = try FileManager.allSubDir(in: testDirPath) {
+            XCTAssert(dirs.count == 1)
+            XCTAssertEqual(NSString.path(withComponents: [testDirPath, dirs.first!]), targetPath)
+        }
+        
         let notExistDir = NSString.path(withComponents: [
             tempDir,
             "not",
@@ -117,7 +124,6 @@ final class JokerKitsTests: XCTestCase {
         if let textFiles = textFiles {
             XCTAssertEqual(textFiles.count, 0)
         }
-        
         
         let testFilePath = NSString.path(withComponents: [
             tempDir,
@@ -142,7 +148,9 @@ final class JokerKitsTests: XCTestCase {
     }
     
     func testJDKUninstall() throws {
-        try JavaInstaller.uninstall()
+        if let javas = try JavaInstaller.installedJavaVersions() {
+            print(javas)
+        }
     }
 }
 

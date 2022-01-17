@@ -46,7 +46,6 @@ public extension FileManager {
             return nil
         }
         return try FileManager.default.contentsOfDirectory(atPath: dirPath)
-            .map { NSString.path(withComponents: [dirPath, $0]) }
-            .filter { $0.isDirPath() }
+            .filter { NSString.path(withComponents: [dirPath, $0]).isDirPath() }
     }
 }
