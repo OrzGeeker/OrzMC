@@ -19,7 +19,7 @@ extension Launcher {
         }
         
         let jarExt = "jar"
-        let cpSep = Platform.current() == .windows ? ";" : ":"
+        let cpSep = Platform.os() == .windows ? ";" : ":"
         
         let classPath = Array([
             GameDir.libraries(version: clientInfo.version.id).dirPath,
@@ -62,7 +62,7 @@ extension Launcher {
             switch arg {
             case .object(let obj):
                 for rule in obj.rules {
-                    if rule.os.name == Platform.current().platformName(), rule.action == "allow" {
+                    if rule.os.name == Platform.os().platformName(), rule.action == "allow" {
                         switch obj.value {
                         case .array(let values):
                             return values.joined(separator: " ")

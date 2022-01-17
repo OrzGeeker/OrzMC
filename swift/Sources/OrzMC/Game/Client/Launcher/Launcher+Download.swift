@@ -143,7 +143,7 @@ extension Launcher {
             var targetDir = GameDir.libraryObj(version: clientInfo.version.id, path: dirPath)
             var libName = lib.name
             
-            let currentOSName = Platform.current().platformName()
+            let currentOSName = Platform.os().platformName()
             if let natives = lib.natives, let nativeClassifier = natives[currentOSName], let nativeArtifact = lib.downloads.classifiers?[nativeClassifier] {
                 artifact = nativeArtifact
                 targetDir = GameDir.clientVersionNative(version: clientInfo.version.id)

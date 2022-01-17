@@ -39,4 +39,14 @@ public extension FileManager {
         }
         return ret
     }
+    
+    static func allSubDir(in dirPath: String) throws -> [String]? {
+        guard dirPath.isDirPath()
+        else {
+            return nil
+        }
+        return try FileManager.default.contentsOfDirectory(atPath: dirPath)
+            .map { NSString.path(withComponents: [dirPath, $0]) }
+            .filter { $0.isDirPath() }
+    }
 }

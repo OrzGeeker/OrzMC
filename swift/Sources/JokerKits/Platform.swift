@@ -13,7 +13,7 @@ public enum Platform {
     case windows
     case unsupportedOS
     
-    public static func current() -> Platform {
+    public static func os() -> Platform {
 #if os(macOS)
         return .macosx
 #elseif os(Windows)
@@ -24,4 +24,28 @@ public enum Platform {
         return .unsupportedOS
 #endif
     }
+    
+    public enum Arch {
+        case unknowned
+        case i386
+        case x86_64
+        case arm
+        case arm64
+    }
+    
+    public static func arch() -> Arch {
+#if arch(x86_64)
+        return .x86_64
+#elseif arch(arm)
+        return .arm
+#elseif arch(arm64)
+        return .arm64
+#elseif arch(i386)
+        return .i386
+#else
+        return .unknowned
+#endif
+    }
 }
+
+
