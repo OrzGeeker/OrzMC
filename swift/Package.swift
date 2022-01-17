@@ -23,6 +23,7 @@ let package = Package(
             name: "JokerKits",
             dependencies: [
                 .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux])),
+                .product(name: "SwiftSoup", package: "SwiftSoup")
             ]
         ),
         .testTarget(

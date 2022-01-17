@@ -133,5 +133,16 @@ final class JokerKitsTests: XCTestCase {
             XCTAssertNotNil(index)
         }
     }
+    
+    func testJDKInstall() async throws {
+        
+        let javaVersion = try JavaInstaller.currentJavaVersion()
+        print(javaVersion)
+        
+    }
+    
+    func testJDKUninstall() throws {
+        try JavaInstaller.uninstall()
+    }
 }
 
