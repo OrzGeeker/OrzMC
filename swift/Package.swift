@@ -13,7 +13,6 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/vapor/console-kit.git", from: "4.0.0"),
         .package(url: "https://github.com/apple/swift-crypto.git", "1.0.0" ..< "3.0.0"),
-        .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "1.7.4"),
         
     ],
     targets: [
@@ -23,7 +22,6 @@ let package = Package(
             name: "JokerKits",
             dependencies: [
                 .product(name: "Crypto", package: "swift-crypto", condition: .when(platforms: [.linux])),
-                .product(name: "SwiftSoup", package: "SwiftSoup")
             ]
         ),
         .testTarget(

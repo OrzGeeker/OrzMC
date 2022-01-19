@@ -123,11 +123,7 @@ extension Launcher {
             }
         }
         
-        let javaPath = try Shell.run(
-            path: "/usr/bin/env",
-            args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        try Shell.run(path: javaPath, args: args, workDirectory: gameDir) { process in
+        try Shell.run(path: try OrzMC.javaPath(), args: args, workDirectory: gameDir) { process in
             guard process.terminationStatus == 0
             else {
                 print(process.terminationReason)
