@@ -6,6 +6,7 @@
 //
 
 import Mojang
+import JokerKits
 
 extension OrzMC {
     static func chooseGameVersion(_ version: String?) async throws -> Version {
@@ -15,5 +16,12 @@ extension OrzMC {
         }
         let versions = Array(releaseVersions[releaseVersions.startIndex..<releaseVersions.startIndex + 10])
         return versions.filter { $0.id == version }.first ?? OrzMC.chooseFromList(versions, display: { $0.id.consoleText() }, hint: "👉 选择一个游戏版本", completedHint: "选择的游戏版本：")
+    }
+        
+    static func javaPath() throws -> String {
+        let javaPath = try Shell.run(
+            path: "/usr/bin/env",
+            args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
+        return javaPath
     }
 }

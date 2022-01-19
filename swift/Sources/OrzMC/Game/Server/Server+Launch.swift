@@ -11,10 +11,6 @@ import JokerKits
 extension Server {
     
     func launchServer(_ filePath: String, workDirectory: GameDir) async throws {
-        let javaPath = try Shell.run(
-            path: "/usr/bin/env",
-            args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
-        
         var args = [
             "-Xms" + serverInfo.minMem,
             "-Xmx" + serverInfo.maxMem,
@@ -58,7 +54,7 @@ extension Server {
             }
             
             Platform.console.info("服务端正在运行中...")
-            try Shell.run(path: javaPath, args: args, workDirectory: workDirectory.dirPath) { process in
+            try Shell.run(path: try OrzMC.javaPath(), args: args, workDirectory: workDirectory.dirPath) { process in
                 guard process.terminationStatus == 0
                 else {
                     print(process.terminationReason)
@@ -68,7 +64,7 @@ extension Server {
             }
         }
         else {
-            try await Shell.run(path: javaPath, args: args, workDirectory: workDirectory.dirPath)
+            try await Shell.run(path: try OrzMC.javaPath(), args: args, workDirectory: workDirectory.dirPath)
             try await launchServer(filePath, workDirectory: workDirectory)
         }
     }
