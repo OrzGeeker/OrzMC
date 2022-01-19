@@ -19,9 +19,7 @@ extension OrzMC {
     }
         
     static func javaPath() throws -> String {
-        let javaPath = try Shell.run(
-            path: "/usr/bin/env",
-            args: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
+        let javaPath = try Shell.runCommand(with: ["which", "java"]).trimmingCharacters(in: .whitespacesAndNewlines)
         return javaPath
     }
 }

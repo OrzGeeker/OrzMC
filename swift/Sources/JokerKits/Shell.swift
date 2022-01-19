@@ -9,6 +9,8 @@ import Foundation
 
 public struct Shell {
     
+    static let envPath = "/usr/bin/env"
+    
     @discardableResult
     /// 同步执行Shell命令
     /// - Parameters:
@@ -78,5 +80,21 @@ public struct Shell {
                 continuation.resume(throwing: error)
             }
         }
+    }
+    
+    
+    @discardableResult
+    public static func runCommand(with args: [String], workDirectory: String? = nil) async throws -> Process {
+        return try await self.run(path: envPath, args: args, workDirectory: workDirectory)
+    }
+    
+    @discardableResult
+    public static func runCommand(with args: [String], workDirectory: String? = nil, terminationHandler:((Process) -> Void)? = nil) throws -> Process {
+        return try self.run(path: envPath, args: args, workDirectory: workDirectory, terminationHandler: terminationHandler)
+    }
+    
+    @discardableResult
+    public static func runCommand(with args: [String], workDirectory: String? = nil) throws -> String {
+        return try self.run(path: envPath, args: args, workDirectory: workDirectory)
     }
 }
