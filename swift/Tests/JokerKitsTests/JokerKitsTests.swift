@@ -49,28 +49,19 @@ final class JokerKitsTests: XCTestCase {
     }
     
     func testSyncShell() throws {
-        let ret = try Shell.run(path: "/usr/bin/env", args: [
-            "which",
-            "bash"
-        ])
+        let ret = try Shell.runCommand(with: ["which", "bash"])
         XCTAssertEqual(ret, "/bin/bash\n")
     }
     
-    func testASyncShell() async throws {
-        let process = try await Shell.run(path: "/usr/bin/env", args: [
-          "which",
-          "bash"
-        ])
+    func testAsyncShell() async throws {
+        let process = try await Shell.runCommand(with: ["which", "bash"])
         XCTAssertEqual(process.terminationStatus, 0)
     }
     
     func testCallbackShell() throws {
         let stopGroup = DispatchGroup()
         stopGroup.enter()
-        try Shell.run(path: "/usr/bin/env", args: [
-            "which",
-            "bash"
-        ]) { process in
+        try Shell.runCommand(with: ["which","bash"]) { process in
             XCTAssertEqual(process.terminationStatus, 0)
             stopGroup.leave()
         }

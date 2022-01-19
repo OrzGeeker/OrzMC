@@ -36,7 +36,7 @@ public struct JavaInstaller {
     /// 获取当前系统安装的Java版本信息
     /// - Returns: 返回的Java版本信息
     static public func currentJavaVersion() throws -> String {
-        return try Shell.run(path: "/usr/bin/env", args: ["java", "--version"])
+        return try Shell.runCommand(with: ["java", "--version"])
     }
     
     static public func installedJavaVersions() throws -> [String]? {
