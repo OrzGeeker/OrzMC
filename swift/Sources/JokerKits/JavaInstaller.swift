@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftSoup
 
 public enum JDK {
     case jdk17
