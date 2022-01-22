@@ -7,3 +7,6 @@
 [submodule "swift"]
 	path = swift
 	url = https://github.com/OrzGeeker/OrzSwiftMC.git
+[submodule "plugin"]
+	path = plugin
+	url = https://github.com/OrzGeeker/OrzMCPlugin.git
