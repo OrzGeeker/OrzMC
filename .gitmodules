@@ -10,3 +10,6 @@
 [submodule "plugin"]
 	path = plugin
 	url = https://github.com/OrzGeeker/OrzMCPlugin.git
+[submodule "webmc"]
+	path = webmc
+	url = https://github.com/OrzGeeker/OrzWebMC.git
