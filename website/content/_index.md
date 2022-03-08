@@ -2,13 +2,13 @@
 title: "我的世界"
 ---
 
-**Minecraft 1.18.1 需要 Java 17及以上版本，才可以运行，升级JAVA请点击：[**Java升级**](https://www.oracle.com/java/technologies/downloads/)**
+**Minecraft 1.18.2 需要 Java 17及以上版本，才可以运行，升级JAVA请点击：[**Java升级**](https://www.oracle.com/java/technologies/downloads/)**
 
 加入玩家群(QQ群号: **[1056934080](https://jq.qq.com/?_wv=1027&k=DUEQuLE6)**): 也可以直接扫码网站背景图上的二维码进群，进群可以和其它小伙伴一起讨论交流，QQ群提供玩家自动上下线通知，可以在群里发消息: **/list** 主动查询在线玩家。
 
 iOS/Android 可以下载国际版 Minecraft 进行连机，服务器使用了插件[**GeyserMC**](https://geysermc.org)，打通了Java版和基岩版的边界，实现移动客户端接入Java服务器
 
-## [PaperMC](https://papermc.io) - Minecraft 1.18.1
+## [PaperMC](https://papermc.io) - Minecraft 1.18.2
 
 **声明:** 服务器为非商业离线独立私人服务器，用户不要求正版验证，且符合 **[Mojang EULA协议](https://account.mojang.com/documents/minecraft_eula)**
 
