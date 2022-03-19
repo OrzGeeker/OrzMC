@@ -10,7 +10,7 @@
 目前正在搭建python私有源
 
 ```python
-$ pip install orzmc
+$ python3 -m pip install orzmc
 $ orzmc -h # 查看使用帮助
 ```
 
