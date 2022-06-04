@@ -4,13 +4,13 @@ title: "我的世界"
 
 **Minecraft 1.18.2 需要 Java 17及以上版本，才可以运行，升级JAVA请点击：[**Java升级**](https://www.oracle.com/java/technologies/downloads/)**
 
-加入玩家群(QQ群号: **[1056934080](https://jq.qq.com/?_wv=1027&k=DUEQuLE6)**): 也可以直接扫码网站背景图上的二维码进群，进群可以和其它小伙伴一起讨论交流，QQ群提供玩家自动上下线通知，可以在群里发消息: **/list** 主动查询在线玩家。
+加入玩家群(QQ群号: **[1056934080](https://jq.qq.com/?_wv=1027&k=DUEQuLE6)**): 也可以直接扫码网站背景图上的二维码进群，进群可以和其它小伙伴一起讨论交流，QQ群提供玩家自动上下线通知，普通用户可以在群里发消息: **/list** 主动查询在线玩家，**/wl** 主动查询服务器玩家白名单。群管理员可以使用消息命令: **/wa** 和 **/wr**添加和移除白名单中的玩家
 
 iOS/Android 可以下载国际版 Minecraft 进行连机，服务器使用了插件[**GeyserMC**](https://geysermc.org)，打通了Java版和基岩版的边界，实现移动客户端接入Java服务器
 
 ## [PaperMC](https://papermc.io) - Minecraft 1.18.2
 
-**声明:** 服务器为非商业离线独立私人服务器，用户不要求正版验证，且符合 **[Mojang EULA协议](https://account.mojang.com/documents/minecraft_eula)**。由于服务器经历了几次熊孩子破坏，现在采用玩家白名单机制，新来的玩家首先需要加入QQ玩家群，在群里@管理员发起审核
+**声明:** 服务器为非商业离线独立私人服务器，用户不要求正版验证，且符合 **[Mojang EULA协议](https://account.mojang.com/documents/minecraft_eula)**。由于服务器经历了几次熊孩子破坏，现在采用强制玩家白名单机制，新玩家首先需要加入QQ玩家群，在群里向管理员发起白名单添加请求，通过审核后即可进入服务器玩耍
 
 - PC端客户端请连接：
     **jokerhub.cn**  &nbsp; 端口号：**25565**
