@@ -254,6 +254,7 @@ class Server:
                 self.config.game_version_server_properties_file_path(),
                 self.config.game_version_server_icon_file_path(),
                 self.config.game_version_server_plugin_dir(),
+                self.config.game_version_server_whitelist_file_path(),
             ]
             world_paths = self.config.game_version_server_world_dirs()
             if world_paths and len(world_paths) > 0:
