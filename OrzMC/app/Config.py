@@ -186,6 +186,10 @@ class Config:
     def game_version_server_properties_file_path(self):
         return os.path.join(self.game_version_server_dir(), 'server.properties')
 
+    @classmethod
+    def game_version_server_whitelist_file_path(cls):
+        return os.path.join(self.game_version_server_dir(), 'whitelist.json')
+
     def game_version_server_build_dir(self):
         build_path = os.path.join(self.game_version_server_dir(), 'build')
         makedirs(build_path)
