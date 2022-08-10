@@ -8,9 +8,9 @@ install = "*"
 setuptools = "*"
 wheel = "*"
 twine = "*"
-orzmc = {editable = true, path = "."}
 rich = "*"
 tqdm = "*"
+orzmc = {editable = true, path = "."}
 
 [dev-packages]
 
