@@ -35,6 +35,7 @@ class Config:
         self.nginx = args.nginx
         self.deamon = args.deamon
         self.skin_system = args.skin_system
+        self.jar_opts = args.jar_opts
 
         game_type = args.type
         self.isPure = (game_type == Config.GAME_TYPE_PURE)

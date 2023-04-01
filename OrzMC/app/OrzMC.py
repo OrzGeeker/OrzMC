@@ -66,6 +66,8 @@ def parse_args():
     parser.add_argument('-S','--skin_system', dest='skin_system', default=False, action='store_true', help='setup skin system for minecraft paper server')
     # setup fabric
     parser.add_argument('-M','--fabric', default=False, action='store_true', help='if you have installed fabric for client, you can add this option to launch client with fabric be activated')
+    # extra jar options
+    parser.add_argument('-E','--extra_jar_options', metavar = 'jar_opts', dest='jar_opts', help = 'inject extra jar options when run, begin with a: prefix, e.g. --E "a:--help"')
 
     args = parser.parse_args()
     return args

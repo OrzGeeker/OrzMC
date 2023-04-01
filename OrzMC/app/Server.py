@@ -81,6 +81,8 @@ class Server:
             '-Xmx' + self.config.mem_max
         ])
         jarArgs = ['--forceUpgrade', 'nogui'] if (self.config.isSpigot or self.config.isPaper) and self.config.force_upgrade else ['nogui']
+        if self.config.jar_opts:
+            jarArgs = [self.config.jar_opts.replace('a:','')] + jarArgs
         self.startServer(self.startCommand(jvm_opts= jvm_opts, serverJARFilePath = jarFilePath, jarArgs = jarArgs))
         print(ColorString.confirm('Start Server Successfully!!!'))
     
