@@ -38,8 +38,8 @@ python3 -m pip install pip_search &amp;amp;&amp;amp; python3 -m pip install orzm
       
       <guid>https://minecraft.jokerhub.cn/client/hmcl/</guid>
       <description>Windows/Mac/Linux 可使用客户端 HMCL 启动器:
- 下载地址1 / 下载地址2 / 代码仓库  如果需要使用 MOD，可以使用HMCL中选择安装 Fraric MOD装载器
-推荐使用的MOD列表    名称 功能     Reply MOD 客户端视频录制    </description>
+下载地址1 / 下载地址2 / 代码仓库 如果需要使用 MOD，可以使用HMCL中选择安装 Fraric MOD装载器
+推荐使用的MOD列表 名称 功能 Reply MOD 客户端视频录制 </description>
     </item>
     
     <item>
@@ -48,18 +48,17 @@ python3 -m pip install pip_search &amp;amp;&amp;amp; python3 -m pip install orzm
       <pubDate>Tue, 10 Dec 2019 13:06:35 +0800</pubDate>
       
       <guid>https://minecraft.jokerhub.cn/dev/papermc/</guid>
-      <description>开发环境部署   安装Java Development Kit, Java开发工具箱
- Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
-  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
-  部署本地Minecraft测试服务器
-  把生成的插件jar包拷贝到测试服务器的插件目录下
-  启动本地Minecraft客户端验证插件是否生效
-  进行插件开发周期，进行功能迭代
-  相关资源   Spigot插件开发
-  Bukkit插件开发
-  PaperMC JavaDoc
-  Spigot 插件开发教程(油管视频自备梯子)
-  </description>
+      <description>开发环境部署 安装Java Development Kit, Java开发工具箱
+Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16 安装IDE集成开发环境: IntelliJ IDEA 下载安装
+安装IDEA对应Minecraft插件开发的Plugin 创建PaperMC插件开发模板工程
+部署本地Minecraft测试服务器
+把生成的插件jar包拷贝到测试服务器的插件目录下
+启动本地Minecraft客户端验证插件是否生效
+进行插件开发周期，进行功能迭代
+相关资源 Spigot插件开发
+Bukkit插件开发
+PaperMC JavaDoc
+Spigot 插件开发教程(油管视频自备梯子)</description>
     </item>
     
   </channel>
