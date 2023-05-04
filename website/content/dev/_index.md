@@ -24,4 +24,4 @@ draft: false
     
 1. 禁用了TNT，并且有玩家放置或点燃TNT时会全服公告，并在放置时发消息到玩家群
 
-1. QQ群上下线及被路踢提醒功能，使用了 **[go-cqhttp](https://docs.go-cqhttp.org/)** 服务实现
+1. QQ群上下线提醒功能，使用了 **[go-cqhttp](https://docs.go-cqhttp.org/)** 服务实现
