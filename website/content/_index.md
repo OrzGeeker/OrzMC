@@ -2,6 +2,10 @@
 title: "我的世界"
 ---
 
+# 😅😅😅 服务端三年租约到期，歇业整顿，具体重新上线日期，请关注QQ群[1056934080](https://jq.qq.com/?_wv=1027&k=DUEQuLE6)
+
+---
+
 **Minecraft 1.20.1 需要 Java 17及以上版本，才可以运行，升级JAVA请点击：[**Java升级**](https://www.oracle.com/java/technologies/downloads/)**
 
 --- 
