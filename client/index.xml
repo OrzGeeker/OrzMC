@@ -5,22 +5,28 @@
     <link>https://minecraft.jokerhub.cn/client/</link>
     <description>Recent content in 客户端 on Joker@Minecraft 🇨🇳</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <lastBuildDate>Fri, 25 Oct 2019 03:40:52 +0800</lastBuildDate>
-    <atom:link href="https://minecraft.jokerhub.cn/client/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Oct 2019 03:40:52 +0800</lastBuildDate><atom:link href="https://minecraft.jokerhub.cn/client/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OrzMC客户端(命令行启动器)</title>
       <link>https://minecraft.jokerhub.cn/client/orzmc/</link>
       <pubDate>Sat, 14 Aug 2021 20:52:35 +0800</pubDate>
+      
       <guid>https://minecraft.jokerhub.cn/client/orzmc/</guid>
-      <description>Mac/Linux系统下还可以使用命令行工具 OrzMC 进行游戏。&#xA;目前由于 pip search 服务不可用，且python2.x已经废弃，所以使用Python3.x从PyPI上安装OrzMC可以使用下面的方式：&#xA;python3 -m pip install pip_search &amp;amp;&amp;amp; python3 -m pip install orzmc </description>
+      <description>Mac/Linux系统下还可以使用命令行工具 OrzMC 进行游戏。
+目前由于 pip search 服务不可用，且python2.x已经废弃，所以使用Python3.x从PyPI上安装OrzMC可以使用下面的方式：
+python3 -m pip install pip_search &amp;amp;&amp;amp; python3 -m pip install orzmc </description>
     </item>
+    
     <item>
       <title>HMCL客户端(跨平台GUI启动器)</title>
       <link>https://minecraft.jokerhub.cn/client/hmcl/</link>
       <pubDate>Sat, 14 Aug 2021 20:52:26 +0800</pubDate>
+      
       <guid>https://minecraft.jokerhub.cn/client/hmcl/</guid>
-      <description>Windows/Mac/Linux 可使用客户端 HMCL 启动器:&#xA;下载地址1 / 下载地址2 / 代码仓库 如果需要使用 MOD，可以使用HMCL中选择安装 Fraric MOD装载器&#xA;推荐使用的MOD列表 名称 功能 Reply MOD 客户端视频录制 </description>
+      <description>Windows/Mac/Linux 可使用客户端 HMCL 启动器:
+ 下载地址1 / 下载地址2 / 代码仓库  如果需要使用 MOD，可以使用HMCL中选择安装 Fraric MOD装载器
+推荐使用的MOD列表    名称 功能     Reply MOD 客户端视频录制    </description>
     </item>
+    
   </channel>
 </rss>

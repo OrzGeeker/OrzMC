@@ -5,15 +5,15 @@
     <link>https://minecraft.jokerhub.cn/tags/</link>
     <description>Recent content in Tags on Joker@Minecraft 🇨🇳</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <lastBuildDate>Mon, 09 Aug 2021 23:52:48 +0800</lastBuildDate>
-    <atom:link href="https://minecraft.jokerhub.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Aug 2021 23:52:48 +0800</lastBuildDate><atom:link href="https://minecraft.jokerhub.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>user</title>
       <link>https://minecraft.jokerhub.cn/tags/user/</link>
       <pubDate>Mon, 09 Aug 2021 23:52:48 +0800</pubDate>
+      
       <guid>https://minecraft.jokerhub.cn/tags/user/</guid>
       <description></description>
     </item>
+    
   </channel>
 </rss>

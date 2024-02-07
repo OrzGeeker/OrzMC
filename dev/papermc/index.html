@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
     <title>PaperMC插件开发 | Joker@Minecraft 🇨🇳</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="开发环境部署 安装Java Development Kit, Java开发工具箱
-Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16 安装IDE集成开发环境: IntelliJ IDEA 下载安装
-安装IDEA对应Minecraft插件开发的Plugin 创建PaperMC插件开发模板工程
-部署本地Minecraft测试服务器
-把生成的插件jar包拷贝到测试服务器的插件目录下
-启动本地Minecraft客户端验证插件是否生效
-进行插件开发周期，进行功能迭代
-相关资源 Spigot插件开发
-Bukkit插件开发
-PaperMC JavaDoc
-Spigot 插件开发教程(油管视频自备梯子)">
-    <meta name="generator" content="Hugo 0.121.0">
+    <meta name="description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
+  Bukkit插件开发
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  ">
+    <meta name="generator" content="Hugo 0.85.0" />
     
     
       <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
@@ -39,48 +40,52 @@ Spigot 插件开发教程(油管视频自备梯子)">
     
     
     <meta property="og:title" content="PaperMC插件开发" />
-<meta property="og:description" content="开发环境部署 安装Java Development Kit, Java开发工具箱
-Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16 安装IDE集成开发环境: IntelliJ IDEA 下载安装
-安装IDEA对应Minecraft插件开发的Plugin 创建PaperMC插件开发模板工程
-部署本地Minecraft测试服务器
-把生成的插件jar包拷贝到测试服务器的插件目录下
-启动本地Minecraft客户端验证插件是否生效
-进行插件开发周期，进行功能迭代
-相关资源 Spigot插件开发
-Bukkit插件开发
-PaperMC JavaDoc
-Spigot 插件开发教程(油管视频自备梯子)" />
+<meta property="og:description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
+  Bukkit插件开发
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://minecraft.jokerhub.cn/dev/papermc/" /><meta property="article:section" content="dev" />
 <meta property="article:published_time" content="2019-12-10T13:06:35+08:00" />
 <meta property="article:modified_time" content="2019-12-10T13:06:35+08:00" />
 
 <meta itemprop="name" content="PaperMC插件开发">
-<meta itemprop="description" content="开发环境部署 安装Java Development Kit, Java开发工具箱
-Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16 安装IDE集成开发环境: IntelliJ IDEA 下载安装
-安装IDEA对应Minecraft插件开发的Plugin 创建PaperMC插件开发模板工程
-部署本地Minecraft测试服务器
-把生成的插件jar包拷贝到测试服务器的插件目录下
-启动本地Minecraft客户端验证插件是否生效
-进行插件开发周期，进行功能迭代
-相关资源 Spigot插件开发
-Bukkit插件开发
-PaperMC JavaDoc
-Spigot 插件开发教程(油管视频自备梯子)"><meta itemprop="datePublished" content="2019-12-10T13:06:35+08:00" />
+<meta itemprop="description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
+  Bukkit插件开发
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  "><meta itemprop="datePublished" content="2019-12-10T13:06:35+08:00" />
 <meta itemprop="dateModified" content="2019-12-10T13:06:35+08:00" />
 <meta itemprop="wordCount" content="26">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="PaperMC插件开发"/>
-<meta name="twitter:description" content="开发环境部署 安装Java Development Kit, Java开发工具箱
-Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16 安装IDE集成开发环境: IntelliJ IDEA 下载安装
-安装IDEA对应Minecraft插件开发的Plugin 创建PaperMC插件开发模板工程
-部署本地Minecraft测试服务器
-把生成的插件jar包拷贝到测试服务器的插件目录下
-启动本地Minecraft客户端验证插件是否生效
-进行插件开发周期，进行功能迭代
-相关资源 Spigot插件开发
-Bukkit插件开发
-PaperMC JavaDoc
-Spigot 插件开发教程(油管视频自备梯子)"/>
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PaperMC插件开发"/>
+<meta name="twitter:description" content="开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源   Spigot插件开发
+  Bukkit插件开发
+  PaperMC JavaDoc
+  Spigot 插件开发教程(油管视频自备梯子)
+  "/>
 
       
     
