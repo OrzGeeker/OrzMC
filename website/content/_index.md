@@ -49,3 +49,4 @@ iOS/Android 可以下载国际版 Minecraft 进行连机，服务器使用了插
 - [英文Wiki](https://minecraft.fandom.com/wiki/Minecraft_Wiki) / [中文Wiki](https://minecraft.fandom.com/zh/wiki/Minecraft_Wiki)
 - [逆向工程Wiki](https://wiki.vg)
 - [插件使用百科](https://mineplugin.org/WorldGuard)
+- [地图编辑工具](https://github.com/Querz/mcaselector)
