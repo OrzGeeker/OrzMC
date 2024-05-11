@@ -35,14 +35,31 @@ title: "我的世界"
 **[Mojang EULA协议](https://account.mojang.com/documents/minecraft_eula)**。
 
 ---
-## 🎥 视频介绍
 
-|   |   |   |
+## ‼️ 服务运营
+
+正式服托管平台仅按服务时长计费，前期玩家较少，且资金紧张，后面如果情况变好，可以考虑提高服务配置。
+
+||服务器配置|服务费用|
 |---|---|---|
-|[![启动器安装与服务器登录](images/video_cover/mc_1.jpg)](https://www.bilibili.com/video/BV1nK4y1f7Yh/)|[![客户端开启光影效果](images/video_cover/mc_2.jpg)](https://www.bilibili.com/video/BV1sz4y1k7Hm/)|[![命令、材质包导入及更换皮肤](images/video_cover/mc_3.jpg)](https://www.bilibili.com/video/BV18A411x7EH)|
+|✅|1核2G|2积分/时|
+||2核4G|4积分/时|
+||4核8G|8积分/时|
 
-## 🔗 相关链接
-- [英文Wiki](https://minecraft.fandom.com/wiki/Minecraft_Wiki) / [中文Wiki](https://minecraft.fandom.com/zh/wiki/Minecraft_Wiki)
-- [逆向工程Wiki](https://wiki.vg)
-- [插件使用百科](https://mineplugin.org/WorldGuard)
-- [地图编辑工具](https://github.com/Querz/mcaselector)
+![服务配置](/images/server/config.png)
+
+### 💰 积分购买
+
+||积分数量|费用(人民币)|
+|---|:---|:------|
+|✅| 300 | ¥23.85 |
+|| 400 | ¥31.80 |
+|| 500 | ¥39.75 |
+
+![积分购买](/images/server/score_pay.png)
+
+### 🩷 玩家支持
+
+如果你喜欢本服务器，并希望它可以运行下去，请 [**支持一下**](/sponsor)
+
+收到的打款将全部用于服务运营，并公开所有接收到的捐赠
