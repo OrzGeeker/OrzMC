@@ -157,30 +157,21 @@
   <article class="pa3 pa4-ns nested-copy-line-height nested-img">
     <section class="cf ph2 pv3 f4 tj-l center measure-wide lh-copy"><h1 id="新手进服">新手进服</h1>
 <h2 id="玩家须知">玩家须知</h2>
-<p>服务器中一些热爱创造的小伙伴在这里花费了大量心力建造出了各种漂亮的建筑，希望刚加入的朋友不要随意对其进行破坏，尊重他人的劳动成果。如果是完全小白，进服后如果感觉没有玩伴或者不太熟悉环境，可以加入玩家QQ群:<strong><a href="https://jq.qq.com/?_wv=1027&amp;k=DUEQuLE6">1056934080</a></strong>，群里有很多资深的朋友可以带你一起游玩。</p>
+<p>服务器中一些热爱创造的小伙伴在这里花费了大量心力建造出了各种漂亮的建筑，希望刚加入的朋友不要随意对其进行破坏，尊重他人的劳动成果。
+如果是完全小白，进服后如果感觉没有玩伴或者不太熟悉环境，可以加入玩家QQ群:<strong><a href="https://jq.qq.com/?_wv=1027&amp;k=DUEQuLE6">1056934080</a></strong>，
+群里有很多资深的朋友可以带你一起游玩。</p>
 <h3 id="设置帐号密码">设置帐号密码</h3>
-<ul>
-<li>刚登录服务器后，使用 <strong>/register</strong> 命令注册自己用户名对应的登录密码，以防止其它人使用你的帐号，盗用你的物品</li>
-<li>注册密码之后，下次登录服务器使用 <strong>/login &lt;password&gt;</strong> 命令
-<ul>
-<li><strong>/help LoginSecurity</strong>: 查看 LoginSecurity 插件提供的所有可用指令</li>
-</ul>
-</li>
-</ul>
+<p>刚登录服务器后，使用 <strong>/register</strong> 命令注册自己用户名对应的登录密码，以防止其它人使用你的帐号，盗用你的物品</p>
+<p>注册密码之后，下次登录服务器使用 <strong>/login &lt;password&gt;</strong> 命令</p>
+<p><strong>/help LoginSecurity</strong> - 查看 LoginSecurity 插件提供的所有可用指令</p>
 <h3 id="设置快速回家">设置快速回家</h3>
-<ul>
-<li>使用 <strong>/sethome</strong> 命令，可以设置一个家位置，如果你出门冒险很远的距离后，不想再长途跋涉回到根据地，可以使用 <strong>/home</strong> 命令快速回到之前设置的家位置
-<ul>
-<li><strong>/listhomes</strong>: 查看所有的家列表</li>
-<li><strong>/delhome &lt;home_name&gt;</strong>: 删除设置的家</li>
-<li><strong>/help getmehome</strong>: 查看 GetMeHome 插件提供的所有可用指令</li>
-</ul>
-</li>
-</ul>
+<p>使用 <strong>/sethome</strong> 命令，可以设置一个家位置，如果你出门冒险很远的距离后，不想再长途跋涉回到根据地，可以使用 <strong>/home</strong> 命令快速回到之前设置的家位置</p>
+<p><strong>/listhomes</strong> - 查看所有的家列表</p>
+<p><strong>/delhome &lt;home_name&gt;</strong> - 删除设置的家</p>
+<p><strong>/help getmehome</strong> - 查看 GetMeHome 插件提供的所有可用指令</p>
 <h3 id="死亡后物品快速找回">死亡后物品快速找回</h3>
-<ul>
-<li>出门探险一段时间获得了不少的物品，但是有可能不小心被苦力怕炸飞，或是被小白洞穿身体，你复活时想要尽快的拿回丢失的物品，可以使用 <strong>/back</strong> 命令，快速回到死亡地点，并找到收纳自己掉落物品的箱子。这个掉落物品收纳箱五分钟内有效，所以你需要在五分钟内回到死亡地点，如果超时，掉落的物品将会消失。</li>
-</ul>
+<p>出门探险一段时间获得了不少的物品，但是有可能不小心被苦力怕炸飞，或是被小白洞穿身体，你复活时想要尽快的拿回丢失的物品，可以使用 <strong>/back</strong> 命令，
+快速回到死亡地点，并找到收纳自己掉落物品的箱子。这个掉落物品收纳箱五分钟内有效，所以你需要在五分钟内回到死亡地点，如果超时，掉落的物品将会消失。</p>
 </section>
     <section class="flex-ns flex-wrap justify-center mt0">
       
@@ -199,6 +190,7 @@ max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-buil
 个方块，也就是 14062485000004 个区块。
 按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
 所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小
+地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。
     </div>
   </div>
 </div>
