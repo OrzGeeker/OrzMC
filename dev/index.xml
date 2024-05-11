@@ -19,11 +19,7 @@
   把生成的插件jar包拷贝到测试服务器的插件目录下
   启动本地Minecraft客户端验证插件是否生效
   进行插件开发周期，进行功能迭代
-  相关资源   Spigot插件开发
-  Bukkit插件开发
-  PaperMC JavaDoc
-  Spigot 插件开发教程(油管视频自备梯子)
-  </description>
+  相关资源  Spigot插件开发 Bukkit插件开发 PaperMC JavaDoc Spigot 插件开发教程(油管视频自备梯子)  相关链接  英文Wiki / 中文Wiki 逆向工程Wiki 插件使用百科 地图编辑工具  </description>
     </item>
     
   </channel>
