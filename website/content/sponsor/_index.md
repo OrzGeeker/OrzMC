@@ -3,8 +3,9 @@ title: "捐赠"
 weight: 4
 ---
 
+支付宝扫上面背景图上的二维码，并**添加备注信息**
 
-![alipay](/images/server/alipay.png)
+---
 
 ## 捐赠者列表公示
 
