@@ -4,7 +4,7 @@ title: "我的世界"
 
 ## 🖲️ Minecraft - [PaperMC](https://papermc.io)
 
-|服务器|版本|[**JAVA**](https://www.oracle.com/java/technologies/downloads/)|地址|
+|类型|游戏版本|[**JAVA版本**](https://www.oracle.com/java/technologies/downloads/)|服务器地址|
 |:---|:-------:|:-----:|:--------------------------|
 |正式|**1.20.6**|≥**21**|**paper.jokerhub.cn:39742**|
 |测试|**1.20.6**|≥**21**|**test.jokerhub.cn:62664** |
