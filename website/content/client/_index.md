@@ -26,6 +26,8 @@ weight: 3
 
 2. **[OrzMC](https://github.com/OrzGeeker/OrzMC)**：命令行启动器(自研)
 
+3. **[OrzMC](https://github.com/OrzGeeker/OrzSwiftMC/releases/tag/0.0.3)**: macOS客户端
+
 **详情在的安装方式可以参考下面具体文章👇👇👇**
 
 
