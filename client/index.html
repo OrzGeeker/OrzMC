@@ -70,6 +70,12 @@
       <ul class="pl0 mr3">
         
         <li class="list f5 f4-ns fw4 dib pr3">
+          <a class="hover-white no-underline white-90" href="/client/" title="客户端 page">
+            客户端
+          </a>
+        </li>
+        
+        <li class="list f5 f4-ns fw4 dib pr3">
           <a class="hover-white no-underline white-90" href="/user/" title="玩家手册 page">
             玩家手册
           </a>
@@ -78,12 +84,6 @@
         <li class="list f5 f4-ns fw4 dib pr3">
           <a class="hover-white no-underline white-90" href="/dev/" title="自研插件 page">
             自研插件
-          </a>
-        </li>
-        
-        <li class="list f5 f4-ns fw4 dib pr3">
-          <a class="hover-white no-underline white-90" href="/client/" title="客户端 page">
-            客户端
           </a>
         </li>
         
@@ -206,51 +206,47 @@
 </table>
 <hr>
 <h2 id="启动器">启动器</h2>
-<ol>
-<li>
-<p><strong><a href="https://github.com/OrzGeeker/OrzSwiftMC/releases/tag/0.0.3">OrzMC-MacOS&gt;=14.4</a></strong>: 使用Swift&amp;SwiftUI编写的MacOS平台启动器</p>
-</li>
-<li>
-<p><strong><a href="https://pypi.org/project/OrzMC/">OrzMC-CLI</a></strong>: 使用Python写的命令行启动器</p>
-</li>
-</ol>
-<p><strong>详情在的安装方式可以参考下面具体文章👇👇👇</strong></p>
+<h3 id="orzmc-macos144orzmc-macos"><strong><a href="https://github.com/OrzGeeker/OrzSwiftMC/releases/tag/0.0.3">OrzMC-MacOS&gt;=14.4</a></strong></h3>
+<p>使用Swift&amp;SwiftUI编写的MacOS平台启动器</p>
+<p><img src="/images/client/orzmc_macOS.png" alt="OrzMC_MacOS"></p>
+<hr>
+<h3 id="orzmc-cliorzmc-pythoncli"><strong><a href="https://pypi.org/project/OrzMC/">OrzMC-CLI</a></strong></h3>
+<p>使用Python写的命令行启动器，Mac/Linux系统可以使用：</p>
+<p><img src="/images/client/orzmc_cli_py.png" alt="OrzMC_CLI_PY"></p>
+<h4 id="安装方法">安装方法</h4>
+<p><del>Python2.x已废弃，</del> 使用Python3.x安装：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip install orzmc
+</code></pre></div><hr>
+<h3 id="hmclhmcl"><strong><a href="https://hmcl.huangyuhui.net/">HMCL</a></strong></h3>
+<p><strong>Windows/Mac/Linux/Unix</strong> 可使用客户端 <strong>HMCL</strong> 启动器:</p>
+<ul>
+<li><a href="https://ci.huangyuhui.net/job/HMCL/">下载地址</a> / <a href="https://github.com/huanghongxun/HMCL">代码仓库</a></li>
+</ul>
+<p><img src="/images/client/hmcl_java.png" alt="HMCL_JAVA"></p>
+<h4 id="windows安装运行">Windows安装运行：</h4>
+<p>下载 <code>*.exe</code>文件，并鼠标双击运行</p>
+<h4 id="unixlinuxmacos命令行运行">Unix/Linux/MacOS命令行运行：</h4>
+<p>下载 <code>*.jar</code>文件，并在命令行中使用<code>java -jar </code>命令运行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">java -jar HMCL.jar 
+</code></pre></div><p>如果需要使用 <strong>MOD</strong>，可以使用HMCL中选择安装 <strong>Fraric</strong> MOD装载器</p>
+<h4 id="推荐使用的mod列表">推荐使用的MOD列表</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://www.replaymod.com/">Reply MOD</a></td>
+<td style="text-align:left">客户端视频录制</td>
+</tr>
+</tbody>
+</table>
+<hr>
 </section>
     <section class="flex-ns flex-wrap justify-center mt0">
-      
-        <div class="w-90 center mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Client</span>
-    <h1 class="f3 near-black">
-      <a href="/client/orzmc/" class="link black dim">
-        OrzMC客户端(命令行启动器)
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Mac/Linux系统下还可以使用命令行工具 OrzMC 进行游戏。
-目前由于 pip search 服务不可用，且python2.x已经废弃，所以使用Python3.x从PyPI上安装OrzMC可以使用下面的方式：
-python3 -m pip install pip_search &amp;&amp; python3 -m pip install orzmc 
-    </div>
-  </div>
-</div>
-</div>
-      
-        <div class="w-90 center mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Client</span>
-    <h1 class="f3 near-black">
-      <a href="/client/hmcl/" class="link black dim">
-        HMCL客户端(跨平台GUI启动器)
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Windows/Mac/Linux 可使用客户端 HMCL 启动器:
- 下载地址1 / 下载地址2 / 代码仓库  如果需要使用 MOD，可以使用HMCL中选择安装 Fraric MOD装载器
-推荐使用的MOD列表    名称 功能     Reply MOD 客户端视频录制    
-    </div>
-  </div>
-</div>
-</div>
       
     </section></article>
 

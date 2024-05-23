@@ -70,6 +70,12 @@
       <ul class="pl0 mr3">
         
         <li class="list f5 f4-ns fw4 dib pr3">
+          <a class="hover-white no-underline white-90" href="/client/" title="客户端 page">
+            客户端
+          </a>
+        </li>
+        
+        <li class="list f5 f4-ns fw4 dib pr3">
           <a class="hover-white no-underline white-90" href="/user/" title="玩家手册 page">
             玩家手册
           </a>
@@ -78,12 +84,6 @@
         <li class="list f5 f4-ns fw4 dib pr3">
           <a class="hover-white no-underline white-90" href="/dev/" title="自研插件 page">
             自研插件
-          </a>
-        </li>
-        
-        <li class="list f5 f4-ns fw4 dib pr3">
-          <a class="hover-white no-underline white-90" href="/client/" title="客户端 page">
-            客户端
           </a>
         </li>
         
@@ -299,16 +299,21 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw9 athelas mt0 lh-title">
-          <a href="/client/orzmc/" class="color-inherit dim link">
-            OrzMC客户端(命令行启动器)
+          <a href="/dev/papermc/" class="color-inherit dim link">
+            PaperMC插件开发
           </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links tj-l">
-          Mac/Linux系统下还可以使用命令行工具 OrzMC 进行游戏。
-目前由于 pip search 服务不可用，且python2.x已经废弃，所以使用Python3.x从PyPI上安装OrzMC可以使用下面的方式：
-python3 -m pip install pip_search &amp;&amp; python3 -m pip install orzmc 
+          开发环境部署   安装Java Development Kit, Java开发工具箱
+ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16    安装IDE集成开发环境: IntelliJ IDEA 下载安装
+  安装IDEA对应Minecraft插件开发的Plugin   创建PaperMC插件开发模板工程
+  部署本地Minecraft测试服务器
+  把生成的插件jar包拷贝到测试服务器的插件目录下
+  启动本地Minecraft客户端验证插件是否生效
+  进行插件开发周期，进行功能迭代
+  相关资源  Spigot插件开发 Bukkit插件开发 PaperMC JavaDoc Spigot 插件开发教程(油管视频自备梯子)  相关链接  英文Wiki / 中文Wiki 逆向工程Wiki 插件使用百科 地图编辑工具  
         </div>
-          <a href="/client/orzmc/" class="ba bg-mid-gray white dim br3 dib f6 link mt3 ph4 pv2">阅读全文</a>
+          <a href="/dev/papermc/" class="ba bg-mid-gray white dim br3 dib f6 link mt3 ph4 pv2">阅读全文</a>
         
       </div>
     </div>
@@ -318,23 +323,6 @@ python3 -m pip install pip_search &amp;&amp; python3 -m pip install orzmc
         
       </section>
 
-      
-      <section class="w-100">
-        <h1 class="f3">更多</h1>
-        
-        
-          <h2 class="f4 fw5 mb4 dib mr3">
-            <a href="/client/hmcl/" class="link black dim">
-              HMCL客户端(跨平台GUI启动器)
-            </a>
-          </h2>
-        
-
-        
-        
-          <a href="/client/" class="link db f6 pa2 br3 bg-mid-gray white dim w4 tc">所有 客户端</a>
-        
-        </section>
       
       
       </div>
