@@ -22,12 +22,12 @@ weight: 3
 
 ## 启动器
 
-1. **[HMCL主页](https://hmcl.huangyuhui.net)**
+1. **[OrzMC-MacOS>=14.4][OrzMC-MacOS]**: 使用Swift&SwiftUI编写的MacOS平台启动器
 
-2. **[OrzMC](https://github.com/OrzGeeker/OrzMC)**：命令行启动器(自研)
-
-3. **[OrzMC](https://github.com/OrzGeeker/OrzSwiftMC/releases/tag/0.0.3)**: macOS客户端
+2. **[OrzMC-CLI][OrzMC-PythonCLI]**: 使用Python写的命令行启动器
 
 **详情在的安装方式可以参考下面具体文章👇👇👇**
 
 
+[OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzSwiftMC/releases/tag/0.0.3>
+[OrzMC-PythonCLI]: <https://pypi.org/project/OrzMC/>
