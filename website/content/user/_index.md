@@ -4,7 +4,7 @@ date: 2021-08-09T23:52:48+08:00
 tags: [user]
 omit_header_text: true
 draft: false
-weight: 1
+weight: 2
 ---
 
 # 新手进服
