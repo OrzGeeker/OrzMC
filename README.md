@@ -22,7 +22,7 @@
 ├── swift                  # Git子模块：Swift语言开发相关库以及一个macOS/iOS应用程序
 ├── webmc                  # Git子模块：主要探索使用Web浏览器连接服务器玩耍的可能性
 ├── website                # Minecraft 个人运营的网站，用来交流学习开服运营
-└── wiki                   # 早期手动开服及维护时累的一些运维文档
+└── wiki                   # 早期手动开服及维护时积累的一些运维文档
 ```
 
 ## 命令行工具
@@ -33,7 +33,7 @@
 2. 启动`Minecraft`客户端功能（Vanilla)
 3. 支持的`1.13`以上正式版
 
-工具已上传到`Python`包管理网站`[PyPi][orzmc-pypi]`，可以使用`pip`进行安装
+工具已上传到`Python`包管理网站 [PyPi][orzmc-pypi]，可以使用`pip`进行安装
 
 ```python
 $ pip install orzmc
