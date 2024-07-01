@@ -32,6 +32,7 @@ Paginate = 3
   wechat = ""
   qq = ""
   
+  text_color = "black"
   cover_dimming_class = "bg-black-10"
 
   recent_copy = "最近发布"
