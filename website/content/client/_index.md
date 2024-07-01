@@ -2,6 +2,7 @@
 title: "客户端"
 date: 2019-10-25T03:40:52+08:00
 weight: 1
+featured_image: '/images/bg_qq_sponsor.png'
 ---
 
 |   |   |   |

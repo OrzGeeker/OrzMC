@@ -5,6 +5,7 @@ tags: [user]
 omit_header_text: true
 draft: false
 weight: 2
+featured_image: '/images/bg_qq_sponsor.png'
 ---
 
 # 新手进服

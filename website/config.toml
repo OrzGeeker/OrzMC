@@ -2,7 +2,6 @@ title = "Joker@Minecraft 🇨🇳"
 baseURL = "https://minecraft.jokerhub.cn"
 languageCode = ""
 
-# themesDir = "../.."
 theme = "OrzAnanke"
 
 MetaDataFormat = "yaml"
@@ -32,7 +31,7 @@ Paginate = 3
   wechat = ""
   qq = ""
   
-  featured_image = '/images/bg_qq_sponsor.png'
+  text_color = "black"
   cover_dimming_class = "bg-black-10"
 
   recent_copy = "最近发布"
