@@ -1,5 +1,6 @@
 ---
 title: "我的世界"
+featured_image: '/images/bg_qq_sponsor.png'
 ---
 
 ## 🖲️ Minecraft - [PaperMC](https://papermc.io)
@@ -66,5 +67,5 @@ title: "我的世界"
 
 ---
 
-- [aternos]: <https://aternos.org/go/>
-- [exaroton]: <https://exaroton.com/>
+-[aternos]: <https://aternos.org/go/>
+-[exaroton]: <https://exaroton.com/>
