@@ -6,8 +6,8 @@ title: "我的世界"
 
 |类型|游戏版本|[**JAVA版本**](https://www.oracle.com/java/technologies/downloads/)|服务器地址|
 |:---|:-------:|:-----:|:--------------------------|
-|正式|**1.20.6**|≥**21**|**paper.jokerhub.cn:39742**|
-|测试|**1.20.6**|≥**21**|**test.jokerhub.cn:62664** |
+|[正式][exaroton]|**1.21**|≥**21**|**paper.jokerhub.cn:39742**|
+|[测试][aternos] |**1.21**|≥**21**|**test.jokerhub.cn:62664** |
 
 💡 由于服务器托管平台运行环境动态变化，服务器地址和IP对应关系可能更新不及时，大约需要5-10分钟时间同步，如果连接不上服务器，可以尝试清空本地DNS缓存，或者等待5-10分钟后再连接
 
@@ -65,3 +65,6 @@ title: "我的世界"
 收到的打款将全部用于服务运营，并公开所有接收到的捐赠
 
 ---
+
+- [aternos]: <https://aternos.org/go/>
+- [exaroton]: <https://exaroton.com/>
