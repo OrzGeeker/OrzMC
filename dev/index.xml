@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>自研插件 on Joker@Minecraft 🇨🇳</title>
+    <link>https://minecraft.jokerhub.cn/dev/</link>
+    <description>Recent content in 自研插件 on Joker@Minecraft 🇨🇳</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 10 Dec 2019 13:07:14 +0800</lastBuildDate>
+    <atom:link href="https://minecraft.jokerhub.cn/dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PaperMC插件开发</title>
+      <link>https://minecraft.jokerhub.cn/dev/papermc/</link>
+      <pubDate>Tue, 10 Dec 2019 13:06:35 +0800</pubDate>
+      <guid>https://minecraft.jokerhub.cn/dev/papermc/</guid>
+      <description>开发环境部署 安装Java Development Kit, Java开发工具箱&#xA;Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16 安装IDE集成开发环境: IntelliJ IDEA 下载安装&#xA;安装IDEA对应Minecraft插件开发的Plugin 创建PaperMC插件开发模板工程&#xA;部署本地Minecraft测试服务器&#xA;把生成的插件jar包拷贝到测试服务器的插件目录下&#xA;启动本地Minecraft客户端验证插件是否生效&#xA;进行插件开发周期，进行功能迭代&#xA;相关资源 Spigot插件开发 Bukkit插件开发 PaperMC JavaDoc Spigot 插件开发教程(油管视频自备梯子) 相关链接 英文Wiki / 中文Wiki 逆向工程Wiki 插件使用百科 地图编辑工具 </description>
+    </item>
+  </channel>
+</rss>
