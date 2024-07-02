@@ -1,11 +1,11 @@
-name: Publish Website
+name: deploy site
 
 on:
   push:
     branches:
       - master
     paths:
-      - 'website/**'
+      - 'site/**'
 
 jobs:
   publish:
@@ -22,7 +22,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v2
       with:
-        submodules: true  # Fetch Hugo themes (true OR recursive)
+        submodules: true  # Fetch Hugo themes (true FOR recursive)
         
     - name: Build and publish website
       run: |
