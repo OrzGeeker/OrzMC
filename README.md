@@ -1,7 +1,5 @@
 # [OrzMC](https://github.com/OrzGeeker/OrzMC)
 
-![logo](images/server_member.jpg)
-
 专门对Minecraft进行Geek的工程项目。包含多个子项目
 
 - [网站主页](https://minecraft.jokerhub.cn)
@@ -24,3 +22,5 @@
 ├── webmc                     # Git子模块：主要探索使用Web浏览器连接服务器玩耍的可能性
 └── wiki                      # Git子模块：早期手动开服及维护时积累的一些运维文档
 ```
+
+![logo](images/server_member.jpg)
