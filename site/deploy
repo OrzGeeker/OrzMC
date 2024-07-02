@@ -12,7 +12,6 @@ SITE_ROOT="."
 SITE_PUB_DIR="${SITE_ROOT}/public"
 SITE_CONTENT_DIR="${SITE_ROOT}/content"
 SITE_THEME_DIR="${SITE_ROOT}/themes"
-SITE_CONFIG_FILE="${SITE_ROOT}/config.toml"
 
 echo "Deleting old publication"
 rm -rf ${SITE_PUB_DIR}
@@ -30,7 +29,7 @@ rm -rf ${SITE_PUB_DIR}/*
 echo "minecraft.jokerhub.cn" > ${SITE_PUB_DIR}/CNAME
 
 echo "Generating site"
-hugo -s "${SITE_ROOT}" -e production --config "${SITE_CONFIG_FILE}"
+hugo -s "${SITE_ROOT}" -e production
 
 echo "Updating gh-pages branch"
 cd ${SITE_PUB_DIR} && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
