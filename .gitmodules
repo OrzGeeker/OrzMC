@@ -2,27 +2,34 @@
 	path = wiki
 	url = https://github.com/OrzGeeker/OrzMC.wiki.git
 	branch = main
+	update = checkout
 [submodule "swift"]
 	path = swift
 	url = https://github.com/OrzGeeker/OrzSwiftMC.git
 	branch = main
+	update = checkout
 [submodule "plugin"]
 	path = plugin
 	url = https://github.com/OrzGeeker/OrzMCPlugin.git
 	branch = main
+	update = checkout
 [submodule "webmc"]
 	path = webmc
 	url = https://github.com/OrzGeeker/OrzWebMC.git
 	branch = main
+	update = checkout
 [submodule "paper_plugins_config"]
 	path = paper_plugins_config
 	url = https://github.com/OrzGeeker/paper_plugins_config.git
 	branch = main
+	update = checkout
 [submodule "python"]
 	path = python
 	url = https://github.com/OrzGeeker/OrzPythonMC.git
 	branch = main
+	update = checkout
 [submodule "site/themes/OrzAnanke"]
 	path = site/themes/OrzAnanke
 	url = https://github.com/OrzGeeker/OrzAnanke.git
 	branch = main
+	update = checkout
