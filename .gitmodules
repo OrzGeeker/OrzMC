@@ -16,3 +16,6 @@
 [submodule "python"]
 	path = python
 	url = https://github.com/OrzGeeker/OrzPythonMC.git
+[submodule "site/themes/OrzAnanke"]
+	path = site/themes/OrzAnanke
+	url = https://github.com/OrzGeeker/OrzAnanke.git
