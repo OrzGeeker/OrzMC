@@ -13,7 +13,7 @@ max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-buil
 按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
 所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小
 地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。">
-    <meta name="generator" content="Hugo 0.121.0">
+    <meta name="generator" content="Hugo 0.128.0">
     
     
     
@@ -43,39 +43,47 @@ max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-buil
       <link rel="canonical" href="https://minecraft.jokerhub.cn/user/worldsize/">
     
 
-    <meta property="og:title" content="服务器地图大小限制" />
-<meta property="og:description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
+    <meta property="og:url" content="https://minecraft.jokerhub.cn/user/worldsize/">
+  <meta property="og:site_name" content="Joker@Minecraft 🇨🇳">
+  <meta property="og:title" content="服务器地图大小限制">
+  <meta property="og:description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
 max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
 ((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
 个方块，也就是 14062485000004 个区块。
 按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
 所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小
-地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://minecraft.jokerhub.cn/user/worldsize/" /><meta property="article:section" content="user" />
-<meta property="article:published_time" content="2021-08-23T20:30:09+08:00" />
-<meta property="article:modified_time" content="2021-08-23T20:30:09+08:00" />
+地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="user">
+    <meta property="article:published_time" content="2021-08-23T20:30:09+08:00">
+    <meta property="article:modified_time" content="2021-08-23T20:30:09+08:00">
 
-<meta itemprop="name" content="服务器地图大小限制">
-<meta itemprop="description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
+  <meta itemprop="name" content="服务器地图大小限制">
+  <meta itemprop="description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
 max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
 ((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
 个方块，也就是 14062485000004 个区块。
 按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
 所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小
-地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。"><meta itemprop="datePublished" content="2021-08-23T20:30:09+08:00" />
-<meta itemprop="dateModified" content="2021-08-23T20:30:09+08:00" />
-<meta itemprop="wordCount" content="38">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="服务器地图大小限制"/>
-<meta name="twitter:description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
+地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。">
+  <meta itemprop="datePublished" content="2021-08-23T20:30:09+08:00">
+  <meta itemprop="dateModified" content="2021-08-23T20:30:09+08:00">
+  <meta itemprop="wordCount" content="38">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="服务器地图大小限制">
+  <meta name="twitter:description" content="如何计算服务器地图占用磁盘的大小 默认情况下，minecraft 服务器配置文件server.properties中指定：
 max-world-size=29999984 # 单位为方块，表示地图的最大半径 max-build-height=256 # 单位为方块，表示地图的最大高度 Minecraft地图是正方形的，是按 区块(block) 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：65536 个方块。按照默认设置，地图总共会有：
 ((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144
 个方块，也就是 14062485000004 个区块。
 按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB
 所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小
-地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。"/>
+地图大小解决方案 目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。 如果你的地图文件太大，可以使用工具 mcaselector 进行区域按条件筛选后， 进行删除，可以显著减小地图文件占用空间。">
 
       
+  
+
+
     
 	
   </head>
