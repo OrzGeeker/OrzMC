@@ -23,7 +23,7 @@ featured_image: '/images/bg_qq_sponsor.png'
 
 ## 启动器
 
-### **[OrzMC-MacOS>=14.4][OrzMC-MacOS]**
+### **[OrzMC Download][OrzMC-MacOS]**
 
 使用Swift&SwiftUI编写的MacOS平台启动器
 
@@ -78,6 +78,6 @@ java -jar HMCL.jar
 
 ---
 
-[OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzSwiftMC/releases/tag/0.0.5>
+[OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzSwiftMC/releases/download/0.0.6/OrzMC_0.0.6_7_20240901_020323.tar.xz>
 [OrzMC-PythonCLI]: <https://pypi.org/project/OrzMC/>
 [HMCL]: <https://hmcl.huangyuhui.net/>
