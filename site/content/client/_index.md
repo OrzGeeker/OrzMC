@@ -78,6 +78,6 @@ java -jar HMCL.jar
 
 ---
 
-[OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzSwiftMC/releases/download/0.0.6/OrzMC_0.0.6_7_20240901_020323.tar.xz>
+[OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzSwiftMC/releases/download/0.0.6/OrzMC_0.0.6_8_20240905_122105.zip>
 [OrzMC-PythonCLI]: <https://pypi.org/project/OrzMC/>
 [HMCL]: <https://hmcl.huangyuhui.net/>
