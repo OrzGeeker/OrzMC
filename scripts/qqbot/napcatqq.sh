@@ -8,7 +8,7 @@ script_file="napcat.sh"
 if [ ! -f $script_file ]; then
     # 本地不存在安装脚本，下载它
     curl -o $script_file https://nclatest.znin.net/NapNeko/NapCat-Installer/main/script/install.sh
-if
+fi
 
 if command -v xvfb-run >/dev/null 2>&1; then
     # 已安装命令，直接运行
