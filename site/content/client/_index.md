@@ -5,12 +5,6 @@ weight: 1
 featured_image: '/images/bg_qq_sponsor.png'
 ---
 
-|   |   |   |
-|---|---|---|
-|[![启动器安装与服务器登录](/images/video_cover/mc_1.jpg)](https://www.bilibili.com/video/BV1nK4y1f7Yh/)|[![客户端开启光影效果](/images/video_cover/mc_2.jpg)](https://www.bilibili.com/video/BV1sz4y1k7Hm/)|[![命令、材质包导入及更换皮肤](/images/video_cover/mc_3.jpg)](https://www.bilibili.com/video/BV18A411x7EH)|
-
-<br><br>
-
 |游戏版本|JAVA版本|
 |:-------:|:----:|
 |≧1.20.5| ≧21 |
@@ -21,9 +15,16 @@ featured_image: '/images/bg_qq_sponsor.png'
 ---
 
 
-## 启动器
+## OrzMC for MacOS
 
-### **[OrzMC Download][OrzMC-MacOS]**
+## 视频介绍
+
+|     |     |
+|:---:|:---:|
+|[![安装](/images/video_cover/orzmc_install.png)][Install]|[![使用](/images/video_cover/orzmc_usage.png)][Usage]|
+|安装|使用|
+
+### **[Download][OrzMC-MacOS]**
 
 使用Swift&SwiftUI编写的MacOS平台启动器
 
@@ -81,3 +82,5 @@ java -jar HMCL.jar
 [OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzSwiftMC/releases/download/0.0.7/OrzMC_0.0.7_15_20240922_121746.zip>
 [OrzMC-PythonCLI]: <https://pypi.org/project/OrzMC/>
 [HMCL]: <https://hmcl.huangyuhui.net/>
+[Install]: <https://www.bilibili.com/video/BV1b4HAeBERS>
+[Usage]: <https://www.bilibili.com/video/BV1hBtUeJE8y>
