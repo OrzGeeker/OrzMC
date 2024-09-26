@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>User on Joker@Minecraft 🇨🇳</title>
+    <link>https://minecraft.jokerhub.cn/tags/user/</link>
+    <description>Recent content in User on Joker@Minecraft 🇨🇳</description>
+    <generator>Hugo</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 09 Aug 2021 23:52:48 +0800</lastBuildDate>
+    <atom:link href="https://minecraft.jokerhub.cn/tags/user/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>玩家手册</title>
+      <link>https://minecraft.jokerhub.cn/user/</link>
+      <pubDate>Mon, 09 Aug 2021 23:52:48 +0800</pubDate>
+      <guid>https://minecraft.jokerhub.cn/user/</guid>
+      <description>&lt;h1 id=&#34;新手进服&#34;&gt;新手进服&lt;/h1&gt;&#xA;&lt;h2 id=&#34;玩家须知&#34;&gt;玩家须知&lt;/h2&gt;&#xA;&lt;p&gt;服务器中一些热爱创造的小伙伴在这里花费了大量心力建造出了各种漂亮的建筑，希望刚加入的朋友不要随意对其进行破坏，尊重他人的劳动成果。&#xA;如果是完全小白，进服后如果感觉没有玩伴或者不太熟悉环境，可以加入玩家QQ群:&lt;strong&gt;&lt;a href=&#34;https://jq.qq.com/?_wv=1027&amp;amp;k=DUEQuLE6&#34;&gt;1056934080&lt;/a&gt;&lt;/strong&gt;，&#xA;群里有很多资深的朋友可以带你一起游玩。&lt;/p&gt;&#xA;&lt;h3 id=&#34;设置帐号密码&#34;&gt;设置帐号密码&lt;/h3&gt;&#xA;&lt;p&gt;刚登录服务器后，使用 &lt;strong&gt;/register&lt;/strong&gt; 命令注册自己用户名对应的登录密码，以防止其它人使用你的帐号，盗用你的物品&lt;/p&gt;&#xA;&lt;p&gt;注册密码之后，下次登录服务器使用 &lt;strong&gt;/login &amp;lt;password&amp;gt;&lt;/strong&gt; 命令&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;/help LoginSecurity&lt;/strong&gt; - 查看 LoginSecurity 插件提供的所有可用指令&lt;/p&gt;&#xA;&lt;h3 id=&#34;设置快速回家&#34;&gt;设置快速回家&lt;/h3&gt;&#xA;&lt;p&gt;使用 &lt;strong&gt;/sethome&lt;/strong&gt; 命令，可以设置一个家位置，如果你出门冒险很远的距离后，不想再长途跋涉回到根据地，可以使用 &lt;strong&gt;/home&lt;/strong&gt; 命令快速回到之前设置的家位置&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;/listhomes&lt;/strong&gt; - 查看所有的家列表&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;/delhome &amp;lt;home_name&amp;gt;&lt;/strong&gt; - 删除设置的家&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;/help getmehome&lt;/strong&gt; - 查看 GetMeHome 插件提供的所有可用指令&lt;/p&gt;&#xA;&lt;h3 id=&#34;死亡后物品快速找回&#34;&gt;死亡后物品快速找回&lt;/h3&gt;&#xA;&lt;p&gt;出门探险一段时间获得了不少的物品，但是有可能不小心被苦力怕炸飞，或是被小白洞穿身体，你复活时想要尽快的拿回丢失的物品，可以使用 &lt;strong&gt;/back&lt;/strong&gt; 命令，&#xA;快速回到死亡地点，并找到收纳自己掉落物品的箱子。这个掉落物品收纳箱五分钟内有效，所以你需要在五分钟内回到死亡地点，如果超时，掉落的物品将会消失。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
