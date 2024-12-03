@@ -7,8 +7,8 @@ featured_image: '/images/bg_qq_sponsor.png'
 
 |类型|游戏版本|[**JAVA版本**](https://www.oracle.com/java/technologies/downloads/)|服务器地址|
 |:---|:-------:|:-----:|:--------------------------|
-|[正式](https://exaroton.com)|**1.21.1**|≥**21**|**paper.jokerhub.cn**|
-|[测试](https://aternos.org) |**1.21.1**|≥**21**|**test.jokerhub.cn** |
+|[正式](https://exaroton.com)|**1.21.3**|≥**21**|**paper.jokerhub.cn**|
+|[测试](https://aternos.org) |**1.21.3**|≥**21**|**test.jokerhub.cn** |
 
 ---
 
