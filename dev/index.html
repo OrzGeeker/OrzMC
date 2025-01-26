@@ -7,7 +7,7 @@
     <title>自研插件 | Joker@Minecraft 🇨🇳</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.121.0">
+    <meta name="generator" content="Hugo 0.134.3">
     
     
     
@@ -42,14 +42,42 @@
       <link rel="canonical" href="https://minecraft.jokerhub.cn/dev/">
     
 
-    <meta property="og:title" content="自研插件" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://minecraft.jokerhub.cn/dev/" />
+    <meta property="og:url" content="https://minecraft.jokerhub.cn/dev/">
+  <meta property="og:site_name" content="Joker@Minecraft 🇨🇳">
+  <meta property="og:title" content="自研插件">
+  <meta property="og:description" content="服务器使用自定义插件 OrzMC 来辅助维护服务器运营，非通用插件
+插件包含的功能如下:
+新手进入服务器后会自动获得一本新手指南，并打开阅读
+使用 /guide 命令也可以打开新手指南
+使用 /tpbow 玩家可获得传送弓, 传送弓可以传送玩家到箭落地的位置
+禁用了非可驯服实体的传送，防止 /tp @e ~ ~ ~ 类似命令的误操作
+下面是未被禁止传送的实体：
+末影人(EnderMan) 盔甲架(ArmorStand) 潜影盒(Shulker) 禁用了TNT">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="website">
 
-<meta itemprop="name" content="自研插件">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="自研插件"/>
-<meta name="twitter:description" content=""/>
+  <meta itemprop="name" content="自研插件">
+  <meta itemprop="description" content="服务器使用自定义插件 OrzMC 来辅助维护服务器运营，非通用插件
+插件包含的功能如下:
+新手进入服务器后会自动获得一本新手指南，并打开阅读
+使用 /guide 命令也可以打开新手指南
+使用 /tpbow 玩家可获得传送弓, 传送弓可以传送玩家到箭落地的位置
+禁用了非可驯服实体的传送，防止 /tp @e ~ ~ ~ 类似命令的误操作
+下面是未被禁止传送的实体：
+末影人(EnderMan) 盔甲架(ArmorStand) 潜影盒(Shulker) 禁用了TNT">
+  <meta itemprop="datePublished" content="2019-12-10T13:07:14+08:00">
+  <meta itemprop="dateModified" content="2019-12-10T13:07:14+08:00">
+  <meta itemprop="wordCount" content="24">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="自研插件">
+  <meta name="twitter:description" content="服务器使用自定义插件 OrzMC 来辅助维护服务器运营，非通用插件
+插件包含的功能如下:
+新手进入服务器后会自动获得一本新手指南，并打开阅读
+使用 /guide 命令也可以打开新手指南
+使用 /tpbow 玩家可获得传送弓, 传送弓可以传送玩家到箭落地的位置
+禁用了非可驯服实体的传送，防止 /tp @e ~ ~ ~ 类似命令的误操作
+下面是未被禁止传送的实体：
+末影人(EnderMan) 盔甲架(ArmorStand) 潜影盒(Shulker) 禁用了TNT">
 
       
     
@@ -210,14 +238,52 @@
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      开发环境部署 安装Java Development Kit, Java开发工具箱
-Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以上的插件开发，需要安装JDK16 安装IDE集成开发环境: IntelliJ IDEA 下载安装
-安装IDEA对应Minecraft插件开发的Plugin 创建PaperMC插件开发模板工程
-部署本地Minecraft测试服务器
-把生成的插件jar包拷贝到测试服务器的插件目录下
-启动本地Minecraft客户端验证插件是否生效
-进行插件开发周期，进行功能迭代
-相关资源 Spigot插件开发 Bukkit插件开发 PaperMC JavaDoc Spigot 插件开发教程(油管视频自备梯子) 相关链接 英文Wiki / 中文Wiki 逆向工程Wiki 插件使用百科 地图编辑工具 
+      <h1 id="开发环境部署">开发环境部署</h1>
+<ol>
+<li>
+<p>安装<a href="https://www.oracle.com/java/technologies/javase-downloads.html">Java Development Kit</a>, Java开发工具箱</p>
+<ul>
+<li>Minecraft 1.17版以下的插件，安装JDK8就可以</li>
+<li>Minecraft 1.17版及以上的插件开发，需要安装JDK16</li>
+</ul>
+</li>
+<li>
+<p>安装IDE集成开发环境: <a href="https://www.jetbrains.com/idea/download">IntelliJ IDEA 下载安装</a></p>
+</li>
+<li>
+<p>安装IDEA对应Minecraft插件开发的Plugin
+<img src="/images/papermc_plugin_dev_IDEA_plugin_install.png" alt=""></p>
+</li>
+<li>
+<p>创建PaperMC插件开发模板工程</p>
+</li>
+<li>
+<p>部署本地Minecraft测试服务器</p>
+</li>
+<li>
+<p>把生成的插件jar包拷贝到测试服务器的插件目录下</p>
+</li>
+<li>
+<p>启动本地Minecraft客户端验证插件是否生效</p>
+</li>
+<li>
+<p>进行插件开发周期，进行功能迭代</p>
+</li>
+</ol>
+<h1 id="相关资源">相关资源</h1>
+<ol>
+<li><a href="https://www.spigotmc.org/wiki/spigot-plugin-development/">Spigot插件开发</a></li>
+<li><a href="https://bukkit.gamepedia.com/Setting_Up_Your_Workspace">Bukkit插件开发</a></li>
+<li><a href="https://papermc.io/javadocs">PaperMC JavaDoc</a></li>
+<li><a href="https://youtube.com/playlist?list=PLfu_Bpi_zcDNEKmR82hnbv9UxQ16nUBF7">Spigot 插件开发教程(油管视频自备梯子)</a></li>
+</ol>
+<h1 id="相关链接">相关链接</h1>
+<ul>
+<li><a href="https://minecraft.fandom.com/wiki/Minecraft_Wiki">英文Wiki</a> / <a href="https://minecraft.fandom.com/zh/wiki/Minecraft_Wiki">中文Wiki</a></li>
+<li><a href="https://wiki.vg">逆向工程Wiki</a></li>
+<li><a href="https://mineplugin.org/WorldGuard">插件使用百科</a></li>
+<li><a href="https://github.com/Querz/mcaselector">地图编辑工具</a></li>
+</ul>
     </div>
     <a href="/dev/papermc/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">阅读全文</a>
   </div>
@@ -231,7 +297,7 @@ Minecraft 1.17版以下的插件，安装JDK8就可以 Minecraft 1.17版及以�
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
   <div class="flex justify-between">
   <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://minecraft.jokerhub.cn/" >
-    &copy;  Joker@Minecraft 🇨🇳 2024 
+    &copy;  Joker@Minecraft 🇨🇳 2025 
   </a>
     <div>
 <div class="ananke-socials">
