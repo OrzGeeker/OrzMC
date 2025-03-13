@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+screen -dmS napcat bash -c "xvfb-run -a qq --no-sandbox"
