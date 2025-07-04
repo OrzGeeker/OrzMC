@@ -2,10 +2,6 @@
 	path = wiki
 	url = https://github.com/OrzGeeker/OrzMC.wiki.git
 	branch = main
-[submodule "swift"]
-	path = swift
-	url = https://github.com/OrzGeeker/OrzSwiftMC.git
-	branch = main
 [submodule "plugin"]
 	path = plugin
 	url = https://github.com/OrzGeeker/OrzMCPlugin.git
@@ -26,3 +22,6 @@
 	path = site/themes/OrzAnanke
 	url = https://github.com/OrzGeeker/OrzAnanke.git
 	branch = main
+[submodule "app"]
+	path = app
+	url = https://github.com/OrzGeeker/OrzMCApp.git
