@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Joker@Minecraft 🇨🇳</title>
+    <link>https://minecraft.jokerhub.cn/tags/</link>
+    <description>Recent content in Tags on Joker@Minecraft 🇨🇳</description>
+    <generator>Hugo</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 09 Aug 2021 23:52:48 +0800</lastBuildDate>
+    <atom:link href="https://minecraft.jokerhub.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>User</title>
+      <link>https://minecraft.jokerhub.cn/tags/user/</link>
+      <pubDate>Mon, 09 Aug 2021 23:52:48 +0800</pubDate>
+      <guid>https://minecraft.jokerhub.cn/tags/user/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
