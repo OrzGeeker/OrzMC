@@ -18,10 +18,9 @@
 	path = python
 	url = https://github.com/OrzGeeker/OrzPythonMC.git
 	branch = main
-[submodule "site/themes/OrzAnanke"]
-	path = site/themes/OrzAnanke
-	url = https://github.com/OrzGeeker/OrzAnanke.git
-	branch = main
 [submodule "app"]
 	path = app
 	url = https://github.com/OrzGeeker/OrzMCApp.git
+[submodule "site/themes/ananke"]
+	path = site/themes/ananke
+	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git

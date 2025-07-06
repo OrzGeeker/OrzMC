@@ -2,12 +2,14 @@ title = "Joker@Minecraft 🇨🇳"
 baseURL = "https://minecraft.jokerhub.cn"
 languageCode = ""
 
-theme = "OrzAnanke"
+theme = "ananke"
 
 MetaDataFormat = "yaml"
 DefaultContentLanguage = "zh"
 SectionPagesMenu = "main"
-Paginate = 3
+
+[pagination]
+  pagerSize = 3
 
 # googleAnalytics = ""
 # enableRobotsTXT = false
