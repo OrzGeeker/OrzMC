@@ -79,7 +79,7 @@ java -jar HMCL.jar
 
 ---
 
-[OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzMCApp/releases/download/0.1.0/OrzMC_0.1.0_21_20250704_200213.zip>
+[OrzMC-MacOS]: <https://github.com/OrzGeeker/OrzMCApp/releases/download/0.1.0/OrzMC_0.1.0_22_20250706_100723.zip>
 [OrzMC-PythonCLI]: <https://pypi.org/project/OrzMC/>
 [HMCL]: <https://hmcl.huangyuhui.net/>
 [Install]: <https://www.bilibili.com/video/BV1b4HAeBERS>
