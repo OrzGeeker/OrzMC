@@ -33,6 +33,7 @@ SectionPagesMenu = "main"
   wechat = ""
   qq = ""
   
+  body_classes = "avenir bg-near-white"
   text_color = "black"
   cover_dimming_class = "bg-black-10"
 
