@@ -27,8 +27,14 @@ featured_image: '/images/bg_qq_sponsor.png'
     - 盔甲架(ArmorStand)
     - 潜影盒(Shulker)
     
-1. 禁用了TNT
+1. 禁用了TNT, 并且有玩家放置或点燃TNT时会全服公告，并在放置时发消息到玩家群
 
-<!-- ，并且有玩家放置或点燃TNT时会全服公告，并在放置时发消息到玩家群 -->
+1. QQ群上下线提醒功能，使用了 **[NapCatQQ][NapCatQQ]** 服务实现
 
-<!-- 1. QQ群上下线提醒功能，使用了 **[go-cqhttp](https://docs.go-cqhttp.org/)** 服务实现 -->
+1. QQBot登录：[QQBot](https://qqbot.jokerhub.cn)
+1. 国内MCS管理面板：[MCSManager][MCSManager]
+
+
+[NapCatQQ]: <https://napcat.napneko.icu/>
+[go-cqhttp]: <https://docs.go-cqhttp.org/>
+[MCSManager]: <http://mcs.jokerhub.cn:23333/>
