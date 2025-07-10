@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/Users/bytedance/Downloads/OrzMC/site",
+	"sourceRoot": "/Users/bytedance/Documents/OrzMC/site",
 	"sources": [
 		"ananke/css/main.css"
 	],
