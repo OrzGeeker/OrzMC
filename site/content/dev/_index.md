@@ -31,10 +31,11 @@ featured_image: '/images/bg_qq_sponsor.png'
 
 1. QQ群上下线提醒功能，使用了 **[NapCatQQ][NapCatQQ]** 服务实现
 
-1. QQBot登录：[QQBot](https://qqbot.jokerhub.cn)
-1. 国内MCS管理面板：[MCSManager][MCSManager]
+1. [QQBot登录页][QQBotLoginPage]
 
+1. [国内服MCS管理面板][MCSManager]
 
+[QQBotLoginPage]: <https://qqbot.jokerhub.cn>
 [NapCatQQ]: <https://napcat.napneko.icu/>
 [go-cqhttp]: <https://docs.go-cqhttp.org/>
 [MCSManager]: <http://mcs.jokerhub.cn:23333/>
