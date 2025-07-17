@@ -278,59 +278,26 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/dev/papermc/" class="color-inherit dim link">
-            PaperMC插件开发
+          <a href="/user/worldsize/" class="color-inherit dim link">
+            服务器地图大小限制
             </a>
         </h1>
         <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          <h1 id="开发环境部署">开发环境部署</h1>
-<ol>
-<li>
-<p>安装<a href="https://www.oracle.com/java/technologies/javase-downloads.html">Java Development Kit</a>, Java开发工具箱</p>
-<ul>
-<li>Minecraft 1.17版以下的插件，安装JDK8就可以</li>
-<li>Minecraft 1.17版及以上的插件开发，需要安装JDK16</li>
-</ul>
-</li>
-<li>
-<p>安装IDE集成开发环境: <a href="https://www.jetbrains.com/idea/download">IntelliJ IDEA 下载安装</a></p>
-</li>
-<li>
-<p>安装IDEA对应Minecraft插件开发的Plugin
-<img src="/images/papermc_plugin_dev_IDEA_plugin_install.png" alt=""></p>
-</li>
-<li>
-<p>创建PaperMC插件开发模板工程</p>
-</li>
-<li>
-<p>部署本地Minecraft测试服务器</p>
-</li>
-<li>
-<p>把生成的插件jar包拷贝到测试服务器的插件目录下</p>
-</li>
-<li>
-<p>启动本地Minecraft客户端验证插件是否生效</p>
-</li>
-<li>
-<p>进行插件开发周期，进行功能迭代</p>
-</li>
-</ol>
-<h1 id="相关资源">相关资源</h1>
-<ol>
-<li><a href="https://www.spigotmc.org/wiki/spigot-plugin-development/">Spigot插件开发</a></li>
-<li><a href="https://bukkit.gamepedia.com/Setting_Up_Your_Workspace">Bukkit插件开发</a></li>
-<li><a href="https://papermc.io/javadocs">PaperMC JavaDoc</a></li>
-<li><a href="https://youtube.com/playlist?list=PLfu_Bpi_zcDNEKmR82hnbv9UxQ16nUBF7">Spigot 插件开发教程(油管视频自备梯子)</a></li>
-</ol>
-<h1 id="相关链接">相关链接</h1>
-<ul>
-<li><a href="https://minecraft.fandom.com/wiki/Minecraft_Wiki">英文Wiki</a> / <a href="https://minecraft.fandom.com/zh/wiki/Minecraft_Wiki">中文Wiki</a></li>
-<li><a href="https://wiki.vg">逆向工程Wiki</a></li>
-<li><a href="https://mineplugin.org/WorldGuard">插件使用百科</a></li>
-<li><a href="https://github.com/Querz/mcaselector">地图编辑工具</a></li>
-</ul>
+          <h2 id="如何计算服务器地图占用磁盘的大小">如何计算服务器地图占用磁盘的大小</h2>
+<p>默认情况下，minecraft 服务器配置文件<code>server.properties</code>中指定：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>max-world-size<span style="color:#f92672">=</span><span style="color:#ae81ff">29999984</span> <span style="color:#75715e"># 单位为方块，表示地图的最大半径</span>
+</span></span><span style="display:flex;"><span>max-build-height<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span>    <span style="color:#75715e"># 单位为方块，表示地图的最大高度</span>
+</span></span></code></pre></div><p>Minecraft地图是正方形的，是按 <strong>区块(block)</strong> 为单位进行存储的，一个区块的默认尺寸为: 16x16x256(长x宽x高)。也就是说一个区块存放：<strong>65536</strong> 个方块。按照默认设置，地图总共会有：</p>
+<p>((2 * max-world-size) ^ 2) * max-build-height = 921599016960262144</p>
+<p>个方块，也就是 14062485000004 个区块。</p>
+<p>按照一个高度为256的区块在磁盘中的存储大小约为：4M 来计算，共需要磁盘空间约为：53644124 GB</p>
+<p>所以，要开一个可维护的Minecraft服务器，需要控制好磁盘使用。就必须有一个磁盘容量上限。按目前云服务器一般配备50GB磁盘空间来算，除去10GB系统占用，可供开服存储地图的磁盘空间仅有40GB, 按地图默认高度max-build-height=256计算，地图的最大半径值为：max-world-size=810 这是假设玩家会经过所有方块的场景的理想情况。显然这种计算是不符合实际情况的。假设一个方块地图玩家只会经过其中的10%，那么max-world-size=2561。这显然，也不能反映实际情况。所以需要统计一下，区块使用率，用来指导设置世界大小</p>
+<h2 id="地图大小解决方案">地图大小解决方案</h2>
+<p>目前服务器托管平台，提供自动优化地图大小的能力。地图中玩家没有呆过的区块会被不定时的清理掉，保证地图文件的大小可控。
+如果你的地图文件太大，可以使用工具 <a href="https://github.com/Querz/mcaselector">mcaselector</a> 进行区域按条件筛选后，
+进行删除，可以显著减小地图文件占用空间。</p>
         </div>
-        <a href="/dev/papermc/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">阅读全文</a>
+        <a href="/user/worldsize/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">阅读全文</a>
       </div>
     </div>
   </div>
