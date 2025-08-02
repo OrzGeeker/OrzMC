@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Joker@Minecraft 🇨🇳</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Joker@Minecraft 🇨🇳</description>
+    <generator>Hugo</generator>
+    <language>zh_CN</language>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PaperMC插件开发</title>
+      <link>http://localhost:1313/posts/papermc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/papermc/</guid>
+      <description>学习如何开发PaperMC服务端插件是一件很有意义的事情。PaperMC的开发者生态很完善，提供了一个比较好用的插件市场，我们自己开发的插件也可以比较容易的发布到插件市场上，供其它玩家使用。本文教你如何开始开发PaperMC的服务端插件。</description>
+    </item>
+    <item>
+      <title>服务器地图大小限制</title>
+      <link>http://localhost:1313/posts/worldsize/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/worldsize/</guid>
+      <description>运营一个PaperMC服务器，地图占用磁盘空间的大小，会随着玩家跑图越来越大。服务器需要定期备份地图，以防恶意玩家破坏服务器。不断增加的地图磁盘空间占用，对定期备份造成了比较大的影响。本文讨论一种可行的服务器地图备份时的磁盘占用优化方案。</description>
+    </item>
+  </channel>
+</rss>
