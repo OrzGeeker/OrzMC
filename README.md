@@ -17,7 +17,7 @@
 ├── python                      # Git子模块：OrzMC CLI Python源码
 ├── README.md                   # README.md
 ├── scripts                     # Minecraft 服务器运维的一些工具脚本
-├── site                        # Minecraft 个人运营的网站，用来交流学习开服运营
+├── site                        # Git子模块：运行PapaerMC私服的主页
 ├── skins                       # Minecraft 玩家皮肤
 ├── webmc                       # Git子模块：主要探索使用Web浏览器连接服务器玩耍的可能性
 └── wiki                        # Git子模块：早期手动开服及维护时积累的一些运维文档

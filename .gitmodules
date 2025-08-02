@@ -24,3 +24,6 @@
 [submodule "site/themes/ananke"]
 	path = site/themes/ananke
 	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
+[submodule "site"]
+	path = site
+	url = https://github.com/OrzGeeker/OrzMCSite.git
