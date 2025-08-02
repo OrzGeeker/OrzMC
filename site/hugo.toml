@@ -6,9 +6,22 @@ theme = "ananke"
 sectionPagesMenu = "main"
 
 [params]
+
+favicon = "/images/favicon.png"
+site_logo = ""
+custom_css = []
+
 body_classes = "avenir bg-near-white"
 text_color = "black"
+
+featured_image_class = "cover bg-top"
 cover_dimming_class = "bg-black-15"
+background_color_class = "bg-black"
 
 read_more_copy = "阅读全文"
 recent_posts_number = 1
+post_content_classes = "serif"
+
+[params.ananke]
+show_recent_posts = true
+show_reading_time = false
