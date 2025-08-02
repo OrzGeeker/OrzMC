@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>PaperMC插件开发 | Joker@Minecraft 🇨🇳</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="学习如何开发PaperMC服务端插件是一件很有意义的事情。PaperMC的开发者生态很完善，提供了一个比较好用的插件市场，我们自己开发的插件也可以比较容易的发布到插件市场上，供其它玩家使用。本文教你如何开始开发PaperMC的服务端插件。">
+    <meta name="generator" content="Hugo 0.147.9">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/posts/papermc/">
+    
+
+    <meta property="og:url" content="http://localhost:1313/posts/papermc/">
+  <meta property="og:site_name" content="Joker@Minecraft 🇨🇳">
+  <meta property="og:title" content="PaperMC插件开发">
+  <meta property="og:description" content="学习如何开发PaperMC服务端插件是一件很有意义的事情。PaperMC的开发者生态很完善，提供了一个比较好用的插件市场，我们自己开发的插件也可以比较容易的发布到插件市场上，供其它玩家使用。本文教你如何开始开发PaperMC的服务端插件。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+
+  <meta itemprop="name" content="PaperMC插件开发">
+  <meta itemprop="description" content="学习如何开发PaperMC服务端插件是一件很有意义的事情。PaperMC的开发者生态很完善，提供了一个比较好用的插件市场，我们自己开发的插件也可以比较容易的发布到插件市场上，供其它玩家使用。本文教你如何开始开发PaperMC的服务端插件。">
+  <meta itemprop="wordCount" content="41">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PaperMC插件开发">
+  <meta name="twitter:description" content="学习如何开发PaperMC服务端插件是一件很有意义的事情。PaperMC的开发者生态很完善，提供了一个比较好用的插件市场，我们自己开发的插件也可以比较容易的发布到插件市场上，供其它玩家使用。本文教你如何开始开发PaperMC的服务端插件。">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        Joker@Minecraft 🇨🇳
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/" title="主页 page">
+              主页
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/client/" title="客户端 page">
+              客户端
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/user/" title="玩家手册 page">
+              玩家手册
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/plugin/" title="自研插件 page">
+              自研插件
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/sponsor/" title="捐赠 page">
+              捐赠
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  
+  <article class="flex-l mw8 center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">PaperMC插件开发</h1>
+      
+      
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links black pr4-l w-two-thirds-l"><h2 id="开发环境部署">开发环境部署</h2>
+<ol>
+<li>安装JDK: <strong><a href="https://www.oracle.com/java/technologies/javase-downloads.html">Java Development Kit Downloads</a></strong></li>
+</ol>
+<p><img src="/images/dev/plugin/ide/jdk_download.png" alt=""></p>
+<ol start="2">
+<li>安装IDE集成开发环境: <strong><a href="https://www.jetbrains.com/idea/download">IntelliJ IDEA Community Edition 下载安装</a></strong>，社区版是免费的，可以个人使用</li>
+</ol>
+<p><img src="/images/dev/plugin/ide/IntelliJ_IDEA_CE.png" alt=""></p>
+<ol start="3">
+<li>安装IDE对应Minecraft开发的插件：<strong><a href="https://plugins.jetbrains.com/plugin/8327-minecraft-development">Minecraft Development</a></strong></li>
+</ol>
+<p><img src="/images/dev/plugin/ide/minecraft_development.png" alt=""></p>
+<p><img src="/images/dev/plugin/ide/papermc_plugin_dev_IDEA_plugin_install.png" alt=""></p>
+<ol start="4">
+<li>在IDE中新建工程，创建PaperMC插件模板工程</li>
+</ol>
+<p><img src="/images/dev/plugin/ide/create_plugin.png" alt=""></p>
+<ol start="5">
+<li>
+<p>参考PaperMC官网提供的 <strong><a href="https://docs.papermc.io/paper/dev/project-setup/">插件开发文档</a></strong></p>
+<ul>
+<li>了解插件工程的基本文件结构和代码逻辑</li>
+<li>现在有很多AI工具可以辅助我们，不会的直接问，看不懂英文的也可以让AI帮忙翻译</li>
+</ul>
+</li>
+<li>
+<p>学习：<strong><a href="https://docs.papermc.io/paper/dev/debugging/">如何调试插件</a></strong> / <strong><a href="https://docs.papermc.io/misc/hangar-publishing/">如何发布插件</a></strong></p>
+</li>
+<li>
+<p>两个现成插件项目可供你参考学习：<strong><a href="https://github.com/OrzGeeker/OrzMCPlugin.git">OrzMCPlugin</a></strong> / <strong><a href="https://github.com/wangzhizhou/GetMeHome.git">GetMeHome</a></strong></p>
+</li>
+</ol>
+<h2 id="相关开发资源">相关开发资源</h2>
+<ul>
+<li><a href="https://docs.papermc.io/">PaperMC Docs</a></li>
+<li><a href="https://papermc.io/javadocs">PaperMC JavaDoc</a></li>
+<li><a href="https://docs.advntr.dev/">Adventure Docs</a></li>
+<li><a href="https://youtube.com/playlist?list=PLfu_Bpi_zcDNEKmR82hnbv9UxQ16nUBF7">Spigot 插件开发教程(油管视频自备梯子)</a></li>
+</ul>
+<h2 id="一些常用插件">一些常用插件</h2>
+<ul>
+<li>Minecraft百科： <a href="https://minecraft.fandom.com/wiki/Minecraft_Wiki">英文</a> / <a href="https://minecraft.fandom.com/zh/wiki/Minecraft_Wiki">中文</a></li>
+<li><a href="https://mineplugin.org/">各种插件的使用百科说明书</a></li>
+<li><a href="https://github.com/Querz/mcaselector">地图编辑工具</a></li>
+</ul>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">What&#39;s in this posts</p>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#开发环境部署">开发环境部署</a></li>
+    <li><a href="#相关开发资源">相关开发资源</a></li>
+    <li><a href="#一些常用插件">一些常用插件</a></li>
+  </ul>
+</nav>
+  </div>
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="http://localhost:1313/" >
+    &copy;  Joker@Minecraft 🇨🇳 2025 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

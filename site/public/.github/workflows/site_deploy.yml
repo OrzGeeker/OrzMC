@@ -3,7 +3,7 @@ name: deploy site
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'site/**'
       - '.github/workflows/site_deploy.yml'
@@ -17,7 +17,7 @@ jobs:
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v3
       with:
-        hugo-version: '0.147.9'
+        hugo-version: '0.128.0'
         extended: true
 
     - name: Checkout Repo
