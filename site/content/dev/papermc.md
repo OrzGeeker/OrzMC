@@ -1,7 +1,5 @@
 ---
 title: "PaperMC插件开发"
-date: 2019-12-10T13:06:35+08:00
-draft: false
 ---
 
 # 开发环境部署

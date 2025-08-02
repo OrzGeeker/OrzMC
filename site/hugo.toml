@@ -1,0 +1,14 @@
+baseURL = "https://minecraft.jokerhub.cn"
+title = "Joker@Minecraft 🇨🇳"
+languageCode = "zh_CN"
+
+theme = "ananke"
+sectionPagesMenu = "main"
+
+[params]
+body_classes = "avenir bg-near-white"
+text_color = "black"
+cover_dimming_class = "bg-black-15"
+
+read_more_copy = "阅读全文"
+recent_posts_number = 1
