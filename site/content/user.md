@@ -1,11 +1,9 @@
 ---
-title: "玩家手册"
-date: 2021-08-09T23:52:48+08:00
-tags: [user]
-omit_header_text: true
-draft: false
-weight: 2
-featured_image: '/images/bg_qq_sponsor.png'
+menu: 
+  main:
+    name: 玩家手册
+    weight: 3
+toc: true
 ---
 
 
