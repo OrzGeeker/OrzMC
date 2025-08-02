@@ -38,6 +38,5 @@ SectionPagesMenu = "main"
   cover_dimming_class = "bg-black-10"
 
   recent_copy = "最近发布"
-  recent_posts_number = 1
-
+  recent_posts_number = 3
   read_more_copy = "阅读全文"
