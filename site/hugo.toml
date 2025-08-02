@@ -3,14 +3,12 @@ title = "Joker@Minecraft 🇨🇳"
 languageCode = "zh_CN"
 
 theme = "ananke"
-sectionPagesMenu = "main"
 
 [params]
 
 favicon = "/images/favicon.png"
 site_logo = ""
 custom_css = []
-
 body_classes = "avenir bg-near-white"
 text_color = "black"
 
@@ -19,7 +17,7 @@ cover_dimming_class = "bg-black-15"
 background_color_class = "bg-black"
 
 read_more_copy = "阅读全文"
-recent_posts_number = 3
+recent_posts_number = 0
 post_content_classes = "serif"
 
 [params.ananke]

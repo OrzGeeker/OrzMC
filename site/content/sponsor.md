@@ -1,7 +1,10 @@
 ---
+menu: 
+  main:
+    weight: 5
 title: "捐赠"
-weight: 4
-featured_image: '/images/bg_qq_sponsor.png'
+---
+
 ---
 
 支付宝扫上面背景图上的二维码，并**添加备注信息**

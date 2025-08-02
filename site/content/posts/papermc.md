@@ -1,9 +1,10 @@
 ---
 title: "PaperMC插件开发"
 summary: "学习如何开发PaperMC服务端插件是一件很有意义的事情。PaperMC的开发者生态很完善，提供了一个比较好用的插件市场，我们自己开发的插件也可以比较容易的发布到插件市场上，供其它玩家使用。本文教你如何开始开发PaperMC的服务端插件。"
+toc: true
 ---
 
-# 开发环境部署
+## 开发环境部署
 
 1. 安装JDK: **[Java Development Kit Downloads](https://www.oracle.com/java/technologies/javase-downloads.html)**
 
@@ -30,14 +31,14 @@ summary: "学习如何开发PaperMC服务端插件是一件很有意义的事情
 6. 学习：**[如何调试插件](https://docs.papermc.io/paper/dev/debugging/)** / **[如何发布插件](https://docs.papermc.io/misc/hangar-publishing/)**
 7. 两个现成插件项目可供你参考学习：**[OrzMCPlugin](https://github.com/OrzGeeker/OrzMCPlugin.git)** / **[GetMeHome](https://github.com/wangzhizhou/GetMeHome.git)**
 
-# 相关开发资源
+## 相关开发资源
 
 - [PaperMC Docs](https://docs.papermc.io/)
 - [PaperMC JavaDoc](https://papermc.io/javadocs)
 - [Adventure Docs](https://docs.advntr.dev/)
 - [Spigot 插件开发教程(油管视频自备梯子)](https://youtube.com/playlist?list=PLfu_Bpi_zcDNEKmR82hnbv9UxQ16nUBF7)
 
-# 一些常用插件
+## 一些常用插件
 - Minecraft百科： [英文](https://minecraft.fandom.com/wiki/Minecraft_Wiki) / [中文](https://minecraft.fandom.com/zh/wiki/Minecraft_Wiki)
 - [各种插件的使用百科说明书](https://mineplugin.org/)
 - [地图编辑工具](https://github.com/Querz/mcaselector)

@@ -1,4 +1,8 @@
 ---
+menu:
+  main:
+    name: 主页
+    weight: 1
 title: "我的世界"
 featured_image: '/images/bg_qq_sponsor.png'
 ---
