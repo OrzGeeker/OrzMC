@@ -34,16 +34,16 @@
     
 
     
-      <link rel="canonical" href="https://minecraft.jokerhub.cn/dev/worldsize/">
+      <link rel="canonical" href="https://minecraft.jokerhub.cn/posts/worldsize/">
     
 
-    <meta property="og:url" content="https://minecraft.jokerhub.cn/dev/worldsize/">
+    <meta property="og:url" content="https://minecraft.jokerhub.cn/posts/worldsize/">
   <meta property="og:site_name" content="Joker@Minecraft 🇨🇳">
   <meta property="og:title" content="服务器地图大小限制">
   <meta property="og:description" content="运营一个PaperMC服务器，地图占用磁盘空间的大小，会随着玩家跑图越来越大。服务器需要定期备份地图，以防恶意玩家破坏服务器。不断增加的地图磁盘空间占用，对定期备份造成了比较大的影响。本文讨论一种可行的服务器地图备份时的磁盘占用优化方案。">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
-    <meta property="article:section" content="dev">
+    <meta property="article:section" content="posts">
 
   <meta itemprop="name" content="服务器地图大小限制">
   <meta itemprop="description" content="运营一个PaperMC服务器，地图占用磁盘空间的大小，会随着玩家跑图越来越大。服务器需要定期备份地图，以防恶意玩家破坏服务器。不断增加的地图磁盘空间占用，对定期备份造成了比较大的影响。本文讨论一种可行的服务器地图备份时的磁盘占用优化方案。">
@@ -77,6 +77,12 @@
         <ul class="pl0 mr3">
           
           <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/" title="主页 page">
+              主页
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
             <a class="hover-white white-90 no-underline" href="/client/" title="客户端 page">
               客户端
             </a>
@@ -89,7 +95,7 @@
           </li>
           
           <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white white-90 no-underline" href="/dev/" title="自研插件 page">
+            <a class="hover-white white-90 no-underline" href="/plugin/" title="自研插件 page">
               自研插件
             </a>
           </li>
@@ -121,7 +127,7 @@
     <header class="mt4 w-100">
       <aside class="instapaper_ignoref b helvetica tracked ttu">
           
-        自研插件
+        Posts
       </aside><div id="sharing" class="mt3 ananke-socials"></div>
 <h1 class="f1 athelas mt3 mb1">服务器地图大小限制</h1>
       
@@ -153,7 +159,15 @@
       </div>
     </div>
 
-    <aside class="w-30-l mt6-l">
+    <aside class="w-30-l mt6-l"><div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">What&#39;s in this posts</p>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#如何计算服务器地图占用磁盘的大小">如何计算服务器地图占用磁盘的大小</a></li>
+    <li><a href="#地图大小解决方案">地图大小解决方案</a></li>
+  </ul>
+</nav>
+  </div>
 
 
 

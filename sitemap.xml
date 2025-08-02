@@ -3,29 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://minecraft.jokerhub.cn/client/</loc>
-    <lastmod>2019-10-25T03:40:52+08:00</lastmod>
   </url><url>
     <loc>https://minecraft.jokerhub.cn/user/</loc>
-    <lastmod>2021-08-09T23:52:48+08:00</lastmod>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/dev/</loc>
-    <lastmod>2019-12-10T13:07:14+08:00</lastmod>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/sponsor/</loc>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/tags/</loc>
-    <lastmod>2021-08-09T23:52:48+08:00</lastmod>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/tags/user/</loc>
-    <lastmod>2021-08-09T23:52:48+08:00</lastmod>
-  </url><url>
-    <loc>https://minecraft.jokerhub.cn/</loc>
-    <lastmod>2021-08-09T23:52:48+08:00</lastmod>
   </url><url>
     <loc>https://minecraft.jokerhub.cn/categories/</loc>
   </url><url>
-    <loc>https://minecraft.jokerhub.cn/dev/papermc/</loc>
+    <loc>https://minecraft.jokerhub.cn/posts/papermc/</loc>
   </url><url>
-    <loc>https://minecraft.jokerhub.cn/dev/worldsize/</loc>
+    <loc>https://minecraft.jokerhub.cn/posts/</loc>
+  </url><url>
+    <loc>https://minecraft.jokerhub.cn/tags/</loc>
+  </url><url>
+    <loc>https://minecraft.jokerhub.cn/</loc>
+  </url><url>
+    <loc>https://minecraft.jokerhub.cn/sponsor/</loc>
+  </url><url>
+    <loc>https://minecraft.jokerhub.cn/posts/worldsize/</loc>
+  </url><url>
+    <loc>https://minecraft.jokerhub.cn/plugin/</loc>
   </url>
 </urlset>
