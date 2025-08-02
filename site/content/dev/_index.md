@@ -1,7 +1,6 @@
 ---
 title: "自研插件"
 date: 2019-12-10T13:07:14+08:00
-draft: false
 weight: 3
 featured_image: '/images/bg_qq_sponsor.png'
 ---
