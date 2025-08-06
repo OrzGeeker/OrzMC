@@ -1,9 +1,7 @@
-# [OrzMC](https://github.com/OrzGeeker/OrzMC)
+# OrzMC
 
-专门对Minecraft进行Geek的工程项目。包含多个子项目
-
-- [网站主页](https://minecraft.jokerhub.cn)
-- [Wiki](https://github.com/OrzGeeker/OrzMC/wiki/%E4%B8%BB%E9%A1%B5)
+专门对Minecraft进行Geek的工程项目，包含多个子项目。
+[主页](https://minecraft.jokerhub.cn)
 
 ## 目录结构
 
