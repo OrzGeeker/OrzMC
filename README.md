@@ -19,8 +19,7 @@
 ├── scripts                     # Minecraft 服务器运维的一些工具脚本
 ├── site                        # Git子模块：运行PapaerMC私服的主页
 ├── skins                       # Minecraft 玩家皮肤
-├── webmc                       # Git子模块：主要探索使用Web浏览器连接服务器玩耍的可能性
-└── wiki                        # Git子模块：早期手动开服及维护时积累的一些运维文档
+└── webmc                       # Git子模块：主要探索使用Web浏览器连接服务器玩耍的可能性
 ```
 
 ![logo](images/server_member.jpg)
