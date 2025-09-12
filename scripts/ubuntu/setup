@@ -1,0 +1,10 @@
+# !/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+sudo apt update && sudo apt install nginx rsync default-jre -y
+# sudo systemctl start nginx
+# sudo systemctl enable nginx
+# sudo ufw allow 'Nginx HTTP'
+# sudo ufw allow 'Nginx HTTPS'
+# sudo ufw reload
+# sudo systemctl status nginx
