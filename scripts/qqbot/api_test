@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
 #-*- coding: utf-8 -*-
 
-curl https://api.qqbot.jokerhub.cn/send_group_msg?group_id=1056934080\&message=test
+curl \
+    -X POST 'https://api.qqbot.jokerhub.cn/send_group_msg' \
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer $1" \
+    -d '{
+            "group_id": "753649704",
+            "message": [
+                {
+                    "type": "text",
+                    "data": {
+                        "text": "test"
+                    }
+                }
+            ]
+        }'
