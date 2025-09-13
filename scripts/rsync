@@ -1,5 +1,7 @@
 # !/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-rsync -avz --exclude=rsync* ../scripts \
-    ubuntu@jokerhub.cn:~/
+SOURCE_DIR="../scripts/"
+TARGET_DIR='ubuntu@jokerhub.cn:~/scripts'
+rsync -avz --delete --exclude=rsync* $SOURCE_DIR $TARGET_DIR
+   
