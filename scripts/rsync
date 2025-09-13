@@ -1,5 +1,5 @@
 # !/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-rsync -avz --delete ./setup \
+rsync -avz --exclude=rsync* ../scripts \
     ubuntu@jokerhub.cn:~/
