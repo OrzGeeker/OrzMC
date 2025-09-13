@@ -4,13 +4,13 @@
 NGINX_CONFIG_FILE=./nginx_minecraft.conf
 NGINX_CONFIG_FILE_NAME=$(basename ${NGINX_CONFIG_FILE})
 NGINX_SITE_AVAILABLE_FILE_PATH="/etc/nginx/sites-available/${NGINX_CONFIG_FILE_NAME}"
-NGINX_SITE_ENABLE_FILE_PATH="/etc/nginx/sites-enable/${NGINX_CONFIG_FILE_NAME}"
+NGINX_SITE_ENABLE_FILE_PATH="/etc/nginx/sites-enabled/${NGINX_CONFIG_FILE_NAME}"
 if [ -f "$NGINX_SITE_AVAILABLE_FILE_PATH" ]; then
-    echo $NGINX_CONFIG_FILE exist!
+    sudo rm -f $NGINX_SITE_AVAILABLE_FILE_PATH
 else
     sudo cp $NGINX_CONFIG_FILE $NGINX_SITE_AVAILABLE_FILE_PATH && \
-    sudo ln -s $NGINX_SITE_ENABLE_FILE_PATH $NGINX_SITE_AVAILABLE_FILE_PATH
+    sudo ln -s $NGINX_SITE_AVAILABLE_FILE_PATH $NGINX_SITE_ENABLE_FILE_PATH
 fi
 
 # check nginx config validation and reload nginx to make server config take effect
-sudo nginx -t && sudo systemctl reload nginx
+sudo nginx -t && sudo systemctl reload nginx && echo setup_nginx success!
