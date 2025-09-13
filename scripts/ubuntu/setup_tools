@@ -7,10 +7,11 @@ sudo apt update && sudo apt install \
     default-jre \
     git gh \
     -y
-# sudo apt install certbot python3-certbot-nginx -y
+
 # sudo systemctl start nginx
 # sudo systemctl enable nginx
 # sudo ufw allow 'Nginx HTTP'
 # sudo ufw allow 'Nginx HTTPS'
 # sudo ufw reload
 # sudo systemctl status nginx
+
