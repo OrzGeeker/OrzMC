@@ -1,0 +1,5 @@
+# !/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+rsync -avz --delete ./setup \
+    ubuntu@jokerhub.cn:~/
