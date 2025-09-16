@@ -1,0 +1,10 @@
+# !/usr/bin/env bash
+# -*- coding: utf-8 -*-
+
+# 测试WebSocket协议升级
+curl -i -N                      \
+    -H "Connection: Upgrade"    \
+    -H "Upgrade: websocket"     \
+    -H "Host: mcs.jokerhub.cn"  \
+    -H "Origin: https://mcs.jokerhub.cn" \
+    http://mcs.jokerhub.cn:24444
