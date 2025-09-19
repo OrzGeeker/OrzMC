@@ -12,7 +12,7 @@ curl \
                 {
                     "type": "text",
                     "data": {
-                        "text": "test"
+                        "text": "post request test"
                     }
                 }
             ]
@@ -21,4 +21,4 @@ curl \
 # GET 请求格式
 curl \
     -H "Authorization: Bearer $1" \
-    https://api.qqbot.jokerhub.cn/send_group_msg?group_id=753649704\&message=test
+    https://api.qqbot.jokerhub.cn/send_group_msg?group_id=753649704\&message=get_request_test
