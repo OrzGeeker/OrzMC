@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 # NapCatQQ: https://github.com/NapNeko/NapCatQQ
-# NapCatQQ Doc: https://napneko.github.io/zh-CN/
+# NapCatQQ HomePage: https://napneko.github.io
 
 script_file="napcat.sh"
 if [ ! -f $script_file ]; then
@@ -15,7 +15,11 @@ if command -v xvfb-run >/dev/null 2>&1; then
     xvfb-run -a qq --no-sandbox
 else
     # 未安装命令，执行安装脚本
-    sudo bash napcat.sh --force
+    sudo bash napcat.sh \
+        --docker n \
+        --cli y    \
+        --proxy 0  \
+        --force
 fi
 
 # 输入 xvfb-run -a qq --no-sandbox 命令启动。
