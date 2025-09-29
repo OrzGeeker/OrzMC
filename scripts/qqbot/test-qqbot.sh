@@ -23,18 +23,46 @@ curl \
     --header "${authorization_header}" \
     | jq
 
-curl --location 'https://api.sgroup.qq.com/guilds/4678868088901888449/channels' \
+curl \
+    --location 'https://api.sgroup.qq.com/guilds/4678868088901888449/channels' \
     --header "${content_type_header}" \
     --header "${authorization_header}" \
     | jq    
 
-curl --location 'https://api.sgroup.qq.com/channels/716172984' \
+curl \
+    --location 'https://api.sgroup.qq.com/guilds/4678868088901888449/members?limit=20' \
     --header "${content_type_header}" \
     --header "${authorization_header}" \
-    | jq    
+    | jq   
 
+curl \
+    --location 'https://api.sgroup.qq.com/channels/716172984' \
+    --header "${content_type_header}" \
+    --header "${authorization_header}" \
+    | jq     
 
-curl --location 'https://api.sgroup.qq.com/channels/716172984/messages' \
+curl \
+    --location 'https://api.sgroup.qq.com/v2/users/1F57730D6ADC5F5CD417D5614A52F2CF/messages' \
+    --header "${content_type_header}" \
+    --header "${authorization_header}" \
+    -X POST \
+    --data '{
+    "msg_type": 0,
+    "content": "test message from qq bot"
+    }' | jq
+
+curl \
+    --location 'https://api.sgroup.qq.com/channels/716172984/messages' \
+    --header "${content_type_header}" \
+    --header "${authorization_header}" \
+    -X POST \
+    --data '{
+    "msg_type": 0,
+    "content": "test message from qq bot"
+    }' | jq
+
+curl \
+    --location 'https://api.sgroup.qq.com/dms/4678868088901888449/messages' \
     --header "${content_type_header}" \
     --header "${authorization_header}" \
     -X POST \
