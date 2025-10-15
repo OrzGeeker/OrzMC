@@ -1,0 +1,15 @@
+[Unit]
+Description=NapCatQQBot
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/scripts/qqbot
+ExecStart=/usr/bin/xvfb-run -a /home/ubuntu/Napcat/opt/QQ/qq --no-sandbox
+ExecReload=/bin/kill -s QUIT $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
