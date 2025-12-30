@@ -20,3 +20,12 @@
 [submodule "site"]
 	path = site
 	url = https://github.com/OrzGeeker/OrzMCSite.git
+[submodule "tools/OrzMCBackup"]
+	path = tools/OrzMCBackup
+	url = https://github.com/OrzGeeker/OrzMCBackup.git
+[submodule "tools/rust-thanos"]
+	path = tools/rust-thanos
+	url = https://github.com/wangzhizhou/rust-thanos.git
+[submodule "tools/thanos"]
+	path = tools/thanos
+	url = https://github.com/aternosorg/thanos.git
