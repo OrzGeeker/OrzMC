@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#-*- coding: utf-8 -*-
+
+# POST 请求格式
+curl \
+    -X POST 'http://api.qqbot.home.jokerhub.cn:6099/send_group_msg' \
+    -H 'Content-Type: application/json' \
+    -H "Authorization: Bearer $1" \
+    -d '{
+            "group_id": "1082305302",
+            "message": [
+                {
+                    "type": "text",
+                    "data": {
+                        "text": "post request test"
+                    }
+                }
+            ]
+        }'
+
+# GET 请求格式
+curl \
+    -H "Authorization: Bearer $1" \
+    http://api.qqbot.home.jokerhub.cn:6099/send_group_msg?group_id=1082305302\&message=get_request_test

@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+import asyncio
+import websockets
+import json
+
+# ------------------------
+# 配置
+# ------------------------
+WS_URL = "ws://127.0.0.1:3001"
+ACCESS_TOKEN = "NTQzODU5MjMwCg=="
+ORIGIN = "http://localhost"
+USER_AGENT = "Mozilla/5.0 (Python ws test)"
+SUBPROTOCOLS = ["gateway"]  # NapCat 常用协议
+HEARTBEAT_INTERVAL = 30      # 每30秒发一次心跳
+
+# ------------------------
+# 客户端实现
+# ------------------------
+async def ws_client():
+    headers = {
+        "Origin": ORIGIN,
+        "User-Agent": USER_AGENT,
+        "Authorization": f"Bearer {ACCESS_TOKEN}"
+    }
+
+    try:
+        ws = await websockets.connect(
+            f"{WS_URL}?access_token={ACCESS_TOKEN}",
+            extra_headers=headers,
+            subprotocols=SUBPROTOCOLS
+        )
+        print("[*] Connected to server")
+
+        # ------------------------
+        # 发送初始化 action，避免 1404
+        # ------------------------
+        init_msg = {
+            "action": "client_online",
+            "params": {},   # 可根据实际需求填 self_id 等
+            "echo": "init_1"
+        }
+        await ws.send(json.dumps(init_msg))
+        print("[>] Sent initialization action")
+
+        # ------------------------
+        # 启动心跳任务
+        # ------------------------
+        async def send_heartbeat():
+            while True:
+                try:
+                    await ws.send(json.dumps({"op": "ping"}))
+                except Exception as e:
+                    print("[!] Heartbeat error:", e)
+                    break
+                await asyncio.sleep(HEARTBEAT_INTERVAL)
+
+        heartbeat_task = asyncio.create_task(send_heartbeat())
+
+        # ------------------------
+        # 接收消息循环
+        # ------------------------
+        try:
+            async for message in ws:
+                # 如果收到 server ping JSON，自动回 pong
+                try:
+                    data = json.loads(message)
+                    if data.get("op") == "ping":
+                        await ws.send(json.dumps({"op": "pong"}))
+                except json.JSONDecodeError:
+                    pass
+
+                print("[<] Message:", message)
+
+        except websockets.ConnectionClosed as e:
+            print(f"[*] Connection closed: code={e.code}, reason={e.reason}")
+
+        heartbeat_task.cancel()
+        await ws.close()
+
+    except Exception as e:
+        print("[!] Connection failed:", e)
+
+# ------------------------
+# 启动客户端
+# ------------------------
+if __name__ == "__main__":
+    asyncio.run(ws_client())
