@@ -29,3 +29,9 @@
 [submodule "tools/thanos"]
 	path = tools/thanos
 	url = https://github.com/aternosorg/thanos.git
+[submodule "tools/LoginSecurity"]
+	path = tools/LoginSecurity
+	url = https://github.com/wangzhizhou/LoginSecurity
+[submodule "tools/GetMeHome"]
+	path = tools/GetMeHome
+	url = https://github.com/wangzhizhou/GetMeHome.git
