@@ -35,3 +35,6 @@
 [submodule "tools/GetMeHome"]
 	path = tools/GetMeHome
 	url = https://github.com/wangzhizhou/GetMeHome.git
+[submodule "profile"]
+	path = profile
+	url = https://github.com/OrzMC/.github.git
