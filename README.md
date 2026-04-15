@@ -1,7 +1,6 @@
 # OrzMC
 
 专门对Minecraft进行Geek的工程项目，包含多个子项目。
-[主页](https://minecraft.jokerhub.cn)
 
 ## 目录结构
 
